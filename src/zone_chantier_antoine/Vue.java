@@ -1,39 +1,49 @@
 package zone_chantier_antoine;
 
-import zone_chantier_antoine.conteneurs.ConteneurGauche;
 import zone_chantier_antoine.conteneurs.ConteneurHaut;
 import zone_chantier_antoine.conteneurs.ConteneurPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Vue {
-    private JFrame frame;
+public class Vue extends JFrame {
+    private JPanel contentPanel;
 
     public Vue() {
         initialize();
     }
 
-    private void initialize()
-    {
-        frame = new JFrame();
-        frame.setTitle("Fenêtre Principale");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setSize(screenSize.width, screenSize.height);
-        frame.setLocationRelativeTo(null);
+    private void initialize() {
+        setTitle("Fenêtre Principale");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Création d'un JPanel pour contenir l'ensemble du contenu
+        contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
 
+        // Ajout du conteneur principal
         ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal();
-        ConteneurGauche conteneurGauche = new ConteneurGauche();
+        contentPanel.add(conteneurPrincipal, BorderLayout.CENTER);
+
+        // Ajout du conteneur haut
         ConteneurHaut conteneurHaut = new ConteneurHaut();
+        contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
-        frame.add(conteneurGauche, BorderLayout.WEST);
-        frame.add(conteneurHaut, BorderLayout.NORTH);
-        frame.add(conteneurPrincipal, BorderLayout.CENTER);
+        // Création du JScrollPane et ajout du JPanel contenant tout le contenu
+        JScrollPane scrollPane = new JScrollPane(contentPanel) {
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(800, 600); // Taille préférée arbitraire
+            }
+        };
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        // Rend la fenêtre visible
-        frame.setVisible(true);
+        // Ajout du JScrollPane à la fenêtre
+        add(scrollPane);
+
+        pack(); // Redimensionne la fenêtre pour qu'elle s'adapte à son contenu
+        setLocationRelativeTo(null); // Centre la fenêtre
+        setVisible(true);
     }
 }
-
