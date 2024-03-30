@@ -1,10 +1,12 @@
+package Model;
+
 import java.sql.*;
 import java.util.ArrayList;
 
 
 public class Connexion {
-    private final Connection conn;
-    private final Statement stmt;
+    public final Connection conn;
+    public final Statement stmt;
     private ResultSet rset;
     private ResultSetMetaData rsetMeta;
     /**
@@ -155,5 +157,9 @@ public class Connexion {
      */
     public void executeUpdate(String requeteMaj) throws SQLException {
         stmt.executeUpdate(requeteMaj);
+    }
+
+    public static PreparedStatement prepareStatement(Connexion connexion, String query) throws SQLException {
+        return connexion.conn.prepareStatement(query);
     }
 }
