@@ -3,21 +3,19 @@ package Model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
-public class VoitureModel {
 
-    Connexion connexion;
+public class VoitureModel {
+    Connexion conn;
     private String id_plaque;  // plaque d'immatriculation
     private String nom_modele;
     private int avis; // de 1 à 5
     private String type; // berline, citadine, break, monospace, SUV, coupé, cabriolet, utilitaire
-    private String model;
     private String couleur;
-    private int moteur; // 0 = essence,  1 = diesel, 2 = hybride, 3 = électrique
+    private String moteur; // 0 = essence,  1 = diesel, 2 = hybride, 3 = électrique
     private int nb_place;
     private int capacite_valise;
     private int nb_porte;
-    private int transmission; //0 pour manuelle, 1 pour automatique
+    private String transmission; //0 pour manuelle, 1 pour automatique
     private int capa_essence;
     private int annee;
     private String date_debut_loc; //format : AAAA-MM-JJ
@@ -29,13 +27,12 @@ public class VoitureModel {
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;
 
-    public VoitureModel(Connexion connexion, String id, String nom_modele, String type, String model, String couleur, int moteur,
-                        int nb_place, int capacite_valise, int nb_porte, int transmission, int capa_essence, int annee, int kilometrage_actuel,
-                        float prix, boolean louee, String lieu_prise_en_charge, String date_debut_loc, String date_fin_loc, int limite_km, int id_facture) {
+    public VoitureModel(Connexion conn, String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
+                        int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
+                        float prix, String lieu_prise_en_charge, int limite_km) {
         this.id_plaque = id;
         this.nom_modele = nom_modele;
         this.type = type;
-        this.model = model;
         this.couleur = couleur;
         this.moteur = moteur;
         this.nb_place = nb_place;
@@ -46,13 +43,9 @@ public class VoitureModel {
         this.annee = annee;
         this.kilometrage_actuel = kilometrage_actuel;
         this.prix = prix;
-        this.louee = louee;
         this.lieu_prise_en_charge = lieu_prise_en_charge;
-        this.connexion = connexion;
-        this.date_debut_loc = date_debut_loc;
-        this.date_fin_loc = date_fin_loc;
+        this.conn = conn;
         this.limite_km = limite_km;
-        this.id_facture = id_facture;
     }
 
     public String getId_plaque() {
@@ -119,14 +112,6 @@ public class VoitureModel {
         this.type = type;
     }
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
     public String getCouleur() {
         return couleur;
     }
@@ -135,11 +120,11 @@ public class VoitureModel {
         this.couleur = couleur;
     }
 
-    public int getMoteur() {
+    public String getMoteur() {
         return moteur;
     }
 
-    public void setMoteur(int moteur) {
+    public void setMoteur(String moteur) {
         this.moteur = moteur;
     }
 
@@ -167,11 +152,11 @@ public class VoitureModel {
         this.nb_porte = nb_porte;
     }
 
-    public int getTransmission() {
+    public String getTransmission() {
         return transmission;
     }
 
-    public void setTransmission(int transmission) {
+    public void setTransmission(String transmission) {
         this.transmission = transmission;
     }
 
@@ -226,7 +211,7 @@ public class VoitureModel {
         try {
             // Requête SQL pour récupérer les informations de la voiture avec l'ID spécifié
             String query = "SELECT * FROM voiture WHERE id_plaque = ?";
-            PreparedStatement statement = Connexion.prepareStatement(connexion,query);
+            PreparedStatement statement = Connexion.prepareStatement(conn,query);
             statement.setString(1, voitureId);
 
             // Exécution de la requête
@@ -238,13 +223,12 @@ public class VoitureModel {
                 id_plaque = resultSet.getString("id_plaque");
                 nom_modele = resultSet.getString("nom_modele");
                 type = resultSet.getString("type");
-                model = resultSet.getString("model");
                 couleur = resultSet.getString("couleur");
-                moteur = resultSet.getInt("moteur");
+                moteur = resultSet.getString("moteur");
                 nb_place = resultSet.getInt("nb_place");
                 capacite_valise = resultSet.getInt("capacite_valise");
                 nb_porte = resultSet.getInt("nb_porte");
-                transmission = resultSet.getInt("transmission");
+                transmission = resultSet.getString("transmission");
                 capa_essence = resultSet.getInt("capa_essence");
                 annee = resultSet.getInt("annee");
                 kilometrage_actuel = resultSet.getInt("kilometrage_actuel");
@@ -266,7 +250,6 @@ public class VoitureModel {
         System.out.println("ID : " + id_plaque);
         System.out.println("nom_modele : " + nom_modele);
         System.out.println("Type : " + type);
-        System.out.println("Modèle : " + model);
         System.out.println("Couleur : " + couleur);
         System.out.println("Moteur : " + moteur);
         System.out.println("nom_modelebre de places : " + nb_place);
@@ -285,29 +268,36 @@ public class VoitureModel {
         System.out.println("ID de la facture : " + id_facture);
     }
 
-    public void ajouterVoiture(String id_plaque, String nom_modele, String type, String model, String couleur, int moteur,
-                               int nb_place, int capacite_valise, int nb_porte, int transmission, int capa_essence, int annee, int kilometrage_actuel,
-                               float prix, boolean louee, String lieu_prise_en_charge, String date_debut_loc, String date_fin_loc, int limite_km, int id_facture) {
-        Scanner scanner = new Scanner(System.in);
-
-
-        // Demandez à l'utilisateur de saisir toutes les autres données nécessaires de la même manière...
-
-        // Model.Connexion à la base de données et insertion des données
+    public void ajouterVoiture(VoitureModel voiture) {
         try {
             // Désactiver le mode d'auto-commit
-            connexion.conn.setAutoCommit(false);
+            conn.conn.setAutoCommit(false);
 
             // Exécuter la requête SQL pour insérer une nouvelle voiture
-            String query = "INSERT INTO voiture (id_plaque, nom_modele, ...) VALUES (?, ?, ...)";
-            PreparedStatement statement = connexion.conn.prepareStatement(query);
-            statement.setString(1, id_plaque);
-            statement.setString(2, nom_modele);
-            // Assurez-vous de définir les autres paramètres de la requête de la même manière...
+            String query = "INSERT INTO voiture (id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte," +
+                    " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km)" +
+                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = conn.conn.prepareStatement(query);
+            statement.setString(1, voiture.getId_plaque());
+            statement.setString(2, voiture.getNom_modele());
+            statement.setString(3, voiture.getType());
+            statement.setString(4, voiture.getCouleur());
+            statement.setString(5, voiture.getMoteur());
+            statement.setInt(6, voiture.getNbPlace());
+            statement.setInt(7, voiture.getCapaciteValise());
+            statement.setInt(8, voiture.getNbPorte());
+            statement.setString(9, voiture.getTransmission());
+            statement.setInt(10, voiture.getCapaEssence());
+            statement.setInt(11, voiture.getAnnee());
+            statement.setInt(12, voiture.getkilometrage_actuel());
+            statement.setFloat(13, voiture.getPrix());
+            statement.setString(14, voiture.getLieuPriseEnCharge());
+            statement.setInt(15, voiture.getLimite_km());
+
             int rowsInserted = statement.executeUpdate();
 
             // Valider la transaction
-            connexion.conn.commit();
+            conn.conn.commit();
 
             if (rowsInserted > 0) {
                 System.out.println("La nouvelle voiture a été ajoutée avec succès !");
@@ -317,7 +307,7 @@ public class VoitureModel {
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
             try {
-                connexion.conn.rollback();
+                conn.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -326,12 +316,12 @@ public class VoitureModel {
         } finally {
             try {
                 // Rétablir le mode d'auto-commit par défaut
-                connexion.conn.setAutoCommit(true);
+                conn.conn.setAutoCommit(true);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
-
     }
 
+    private String getNom_modele() { return nom_modele; }
 }
