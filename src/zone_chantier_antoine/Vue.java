@@ -30,19 +30,14 @@ public class Vue extends JFrame {
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
         // Création du JScrollPane et ajout du JPanel contenant tout le contenu
-        JScrollPane scrollPane = new JScrollPane(contentPanel) {
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(800, 600); // Taille préférée arbitraire
-            }
-        };
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         // Ajout du JScrollPane à la fenêtre
         add(scrollPane);
 
-        pack(); // Redimensionne la fenêtre pour qu'elle s'adapte à son contenu
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein écran
         setLocationRelativeTo(null); // Centre la fenêtre
         setVisible(true);
     }
