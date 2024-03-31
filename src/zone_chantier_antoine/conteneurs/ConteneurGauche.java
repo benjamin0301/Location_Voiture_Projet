@@ -3,20 +3,29 @@ package zone_chantier_antoine.conteneurs;
 import javax.swing.*;
 import java.awt.*;
 
-public class ConteneurGauche extends JPanel
-{
+public class ConteneurGauche extends JPanel {
     public ConteneurGauche() {
-        setBackground(Color.decode("#46D8FF"));
-        setPreferredSize(new Dimension(200, getHeight()));
+        setLayout(new BorderLayout()); // Utilisation d'un BorderLayout
+        setBackground(Color.decode("#9D6BFF")); // Couleur verte
+        setPreferredSize(new Dimension(250, getHeight())); // Taille préférée
 
-        // Ajout d'éléments dans le conteneur placé à gauche
-        JLabel labelGauche = new JLabel("Conteneur Gauche");
-        labelGauche.setForeground(Color.WHITE);
-        add(labelGauche);
+        // Création du conteneur pour le résumé du trajet
+        ResumeTrajet resumeTrajet = new ResumeTrajet();
+        // Ajout du conteneur au nord avec marge de 20 pixels
+        add(resumeTrajet, BorderLayout.NORTH);
 
-        JPanel conteneurInterne = new JPanel();
-        conteneurInterne.setBackground(Color.decode("#6B21FF")); // Exemple de couleur de fond
-        conteneurInterne.setPreferredSize(new Dimension(getWidth(), 100)); // Exemple de taille
+        // Création de l'espace vertical entre le résumé du trajet et le conteneur "Filtrer"
+        JPanel espaceVertical = new JPanel();
+        espaceVertical.setPreferredSize(new Dimension(10, 15)); // Taille de l'espace vertical
+        espaceVertical.setBackground(Color.decode("#9D6BFF")); // Couleur verte
+        add(espaceVertical, BorderLayout.CENTER);
+
+        // Création du conteneur pour le filtrage
+        Filtrer filtrer = new Filtrer();
+        // Ajout du conteneur sous l'espace vertical
+        add(filtrer, BorderLayout.SOUTH);
+
+        // Ajout d'une bordure avec une marge de 15 pixels sur les quatre côtés
+        setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     }
 }
-
