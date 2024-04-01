@@ -16,7 +16,7 @@ public class Main {
         // Appel de la méthode pour ajouter une nouvelle voiture avec des données fictives
          VoitureModel newvoiture = voitureController.ajouterNouvelleVoiture(
                 connexion,
-                "A1111",
+                "A3333",
                 "ModèleXYZ",
                 "TypeXYZ",
                 "Bleu",
@@ -43,8 +43,8 @@ public class Main {
 
         voitureController.modificationVoiture(newvoiture,
                 connexion,
-                "A1111",
-                "MANGETESMMORTS",
+                "A3333",
+                "BARBESSSS",
                 "TypeXYZ",
                 "Bleu",
                 "Essence",

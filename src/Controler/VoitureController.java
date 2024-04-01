@@ -144,6 +144,11 @@ public class VoitureController {
     public VoitureModel modificationVoiture(VoitureModel voiture, Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                             int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
                                             float prix, String lieu_prise_en_charge, int limite_km) {
+
+        if (!validerDonnees(connexion, "0", moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
+                prix, limite_km)) {
+            return null;
+        }
         voiture.supprimerVoiture();
         VoitureModel voiture1 = this.ajouterNouvelleVoiture(connexion, id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
                 annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km);
