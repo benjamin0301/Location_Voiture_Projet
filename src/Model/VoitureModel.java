@@ -27,7 +27,7 @@ public class VoitureModel {
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;
 
-    public VoitureModel(Connexion conn, String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
+    public  VoitureModel(Connexion conn, String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
                         int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
                         float prix, String lieu_prise_en_charge, int limite_km) {
         this.id_plaque = id;
@@ -206,6 +206,110 @@ public class VoitureModel {
         this.lieu_prise_en_charge = lieu_prise_en_charge;
     }
 
+    public void afficherInfos() {
+        System.out.println("ID : " + id_plaque);
+        System.out.println("nom_modele : " + nom_modele);
+        System.out.println("Type : " + type);
+        System.out.println("Couleur : " + couleur);
+        System.out.println("Moteur : " + moteur);
+        System.out.println("nom_modelebre de places : " + nb_place);
+        System.out.println("Capacité de la valise : " + capacite_valise + " litres");
+        System.out.println("nombre de portes : " + nb_porte);
+        System.out.println("Transmission : " + transmission);
+        System.out.println("Capacité du réservoir d'essence : " + capa_essence + " litres");
+        System.out.println("Année : " + annee);
+        System.out.println("Kilométrage actuel : " + kilometrage_actuel + " km");
+        System.out.println("Prix : " + prix + " €");
+        System.out.println("Louée : " + louee);
+        System.out.println("Lieu de prise en charge : " + lieu_prise_en_charge);
+        System.out.println("Date de début de location : " + date_debut_loc);
+        System.out.println("Date de fin de location : " + date_fin_loc);
+        System.out.println("Limite de kilométrage : " + limite_km + " km");
+        System.out.println("ID de la facture : " + id_facture);
+    }
+
+    public VoitureModel ajouterVoiture(VoitureModel voiture) {
+        try {
+            // Désactiver le mode d'auto-commit
+            conn.conn.setAutoCommit(false);
+
+            // Exécuter la requête SQL pour insérer une nouvelle voiture
+            String query = "INSERT INTO voiture (id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte," +
+                    " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km)" +
+                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = conn.conn.prepareStatement(query);
+            statement.setString(1, voiture.getId_plaque());
+            statement.setString(2, voiture.getNom_modele());
+            statement.setString(3, voiture.getType());
+            statement.setString(4, voiture.getCouleur());
+            statement.setString(5, voiture.getMoteur());
+            statement.setInt(6, voiture.getNbPlace());
+            statement.setInt(7, voiture.getCapaciteValise());
+            statement.setInt(8, voiture.getNbPorte());
+            statement.setString(9, voiture.getTransmission());
+            statement.setInt(10, voiture.getCapaEssence());
+            statement.setInt(11, voiture.getAnnee());
+            statement.setInt(12, voiture.getkilometrage_actuel());
+            statement.setFloat(13, voiture.getPrix());
+            statement.setString(14, voiture.getLieuPriseEnCharge());
+            statement.setInt(15, voiture.getLimite_km());
+
+            int rowsInserted = statement.executeUpdate();
+
+            // Valider la transaction
+            conn.conn.commit();
+
+            if (rowsInserted > 0) {
+                System.out.println("La nouvelle voiture a été ajoutée avec succès !");
+                return voiture;
+            }
+            else return null;
+        } catch (SQLException e) {
+            // En cas d'erreur, annuler la transaction
+            try {
+                conn.conn.rollback();
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public boolean supprimerVoiture() {
+        try {
+            // Désactiver le mode d'auto-commit
+            conn.conn.setAutoCommit(false);
+
+            // Exécuter la requête SQL pour supprimer la voiture avec l'ID spécifié
+            String query = "DELETE FROM voiture WHERE id_plaque = ?";
+            PreparedStatement statement = conn.conn.prepareStatement(query);
+            statement.setString(1, this.id_plaque);
+
+            int rowsDeleted = statement.executeUpdate();
+
+            // Valider la transaction
+            conn.conn.commit();
+
+            if (rowsDeleted > 0) {
+                System.out.println("La voiture a été supprimée avec succès !");
+                return true;
+            } else {
+                System.out.println("Aucune voiture trouvée avec l'ID spécifié.");
+                return false;
+            }
+        } catch (SQLException e) {
+            // En cas d'erreur, annuler la transaction
+            try {
+                conn.conn.rollback();
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return false;
+        }
+    }
+
     public void chargerInfosDepuisBDD(String voitureId) {
         // Model.Connexion à la base de données
         try {
@@ -244,82 +348,6 @@ public class VoitureModel {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-    public void afficherInfos() {
-        System.out.println("ID : " + id_plaque);
-        System.out.println("nom_modele : " + nom_modele);
-        System.out.println("Type : " + type);
-        System.out.println("Couleur : " + couleur);
-        System.out.println("Moteur : " + moteur);
-        System.out.println("nom_modelebre de places : " + nb_place);
-        System.out.println("Capacité de la valise : " + capacite_valise + " litres");
-        System.out.println("nom_modelebre de portes : " + nb_porte);
-        System.out.println("Transmission : " + transmission);
-        System.out.println("Capacité du réservoir d'essence : " + capa_essence + " litres");
-        System.out.println("Année : " + annee);
-        System.out.println("Kilométrage actuel : " + kilometrage_actuel + " km");
-        System.out.println("Prix : " + prix + " €");
-        System.out.println("Louée : " + louee);
-        System.out.println("Lieu de prise en charge : " + lieu_prise_en_charge);
-        System.out.println("Date de début de location : " + date_debut_loc);
-        System.out.println("Date de fin de location : " + date_fin_loc);
-        System.out.println("Limite de kilométrage : " + limite_km + " km");
-        System.out.println("ID de la facture : " + id_facture);
-    }
-
-    public void ajouterVoiture(VoitureModel voiture) {
-        try {
-            // Désactiver le mode d'auto-commit
-            conn.conn.setAutoCommit(false);
-
-            // Exécuter la requête SQL pour insérer une nouvelle voiture
-            String query = "INSERT INTO voiture (id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte," +
-                    " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km)" +
-                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement statement = conn.conn.prepareStatement(query);
-            statement.setString(1, voiture.getId_plaque());
-            statement.setString(2, voiture.getNom_modele());
-            statement.setString(3, voiture.getType());
-            statement.setString(4, voiture.getCouleur());
-            statement.setString(5, voiture.getMoteur());
-            statement.setInt(6, voiture.getNbPlace());
-            statement.setInt(7, voiture.getCapaciteValise());
-            statement.setInt(8, voiture.getNbPorte());
-            statement.setString(9, voiture.getTransmission());
-            statement.setInt(10, voiture.getCapaEssence());
-            statement.setInt(11, voiture.getAnnee());
-            statement.setInt(12, voiture.getkilometrage_actuel());
-            statement.setFloat(13, voiture.getPrix());
-            statement.setString(14, voiture.getLieuPriseEnCharge());
-            statement.setInt(15, voiture.getLimite_km());
-
-            int rowsInserted = statement.executeUpdate();
-
-            // Valider la transaction
-            conn.conn.commit();
-
-            if (rowsInserted > 0) {
-                System.out.println("La nouvelle voiture a été ajoutée avec succès !");
-            } else {
-                System.out.println("Erreur lors de l'ajout de la nouvelle voiture.");
-            }
-        } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
-            try {
-                conn.conn.rollback();
-                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-            e.printStackTrace();
-        } finally {
-            try {
-                // Rétablir le mode d'auto-commit par défaut
-                conn.conn.setAutoCommit(true);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 

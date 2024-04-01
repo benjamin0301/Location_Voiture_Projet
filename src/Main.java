@@ -1,6 +1,8 @@
 
 import Model.Connexion;
 import Controler.VoitureController;
+import Model.VoitureModel;
+
 import java.sql.SQLException;
 
 public class Main {
@@ -12,9 +14,9 @@ public class Main {
         VoitureController voitureController = new VoitureController();
 
         // Appel de la méthode pour ajouter une nouvelle voiture avec des données fictives
-        boolean success = voitureController.ajouterNouvelleVoiture(
+         VoitureModel newvoiture = voitureController.ajouterNouvelleVoiture(
                 connexion,
-                "ABC23",
+                "A1111",
                 "ModèleXYZ",
                 "TypeXYZ",
                 "Bleu",
@@ -32,12 +34,30 @@ public class Main {
         );
 
         // Vérification du succès de l'opération
-        if (success) {
+        if (newvoiture != null) {
             System.out.println("Nouvelle voiture ajoutée avec succès !");
+
         } else {
             System.out.println("Échec de l'ajout de la nouvelle voiture.");
         }
 
-
+        voitureController.modificationVoiture(newvoiture,
+                connexion,
+                "A1111",
+                "MANGETESMMORTS",
+                "TypeXYZ",
+                "Bleu",
+                "Essence",
+                5,
+                5,
+                4,
+                "Manuelle",
+                50,
+                2022,
+                10000,
+                15000.0f,
+                "Paris",
+                20000
+        );
     }
 }
