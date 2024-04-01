@@ -154,5 +154,13 @@ public class VoitureController {
                 annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km);
         return voiture1;
     }
+
+    public void ChangeId_facture(VoitureModel voiture, int Id_facture) {
+        voiture.setId_facture(Id_facture);
+    }
+
+    public void ChangeAvis(VoitureModel voiture, int avis) {
+        voiture.setAvis(avis);
+    }
 }
 

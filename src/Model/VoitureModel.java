@@ -27,7 +27,7 @@ public class VoitureModel {
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;
 
-    public  VoitureModel(Connexion conn, String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
+    public VoitureModel(Connexion conn, String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
                         int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
                         float prix, String lieu_prise_en_charge, int limite_km) {
         this.id_plaque = id;
@@ -50,10 +50,6 @@ public class VoitureModel {
 
     public String getId_plaque() {
         return id_plaque;
-    }
-
-    public void setId_plaque(String id) {
-        this.id_plaque = id;
     }
 
     public int getAvis() {
@@ -84,10 +80,6 @@ public class VoitureModel {
         return limite_km;
     }
 
-    public void setLimite_km(int limite_km) {
-        this.limite_km = limite_km;
-    }
-
     public int getId_facture() {
         return id_facture;
     }
@@ -100,80 +92,42 @@ public class VoitureModel {
         return nom_modele;
     }
 
-    public void setnom_modele(String nom_modele) {
-        this.nom_modele = nom_modele;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getCouleur() {
         return couleur;
     }
 
-    public void setCouleur(String couleur) {
-        this.couleur = couleur;
-    }
-
     public String getMoteur() {
         return moteur;
-    }
-
-    public void setMoteur(String moteur) {
-        this.moteur = moteur;
     }
 
     public int getNbPlace() {
         return nb_place;
     }
 
-    public void setNbPlace(int nb_place) {
-        this.nb_place = nb_place;
-    }
-
     public int getCapaciteValise() {
         return capacite_valise;
-    }
-
-    public void setCapaciteValise(int capacite_valise) {
-        this.capacite_valise = capacite_valise;
     }
 
     public int getNbPorte() {
         return nb_porte;
     }
 
-    public void setNbPorte(int nb_porte) {
-        this.nb_porte = nb_porte;
-    }
-
     public String getTransmission() {
         return transmission;
-    }
-
-    public void setTransmission(String transmission) {
-        this.transmission = transmission;
     }
 
     public int getCapaEssence() {
         return capa_essence;
     }
 
-    public void setCapaEssence(int capa_essence) {
-        this.capa_essence = capa_essence;
-    }
-
     public int getAnnee() {
         return annee;
     }
-    public void setAnnee(int annee) {
-        this.annee = annee;
-    }
+
     public int getkilometrage_actuel () {
         return kilometrage_actuel;
     }
