@@ -15,7 +15,7 @@ public class ConteneurPrincipal extends JPanel {
 
         // Création de la bande rose
         Progression progression = new Progression(); // Création de l'instance de la classe Progression
-        conteneurGris.add(progression, BorderLayout.NORTH); // Ajou // Ajout de la bande rose au conteneur gris
+        conteneurGris.add(progression, BorderLayout.NORTH); // Ajout de la bande rose au conteneur gris
 
         // Création du conteneur horizontal pour la gauche
         ConteneurGauche conteneurGauche = new ConteneurGauche();
@@ -23,10 +23,12 @@ public class ConteneurPrincipal extends JPanel {
         conteneurGris.add(conteneurGauche, BorderLayout.WEST);
 
         // Création du conteneur pour les bandes oranges
-        CarouselVoitures carouselVoitures = new CarouselVoitures(); // Création du carousel de voitures
-        conteneurGris.add(carouselVoitures, BorderLayout.CENTER); // Ajout du carousel au conteneur gris
+        ConteneurVoitures conteneurVoitures = new ConteneurVoitures();
+        // Ajout du conteneurVoitures au conteneur gris
+        conteneurGris.add(conteneurVoitures, BorderLayout.CENTER);
 
         // Ajout du conteneur gris à ConteneurPrincipal
         add(conteneurGris, BorderLayout.CENTER);
     }
 }
+

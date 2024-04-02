@@ -9,14 +9,14 @@ import java.sql.SQLException;
 
 public class VoitureController {
 
-    public boolean ajouterNouvelleVoiture(Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
+    public VoitureModel ajouterNouvelleVoiture(Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
                                           float prix, String lieu_prise_en_charge, int limite_km) {
 
         // Valider les données saisies par l'utilisateur
         if (!validerDonnees(connexion, id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
                 prix, limite_km)) {
-            return false;
+            return null;
         }
 
         VoitureModel newvoiture = new VoitureModel(connexion, id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
@@ -25,7 +25,7 @@ public class VoitureController {
 
         // Si les données sont valides, passer au modèle pour les ajouter à la base de données
         newvoiture.ajouterVoiture(newvoiture);
-        return true; // Succès
+        return newvoiture; // Succès
     }
 
     private boolean validerDonnees(Connexion connexion, String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
@@ -121,6 +121,46 @@ public class VoitureController {
             case "automatique" -> true;
             default -> false;
         };
+    }
+
+    public boolean supprimerVoiture(VoitureModel voiture) {
+        boolean success = voiture.supprimerVoiture();
+        return true;
+    }
+    
+    public void ChangeLocEstLouee(VoitureModel voiture) {
+        voiture.setLouee(true);
+    }
+
+    public void ChangeLocEstPasLouee(VoitureModel voiture) {
+        voiture.setLouee(false);
+    }
+
+    public void ChangeDate_debut_fin_loc(VoitureModel voiture, String date_debut_loc, String date_fin_loc) {
+        voiture.setDate_debut_loc(date_debut_loc);
+        voiture.setDate_fin_loc(date_fin_loc);
+    }
+
+    public VoitureModel modificationVoiture(VoitureModel voiture, Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
+                                            int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
+                                            float prix, String lieu_prise_en_charge, int limite_km) {
+
+        if (!validerDonnees(connexion, "0", moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
+                prix, limite_km)) {
+            return null;
+        }
+        voiture.supprimerVoiture();
+        VoitureModel voiture1 = this.ajouterNouvelleVoiture(connexion, id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
+                annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km);
+        return voiture1;
+    }
+
+    public void ChangeId_facture(VoitureModel voiture, int Id_facture) {
+        voiture.setId_facture(Id_facture);
+    }
+
+    public void ChangeAvis(VoitureModel voiture, int avis) {
+        voiture.setAvis(avis);
     }
 }
 

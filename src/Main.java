@@ -1,6 +1,11 @@
 
+import Controler.ClientController;
+import Model.ClientModel;
 import Model.Connexion;
 import Controler.VoitureController;
+import Model.VoitureModel;
+
+
 import java.sql.SQLException;
 
 public class Main {
@@ -9,35 +14,9 @@ public class Main {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         System.out.println("Connexion établie avec succès !");
         // Création d'une instance de contrôleur de voiture
-        VoitureController voitureController = new VoitureController();
-
-        // Appel de la méthode pour ajouter une nouvelle voiture avec des données fictives
-        boolean success = voitureController.ajouterNouvelleVoiture(
-                connexion,
-                "ABC23",
-                "ModèleXYZ",
-                "TypeXYZ",
-                "Bleu",
-                "Essence",
-                5,
-                5,
-                4,
-                "Manuelle",
-                50,
-                2022,
-                10000,
-                15000.0f,
-                "Paris",
-                20000
-        );
-
-        // Vérification du succès de l'opération
-        if (success) {
-            System.out.println("Nouvelle voiture ajoutée avec succès !");
-        } else {
-            System.out.println("Échec de l'ajout de la nouvelle voiture.");
-        }
-
-
+        ClientModel client = new ClientModel(connexion, "bernard", "Dupont", "aaa", "gendrybenjamin@gmail.com", false, "2000-12-18", 234, 1234, 2345, 12345, 123432432, 0);
+        client.setId_client(client.generateUniqueClientId());
+        client.ajouterClient(client);
+        client.supprimerClient();
     }
 }
