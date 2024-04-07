@@ -25,6 +25,10 @@ public class ClientModel {
 
     // Autres attributs et méthodes de la classe ClientModel
 
+    public ClientModel(Connexion connexion) {
+        this.connexion = connexion;
+    }
+
     public ClientModel(Connexion connexion, String prenom, String nom, String motDePasse, String mail, boolean fidelite, String dateNaissance, long numeroCb, int cvcCb, int expirationMoisCb, int expirationAnneeCb, int idVehiculeLoue, int idClient) {
         this.connexion = connexion;
         this.prenom = prenom;
@@ -206,41 +210,78 @@ public class ClientModel {
         this.expiration_annee_cb = expirationAnneeCb;
     }
 
-    public List<Integer> getAllClientIds() {
-        List<Integer> clientIds = new ArrayList<>();
+    public int verif_connexion_client(String login, String password) {
         try {
-            // Préparation de la requête SQL
-            String query = "SELECT id_client FROM client";
+            // Préparation de la requête SQL pour vérifier les identifiants
+            String query = "SELECT * FROM client WHERE mail = ? AND mot_de_passe = ?";
             PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setString(1, login);
+            statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
-            // Parcours des résultats pour récupérer les identifiants des clients
-            while (resultSet.next()) {
-                int clientId = resultSet.getInt("id_client");
-                clientIds.add(clientId);
+
+            // Si une ligne est retournée, cela signifie que les identifiants sont valides
+            if (resultSet.next()) {
+                System.out.println("Identifiants valides.");
+                return 0; // Tout est correct
+            } else {
+                // Vérifier si le mail existe
+                query = "SELECT * FROM client WHERE mail = ?";
+                statement = connexion.conn.prepareStatement(query);
+                statement.setString(1, login);
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    System.out.println("Mot de passe incorrect.");
+                    return 1; // Mot de passe incorrect
+                } else {
+                    System.out.println("Mail incorrect.");
+                    return 2; // Mail incorrect
+                }
             }
-            // Fermeture des ressources
-            resultSet.close();
-            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return clientIds;
+        System.out.println("Erreur lors de la vérification des identifiants.");
+        return -1; // Erreur de connexion à la base de données
     }
+
+
 
     // Méthode pour générer un identifiant unique
     public int generateUniqueClientId() {
         Random random = new Random();
         int newClientId;
-        List<Integer> existingIds = getAllClientIds();
 
-        do {
-            // Génération d'un nombre aléatoire entre 0 et 999999
-            newClientId = random.nextInt(1000000);
-            // Formatage du nouvel identifiant pour avoir toujours 6 chiffres
-            String formattedId = String.format("%06d", newClientId);
-            newClientId = Integer.parseInt(formattedId);
-        } while (existingIds.contains(newClientId)); // Vérification de l'unicité de l'identifiant
+        try {
+            // Préparation de la requête SQL pour vérifier l'unicité de l'identifiant généré
+            String query = "SELECT COUNT(*) FROM client WHERE id_client = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
 
-        return newClientId;
+            do {
+                // Génération d'un nombre aléatoire entre 0 et 999999
+                newClientId = random.nextInt(1000000);
+
+                // Formatage du nouvel identifiant pour avoir toujours 6 chiffres
+                String formattedId = String.format("%06d", newClientId);
+
+                // Vérification de l'unicité de l'identifiant
+                statement.setInt(1, newClientId);
+                ResultSet resultSet = statement.executeQuery();
+                resultSet.next();
+                int count = resultSet.getInt(1);
+                resultSet.close();
+
+                if (count == 0) {
+                    // L'identifiant est unique, on peut le retourner
+                    return newClientId;
+                }
+
+            } while (true);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // En cas d'erreur, retourner une valeur par défaut ou gérer l'exception selon les besoins
+            return -1; // Exemple de valeur par défaut
+        }
     }
+
 }
