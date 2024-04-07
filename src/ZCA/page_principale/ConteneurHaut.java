@@ -1,4 +1,4 @@
-package zone_chantier_antoine.conteneurs;
+package ZCA.page_principale;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ public class ConteneurHaut extends JPanel {
         // Ajout d'un label pour le texte "RentMyRide"
         JLabel labelTitre = new JLabel("RentMyRide");
         labelTitre.setForeground(Color.decode("#5E17EB")); // Couleur du texte
-        labelTitre.setFont(new Font("Arial", Font.BOLD, 16)); // Définition de la police et de la taille
+        labelTitre.setFont(new Font("Arial", Font.BOLD, 23)); // Définition de la police et de la taille
 
         // Création d'un BoxLayout vertical pour le conteneur principal
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

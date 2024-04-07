@@ -1,10 +1,8 @@
-package zone_chantier_antoine;
+package ZCA;
 
-import zone_chantier_antoine.conteneurs.ConteneurHaut;
-import zone_chantier_antoine.conteneurs.ConteneurPrincipal;
-
-import javax.swing.*;
-import java.awt.*;
+import ZCA.page_principale.ConteneurHaut;
+import ZCA.page_principale.conteneurprincipal.ConteneurPrincipal;
+import ZCA.page_principale.Footer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +29,9 @@ public class Vue extends JFrame {
         // Ajout du conteneur haut
         ConteneurHaut conteneurHaut = new ConteneurHaut();
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
+
+        Footer footer = new Footer();
+        contentPanel.add(footer, BorderLayout.SOUTH);
 
         // Création du JScrollPane et ajout du JPanel contenant tout le contenu
         JScrollPane scrollPane = new JScrollPane(contentPanel);

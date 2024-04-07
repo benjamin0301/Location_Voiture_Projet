@@ -1,4 +1,6 @@
-package zone_chantier_antoine.conteneurs;
+package ZCA;
+
+import ZCA.page_principale.ConteneurHaut;
 
 import javax.swing.*;
 import java.awt.*;
