@@ -9,6 +9,12 @@ import java.sql.SQLException;
 
 public class VoitureController {
 
+private VoitureModel voiture;
+
+    public VoitureController(VoitureModel voiture) {
+        this.voiture = voiture;
+    }
+
     public VoitureModel ajouterNouvelleVoiture(Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
                                           float prix, String lieu_prise_en_charge, int limite_km) {
@@ -31,7 +37,7 @@ public class VoitureController {
     private boolean validerDonnees(Connexion connexion, String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
                                    int capa_essence, int annee, int kilometrage_actuel, float prix, int limite_km) {
 
-        if (!UnicitePlaque(connexion,id_plaque)) {
+        if (!voiture.UnicitePlaque(connexion,id_plaque)) {
             // methode de la vue pour afficher un message d'erreur
             System.out.println("La plaque est déjà utilisée.");
             return false;
@@ -80,26 +86,6 @@ public class VoitureController {
             return true;
         }
     }
-
-
-    private boolean UnicitePlaque(Connexion connexion, String idPlaque) {
-        // Requête SQL pour vérifier l'unicité de la plaque
-        String query = "SELECT COUNT(*) FROM voiture WHERE id_plaque = ?";
-        try {
-            PreparedStatement statement = connexion.conn.prepareStatement(query);
-            statement.setString(1, idPlaque);  // Remplacement du paramètre par la valeur réelle
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                int count = resultSet.getInt(1);
-                return count == 0; // Retourne vrai si la plaque est unique
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        // En cas d'erreur, considérer que la plaque n'est pas unique
-        return false;
-    }
-
 
     private boolean verifierTypeMoteur(String moteur) {
         // Conversion de la valeur en minuscules et suppression des accents

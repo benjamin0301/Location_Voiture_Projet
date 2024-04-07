@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class VoitureModel {
     Connexion conn;
-    private String id_plaque;  // plaque d'immatriculation
+    private  id_plaque;  // plaque d'immatriculation
     private String nom_modele;
     private int avis; // de 1 à 5
     private String type; // berline, citadine, break, monospace, SUV, coupé, cabriolet, utilitaire
@@ -26,6 +26,10 @@ public class VoitureModel {
     private int id_facture;
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;
+
+    public VoitureModel(Connexion conn) {
+        this.conn = conn;
+    }
 
     public VoitureModel(Connexion conn, String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
                         int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
@@ -303,6 +307,24 @@ public class VoitureModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean UnicitePlaque(Connexion connexion, String idPlaque) {
+        // Requête SQL pour vérifier l'unicité de la plaque
+        String query = "SELECT COUNT(*) FROM voiture WHERE id_plaque = ?";
+        try {
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setString(1, idPlaque);  // Remplacement du paramètre par la valeur réelle
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count == 0; // Retourne vrai si la plaque est unique
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // En cas d'erreur, considérer que la plaque n'est pas unique
+        return false;
     }
 
     private String getNom_modele() { return nom_modele; }

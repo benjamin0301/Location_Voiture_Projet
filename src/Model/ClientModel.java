@@ -16,12 +16,12 @@ public class ClientModel {
     private String mail;
     private boolean fidelite;
     private String date_naissance;
-    private long numero_cb;
-    private int cvc_cb;
-    private int expiration_mois_cb;
-    private int expiration_annee_cb;
-    private int id_vehicule_loue;
+    private String id_vehicule_loue;
     private Connexion connexion;
+
+    private String date_debut_loc;
+
+    private String date_fin_loc;
 
     // Autres attributs et méthodes de la classe ClientModel
 
@@ -29,20 +29,17 @@ public class ClientModel {
         this.connexion = connexion;
     }
 
-    public ClientModel(Connexion connexion, String prenom, String nom, String motDePasse, String mail, boolean fidelite, String dateNaissance, long numeroCb, int cvcCb, int expirationMoisCb, int expirationAnneeCb, int idVehiculeLoue, int idClient) {
+    public ClientModel(Connexion connexion, String prenom, String nom, String motDePasse, String mail, String dateNaissance) {
         this.connexion = connexion;
         this.prenom = prenom;
         this.nom = nom;
         this.mot_de_passe = motDePasse;
         this.mail = mail;
-        this.fidelite = fidelite;
         this.date_naissance = dateNaissance;
-        this.numero_cb = numeroCb;
-        this.cvc_cb = cvcCb;
-        this.expiration_mois_cb = expirationMoisCb;
-        this.expiration_annee_cb = expirationAnneeCb;
-        this.id_vehicule_loue = idVehiculeLoue;
-        this.id_client = idClient;
+        this.fidelite = false;
+        this.id_vehicule_loue = null;
+        this.date_debut_loc = null;
+        this.date_fin_loc = null;
     }
 
     public void ajouterClient(ClientModel client) {
@@ -51,21 +48,15 @@ public class ClientModel {
             connexion.conn.setAutoCommit(false);
 
             // Exécuter la requête SQL pour insérer un nouveau client
-            String query = "INSERT INTO client (prenom, nom, mot_de_passe, mail, fidelite, date_naissance, numero_cb, cvc_cb, expiration_mois_cb, expiration_annee_cb, id_vehicule_loue, id_client)" +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO client (prenom, nom, mot_de_passe, mail, date_naissance, id_client)" +
+                    " VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setString(1, client.prenom);
             statement.setString(2, client.nom);
             statement.setString(3, client.mot_de_passe);
             statement.setString(4, client.mail);
-            statement.setBoolean(5, client.fidelite);
-            statement.setString(6, client.date_naissance);
-            statement.setLong(7, client.numero_cb);
-            statement.setInt(8, client.cvc_cb);
-            statement.setInt(9, client.expiration_mois_cb);
-            statement.setInt(10, client.expiration_annee_cb);
-            statement.setInt(11, client.id_vehicule_loue);
-            statement.setInt(12, client.id_client);
+            statement.setString(5, client.date_naissance);
+            statement.setInt(6, client.id_client);
 
             int rowsInserted = statement.executeUpdate();
 
@@ -178,36 +169,28 @@ public class ClientModel {
         this.date_naissance = dateNaissance;
     }
 
-    public long getNumeroCb() {
-        return numero_cb;
+    public String getId_vehicule_loue() {
+        return id_vehicule_loue;
     }
 
-    public void setNumeroCb(long numeroCb) {
-        this.numero_cb = numeroCb;
+    public void setId_vehicule_loue(boolean loue, String id_vehicule_loue) {
+        this.id_vehicule_loue = id_vehicule_loue;
     }
 
-    public int getCvcCb() {
-        return cvc_cb;
+    public String getDate_debut_loc() {
+        return date_debut_loc;
     }
 
-    public void setCvcCb(int cvcCb) {
-        this.cvc_cb = cvcCb;
+    public void setDate_debut_loc(String date_debut_loc) {
+        this.date_debut_loc = date_debut_loc;
     }
 
-    public int getExpirationMoisCb() {
-        return expiration_mois_cb;
+    public String getDate_fin_loc() {
+        return date_fin_loc;
     }
 
-    public void setExpirationMoisCb(int expirationMoisCb) {
-        this.expiration_mois_cb = expirationMoisCb;
-    }
-
-    public int getExpirationAnneeCb() {
-        return expiration_annee_cb;
-    }
-
-    public void setExpirationAnneeCb(int expirationAnneeCb) {
-        this.expiration_annee_cb = expirationAnneeCb;
+    public void setDate_fin_loc(String date_fin_loc) {
+        this.date_fin_loc = date_fin_loc;
     }
 
     public int verif_connexion_client(String login, String password) {
@@ -243,8 +226,6 @@ public class ClientModel {
         System.out.println("Erreur lors de la vérification des identifiants.");
         return -1; // Erreur de connexion à la base de données
     }
-
-
 
     // Méthode pour générer un identifiant unique
     public int generateUniqueClientId() {
@@ -282,6 +263,24 @@ public class ClientModel {
             // En cas d'erreur, retourner une valeur par défaut ou gérer l'exception selon les besoins
             return -1; // Exemple de valeur par défaut
         }
+    }
+
+    public boolean UniciteMail(Connexion connexion, String mail) {
+        // Requête SQL pour vérifier l'unicité de le mail
+        String query = "SELECT COUNT(*) FROM Client WHERE mail = ?";
+        try {
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setString(1, mail);  // Remplacement du paramètre par la valeur réelle
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count == 0; // Retourne vrai si le mail est unique
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // En cas d'erreur, considérer que le mail n'est pas unique
+        return false;
     }
 
 }
