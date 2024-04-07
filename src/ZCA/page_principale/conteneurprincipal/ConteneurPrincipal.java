@@ -1,4 +1,7 @@
-package zone_chantier_antoine.conteneurs;
+package ZCA.page_principale.conteneurprincipal;
+
+import ZCA.page_principale.conteneurprincipal.gauche.ConteneurGauche;
+import ZCA.page_principale.conteneurprincipal.voitures.ConteneurVoitures;
 
 import javax.swing.*;
 import java.awt.*;
