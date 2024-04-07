@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 public class VoitureModel {
     Connexion conn;
-    private  id_plaque;  // plaque d'immatriculation
+
+    private  String id_plaque;  // plaque d'immatriculation
     private String nom_modele;
     private int avis; // de 1 à 5
     private String type; // berline, citadine, break, monospace, SUV, coupé, cabriolet, utilitaire
