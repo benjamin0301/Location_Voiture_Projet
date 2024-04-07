@@ -6,6 +6,9 @@ import zone_chantier_antoine.conteneurs.ConteneurPrincipal;
 import javax.swing.*;
 import java.awt.*;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Vue extends JFrame {
     private JPanel contentPanel;
 
@@ -39,6 +42,8 @@ public class Vue extends JFrame {
 
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein écran
         setLocationRelativeTo(null); // Centre la fenêtre
+
         setVisible(true);
     }
 }
+
