@@ -1,5 +1,6 @@
 package ZCA;
 
+import Controler.ClientController;
 import Model.ClientModel;
 import ZCA.page_principale.ConteneurHaut;
 
@@ -17,10 +18,10 @@ public class Connexion extends JFrame {
     private JButton loginButton;
     private JButton createAccountButton;
 
-    public ClientModel clientmodel;
+    public ClientController clientcontroller;
 
     public Connexion() throws SQLException, ClassNotFoundException {
-        this.clientmodel = new ClientModel();
+        this.clientcontroller = new ClientController();
 
         setTitle("Connexion");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,7 +97,7 @@ public class Connexion extends JFrame {
         // Ici, vous devrez appeler le programme xxxx et obtenir la réponse
         // Pour cet exemple, je suppose que le programme retourne true si l'authentification réussit et false sinon
         // Vous devez remplacer ce code par l'appel réel à votre programme xxxx
-        int isConnected = clientmodel.verif_connexion_client(email, password);
+        int isConnected = clientcontroller.verifierConnexionClient(email, password);
         // Exemple fictif :
         //isConnected = MyApp.authenticate(email, password);
         return isConnected;

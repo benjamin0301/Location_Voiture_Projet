@@ -24,6 +24,16 @@ public class Main {
                 e.printStackTrace();
             }
         });
+
+        ClientController clientcontroller = new ClientController();
+        ClientModel client = clientcontroller.ajouterNouveauClient("Jean", "Dupont", "1234", "dfghjfghjkl", "1999-01-01");
+        clientcontroller.ChangeFidelite(client);
+        clientcontroller.ChangeNom(client, "CACACCACACA");
+        clientcontroller.ChangePrenom(client, "BEBEBEBEBE");
+        clientcontroller.ChangeMotDePasse(client, "GROSEEEEEEEEB");
+        clientcontroller.ChangeDate_debut_fin_loc(client, "0001-01-01", "1111-11-11");
+        clientcontroller.ChangeMail(client, "benjamin.gendry@edu.ece.fr");
+
     }
 }
 

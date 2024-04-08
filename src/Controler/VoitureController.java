@@ -116,14 +116,18 @@ public class VoitureController {
     }
     
     public void ChangeLocEstLouee(VoitureModel voiture) {
+        voiture.MajPartielBdd(voiture.getId_plaque(),"louee" , true);
         voiture.setLouee(true);
     }
 
     public void ChangeLocEstPasLouee(VoitureModel voiture) {
+        voiture.MajPartielBdd(voiture.getId_plaque(),"louee" , false);
         voiture.setLouee(false);
     }
 
     public void ChangeDate_debut_fin_loc(VoitureModel voiture, String date_debut_loc, String date_fin_loc) {
+        voiture.MajPartielBdd(voiture.getId_plaque(),"date_debut_loc" , date_debut_loc);
+        voiture.MajPartielBdd(voiture.getId_plaque(),"date_fin_loc" , date_fin_loc);
         voiture.setDate_debut_loc(date_debut_loc);
         voiture.setDate_fin_loc(date_fin_loc);
     }
@@ -148,10 +152,12 @@ public class VoitureController {
     }
 
     public void ChangeId_facture(VoitureModel voiture, int Id_facture) {
+        voiture.MajPartielBdd(voiture.getId_plaque(),"id_facture" , Id_facture);
         voiture.setId_facture(Id_facture);
     }
 
     public void ChangeAvis(VoitureModel voiture, int avis) {
+        voiture.MajPartielBdd(voiture.getId_plaque(),"avis" , avis);
         voiture.setAvis(avis);
     }
 }

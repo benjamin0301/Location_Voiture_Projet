@@ -1,39 +1,36 @@
 package Controler;
 
 import Model.ClientModel;
-import Model.Connexion;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class ClientController {
 
-    private ClientModel client;
+    private final ClientModel client;
 
     public ClientController() throws SQLException, ClassNotFoundException {
-        ClientModel client = new ClientModel();
-        this.client = client;
+        this.client = new ClientModel();
     }
-
 
     public ClientModel ajouterNouveauClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
-        if (!validerDonneesClient(prenom, nom, mot_de_passe, mail, date_naissance)) {
+        if (!validerDonneesClient( mail, date_naissance)) {
+            System.out.println("Les données saisies ne sont pas valides.");
             return null;
         }
 
         ClientModel newclient = new ClientModel( prenom, nom, mot_de_passe, mail, date_naissance);
-
+        int id_client = client.generateUniqueClientId();
+        newclient.setId_client(id_client);
 
         // Si les données sont valides, passer au modèle pour les ajouter à la base de données
-        newclient.ajouterClient(newclient);
+        newclient.ajouterClient(newclient, id_client);
         return newclient; // Succès
     }
 
-    private boolean validerDonneesClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) {
+    private boolean validerDonneesClient( String mail, String date_naissance) {
 
         if (!client.UniciteMail(mail)) {
             // methode de la vue pour afficher un message d'erreur
@@ -70,32 +67,49 @@ public class ClientController {
         }
     }
 
-    public void ChangeFidelite(ClientModel Client) {
+    public String ChangePrenom(ClientModel Client, String newprenom){
+        String PhraseRetour = client.MajPartielBdd(Client.getId_client(), "prenom", newprenom);
+        Client.setPrenom(newprenom);
+        return PhraseRetour;
+    }
+
+    public String ChangeNom(ClientModel Client, String newnom){
+        String PhraseRetour = client.MajPartielBdd(Client.getId_client(), "nom", newnom);
+        Client.setPrenom(newnom);
+        return PhraseRetour;
+    }
+
+    public String ChangeMotDePasse(ClientModel Client, String newpassword){
+        String PhraseRetour = client.MajPartielBdd(Client.getId_client(), "mot_de_passe", newpassword);
+        Client.setPrenom(newpassword);
+        return PhraseRetour;
+    }
+
+    public String ChangeMail(ClientModel Client, String newmail){
+        String PhraseRetour;
+        if(client.UniciteMail(newmail)){
+            PhraseRetour = client.MajPartielBdd(Client.getId_client(), "mail", newmail);
+            Client.setPrenom(newmail);
+        } else
+            PhraseRetour = "Ce mail est déjà utilisé";
+        return PhraseRetour;
+    }
+
+    public String ChangeFidelite(ClientModel Client) {
+        client.MajPartielBdd(Client.getId_client(), "fidelite", true);
         Client.setFidelite(true);
+        return "Mise à jour réussie";
     }
 
-    public void ChangeId_vehicule_loue(ClientModel Client, String id_vehicule_loue) {
-        Client.setId_vehicule_loue(false, id_vehicule_loue);
-    }
-
-
-    public void ChangeDate_debut_fin_loc(ClientModel Client, String date_debut_loc, String date_fin_loc) {
+    public String ChangeDate_debut_fin_loc(ClientModel Client, String date_debut_loc, String date_fin_loc) {
+        Client.MajPartielBdd(Client.getId_client(),"date_debut_loc" , date_debut_loc);
+        Client.MajPartielBdd(Client.getId_client(),"date_fin_loc" , date_fin_loc);
         Client.setDate_debut_loc(date_debut_loc);
         Client.setDate_fin_loc(date_fin_loc);
+        return "Mise à jour réussie";
     }
 
-    public ClientModel modificationClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
-
-        if (!validerDonneesClient( prenom, nom, mot_de_passe, mail, date_naissance)) {
-            return null;
-        }
-        client.supprimerClient();
-        ClientModel Client1 = this.ajouterNouveauClient( prenom, nom, mot_de_passe, mail, date_naissance);
-        return Client1;
-    }
-
-
-    public void verifierConnexionClient() {
-        // TODO implement here
+    public int verifierConnexionClient(String login, String password) {
+        return client.verif_connexion_client(login, password);
     }
 }
