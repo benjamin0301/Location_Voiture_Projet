@@ -3,8 +3,6 @@ package Model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ClientModel {
@@ -42,7 +40,7 @@ public class ClientModel {
         this.date_fin_loc = null;
     }
 
-    public void ajouterClient(ClientModel client) {
+    public void ajouterClient(ClientModel client, int id_client) {
         try {
             // Désactiver le mode d'auto-commit
             connexion.conn.setAutoCommit(false);
@@ -56,7 +54,8 @@ public class ClientModel {
             statement.setString(3, client.mot_de_passe);
             statement.setString(4, client.mail);
             statement.setString(5, client.date_naissance);
-            statement.setInt(6, client.id_client);
+            statement.setInt(6, id_client);
+
 
             int rowsInserted = statement.executeUpdate();
 
@@ -173,7 +172,7 @@ public class ClientModel {
         return id_vehicule_loue;
     }
 
-    public void setId_vehicule_loue(boolean loue, String id_vehicule_loue) {
+    public void setId_vehicule_loue(String id_vehicule_loue) {
         this.id_vehicule_loue = id_vehicule_loue;
     }
 
@@ -225,6 +224,51 @@ public class ClientModel {
         }
         System.out.println("Erreur lors de la vérification des identifiants.");
         return -1; // Erreur de connexion à la base de données
+    }
+
+    public String MajPartielBdd(int id_client, String champ, Object Value) {
+        try {
+            // Désactiver le mode d'auto-commit
+            connexion.conn.setAutoCommit(false);
+
+            // Exécuter la requête SQL pour mettre à jour le champ spécifié
+            String query = "UPDATE client SET "+champ+" = ? WHERE id_client = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+
+            // Selon le type de valeur, définir le bon type de paramètre
+            if (Value instanceof String) {
+                statement.setString(1, (String) Value);
+            } else if (Value instanceof Integer) {
+                statement.setInt(1, (int) Value);
+            } else if (Value instanceof Float) {
+                statement.setFloat(1, (float) Value);
+            } else if (Value instanceof Boolean) {
+                statement.setBoolean(1, (Boolean) Value);
+            } // Ajoutez d'autres cas selon les types de données que vous souhaitez gérer
+
+            statement.setInt(2, id_client);
+
+            int rowsUpdated = statement.executeUpdate();
+
+            // Valider la transaction
+            connexion.conn.commit();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Mise à jour réussie !");
+                return "Mise à jour réussie !";
+            } else {
+                System.out.println("Aucun champ mis à jour.");
+                return "Aucun champ mis à jour.";
+            }
+        } catch (SQLException e) {
+            // En cas d'erreur, annuler la transaction
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }return "Echec de la mise à jour";
     }
 
     // Méthode pour générer un identifiant unique

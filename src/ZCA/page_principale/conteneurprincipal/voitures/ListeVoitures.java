@@ -27,7 +27,8 @@ public class ListeVoitures extends JPanel
         JPanel panelToyota = new JPanel();
         panelToyota.setPreferredSize(new Dimension(2, 300));
         panelToyota.setBackground(Color.CYAN);
-        JLabel labelPlaque = new JLabel(listeVoitures.get(0).getId_plaque());
+        JLabel labelPlaque = new JLabel(listeVoitures.getFirst().getId_plaque());
+        voiturecontroller.ChangeLocEstPasLouee(listeVoitures.getFirst());
         panelToyota.add(labelPlaque);
         add(panelToyota);
 

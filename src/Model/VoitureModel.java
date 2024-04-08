@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class VoitureModel {
     Connexion conn;
-
     private  String id_plaque;  // plaque d'immatriculation
     private String nom_modele;
     private int avis; // de 1 à 5
@@ -282,7 +281,7 @@ public class VoitureModel {
         }
     }
 
-    public void chargerInfosDepuisBDD(String voitureId) {
+    /*public void chargerInfosDepuisBDD(String voitureId) {
         // Model.Connexion à la base de données
         try {
             // Requête SQL pour récupérer les informations de la voiture avec l'ID spécifié
@@ -321,7 +320,7 @@ public class VoitureModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public boolean UnicitePlaque(Connexion connexion, String idPlaque) {
         // Requête SQL pour vérifier l'unicité de la plaque
@@ -384,4 +383,49 @@ public class VoitureModel {
         }
         return listevoitures;
         }
+    public void MajPartielBdd(String id_plaque, String champ, Object Value) {
+        try {
+            // Désactiver le mode d'auto-commit
+            conn.conn.setAutoCommit(false);
+
+
+            // Exécuter la requête SQL pour mettre à jour le champ spécifié
+            String query = "UPDATE voiture SET "+champ+" = ? WHERE id_plaque = ?";
+            PreparedStatement statement = conn.conn.prepareStatement(query);
+
+            System.out.println("test2");
+            // Selon le type de valeur, définir le bon type de paramètre
+            if (Value instanceof String) {
+                statement.setString(1, (String) Value);
+            } else if (Value instanceof Integer) {
+                statement.setInt(1, (int) Value);
+            } else if (Value instanceof Float) {
+                statement.setFloat(1, (float) Value);
+            } else if (Value instanceof Boolean) {
+                statement.setBoolean(1, (Boolean) Value);
+            } // Ajoutez d'autres cas selon les types de données que vous souhaitez gérer
+
+            System.out.println("test3");
+            statement.setString(2, id_plaque);
+
+            int rowsUpdated = statement.executeUpdate();
+
+            // Valider la transaction
+            conn.conn.commit();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Le champ "+champ+" a été mis à jour avec succès !");
+            } else {
+                System.out.println("Aucun champ mis à jour.");
+            }
+        } catch (SQLException e) {
+            // En cas d'erreur, annuler la transaction
+            try {
+                conn.conn.rollback();
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
