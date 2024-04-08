@@ -16,7 +16,7 @@ public class Main {
 
         // Création d'une instance de contrôleur et modele de voiture
         VoitureModel voituremodel = new VoitureModel();
-        VoitureController voiturecontroller = new VoitureController(voituremodel);
+        VoitureController voiturecontroller = new VoitureController();
         ClientModel clientmodel = new ClientModel();
         ClientController clientcontroller = new ClientController();
         //voiturecontroller.ajouterNouvelleVoiture(connexion, "1234", "Audi", "SUV", "noir", "diesel", 5, 5, 5, "automatique", 50, 2020, 1000, 100, "Paris", 1000, "BMW");

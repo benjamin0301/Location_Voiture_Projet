@@ -12,7 +12,8 @@ public class VoitureController {
 
     private VoitureModel voiture;
 
-    public VoitureController(VoitureModel voiture) {
+    public VoitureController() throws SQLException, ClassNotFoundException {
+        VoitureModel voiture = new VoitureModel();
         this.voiture = voiture;
     }
 

@@ -16,7 +16,7 @@ public class Main {
 
         // Création d'une instance de contrôleur et modele de voiture
         VoitureModel voituremodel = new VoitureModel();
-        VoitureController voiturecontroller = new VoitureController(voituremodel);
+        VoitureController voiturecontroller = new VoitureController();
         ClientModel clientmodel = new ClientModel();
         ClientController clientcontroller = new ClientController();
         SwingUtilities.invokeLater(() ->
