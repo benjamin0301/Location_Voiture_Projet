@@ -1,5 +1,7 @@
 package ZCA.page_principale.conteneurprincipal;
 
+import Controler.ClientController;
+import Controler.VoitureController;
 import ZCA.page_principale.conteneurprincipal.gauche.ConteneurGauche;
 import ZCA.page_principale.conteneurprincipal.voitures.ConteneurVoitures;
 
@@ -7,7 +9,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ConteneurPrincipal extends JPanel {
-    public ConteneurPrincipal() {
+
+    private ClientController clientcontroller;
+
+    private VoitureController voiturecontroller;
+
+    public ConteneurPrincipal(ClientController clientController, VoitureController voitureController) {
+        this.clientcontroller = clientController;
+        this.voiturecontroller = voitureController;
+
+    }
+
+    public void initConteneurPrincipal(){
         // Création du conteneur gris qui enveloppe le contenu existant
         JPanel conteneurGris = new JPanel(new BorderLayout());
         conteneurGris.setBackground(Color.decode("#E4E4E4")); // Fond gris
@@ -26,7 +39,7 @@ public class ConteneurPrincipal extends JPanel {
         conteneurGris.add(conteneurGauche, BorderLayout.WEST);
 
         // Création du conteneur pour les bandes oranges
-        ConteneurVoitures conteneurVoitures = new ConteneurVoitures();
+        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(clientcontroller, voiturecontroller);
         // Ajout du conteneurVoitures au conteneur gris
         conteneurGris.add(conteneurVoitures, BorderLayout.CENTER);
 

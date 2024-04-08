@@ -1,5 +1,7 @@
 package ZCA;
 
+import Controler.ClientController;
+import Controler.VoitureController;
 import ZCA.page_principale.ConteneurHaut;
 import ZCA.page_principale.conteneurprincipal.ConteneurPrincipal;
 import ZCA.page_principale.Footer;
@@ -10,11 +12,16 @@ import java.awt.*;
 public class Vue extends JFrame {
     private JPanel contentPanel;
 
-    public Vue() {
-        initialize();
+    public VoitureController voiturecontroller;
+
+    public ClientController clientcontroller;
+
+    public Vue(VoitureController voitureController, ClientController clientController) {
+        this.clientcontroller = clientController;
+        this.voiturecontroller = voitureController;
     }
 
-    private void initialize() {
+    public void initialize() {
         setTitle("Fenêtre Principale");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -23,7 +30,8 @@ public class Vue extends JFrame {
         contentPanel.setLayout(new BorderLayout());
 
         // Ajout du conteneur principal
-        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal();
+        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(clientcontroller, voiturecontroller);
+        conteneurPrincipal.initConteneurPrincipal();
         contentPanel.add(conteneurPrincipal, BorderLayout.CENTER);
 
         // Ajout du conteneur haut

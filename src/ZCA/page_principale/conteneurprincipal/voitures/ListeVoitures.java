@@ -13,7 +13,7 @@ public class ListeVoitures extends JPanel
     {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        voitures = recupListeVoiture;
+        public ArrayList<VoitureModel> listeVoitures = 
 
         voitures.add("Toyota");
         voitures.add("Tesla");
