@@ -13,8 +13,7 @@ public class VoitureController {
     private VoitureModel voiture;
 
     public VoitureController() throws SQLException, ClassNotFoundException {
-        VoitureModel voiture = new VoitureModel();
-        this.voiture = voiture;
+        this.voiture = new VoitureModel();
     }
 
     public VoitureModel ajouterNouvelleVoiture(Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,

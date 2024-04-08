@@ -15,14 +15,14 @@ public class Main {
         System.out.println("Connexion établie avec succès !");
 
         // Création d'une instance de contrôleur et modele de voiture
-        VoitureModel voituremodel = new VoitureModel();
-        VoitureController voiturecontroller = new VoitureController();
-        ClientModel clientmodel = new ClientModel();
-        ClientController clientcontroller = new ClientController();
         SwingUtilities.invokeLater(() ->
         {
-            Vue vue = new Vue(voiturecontroller, clientcontroller);
-            vue.initialize();
+            try {
+                Vue vue = new Vue();
+                vue.initialize();
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         });
     }
 }

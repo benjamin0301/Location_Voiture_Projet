@@ -8,6 +8,7 @@ import ZCA.page_principale.Footer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class Vue extends JFrame {
     private JPanel contentPanel;
@@ -16,12 +17,12 @@ public class Vue extends JFrame {
 
     public ClientController clientcontroller;
 
-    public Vue(VoitureController voitureController, ClientController clientController) {
-        this.clientcontroller = clientController;
-        this.voiturecontroller = voitureController;
+    public Vue() throws SQLException, ClassNotFoundException {
+        this.clientcontroller = new ClientController();
+        this.voiturecontroller = new VoitureController();
     }
 
-    public void initialize() {
+    public void initialize() throws SQLException, ClassNotFoundException {
         setTitle("Fenêtre Principale");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -30,7 +31,7 @@ public class Vue extends JFrame {
         contentPanel.setLayout(new BorderLayout());
 
         // Ajout du conteneur principal
-        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(clientcontroller, voiturecontroller);
+        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal();
         conteneurPrincipal.initConteneurPrincipal();
         contentPanel.add(conteneurPrincipal, BorderLayout.CENTER);
 

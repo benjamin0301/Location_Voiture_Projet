@@ -7,20 +7,18 @@ import ZCA.page_principale.conteneurprincipal.voitures.ConteneurVoitures;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class ConteneurPrincipal extends JPanel {
 
-    private ClientController clientcontroller;
 
-    private VoitureController voiturecontroller;
-
-    public ConteneurPrincipal(ClientController clientController, VoitureController voitureController) {
-        this.clientcontroller = clientController;
-        this.voiturecontroller = voitureController;
+    public ConteneurPrincipal() throws SQLException, ClassNotFoundException {
+        ClientController clientcontroller = new ClientController();
+        VoitureController voiturecontroller = new VoitureController();
 
     }
 
-    public void initConteneurPrincipal(){
+    public void initConteneurPrincipal() throws SQLException, ClassNotFoundException {
         // Création du conteneur gris qui enveloppe le contenu existant
         JPanel conteneurGris = new JPanel(new BorderLayout());
         conteneurGris.setBackground(Color.decode("#E4E4E4")); // Fond gris
@@ -39,7 +37,7 @@ public class ConteneurPrincipal extends JPanel {
         conteneurGris.add(conteneurGauche, BorderLayout.WEST);
 
         // Création du conteneur pour les bandes oranges
-        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(clientcontroller, voiturecontroller);
+        ConteneurVoitures conteneurVoitures = new ConteneurVoitures();
         // Ajout du conteneurVoitures au conteneur gris
         conteneurGris.add(conteneurVoitures, BorderLayout.CENTER);
 

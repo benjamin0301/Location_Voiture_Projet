@@ -13,55 +13,42 @@ import java.util.ArrayList;
 public class ListeVoitures extends JPanel
 {
     private ArrayList<VoitureModel> voitures;
-    private ClientController clientcontroller;
-    private VoitureController voiturecontroller;
 
     private Connexion connexion;
     public ListeVoitures() throws SQLException, ClassNotFoundException {
 
         ClientController clientcontroller = new ClientController();
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        private ArrayList<VoitureModel> listeVoitures =
+        VoitureController voiturecontroller = new VoitureController();
 
-        voitures.add("Toyota");
-        voitures.add("Tesla");
-        voitures.add("Bugatti");
-        voitures.add("Lotus");
-        voitures.add("Alpine");
-        voitures.add("Mercedes");
-        voitures.add("Audi");
-        voitures.add("Nissan");
-        voitures.add("Volkswagen");
-        voitures.add("Hyundai");
+        
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoiture();
 
         JPanel panelToyota = new JPanel();
         panelToyota.setPreferredSize(new Dimension(2, 300));
         panelToyota.setBackground(Color.CYAN);
-        panelToyota.add(new JLabel(voitures.get(0)));
+        JLabel labelPlaque = new JLabel(listeVoitures.get(0).getId_plaque());
+        panelToyota.add(labelPlaque);
         add(panelToyota);
 
         JPanel panelTesla = new JPanel();
         panelTesla.setPreferredSize(new Dimension(2, 300));
         panelTesla.setBackground(Color.orange);
-        panelTesla.add(new JLabel(voitures.get(1)));
         add(panelTesla);
 
         JPanel panelBugatti = new JPanel();
         panelBugatti.setPreferredSize(new Dimension(2, 300));
         panelBugatti.setBackground(Color.darkGray);
-        panelBugatti.add(new JLabel(voitures.get(2)));
         add(panelBugatti);
 
         JPanel panelLotus = new JPanel();
         panelLotus.setPreferredSize(new Dimension(2, 300));
         panelLotus.setBackground(Color.decode("#0097B2"));
-        panelLotus.add(new JLabel(voitures.get(3)));
         add(panelLotus);
 
         JPanel panelAlpine = new JPanel();
         panelAlpine.setPreferredSize(new Dimension(2, 300));
         panelAlpine.setBackground(Color.decode("#FF66C4"));
-        panelAlpine.add(new JLabel(voitures.get(4)));
         add(panelAlpine);
     }
 }
