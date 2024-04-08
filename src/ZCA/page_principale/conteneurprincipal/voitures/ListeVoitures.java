@@ -84,9 +84,41 @@ public class ListeVoitures extends JPanel
         gbc.gridx++;
 
         JPanel panelB = new JPanel();
+        panelB.setLayout(new FlowLayout());
         panelB.setPreferredSize(new Dimension(205, 300));
         panelB.setBackground(Color.decode("#F6F6F6"));
         panelB.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.lightGray));
+
+
+        JPanel espaceVideB = new JPanel();
+        espaceVideB.setBackground(Color.decode("#F6F6F6"));
+        espaceVideB.setPreferredSize(new Dimension(200, 25));
+        panelB.add(espaceVideB);
+
+
+        JTextArea LPC = new JTextArea("     ✈️   Lieu de prise en\n            charge :\n            Au terminal");
+        LPC.setBackground(Color.decode("#F6F6F6"));
+        LPC.setPreferredSize(new Dimension(200, 70));
+        LPC.setFont(new Font("Aleo", Font.PLAIN, 15));
+        panelB.add(LPC);
+
+        JTextArea PMC = new JTextArea("     ⛽   Politique en matière\n            de carburant :\n            Même charge-\n            même charge");
+        PMC.setBackground(Color.decode("#F6F6F6"));
+        PMC.setPreferredSize(new Dimension(200, 90));
+        PMC.setFont(new Font("Aleo", Font.PLAIN, 15));
+        panelB.add(PMC);
+
+        JTextArea kilometrage = new JTextArea("     🚗   Kilométrage limite :\n            " + listeVoitures.get(8).getLimite_km() + " km");
+        kilometrage.setBackground(Color.decode("#F6F6F6"));
+        kilometrage.setPreferredSize(new Dimension(200, 50));
+        kilometrage.setFont(new Font("Aleo", Font.PLAIN, 15));
+        panelB.add(kilometrage);
+
+        JButton note = new JButton("Europcar   Bon       " + listeVoitures.get(8).getAvis());
+        note.setBackground(Color.decode("#F6F6F6"));
+        note.setFont(new Font("Aleo", Font.PLAIN, 15));
+        panelB.add(note);
+
         panelCybertruck.add(panelB, gbc);
 
         gbc.gridx++;
@@ -95,6 +127,21 @@ public class ListeVoitures extends JPanel
         panelC.setPreferredSize(new Dimension(205, 300));
         panelC.setBackground(Color.decode("#F6F6F6"));
         panelC.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.lightGray));
+
+        JPanel espaceVideC = new JPanel();
+        espaceVideC.setBackground(Color.decode("#F6F6F6"));
+        espaceVideC.setPreferredSize(new Dimension(200, 50));
+        panelC.add(espaceVideC);
+
+
+        JTextArea areaC = new JTextArea("Inclus gratuitement :\n\n  ✅  Annulation\n  ✅  Modifications\n  ✅  Assurance dommage\n        en cas de collision\n  ✅  Assurance vol\n  ✅  Assurance\n        responsabilité civile");
+        areaC.setBackground(Color.decode("#F6F6F6"));
+        areaC.setFont(new Font("Aleo", Font.PLAIN, 15));
+        areaC.setForeground(Color.decode("#206D00"));
+        areaC.setPreferredSize(new Dimension(200, 200));
+        panelC.add(areaC);
+
+
         panelCybertruck.add(panelC, gbc);
 
         gbc.gridx++;
@@ -103,6 +150,40 @@ public class ListeVoitures extends JPanel
         panelD.setPreferredSize(new Dimension(205, 300));
         panelD.setBackground(Color.decode("#E2FFD6"));
         panelD.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, Color.lightGray));
+
+
+        JPanel espaceVideD = new JPanel();
+        espaceVideD.setBackground(Color.decode("#E2FFD6"));
+        espaceVideD.setPreferredSize(new Dimension(200, 150));
+        panelD.add(espaceVideD);
+
+
+        JTextArea prixGras = new JTextArea("       " + listeVoitures.get(8).getPrix() + " €/jour");
+        prixGras.setFont(new Font("Aleo", Font.BOLD, 25));
+        prixGras.setBackground(Color.decode("#E2FFD6"));
+        prixGras.setPreferredSize(new Dimension(200, 32));
+        panelD.add(prixGras);
+
+        JTextArea prixCumule = new JTextArea("                        " + "Total " + listeVoitures.get(8).getPrix() + " €");
+        prixCumule.setFont(new Font("Aleo", Font.PLAIN, 15));
+        prixCumule.setBackground(Color.decode("#E2FFD6"));
+        prixCumule.setPreferredSize(new Dimension(200, 20));
+        panelD.add(prixCumule);
+
+        JPanel espaceVide2D = new JPanel();
+        espaceVide2D.setBackground(Color.decode("#E2FFD6"));
+        espaceVide2D.setPreferredSize(new Dimension(200, 10));
+        panelD.add(espaceVide2D);
+
+        JButton selectionner = new JButton("Sélectionner");
+        selectionner.setPreferredSize(new Dimension(185, 50));
+        selectionner.setBackground(Color.decode("#00C465"));
+        selectionner.setForeground(Color.white);
+        selectionner.setFont(new Font("Aleo", Font.BOLD, 24));
+        panelD.add(selectionner);
+
+
+
         panelCybertruck.add(panelD, gbc);
 
 
