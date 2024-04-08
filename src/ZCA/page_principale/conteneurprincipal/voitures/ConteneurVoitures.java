@@ -10,7 +10,6 @@ public class ConteneurVoitures extends JPanel {
     public ConteneurVoitures() throws SQLException, ClassNotFoundException {
         setLayout(new GridBagLayout());
 
-        // Création des contraintes pour le placement des composants
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0;
@@ -40,6 +39,12 @@ public class ConteneurVoitures extends JPanel {
         gbc.gridy++;
         NbVoituresDispo nbVoituresDispo = new NbVoituresDispo();
         add(nbVoituresDispo, gbc);
+
+        gbc.gridy++;
+        JPanel miniEspaceBlanc = new JPanel();
+        miniEspaceBlanc.setPreferredSize(new Dimension(2, 15));
+        miniEspaceBlanc.setBackground(Color.WHITE);
+        add(miniEspaceBlanc, gbc);
 
 
         gbc.gridy++;
