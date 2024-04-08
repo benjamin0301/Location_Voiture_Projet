@@ -25,12 +25,12 @@ public class ClientModel {
 
     // Autres attributs et méthodes de la classe ClientModel
 
-    public ClientModel(Connexion connexion) {
-        this.connexion = connexion;
+    public ClientModel() throws SQLException, ClassNotFoundException {
+        this.connexion = new Connexion("location_voiture", "root", "");
     }
 
-    public ClientModel(Connexion connexion, String prenom, String nom, String motDePasse, String mail, String dateNaissance) {
-        this.connexion = connexion;
+    public ClientModel( String prenom, String nom, String motDePasse, String mail, String dateNaissance) throws SQLException, ClassNotFoundException {
+        this.connexion = new Connexion("location_voiture", "root", "");
         this.prenom = prenom;
         this.nom = nom;
         this.mot_de_passe = motDePasse;
@@ -265,7 +265,7 @@ public class ClientModel {
         }
     }
 
-    public boolean UniciteMail(Connexion connexion, String mail) {
+    public boolean UniciteMail(String mail) {
         // Requête SQL pour vérifier l'unicité de le mail
         String query = "SELECT COUNT(*) FROM Client WHERE mail = ?";
         try {

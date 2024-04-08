@@ -3,10 +3,11 @@ package ZCA.page_principale.conteneurprincipal.voitures;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class ConteneurVoitures extends JPanel {
 
-    public ConteneurVoitures() {
+    public ConteneurVoitures() throws SQLException, ClassNotFoundException {
         setLayout(new GridBagLayout());
 
         // Création des contraintes pour le placement des composants

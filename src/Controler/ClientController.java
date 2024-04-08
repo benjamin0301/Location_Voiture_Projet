@@ -12,19 +12,20 @@ public class ClientController {
 
     private ClientModel client;
 
-    public ClientController(ClientModel client) {
+    public ClientController() throws SQLException, ClassNotFoundException {
+        ClientModel client = new ClientModel();
         this.client = client;
     }
 
 
-    public ClientModel ajouterNouveauClient(Connexion connexion, String prenom, String nom, String mot_de_passe, String mail, String date_naissance) {
+    public ClientModel ajouterNouveauClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
-        if (!validerDonneesClient(connexion, prenom, nom, mot_de_passe, mail, date_naissance)) {
+        if (!validerDonneesClient(prenom, nom, mot_de_passe, mail, date_naissance)) {
             return null;
         }
 
-        ClientModel newclient = new ClientModel(connexion, prenom, nom, mot_de_passe, mail, date_naissance);
+        ClientModel newclient = new ClientModel( prenom, nom, mot_de_passe, mail, date_naissance);
 
 
         // Si les données sont valides, passer au modèle pour les ajouter à la base de données
@@ -32,9 +33,9 @@ public class ClientController {
         return newclient; // Succès
     }
 
-    private boolean validerDonneesClient(Connexion connexion, String prenom, String nom, String mot_de_passe, String mail, String date_naissance) {
+    private boolean validerDonneesClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) {
 
-        if (!client.UniciteMail(connexion, mail)) {
+        if (!client.UniciteMail(mail)) {
             // methode de la vue pour afficher un message d'erreur
             System.out.println("Le mail est déjà utilisée.");
             return false;
@@ -83,13 +84,13 @@ public class ClientController {
         Client.setDate_fin_loc(date_fin_loc);
     }
 
-    public ClientModel modificationClient(Connexion connexion, String prenom, String nom, String mot_de_passe, String mail, String date_naissance) {
+    public ClientModel modificationClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
-        if (!validerDonneesClient(connexion, prenom, nom, mot_de_passe, mail, date_naissance)) {
+        if (!validerDonneesClient( prenom, nom, mot_de_passe, mail, date_naissance)) {
             return null;
         }
         client.supprimerClient();
-        ClientModel Client1 = this.ajouterNouveauClient(connexion, prenom, nom, mot_de_passe, mail, date_naissance);
+        ClientModel Client1 = this.ajouterNouveauClient( prenom, nom, mot_de_passe, mail, date_naissance);
         return Client1;
     }
 

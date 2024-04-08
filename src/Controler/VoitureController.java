@@ -18,7 +18,7 @@ public class VoitureController {
 
     public VoitureModel ajouterNouvelleVoiture(Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                                          float prix, String lieu_prise_en_charge, int limite_km, String marque) {
+                                          float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
         if (!validerDonnees(connexion, id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
@@ -26,7 +26,7 @@ public class VoitureController {
             return null;
         }
 
-        VoitureModel newvoiture = new VoitureModel(connexion, id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
+        VoitureModel newvoiture = new VoitureModel(id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
                 annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque);
 
 
@@ -130,7 +130,7 @@ public class VoitureController {
 
     public VoitureModel modificationVoiture(VoitureModel voiture, Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                             int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                                            float prix, String lieu_prise_en_charge, int limite_km, String marque) {
+                                            float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
 
         if (!validerDonnees(connexion, "0", moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
                 prix, limite_km)) {
@@ -142,7 +142,7 @@ public class VoitureController {
         return voiture1;
     }
 
-    public ArrayList<VoitureModel> recupListeVoiture() {
+    public ArrayList<VoitureModel> recupListeVoiture() throws ClassNotFoundException {
         ArrayList<VoitureModel> liste= voiture.recupListeVoiture();
         return liste;
     }
