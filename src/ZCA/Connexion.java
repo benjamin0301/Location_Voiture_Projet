@@ -1,11 +1,13 @@
 package ZCA;
 
+import Model.ClientModel;
 import ZCA.page_principale.ConteneurHaut;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 
 public class Connexion extends JFrame {
@@ -15,7 +17,11 @@ public class Connexion extends JFrame {
     private JButton loginButton;
     private JButton createAccountButton;
 
-    public Connexion() {
+    public ClientModel clientmodel;
+
+    public Connexion() throws SQLException, ClassNotFoundException {
+        this.clientmodel = new ClientModel();
+
         setTitle("Connexion");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 400);
@@ -60,12 +66,12 @@ public class Connexion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String email = emailField.getText();
                 String password = new String(passwordField.getPassword());
-                boolean isConnected = authenticate(email, password);
-                if (isConnected) {
+                int isConnected = authenticate(email, password);
+                if (isConnected == 0) {
                     // Afficher l'interface de connexion
                     // Vous pouvez remplacer cette partie par l'affichage de votre interface de connexion
                     JOptionPane.showMessageDialog(Connexion.this, "Connexion réussie !");
-                } else {
+                } else if (isConnected == 1) {
                     // Afficher un message d'erreur
                     JOptionPane.showMessageDialog(Connexion.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
                 }
@@ -85,12 +91,12 @@ public class Connexion extends JFrame {
     }
 
     // Méthode pour authentifier l'utilisateur en utilisant le programme xxxx
-    private boolean authenticate(String email, String password) {
+    private int authenticate(String email, String password) {
         // Appel à votre programme xxxx avec les informations d'authentification
         // Ici, vous devrez appeler le programme xxxx et obtenir la réponse
         // Pour cet exemple, je suppose que le programme retourne true si l'authentification réussit et false sinon
         // Vous devez remplacer ce code par l'appel réel à votre programme xxxx
-        boolean isConnected = false;
+        int isConnected = clientmodel.verif_connexion_client(email, password);
         // Exemple fictif :
         //isConnected = MyApp.authenticate(email, password);
         return isConnected;
@@ -98,7 +104,13 @@ public class Connexion extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new Connexion().setVisible(true);
+            try {
+                new Connexion().setVisible(true);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }
