@@ -28,13 +28,15 @@ public class VoitureModel {
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;
 
+    private String marque;
+
     public VoitureModel(Connexion conn) {
         this.conn = conn;
     }
 
     public VoitureModel(Connexion conn, String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
                         int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                        float prix, String lieu_prise_en_charge, int limite_km) {
+                        float prix, String lieu_prise_en_charge, int limite_km, String marque) {
         this.id_plaque = id;
         this.nom_modele = nom_modele;
         this.type = type;
@@ -49,8 +51,9 @@ public class VoitureModel {
         this.kilometrage_actuel = kilometrage_actuel;
         this.prix = prix;
         this.lieu_prise_en_charge = lieu_prise_en_charge;
-        this.conn = conn;
         this.limite_km = limite_km;
+        this.conn = conn;
+        this.marque = marque;
     }
 
     public String getId_plaque() {
@@ -153,6 +156,14 @@ public class VoitureModel {
         return louee;
     }
 
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
     public void setLouee ( boolean louee){
         this.louee = louee;
     }
@@ -194,8 +205,8 @@ public class VoitureModel {
 
             // Exécuter la requête SQL pour insérer une nouvelle voiture
             String query = "INSERT INTO voiture (id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte," +
-                    " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km)" +
-                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque)" +
+                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.conn.prepareStatement(query);
             statement.setString(1, voiture.getId_plaque());
             statement.setString(2, voiture.getNom_modele());
@@ -212,6 +223,7 @@ public class VoitureModel {
             statement.setFloat(13, voiture.getPrix());
             statement.setString(14, voiture.getLieuPriseEnCharge());
             statement.setInt(15, voiture.getLimite_km());
+            statement.setString(16, voiture.getMarque());
 
             int rowsInserted = statement.executeUpdate();
 

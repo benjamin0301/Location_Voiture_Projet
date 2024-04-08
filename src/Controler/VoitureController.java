@@ -17,7 +17,7 @@ private VoitureModel voiture;
 
     public VoitureModel ajouterNouvelleVoiture(Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                                          float prix, String lieu_prise_en_charge, int limite_km) {
+                                          float prix, String lieu_prise_en_charge, int limite_km, String marque) {
 
         // Valider les données saisies par l'utilisateur
         if (!validerDonnees(connexion, id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
@@ -26,7 +26,7 @@ private VoitureModel voiture;
         }
 
         VoitureModel newvoiture = new VoitureModel(connexion, id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
-                annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km );
+                annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque);
 
 
         // Si les données sont valides, passer au modèle pour les ajouter à la base de données
@@ -53,7 +53,7 @@ private VoitureModel voiture;
             // methode de la vue pour afficher un message d'erreur
             System.out.println("La capacité de la valise doit être supérieure à zéro.");
             return false;
-        } else if (nb_porte <= 0 || nb_porte % 2 != 0) {
+        } else if (nb_porte <= 0 || nb_porte % 2 == 0) {
             // methode de la vue pour afficher un message d'erreur
             System.out.println("Le nombre de portes doit être supérieur à zéro et impair");
             return false;
@@ -129,7 +129,7 @@ private VoitureModel voiture;
 
     public VoitureModel modificationVoiture(VoitureModel voiture, Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                             int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                                            float prix, String lieu_prise_en_charge, int limite_km) {
+                                            float prix, String lieu_prise_en_charge, int limite_km, String marque) {
 
         if (!validerDonnees(connexion, "0", moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
                 prix, limite_km)) {
@@ -137,7 +137,7 @@ private VoitureModel voiture;
         }
         voiture.supprimerVoiture();
         VoitureModel voiture1 = this.ajouterNouvelleVoiture(connexion, id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
-                annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km);
+                annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque);
         return voiture1;
     }
 

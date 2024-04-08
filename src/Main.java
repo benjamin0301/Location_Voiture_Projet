@@ -19,9 +19,9 @@ public class Main {
         VoitureController voiturecontroller = new VoitureController(voituremodel);
         ClientModel clientmodel = new ClientModel(connexion);
         ClientController clientcontroller = new ClientController(clientmodel);
-        ClientModel client = new ClientModel(connexion, "benoittttt", "Dupont", "aaa", "gendrybenjamin@gmail.com", "2000-12-18");
-        client.setId_client(client.generateUniqueClientId());
-        client.ajouterClient(client);
-        client.verif_connexion_client("gendrybenjamin@gmail.com", "aaa");
+        voiturecontroller.ajouterNouvelleVoiture(connexion, "1234", "Audi", "SUV", "noir", "diesel", 5, 5, 5, "automatique", 50, 2020, 1000, 100, "Paris", 1000, "BMW");
+
+
+
     }
 }
