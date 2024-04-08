@@ -29,16 +29,15 @@ public class VoitureModel {
     private int id_facture;
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;
-
     private String marque;
 
-    public VoitureModel(Connexion conn) {
-        this.conn = conn;
+    public VoitureModel() throws SQLException, ClassNotFoundException {
+        this.conn = new Connexion("location_voiture", "root", "");
     }
 
-    public VoitureModel(Connexion conn, String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
+    public VoitureModel( String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
                         int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                        float prix, String lieu_prise_en_charge, int limite_km, String marque) {
+                        float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
         this.id_plaque = id;
         this.nom_modele = nom_modele;
         this.type = type;
@@ -54,7 +53,7 @@ public class VoitureModel {
         this.prix = prix;
         this.lieu_prise_en_charge = lieu_prise_en_charge;
         this.limite_km = limite_km;
-        this.conn = conn;
+        this.conn = new Connexion("location_voiture", "root", "");
         this.marque = marque;
     }
 
@@ -344,7 +343,7 @@ public class VoitureModel {
 
     private String getNom_modele() { return nom_modele; }
 
-    public ArrayList<VoitureModel> recupListeVoiture(){
+    public ArrayList<VoitureModel> recupListeVoiture() throws ClassNotFoundException {
         ArrayList<VoitureModel> listevoitures = new ArrayList<>();
         try {
             // Préparation de la requête SQL
@@ -355,7 +354,7 @@ public class VoitureModel {
             // Parcours des résultats pour récupérer les voitures
             while (resultSet.next()) {
                 // Création d'un objet Voiture pour chaque ligne de résultat
-                VoitureModel voiture = new VoitureModel(conn,
+                VoitureModel voiture = new VoitureModel(
                         resultSet.getString("id_plaque"),
                         resultSet.getString("nom_modele"),
                         resultSet.getString("type"),
