@@ -7,7 +7,6 @@ public class Main {
     {
         SwingUtilities.invokeLater(() ->
         {
-            // Crée une instance de Vue
             Vue vue = new Vue();
         });
     }

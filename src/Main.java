@@ -19,7 +19,7 @@ public class Main {
         VoitureController voiturecontroller = new VoitureController(voituremodel);
         ClientModel clientmodel = new ClientModel(connexion);
         ClientController clientcontroller = new ClientController(clientmodel);
-        voiturecontroller.ajouterNouvelleVoiture(connexion, "1234", "Audi", "SUV", "noir", "diesel", 5, 5, 5, "automatique", 50, 2020, 1000, 100, "Paris", 1000, "BMW");
+        //voiturecontroller.ajouterNouvelleVoiture(connexion, "1234", "Audi", "SUV", "noir", "diesel", 5, 5, 5, "automatique", 50, 2020, 1000, 100, "Paris", 1000, "BMW");
 
 
 

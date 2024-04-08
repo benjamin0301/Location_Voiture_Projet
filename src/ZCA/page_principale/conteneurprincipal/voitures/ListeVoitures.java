@@ -1,16 +1,20 @@
 package ZCA.page_principale.conteneurprincipal.voitures;
 
+import Model.VoitureModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class ListeVoitures extends JPanel
 {
-    public ArrayList<String> voitures;
+    public ArrayList<VoitureModel> voitures;
     public ListeVoitures()
     {
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        voitures = new ArrayList<>();
+        voitures = recupListeVoiture;
+
         voitures.add("Toyota");
         voitures.add("Tesla");
         voitures.add("Bugatti");
