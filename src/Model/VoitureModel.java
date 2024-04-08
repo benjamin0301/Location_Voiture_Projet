@@ -3,6 +3,8 @@ package Model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class VoitureModel {
     Connexion conn;
@@ -341,4 +343,46 @@ public class VoitureModel {
     }
 
     private String getNom_modele() { return nom_modele; }
+
+    public ArrayList<VoitureModel> recupListeVoiture(){
+        ArrayList<VoitureModel> listevoitures = new ArrayList<>();
+        try {
+            // Préparation de la requête SQL
+            String query = "SELECT * FROM voiture";
+            Statement statement = conn.conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Parcours des résultats pour récupérer les voitures
+            while (resultSet.next()) {
+                // Création d'un objet Voiture pour chaque ligne de résultat
+                VoitureModel voiture = new VoitureModel(conn,
+                        resultSet.getString("id_plaque"),
+                        resultSet.getString("nom_modele"),
+                        resultSet.getString("type"),
+                        resultSet.getString("couleur"),
+                        resultSet.getString("moteur"),
+                        resultSet.getInt("nb_place"),
+                        resultSet.getInt("capacite_valise"),
+                        resultSet.getInt("nb_porte"),
+                        resultSet.getString("transmission"),
+                        resultSet.getInt("capa_essence"),
+                        resultSet.getInt("annee"),
+                        resultSet.getInt("kilometrage_actuel"),
+                        resultSet.getFloat("prix"),
+                        resultSet.getString("lieu_prise_en_charge"),
+                        resultSet.getInt("limite_km"),
+                        resultSet.getString("marque")
+                );
+                // Ajout de la voiture à la liste
+                listevoitures.add(voiture);
+            }
+
+            // Fermeture des ressources
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listevoitures;
+        }
 }

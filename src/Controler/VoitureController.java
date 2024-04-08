@@ -6,10 +6,11 @@ import Model.VoitureModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class VoitureController {
 
-private VoitureModel voiture;
+    private VoitureModel voiture;
 
     public VoitureController(VoitureModel voiture) {
         this.voiture = voiture;
@@ -139,6 +140,11 @@ private VoitureModel voiture;
         VoitureModel voiture1 = this.ajouterNouvelleVoiture(connexion, id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
                 annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque);
         return voiture1;
+    }
+
+    public ArrayList<VoitureModel> recupListeVoiture() {
+        ArrayList<VoitureModel> liste= voiture.recupListeVoiture();
+        return liste;
     }
 
     public void ChangeId_facture(VoitureModel voiture, int Id_facture) {
