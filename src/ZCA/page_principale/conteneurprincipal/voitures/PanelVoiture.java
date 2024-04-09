@@ -10,28 +10,23 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ListeVoitures extends JPanel
+public class PanelVoiture extends JPanel
 {
-    private ArrayList<VoitureModel> voitures;
-    private ClientController clientcontroller;
-    private VoitureController voiturecontroller;
+    ClientController clientcontroller = new ClientController();
+    VoitureController voiturecontroller = new VoitureController();
+    ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoiture();
+    public PanelVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException
+    {
+        setLayout(new GridBagLayout());
+        setPreferredSize(new Dimension(2, 300));
+        setBackground(Color.white);
 
-    private Connexion connexion;
-    public ListeVoitures() throws SQLException, ClassNotFoundException {
+        initialize(voiture);
+    }
 
-        VoitureController voiturecontroller = new VoitureController();
-
-
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoiture();
-
-        /// PANEL DU CYBERTRUCK
-
-        JPanel panelCybertruck = new JPanel();
-        panelCybertruck.setLayout(new GridBagLayout());
+    public void initialize(VoitureModel voiture)
+    {
         GridBagConstraints gbc = new GridBagConstraints();
-        panelCybertruck.setPreferredSize(new Dimension(2, 300));
-        panelCybertruck.setBackground(Color.white);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -48,15 +43,15 @@ public class ListeVoitures extends JPanel
         espaceVideA.setPreferredSize(new Dimension(200, 5));
         panelA.add(espaceVideA);
 
-        /*JTextArea AType = new JTextArea("  " + listeVoitures.get(8).getType());
+        JTextArea AType = new JTextArea("  " + voiture.getType());
         AType.setLayout(new BorderLayout());
         AType.setPreferredSize(new Dimension(200, 25));
         AType.setEditable(false);
         AType.setFocusable(false);
         AType.setFont(new Font("Aleo", Font.BOLD, 17));
-        panelA.add(AType, BorderLayout.WEST);*/
+        panelA.add(AType, BorderLayout.WEST);
 
-        JTextArea AModele = new JTextArea("  " + listeVoitures.get(8).getMarque() + " " + listeVoitures.get(8).getnom_modele());
+        JTextArea AModele = new JTextArea("  " + voiture.getMarque() + " " + voiture.getnom_modele());
         AModele.setLayout(new BorderLayout());
         AModele.setPreferredSize(new Dimension(200, 20));
         AModele.setFont(new Font("Aleo", Font.PLAIN, 15));
@@ -66,19 +61,19 @@ public class ListeVoitures extends JPanel
         JLabel imageLabel = new JLabel(AImage);
         panelA.add(imageLabel);
 
-        JTextArea ACapacite = new JTextArea("    " + listeVoitures.get(8).getNbPlace() + " 👤 | " + listeVoitures.get(8).getCapaciteValise() + " 👜 | " + listeVoitures.get(8).getNbPorte() + " 🚪");
+        JTextArea ACapacite = new JTextArea("    " + voiture.getNbPlace() + " 👤 | " + voiture.getCapaciteValise() + " 👜 | " + voiture.getNbPorte() + " 🚪");
         ACapacite.setLayout(new BorderLayout());
         ACapacite.setPreferredSize(new Dimension(200, 40));
         ACapacite.setFont(new Font("Aleo", Font.BOLD, 20));
         panelA.add(ACapacite, BorderLayout.EAST);
 
-        JTextArea AAvantages = new JTextArea("    ✅ Moteur " + listeVoitures.get(8).getMoteur() + "\n    ✅ Boîte " + listeVoitures.get(8).getTransmission());
+        JTextArea AAvantages = new JTextArea("    ✅ Moteur " + voiture.getMoteur() + "\n    ✅ Boîte " + voiture.getTransmission());
         AAvantages.setLayout(new BorderLayout());
         AAvantages.setPreferredSize(new Dimension(200, 50));
         AAvantages.setFont(new Font("Aleo", Font.PLAIN, 13));
         panelA.add(AAvantages, BorderLayout.WEST);
 
-        panelCybertruck.add(panelA, gbc);
+        add(panelA, gbc);
 
         gbc.gridx++;
 
@@ -107,18 +102,18 @@ public class ListeVoitures extends JPanel
         PMC.setFont(new Font("Aleo", Font.PLAIN, 15));
         panelB.add(PMC);
 
-        JTextArea kilometrage = new JTextArea("     🚗   Kilométrage limite :\n            " + listeVoitures.get(8).getLimite_km() + " km");
+        JTextArea kilometrage = new JTextArea("     🚗   Kilométrage limite :\n            " + voiture.getLimite_km() + " km");
         kilometrage.setBackground(Color.decode("#F6F6F6"));
         kilometrage.setPreferredSize(new Dimension(200, 50));
         kilometrage.setFont(new Font("Aleo", Font.PLAIN, 15));
         panelB.add(kilometrage);
 
-        JButton note = new JButton("Europcar   Bon       " + listeVoitures.get(8).getAvis());
+        JButton note = new JButton("Europcar   Bon       " + voiture.getAvis());
         note.setBackground(Color.decode("#F6F6F6"));
         note.setFont(new Font("Aleo", Font.PLAIN, 15));
         panelB.add(note);
 
-        panelCybertruck.add(panelB, gbc);
+        add(panelB, gbc);
 
         gbc.gridx++;
 
@@ -141,7 +136,7 @@ public class ListeVoitures extends JPanel
         panelC.add(areaC);
 
 
-        panelCybertruck.add(panelC, gbc);
+        add(panelC, gbc);
 
         gbc.gridx++;
 
@@ -157,13 +152,13 @@ public class ListeVoitures extends JPanel
         panelD.add(espaceVideD);
 
 
-        JTextArea prixGras = new JTextArea("       " + listeVoitures.get(8).getPrix() + " €/jour");
+        JTextArea prixGras = new JTextArea("       " + voiture.getPrix() + " €/jour");
         prixGras.setFont(new Font("Aleo", Font.BOLD, 25));
         prixGras.setBackground(Color.decode("#E2FFD6"));
         prixGras.setPreferredSize(new Dimension(200, 32));
         panelD.add(prixGras);
 
-        JTextArea prixCumule = new JTextArea("                        " + "Total " + listeVoitures.get(8).getPrix() + " €");
+        JTextArea prixCumule = new JTextArea("                        " + "Total " + voiture.getPrix() + " €");
         prixCumule.setFont(new Font("Aleo", Font.PLAIN, 15));
         prixCumule.setBackground(Color.decode("#E2FFD6"));
         prixCumule.setPreferredSize(new Dimension(200, 20));
@@ -181,24 +176,8 @@ public class ListeVoitures extends JPanel
         selectionner.setFont(new Font("Aleo", Font.BOLD, 24));
         panelD.add(selectionner);
 
-
-
-        panelCybertruck.add(panelD, gbc);
-
-
-        add(panelCybertruck);
-
-        /// FIN PANEL CYBERTRUCK
-
-        for (int i = 0; i <= listeVoitures.size() - 1; i++)
-        {
-            JPanel miniEspaceBlanc = new JPanel();
-            miniEspaceBlanc.setPreferredSize(new Dimension(2, 15));
-            miniEspaceBlanc.setBackground(Color.WHITE);
-            add(miniEspaceBlanc);
-
-            PanelVoiture panelVoiture = new PanelVoiture(listeVoitures.get(i));
-            add(panelVoiture);
-        }
+        add(panelD, gbc);
     }
+
+
 }
