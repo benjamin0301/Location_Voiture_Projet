@@ -16,12 +16,12 @@ public class VoitureController {
         this.voiture = new VoitureModel();
     }
 
-    public VoitureModel ajouterNouvelleVoiture(Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
+    public VoitureModel ajouterNouvelleVoiture(String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
                                           float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
-        if (!validerDonnees(connexion, id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
+        if (!validerDonnees( id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
                 prix, limite_km)) {
             return null;
         }
@@ -35,10 +35,10 @@ public class VoitureController {
         return newvoiture; // Succès
     }
 
-    private boolean validerDonnees(Connexion connexion, String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
+    private boolean validerDonnees(String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
                                    int capa_essence, int annee, int kilometrage_actuel, float prix, int limite_km) {
 
-        if (!voiture.UnicitePlaque(connexion,id_plaque)) {
+        if (!voiture.UnicitePlaque(id_plaque)) {
             // methode de la vue pour afficher un message d'erreur
             System.out.println("La plaque est déjà utilisée.");
             return false;
@@ -234,8 +234,17 @@ public class VoitureController {
         return PhraseRetour;
     }
 
+    public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException {
+        return voiture.recupListeVoitureNonLouee();
+    }
+
+    /*public ArrayList<VoitureModel> recupListeVoitureLouee() throws ClassNotFoundException {
+        return voiture.recupListeVoitureLouee();
+    }
+
     public ArrayList<VoitureModel> recupListeVoiture() throws ClassNotFoundException {
         return voiture.recupListeVoiture();
-    }
+    }*/
+
 }
 

@@ -19,7 +19,7 @@ public class Main {
         VoitureController voiturecontroller = new VoitureController();
         ClientModel clientmodel = new ClientModel();
         ClientController clientcontroller = new ClientController();
-        voiturecontroller.ajouterNouvelleVoiture(connexion, "GO-317-AT", "Cybertruck", "Spécial", "Chrome", "Electrique", 5, 5, 5, "automatique", 50, 2024, 100, 250, "Paris", 1000, "Tesla");
+        voiturecontroller.ajouterNouvelleVoiture("GO-317-AT", "Cybertruck", "Spécial", "Chrome", "Electrique", 5, 5, 5, "automatique", 50, 2024, 100, 250, "Paris", 1000, "Tesla");
 
 
 
