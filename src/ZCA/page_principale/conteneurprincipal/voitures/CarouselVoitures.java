@@ -3,6 +3,7 @@ package ZCA.page_principale.conteneurprincipal.voitures;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CarouselVoitures extends JPanel {
@@ -14,52 +15,45 @@ public class CarouselVoitures extends JPanel {
 
     public CarouselVoitures() {
         elements = new ArrayList<>();
-        setLayout(new BorderLayout()); // Utilisation d'un BorderLayout
+        setLayout(new BorderLayout());
 
-        // Ajout de 15 éléments initialement
-        for (int i = 0; i < 15; i++) {
-            addElement("Catégorie " + (i + 1));
+        ArrayList<String> listeTypes = new ArrayList<>(Arrays.asList("Mini", "SUV", "Supersportive", "Minivan", "Spécial", "TypeXYZ"));
+
+        for (int i = 0; i < listeTypes.size(); i++) {
+            addElement(listeTypes.get(i));
         }
 
-        // Création des boutons fléchés
         previousButton = createArrowButton('<');
         nextButton = createArrowButton('>');
 
-        // Ajout des écouteurs d'événements aux boutons
         previousButton.addActionListener(e -> showPreviousElements());
         nextButton.addActionListener(e -> showNextElements());
 
-        // Création du conteneur pour les boutons fléchés avec BoxLayout horizontal
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        // Ajout du bouton précédent à l'extrême gauche du conteneur
         buttonPanel.add(previousButton);
-        // Ajout d'un espace élastique pour pousser le bouton suivant à l'extrême droite
-        // Ajout du bouton suivant à l'extrême droite du conteneur
         buttonPanel.add(nextButton);
 
-        // Ajout du conteneur des boutons fléchés au nord du conteneur principal
         add(buttonPanel, BorderLayout.SOUTH);
         add(createCarouselPanel(), BorderLayout.CENTER);
 
-        // Afficher les 5 premiers éléments par défaut
         showElements(0, 4);
     }
 
     private JPanel createCarouselPanel() {
         JPanel carouselPanel = new JPanel();
-        carouselPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Utilisation d'un FlowLayout
+        carouselPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        // Ajout des éléments du carousel
+
         for (int i = 0; i < elements.size(); i++) {
             String element = elements.get(i);
-            JLabel label = new JLabel(element);
-            label.setPreferredSize(new Dimension(160, 180));
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setOpaque(true); // Permet de définir un fond coloré
-            label.setBackground(Color.GREEN); // Couleur de fond verte
-            carouselPanel.add(label);
+            JPanel caseCarrousel = new JPanel();
+            caseCarrousel.setPreferredSize(new Dimension(160, 180));
+            //caseCarrousel.setHorizontalAlignment(SwingConstants.CENTER);
+            caseCarrousel.setBackground(Color.WHITE);
+            carouselPanel.add(caseCarrousel);
         }
 
         return carouselPanel;
