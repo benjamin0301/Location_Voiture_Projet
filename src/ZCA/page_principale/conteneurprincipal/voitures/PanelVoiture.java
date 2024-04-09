@@ -14,7 +14,7 @@ public class PanelVoiture extends JPanel
 {
     ClientController clientcontroller = new ClientController();
     VoitureController voiturecontroller = new VoitureController();
-    ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoiture();
+    ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoitureNonLouee();
     public PanelVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException
     {
         setLayout(new GridBagLayout());

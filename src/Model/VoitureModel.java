@@ -412,11 +412,11 @@ public class VoitureModel {
         return listevoitures;
     }
 
-    public ArrayList<VoitureModel> recupListeVoitureFiltrage() throws ClassNotFoundException {
+    /*public ArrayList<VoitureModel> recupListeVoitureFiltrage(ArrayList<VoitureModel>String champ, Object Value) throws ClassNotFoundException {
         ArrayList<VoitureModel> listevoitures = new ArrayList<>();
         try {
             // Préparation de la requête SQL
-            String query = "SELECT * FROM voiture WHERE louee = 0";
+            String query = "SELECT * FROM voiture WHERE"+champ+" = ?";
             Statement statement = conn.conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -453,7 +453,7 @@ public class VoitureModel {
             e.printStackTrace();
         }
         return listevoitures;
-    }
+    }*/
 
 
     public String MajPartielBdd(String id_plaque, String champ, Object Value) {

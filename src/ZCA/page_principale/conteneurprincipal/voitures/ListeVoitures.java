@@ -23,7 +23,7 @@ public class ListeVoitures extends JPanel
         VoitureController voiturecontroller = new VoitureController();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoiture();
+        ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoitureNonLouee();
 
         for (int i = 0; i <= listeVoitures.size() - 1; i++)
         {

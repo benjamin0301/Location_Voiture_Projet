@@ -19,9 +19,8 @@ public class Main {
         VoitureController voiturecontroller = new VoitureController();
         ClientModel clientmodel = new ClientModel();
         ClientController clientcontroller = new ClientController();
-        voiturecontroller.ajouterNouvelleVoiture(connexion, "JA-902-CK", "Veyron 16.4", "Supersportive", "Bleue", "Essence", 4, 1, 3, "automatique", 30, 2005, 200, 210, "Paris", 1000, "Bugatti");
+        voiturecontroller.ajouterNouvelleVoiture( "JA-902-CK", "Veyron 16.4", "Supersportive", "Bleue", "Essence", 4, 1, 3, "automatique", 30, 2005, 200, 210, "Paris", 1000, "Bugatti");
 
-
-
+        connexion.closeConnection();
     }
 }

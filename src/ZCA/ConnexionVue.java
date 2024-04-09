@@ -1,7 +1,6 @@
 package ZCA;
 
 import Controler.ClientController;
-import Model.ClientModel;
 import ZCA.page_principale.ConteneurHaut;
 
 import javax.swing.*;
@@ -11,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 
-public class Connexion extends JFrame {
+public class ConnexionVue extends JFrame {
 
     private JTextField emailField;
     private JPasswordField passwordField;
@@ -20,7 +19,7 @@ public class Connexion extends JFrame {
 
     public ClientController clientcontroller;
 
-    public Connexion() throws SQLException, ClassNotFoundException {
+    public ConnexionVue() throws SQLException, ClassNotFoundException {
         this.clientcontroller = new ClientController();
 
         setTitle("Connexion");
@@ -71,10 +70,10 @@ public class Connexion extends JFrame {
                 if (isConnected == 0) {
                     // Afficher l'interface de connexion
                     // Vous pouvez remplacer cette partie par l'affichage de votre interface de connexion
-                    JOptionPane.showMessageDialog(Connexion.this, "Connexion réussie !");
+                    JOptionPane.showMessageDialog(ConnexionVue.this, "Connexion réussie !");
                 } else if (isConnected == 1) {
                     // Afficher un message d'erreur
-                    JOptionPane.showMessageDialog(Connexion.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
+                    JOptionPane.showMessageDialog(ConnexionVue.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
                 }
             }
         });
@@ -84,7 +83,7 @@ public class Connexion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Rediriger vers la création de compte
                 // Vous pouvez remplacer cette partie par la redirection vers votre interface de création de compte
-                JOptionPane.showMessageDialog(Connexion.this, "Redirection vers la création de compte");
+                JOptionPane.showMessageDialog(ConnexionVue.this, "Redirection vers la création de compte");
             }
         });
 
@@ -106,7 +105,7 @@ public class Connexion extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                new Connexion().setVisible(true);
+                new ConnexionVue().setVisible(true);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             } catch (ClassNotFoundException e) {

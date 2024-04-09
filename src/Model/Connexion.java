@@ -29,4 +29,20 @@ public class Connexion {
     public static PreparedStatement prepareStatement(Connexion connexion, String query) throws SQLException {
         return connexion.conn.prepareStatement(query);
     }
+
+    public void closeConnection() {
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (rset != null) {
+                rset.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
