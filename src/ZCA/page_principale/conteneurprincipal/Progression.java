@@ -7,6 +7,7 @@ public class Progression extends JPanel {
     public Progression() {
         // Définition du gestionnaire de disposition
         setLayout(new BorderLayout());
+        setBackground(Color.white);
 
         // Ajout d'un composant à l'intérieur du conteneur
         add(new JLabel("Progression"), BorderLayout.CENTER);

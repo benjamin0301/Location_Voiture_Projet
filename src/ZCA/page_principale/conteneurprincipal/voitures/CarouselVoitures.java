@@ -2,6 +2,8 @@ package ZCA.page_principale.conteneurprincipal.voitures;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +34,7 @@ public class CarouselVoitures extends JPanel {
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(Color.white);
 
         buttonPanel.add(previousButton);
         buttonPanel.add(nextButton);
@@ -45,14 +48,32 @@ public class CarouselVoitures extends JPanel {
     private JPanel createCarouselPanel() {
         JPanel carouselPanel = new JPanel();
         carouselPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        carouselPanel.setBackground(Color.white);
 
 
         for (int i = 0; i < elements.size(); i++) {
             String element = elements.get(i);
-            JPanel caseCarrousel = new JPanel();
+            JButton caseCarrousel = new JButton();
+            caseCarrousel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            caseCarrousel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
+            caseCarrousel.setAlignmentX(SwingConstants.CENTER);
+            caseCarrousel.setAlignmentY(SwingConstants.CENTER);
             caseCarrousel.setPreferredSize(new Dimension(160, 180));
-            //caseCarrousel.setHorizontalAlignment(SwingConstants.CENTER);
             caseCarrousel.setBackground(Color.WHITE);
+            caseCarrousel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray));
+
+            caseCarrousel.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Afficher la boîte de dialogue
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Ceci est une pop-up !");
+                }
+            });
+
+            JTextArea typeVoiture = new JTextArea(element);
+            typeVoiture.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            typeVoiture.setFont(new Font("Aleo", Font.BOLD, 15));
+            caseCarrousel.add(typeVoiture);
+
             carouselPanel.add(caseCarrousel);
         }
 
@@ -61,11 +82,11 @@ public class CarouselVoitures extends JPanel {
 
     private JButton createArrowButton(char direction) {
         JButton button = new JButton(Character.toString(direction));
-        button.setPreferredSize(new Dimension(200, 25));
-        button.setBackground(Color.RED);
-        button.setForeground(Color.WHITE);
+        button.setPreferredSize(new Dimension(140, 25));
+        button.setBackground(Color.white);
+        button.setForeground(Color.darkGray);
         button.setFocusPainted(false);
-        button.setFont(new Font("Arial", Font.BOLD, 20));
+        button.setFont(new Font("Aleo", Font.BOLD, 20));
         return button;
     }
 

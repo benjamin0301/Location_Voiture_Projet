@@ -18,8 +18,8 @@ public class Vue extends JFrame {
     public ClientController clientcontroller;
 
     public Vue() throws SQLException, ClassNotFoundException {
-        this.clientcontroller = new ClientController();
-        this.voiturecontroller = new VoitureController();
+        //this.clientcontroller = new ClientController();
+        //this.voiturecontroller = new VoitureController();
     }
 
     public void initialize() throws SQLException, ClassNotFoundException {
