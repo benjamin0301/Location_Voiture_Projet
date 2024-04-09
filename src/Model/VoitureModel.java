@@ -412,13 +412,52 @@ public class VoitureModel {
         return listevoitures;
     }
 
-    /*public ArrayList<VoitureModel> recupListeVoitureFiltrage(ArrayList<VoitureModel>String champ, Object Value) throws ClassNotFoundException {
+    public ArrayList<VoitureModel> recupListeVoitureFiltrage(String filtre_1, String operateur_1, Object Value_1,
+                                                             String filtre_2, String operateur_2, Object Value_2,
+                                                             String filtre_3, String operateur_3, Object Value_3,
+                                                             String filtre_4, String operateur_4, Object Value_4,
+                                                             String filtre_5, String operateur_5, Object Value_5) throws ClassNotFoundException {
         ArrayList<VoitureModel> listevoitures = new ArrayList<>();
         try {
             // Préparation de la requête SQL
-            String query = "SELECT * FROM voiture WHERE"+champ+" = ?";
-            Statement statement = conn.conn.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            String query = "SELECT * FROM voiture WHERE 1=1"; // Initialisation de la requête avec un prédicat vrai
+            if (filtre_1 != null && operateur_1 != null && Value_1 != null) {
+                query += " AND " + filtre_1 + " " + operateur_1 + " ?";
+            }
+            if (filtre_2 != null && operateur_2 != null && Value_2 != null) {
+                query += " AND " + filtre_2 + " " + operateur_2 + " ?";
+            }
+            if (filtre_3 != null && operateur_3 != null && Value_3 != null) {
+                query += " AND " + filtre_3 + " " + operateur_3 + " ?";
+            }
+            if (filtre_4 != null && operateur_4 != null && Value_4 != null) {
+                query += " AND " + filtre_4 + " " + operateur_4 + " ?";
+            }
+            if (filtre_5 != null && operateur_5 != null && Value_5 != null) {
+                query += " AND " + filtre_5 + " " + operateur_5 + " ?";
+            }
+
+            PreparedStatement statement = conn.conn.prepareStatement(query);
+
+            // Affectation des valeurs aux paramètres de la requête
+            int parameterIndex = 1;
+            if (filtre_1 != null && operateur_1 != null && Value_1 != null) {
+                statement.setObject(parameterIndex++, Value_1);
+            }
+            if (filtre_2 != null && operateur_2 != null && Value_2 != null) {
+                statement.setObject(parameterIndex++, Value_2);
+            }
+            if (filtre_3 != null && operateur_3 != null && Value_3 != null) {
+                statement.setObject(parameterIndex++, Value_3);
+            }
+            if (filtre_4 != null && operateur_4 != null && Value_4 != null) {
+                statement.setObject(parameterIndex++, Value_4);
+            }
+            if (filtre_5 != null && operateur_5 != null && Value_5 != null) {
+                statement.setObject(parameterIndex, Value_5);
+            }
+
+            ResultSet resultSet = statement.executeQuery();
 
             // Parcours des résultats pour récupérer les voitures
             while (resultSet.next()) {
@@ -453,7 +492,9 @@ public class VoitureModel {
             e.printStackTrace();
         }
         return listevoitures;
-    }*/
+    }
+
+
 
 
     public String MajPartielBdd(String id_plaque, String champ, Object Value) {
