@@ -349,11 +349,11 @@ public class VoitureModel {
         }
     }*/
 
-    public boolean UnicitePlaque(Connexion connexion, String idPlaque) {
+    public boolean UnicitePlaque(String idPlaque) {
         // Requête SQL pour vérifier l'unicité de la plaque
         String query = "SELECT COUNT(*) FROM voiture WHERE id_plaque = ?";
         try {
-            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            PreparedStatement statement = conn.conn.prepareStatement(query);
             statement.setString(1, idPlaque);  // Remplacement du paramètre par la valeur réelle
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -369,11 +369,11 @@ public class VoitureModel {
 
     private String getNom_modele() { return nom_modele; }
 
-    public ArrayList<VoitureModel> recupListeVoiture() throws ClassNotFoundException {
+    public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException {
         ArrayList<VoitureModel> listevoitures = new ArrayList<>();
         try {
             // Préparation de la requête SQL
-            String query = "SELECT * FROM voiture";
+            String query = "SELECT * FROM voiture WHERE louee = 0";
             Statement statement = conn.conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -398,6 +398,7 @@ public class VoitureModel {
                         resultSet.getInt("limite_km"),
                         resultSet.getString("marque")
                 );
+                voiture.setAvis(resultSet.getInt("avis"));
                 // Ajout de la voiture à la liste
                 listevoitures.add(voiture);
             }
@@ -409,7 +410,52 @@ public class VoitureModel {
             e.printStackTrace();
         }
         return listevoitures;
+    }
+
+    public ArrayList<VoitureModel> recupListeVoitureFiltrage() throws ClassNotFoundException {
+        ArrayList<VoitureModel> listevoitures = new ArrayList<>();
+        try {
+            // Préparation de la requête SQL
+            String query = "SELECT * FROM voiture WHERE louee = 0";
+            Statement statement = conn.conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Parcours des résultats pour récupérer les voitures
+            while (resultSet.next()) {
+                // Création d'un objet Voiture pour chaque ligne de résultat
+                VoitureModel voiture = new VoitureModel(
+                        resultSet.getString("id_plaque"),
+                        resultSet.getString("nom_modele"),
+                        resultSet.getString("type"),
+                        resultSet.getString("couleur"),
+                        resultSet.getString("moteur"),
+                        resultSet.getInt("nb_place"),
+                        resultSet.getInt("capacite_valise"),
+                        resultSet.getInt("nb_porte"),
+                        resultSet.getString("transmission"),
+                        resultSet.getInt("capa_essence"),
+                        resultSet.getInt("annee"),
+                        resultSet.getInt("kilometrage_actuel"),
+                        resultSet.getFloat("prix"),
+                        resultSet.getString("lieu_prise_en_charge"),
+                        resultSet.getInt("limite_km"),
+                        resultSet.getString("marque")
+                );
+                voiture.setAvis(resultSet.getInt("avis"));
+                // Ajout de la voiture à la liste
+                listevoitures.add(voiture);
+            }
+
+            // Fermeture des ressources
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return listevoitures;
+    }
+
+
     public String MajPartielBdd(String id_plaque, String champ, Object Value) {
         try {
             // Désactiver le mode d'auto-commit
