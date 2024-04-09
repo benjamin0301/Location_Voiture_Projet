@@ -96,17 +96,17 @@ public class ClientController {
     }
 
     public String ChangeFidelite(ClientModel Client) {
-        client.MajPartielBdd(Client.getId_client(), "fidelite", true);
+        String PhraseRetour = client.MajPartielBdd(Client.getId_client(), "fidelite", true);
         Client.setFidelite(true);
-        return "Mise à jour réussie";
+        return PhraseRetour;
     }
 
     public String ChangeDate_debut_fin_loc(ClientModel Client, String date_debut_loc, String date_fin_loc) {
-        Client.MajPartielBdd(Client.getId_client(),"date_debut_loc" , date_debut_loc);
-        Client.MajPartielBdd(Client.getId_client(),"date_fin_loc" , date_fin_loc);
+        String valeurtemp = Client.MajPartielBdd(Client.getId_client(),"date_debut_loc" , date_debut_loc);
+        String PhraseRetour = Client.MajPartielBdd(Client.getId_client(),"date_fin_loc" , date_fin_loc);
         Client.setDate_debut_loc(date_debut_loc);
         Client.setDate_fin_loc(date_fin_loc);
-        return "Mise à jour réussie";
+        return PhraseRetour;
     }
 
     public int verifierConnexionClient(String login, String password) {

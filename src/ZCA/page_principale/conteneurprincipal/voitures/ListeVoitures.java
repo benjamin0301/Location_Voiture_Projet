@@ -19,7 +19,6 @@ public class ListeVoitures extends JPanel
     private Connexion connexion;
     public ListeVoitures() throws SQLException, ClassNotFoundException {
 
-        ClientController clientcontroller = new ClientController();
         VoitureController voiturecontroller = new VoitureController();
 
 
@@ -49,13 +48,13 @@ public class ListeVoitures extends JPanel
         espaceVideA.setPreferredSize(new Dimension(200, 5));
         panelA.add(espaceVideA);
 
-        JTextArea AType = new JTextArea("  " + listeVoitures.get(8).getType());
+        /*JTextArea AType = new JTextArea("  " + listeVoitures.get(8).getType());
         AType.setLayout(new BorderLayout());
         AType.setPreferredSize(new Dimension(200, 25));
         AType.setEditable(false);
         AType.setFocusable(false);
         AType.setFont(new Font("Aleo", Font.BOLD, 17));
-        panelA.add(AType, BorderLayout.WEST);
+        panelA.add(AType, BorderLayout.WEST);*/
 
         JTextArea AModele = new JTextArea("  " + listeVoitures.get(8).getMarque() + " " + listeVoitures.get(8).getnom_modele());
         AModele.setLayout(new BorderLayout());
