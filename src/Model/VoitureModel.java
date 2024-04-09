@@ -88,6 +88,9 @@ public class VoitureModel {
         return limite_km;
     }
 
+    public void setLimite_km(int limite_km) {
+        this.limite_km = limite_km;
+    }
     public int getId_facture() {
         return id_facture;
     }
@@ -100,12 +103,23 @@ public class VoitureModel {
         return nom_modele;
     }
 
+    public String setNom_modele(String nom_modele) {
+        return this.nom_modele = nom_modele;
+    }
     public String getType() {
         return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getCouleur() {
         return couleur;
+    }
+
+    public void setCouleur(String couleur) {
+        this.couleur = couleur;
     }
 
     public String getMoteur() {
@@ -116,6 +130,16 @@ public class VoitureModel {
         return nb_place;
     }
 
+    public void setNbPlace(int nb_place) {
+        this.nb_place = nb_place;
+    }
+    public void setNbPorte(int nb_porte) {
+        this.nb_porte = nb_porte;
+    }
+
+    public void setCapacite_valise(int capacite_valise) {
+//        this.capacite_valise = capacite_valise;
+    }
     public int getCapaciteValise() {
         return capacite_valise;
     }
@@ -126,6 +150,10 @@ public class VoitureModel {
 
     public String getTransmission() {
         return transmission;
+    }
+
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
     }
 
     public int getCapaEssence() {
@@ -140,7 +168,7 @@ public class VoitureModel {
         return kilometrage_actuel;
     }
 
-    public void setkilometrage_actuel ( int kilometrage_actuel){
+    public void setKilometrage_actuel ( int kilometrage_actuel){
         this.kilometrage_actuel = kilometrage_actuel;
     }
 
@@ -151,7 +179,6 @@ public class VoitureModel {
     public void setPrix ( float prix){
         this.prix = prix;
     }
-
     public boolean isLouee () {
         return louee;
     }
@@ -281,7 +308,7 @@ public class VoitureModel {
         }
     }
 
-    /*public void chargerInfosDepuisBDD(String voitureId) {
+    /*public String ChargerInfosDepuisBDD(String voitureId) {
         // Model.Connexion à la base de données
         try {
             // Requête SQL pour récupérer les informations de la voiture avec l'ID spécifié
@@ -383,7 +410,7 @@ public class VoitureModel {
         }
         return listevoitures;
         }
-    public void MajPartielBdd(String id_plaque, String champ, Object Value) {
+    public String MajPartielBdd(String id_plaque, String champ, Object Value) {
         try {
             // Désactiver le mode d'auto-commit
             conn.conn.setAutoCommit(false);
@@ -415,8 +442,10 @@ public class VoitureModel {
 
             if (rowsUpdated > 0) {
                 System.out.println("Le champ "+champ+" a été mis à jour avec succès !");
+                return "Mise à jour réussie !";
             } else {
                 System.out.println("Aucun champ mis à jour.");
+                return "Aucun champ mis à jour.";
             }
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
@@ -426,6 +455,6 @@ public class VoitureModel {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }
+        }return "Echec de la mise à jour";
     }
 }
