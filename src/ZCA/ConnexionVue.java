@@ -66,7 +66,14 @@ public class ConnexionVue extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String email = emailField.getText();
                 String password = new String(passwordField.getPassword());
-                int isConnected = authenticate(email, password);
+                int isConnected = 0;
+                try {
+                    isConnected = authenticate(email, password);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
                 if (isConnected == 0) {
                     // Afficher l'interface de connexion
                     // Vous pouvez remplacer cette partie par l'affichage de votre interface de connexion
@@ -91,7 +98,7 @@ public class ConnexionVue extends JFrame {
     }
 
     // Méthode pour authentifier l'utilisateur en utilisant le programme xxxx
-    private int authenticate(String email, String password) {
+    private int authenticate(String email, String password) throws SQLException, ClassNotFoundException {
         // Appel à votre programme xxxx avec les informations d'authentification
         // Ici, vous devrez appeler le programme xxxx et obtenir la réponse
         // Pour cet exemple, je suppose que le programme retourne true si l'authentification réussit et false sinon

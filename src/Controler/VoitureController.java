@@ -36,7 +36,7 @@ public class VoitureController {
     }
 
     private boolean validerDonnees(String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
-                                   int capa_essence, int annee, int kilometrage_actuel, float prix, int limite_km) {
+                                   int capa_essence, int annee, int kilometrage_actuel, float prix, int limite_km) throws SQLException, ClassNotFoundException {
 
         if (!voiture.UnicitePlaque(id_plaque)) {
             // methode de la vue pour afficher un message d'erreur
@@ -110,24 +110,24 @@ public class VoitureController {
         };
     }
 
-    public boolean supprimerVoiture(VoitureModel voiture) {
+    public boolean supprimerVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException {
         boolean success = voiture.supprimerVoiture();
         return true;
     }
     
-    public String ChangeLocEstLouee(VoitureModel voiture) {
+    public String ChangeLocEstLouee(VoitureModel voiture) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"louee" , true);
         voiture.setLouee(true);
         return PhraseRetour;
     }
 
-    public String ChangeLocEstPasLouee(VoitureModel voiture) {
+    public String ChangeLocEstPasLouee(VoitureModel voiture) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"louee" , false);
         voiture.setLouee(false);
         return PhraseRetour;
     }
 
-    public String ChangeDate_debut_fin_loc(VoitureModel voiture, String date_debut_loc, String date_fin_loc) {
+    public String ChangeDate_debut_fin_loc(VoitureModel voiture, String date_debut_loc, String date_fin_loc) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"date_debut_loc" , date_debut_loc);
         String vartemp = voiture.MajPartielBdd(voiture.getId_plaque(),"date_fin_loc" , date_fin_loc);
         voiture.setDate_debut_loc(date_debut_loc);
@@ -136,73 +136,73 @@ public class VoitureController {
 
     }
 
-    public String ChangeKilometrage_actuel(VoitureModel voiture, int kilometrage_actuel) {
+    public String ChangeKilometrage_actuel(VoitureModel voiture, int kilometrage_actuel) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"kilometrage_actuel" , kilometrage_actuel);
         voiture.setKilometrage_actuel(kilometrage_actuel);
         return PhraseRetour;
     }
 
-    public String ChangePrix(VoitureModel voiture, float prix) {
+    public String ChangePrix(VoitureModel voiture, float prix) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"prix" , prix);
         voiture.setPrix(prix);
         return PhraseRetour;
     }
 
-    public String ChangeLieuPriseEnCharge(VoitureModel voiture, String lieu_prise_en_charge) {
+    public String ChangeLieuPriseEnCharge(VoitureModel voiture, String lieu_prise_en_charge) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"lieu_prise_en_charge" , lieu_prise_en_charge);
         voiture.setLieuPriseEnCharge(lieu_prise_en_charge);
         return PhraseRetour;
     }
 
-    public String ChangeLimite_km(VoitureModel voiture, int limite_km) {
+    public String ChangeLimite_km(VoitureModel voiture, int limite_km) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"limite_km" , limite_km);
         voiture.setLimite_km(limite_km);
         return PhraseRetour;
     }
 
-    public String ChangeMarque(VoitureModel voiture, String marque) {
+    public String ChangeMarque(VoitureModel voiture, String marque) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"marque" , marque);
         voiture.setMarque(marque);
         return PhraseRetour;
     }
 
-    public String ChangeNom_modele(VoitureModel voiture, String nom_modele) {
+    public String ChangeNom_modele(VoitureModel voiture, String nom_modele) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"nom_modele" , nom_modele);
         voiture.setNom_modele(nom_modele);
         return PhraseRetour;
     }
 
-    public String ChangeType(VoitureModel voiture, String type) {
+    public String ChangeType(VoitureModel voiture, String type) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"type" , type);
         voiture.setType(type);
         return PhraseRetour;
     }
 
-    public String ChangeTransmission(VoitureModel voiture, String transmission) {
+    public String ChangeTransmission(VoitureModel voiture, String transmission) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"transmission" , transmission);
         voiture.setTransmission(transmission);
         return PhraseRetour;
     }
 
-    public String ChangeCouleur(VoitureModel voiture, String couleur) {
+    public String ChangeCouleur(VoitureModel voiture, String couleur) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"couleur" , couleur);
         voiture.setCouleur(couleur);
         return PhraseRetour;
     }
 
-    public String ChangeCapacite_valise(VoitureModel voiture, int capacite_valise) {
+    public String ChangeCapacite_valise(VoitureModel voiture, int capacite_valise) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"capacite_valise" , capacite_valise);
         voiture.setCapacite_valise(capacite_valise);
         return PhraseRetour;
     }
 
-    public String ChangeNb_place(VoitureModel voiture, int nb_place) {
+    public String ChangeNb_place(VoitureModel voiture, int nb_place) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"nb_place" , nb_place);
         voiture.setNbPlace(nb_place);
         return PhraseRetour;
     }
 
-    public String ChangeNb_porte(VoitureModel voiture, int nb_porte) {
+    public String ChangeNb_porte(VoitureModel voiture, int nb_porte) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"nb_porte" , nb_porte);
         voiture.setNbPorte(nb_porte);
         return PhraseRetour;
@@ -222,19 +222,19 @@ public class VoitureController {
         return voiture1;
     }*/
 
-    public String ChangeId_facture(VoitureModel voiture, int Id_facture) {
+    public String ChangeId_facture(VoitureModel voiture, int Id_facture) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"id_facture" , Id_facture);
         voiture.setId_facture(Id_facture);
         return PhraseRetour;
     }
 
-    public String ChangeAvis(VoitureModel voiture, int avis) {
+    public String ChangeAvis(VoitureModel voiture, int avis) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"avis" , avis);
         voiture.setAvis(avis);
         return PhraseRetour;
     }
 
-    public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException {
+    public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException, SQLException {
         return voiture.recupListeVoitureNonLouee();
     }
 
