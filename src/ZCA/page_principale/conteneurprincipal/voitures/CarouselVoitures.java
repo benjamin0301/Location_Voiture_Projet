@@ -1,9 +1,12 @@
 package ZCA.page_principale.conteneurprincipal.voitures;
 
+import Model.VoitureModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,8 +17,9 @@ public class CarouselVoitures extends JPanel {
     private int currentIndex;
     private JButton previousButton;
     private JButton nextButton;
+    public String TypeClicked;
 
-    public CarouselVoitures() {
+    public CarouselVoitures() throws SQLException, ClassNotFoundException {
         elements = new ArrayList<>();
         setLayout(new BorderLayout());
 
@@ -45,10 +49,12 @@ public class CarouselVoitures extends JPanel {
         showElements(0, 4);
     }
 
-    private JPanel createCarouselPanel() {
+    private JPanel createCarouselPanel() throws SQLException, ClassNotFoundException {
         JPanel carouselPanel = new JPanel();
         carouselPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         carouselPanel.setBackground(Color.white);
+        VoitureModel voituremodel = new VoitureModel();
+        ListeVoitures objListeVoiture = new ListeVoitures();
 
 
         for (int i = 0; i < elements.size(); i++) {
@@ -64,8 +70,12 @@ public class CarouselVoitures extends JPanel {
 
             caseCarrousel.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    // Afficher la boîte de dialogue
-                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Ceci est une pop-up !");
+                    // Identifier la case cliquée
+                    JButton clickedButton = (JButton) e.getSource();
+                    int index = carouselPanel.getComponentZOrder(clickedButton);
+
+                    // Exécuter une action en fonction de la valeur de l'élément
+                    TypeClicked = elements.get(index);
                 }
             });
 
@@ -78,6 +88,10 @@ public class CarouselVoitures extends JPanel {
         }
 
         return carouselPanel;
+    }
+
+    public String returnTypeClicked(){
+        return TypeClicked;
     }
 
     private JButton createArrowButton(char direction) {
