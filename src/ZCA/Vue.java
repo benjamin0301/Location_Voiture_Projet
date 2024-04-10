@@ -50,8 +50,8 @@ public class Vue extends JFrame {
         // Ajout du JScrollPane à la fenêtre
         add(scrollPane);
 
+
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein écran
-        setLocationRelativeTo(null); // Centre la fenêtre
 
         setVisible(true);
     }

@@ -19,7 +19,7 @@ public class CarouselVoitures extends JPanel {
         elements = new ArrayList<>();
         setLayout(new BorderLayout());
 
-        ArrayList<String> listeTypes = new ArrayList<>(Arrays.asList("Mini", "SUV", "Supersportive", "Minivan", "Spécial", "TypeXYZ"));
+        ArrayList<String> listeTypes = new ArrayList<>(Arrays.asList("Mini", "SUV", "Sportive", "Supersportive", "Berline", "Minivan", "Spécial", "TypeXYZ"));
 
         for (int i = 0; i < listeTypes.size(); i++) {
             addElement(listeTypes.get(i));
