@@ -30,7 +30,7 @@ public class ClientController {
         return newclient; // Succès
     }
 
-    private boolean validerDonneesClient( String mail, String date_naissance) {
+    private boolean validerDonneesClient( String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         if (!client.UniciteMail(mail)) {
             // methode de la vue pour afficher un message d'erreur
@@ -57,7 +57,7 @@ public class ClientController {
         return difference.getYears() >= 18;
     }
 
-    public boolean supprimerClient(ClientModel Client) {
+    public boolean supprimerClient(ClientModel Client) throws SQLException, ClassNotFoundException {
         if (Client.supprimerClient()) {
             System.out.println("Le client a été supprimé avec succès !");
             return true;
@@ -67,25 +67,25 @@ public class ClientController {
         }
     }
 
-    public String ChangePrenom(ClientModel Client, String newprenom){
+    public String ChangePrenom(ClientModel Client, String newprenom) throws SQLException, ClassNotFoundException {
         String PhraseRetour = client.MajPartielBdd(Client.getId_client(), "prenom", newprenom);
         Client.setPrenom(newprenom);
         return PhraseRetour;
     }
 
-    public String ChangeNom(ClientModel Client, String newnom){
+    public String ChangeNom(ClientModel Client, String newnom) throws SQLException, ClassNotFoundException {
         String PhraseRetour = client.MajPartielBdd(Client.getId_client(), "nom", newnom);
         Client.setPrenom(newnom);
         return PhraseRetour;
     }
 
-    public String ChangeMotDePasse(ClientModel Client, String newpassword){
+    public String ChangeMotDePasse(ClientModel Client, String newpassword) throws SQLException, ClassNotFoundException {
         String PhraseRetour = client.MajPartielBdd(Client.getId_client(), "mot_de_passe", newpassword);
         Client.setPrenom(newpassword);
         return PhraseRetour;
     }
 
-    public String ChangeMail(ClientModel Client, String newmail){
+    public String ChangeMail(ClientModel Client, String newmail) throws SQLException, ClassNotFoundException {
         String PhraseRetour;
         if(client.UniciteMail(newmail)){
             PhraseRetour = client.MajPartielBdd(Client.getId_client(), "mail", newmail);
@@ -95,13 +95,13 @@ public class ClientController {
         return PhraseRetour;
     }
 
-    public String ChangeFidelite(ClientModel Client) {
+    public String ChangeFidelite(ClientModel Client) throws SQLException, ClassNotFoundException {
         String PhraseRetour = client.MajPartielBdd(Client.getId_client(), "fidelite", true);
         Client.setFidelite(true);
         return PhraseRetour;
     }
 
-    public String ChangeDate_debut_fin_loc(ClientModel Client, String date_debut_loc, String date_fin_loc) {
+    public String ChangeDate_debut_fin_loc(ClientModel Client, String date_debut_loc, String date_fin_loc) throws SQLException, ClassNotFoundException {
         String valeurtemp = Client.MajPartielBdd(Client.getId_client(),"date_debut_loc" , date_debut_loc);
         String PhraseRetour = Client.MajPartielBdd(Client.getId_client(),"date_fin_loc" , date_fin_loc);
         Client.setDate_debut_loc(date_debut_loc);
@@ -109,7 +109,7 @@ public class ClientController {
         return PhraseRetour;
     }
 
-    public int verifierConnexionClient(String login, String password) {
+    public int verifierConnexionClient(String login, String password) throws SQLException, ClassNotFoundException {
         return client.verif_connexion_client(login, password);
     }
 }

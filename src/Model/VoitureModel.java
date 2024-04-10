@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class VoitureModel {
-    Connexion conn;
     private  String id_plaque;  // plaque d'immatriculation
     private String nom_modele;
     private int avis; // de 1 à 5
@@ -31,7 +30,6 @@ public class VoitureModel {
     private String marque;
 
     public VoitureModel() throws SQLException, ClassNotFoundException {
-        this.conn = new Connexion("location_voiture", "root", "");
     }
 
     public VoitureModel( String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
@@ -52,7 +50,6 @@ public class VoitureModel {
         this.prix = prix;
         this.lieu_prise_en_charge = lieu_prise_en_charge;
         this.limite_km = limite_km;
-        this.conn = new Connexion("location_voiture", "root", "");
         this.marque = marque;
     }
 
@@ -225,16 +222,17 @@ public class VoitureModel {
         System.out.println("ID de la facture : " + id_facture);
     }
 
-    public VoitureModel ajouterVoiture(VoitureModel voiture) {
+    public VoitureModel ajouterVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
-            conn.conn.setAutoCommit(false);
+            connexion.conn.setAutoCommit(false);
 
             // Exécuter la requête SQL pour insérer une nouvelle voiture
             String query = "INSERT INTO voiture (id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte," +
                     " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque)" +
                     " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement statement = conn.conn.prepareStatement(query);
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setString(1, voiture.getId_plaque());
             statement.setString(2, voiture.getNom_modele());
             statement.setString(3, voiture.getType());
@@ -255,8 +253,8 @@ public class VoitureModel {
             int rowsInserted = statement.executeUpdate();
 
             // Valider la transaction
-            conn.conn.commit();
-
+            connexion.conn.commit();
+            connexion.closeConnection();
             if (rowsInserted > 0) {
                 System.out.println("La nouvelle voiture a été ajoutée avec succès !");
                 return voiture;
@@ -265,42 +263,48 @@ public class VoitureModel {
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
             try {
-                conn.conn.rollback();
+                connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
             } catch (SQLException ex) {
+                connexion.closeConnection();
                 ex.printStackTrace();
             }
             return null;
         }
     }
 
-    public boolean supprimerVoiture() {
+    public boolean supprimerVoiture() throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
-            conn.conn.setAutoCommit(false);
+            connexion.conn.setAutoCommit(false);
 
             // Exécuter la requête SQL pour supprimer la voiture avec l'ID spécifié
             String query = "DELETE FROM voiture WHERE id_plaque = ?";
-            PreparedStatement statement = conn.conn.prepareStatement(query);
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setString(1, this.id_plaque);
 
             int rowsDeleted = statement.executeUpdate();
 
             // Valider la transaction
-            conn.conn.commit();
+            connexion.conn.commit();
 
             if (rowsDeleted > 0) {
                 System.out.println("La voiture a été supprimée avec succès !");
+                connexion.closeConnection();
                 return true;
             } else {
                 System.out.println("Aucune voiture trouvée avec l'ID spécifié.");
+                connexion.closeConnection();
                 return false;
             }
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
             try {
-                conn.conn.rollback();
+                connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -349,19 +353,22 @@ public class VoitureModel {
         }
     }*/
 
-    public boolean UnicitePlaque(String idPlaque) {
+    public boolean UnicitePlaque(String idPlaque) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         // Requête SQL pour vérifier l'unicité de la plaque
         String query = "SELECT COUNT(*) FROM voiture WHERE id_plaque = ?";
         try {
-            PreparedStatement statement = conn.conn.prepareStatement(query);
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setString(1, idPlaque);  // Remplacement du paramètre par la valeur réelle
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
+                connexion.closeConnection();
                 return count == 0; // Retourne vrai si la plaque est unique
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            connexion.closeConnection();
         }
         // En cas d'erreur, considérer que la plaque n'est pas unique
         return false;
@@ -369,12 +376,13 @@ public class VoitureModel {
 
     private String getNom_modele() { return nom_modele; }
 
-    public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException {
+    public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException, SQLException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         ArrayList<VoitureModel> listevoitures = new ArrayList<>();
         try {
             // Préparation de la requête SQL
             String query = "SELECT * FROM voiture WHERE louee = 0";
-            Statement statement = conn.conn.createStatement();
+            Statement statement = connexion.conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             // Parcours des résultats pour récupérer les voitures
@@ -402,11 +410,12 @@ public class VoitureModel {
                 // Ajout de la voiture à la liste
                 listevoitures.add(voiture);
             }
-
+            connexion.closeConnection();
             // Fermeture des ressources
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
+            connexion.closeConnection();
             e.printStackTrace();
         }
         return listevoitures;
@@ -416,7 +425,8 @@ public class VoitureModel {
                                                              String filtre_2, String operateur_2, Object Value_2,
                                                              String filtre_3, String operateur_3, Object Value_3,
                                                              String filtre_4, String operateur_4, Object Value_4,
-                                                             String filtre_5, String operateur_5, Object Value_5) throws ClassNotFoundException {
+                                                             String filtre_5, String operateur_5, Object Value_5) throws ClassNotFoundException, SQLException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         ArrayList<VoitureModel> listevoitures = new ArrayList<>();
         try {
             // Préparation de la requête SQL
@@ -437,7 +447,7 @@ public class VoitureModel {
                 query += " AND " + filtre_5 + " " + operateur_5 + " ?";
             }
 
-            PreparedStatement statement = conn.conn.prepareStatement(query);
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
 
             // Affectation des valeurs aux paramètres de la requête
             int parameterIndex = 1;
@@ -485,10 +495,10 @@ public class VoitureModel {
                 listevoitures.add(voiture);
             }
 
-            // Fermeture des ressources
-            resultSet.close();
-            statement.close();
+            connexion.closeConnection();
+
         } catch (SQLException e) {
+            connexion.closeConnection();
             e.printStackTrace();
         }
         return listevoitures;
@@ -497,15 +507,16 @@ public class VoitureModel {
 
 
 
-    public String MajPartielBdd(String id_plaque, String champ, Object Value) {
+    public String MajPartielBdd(String id_plaque, String champ, Object Value) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
-            conn.conn.setAutoCommit(false);
+            connexion.conn.setAutoCommit(false);
 
 
             // Exécuter la requête SQL pour mettre à jour le champ spécifié
             String query = "UPDATE voiture SET "+champ+" = ? WHERE id_plaque = ?";
-            PreparedStatement statement = conn.conn.prepareStatement(query);
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
 
             System.out.println("test2");
             // Selon le type de valeur, définir le bon type de paramètre
@@ -525,8 +536,9 @@ public class VoitureModel {
             int rowsUpdated = statement.executeUpdate();
 
             // Valider la transaction
-            conn.conn.commit();
+            connexion.conn.commit();
 
+            connexion.closeConnection();
             if (rowsUpdated > 0) {
                 System.out.println("Le champ "+champ+" a été mis à jour avec succès !");
                 return "Mise à jour réussie !";
@@ -537,9 +549,11 @@ public class VoitureModel {
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
             try {
-                conn.conn.rollback();
+                connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
             } catch (SQLException ex) {
+                connexion.closeConnection();
                 ex.printStackTrace();
             }
         }return "Echec de la mise à jour";
