@@ -13,12 +13,12 @@ public class ClientController {
         this.client = new ClientModel();
     }
 
-    public ClientModel ajouterNouveauClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
+    public String ajouterNouveauClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
-        if (!validerDonneesClient( mail, date_naissance)) {
-            System.out.println("Les données saisies ne sont pas valides.");
-            return null;
+        String phrase = validerDonneesClient( mail, date_naissance);
+        if (!phrase.equals("Toutes les données sont valides")) {
+            return phrase;
         }
 
         ClientModel newclient = new ClientModel( prenom, nom, mot_de_passe, mail, date_naissance);
@@ -27,22 +27,19 @@ public class ClientController {
 
         // Si les données sont valides, passer au modèle pour les ajouter à la base de données
         newclient.ajouterClient(newclient, id_client);
-        return newclient; // Succès
+        return phrase; // Succès
     }
 
-    private boolean validerDonneesClient( String mail, String date_naissance) throws SQLException, ClassNotFoundException {
+    private String validerDonneesClient( String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         if (!client.UniciteMail(mail)) {
             // methode de la vue pour afficher un message d'erreur
-            System.out.println("Le mail est déjà utilisée.");
-            return false;
+            return "Le mail est déjà utilisée";
         } else if (!EstMajeur(date_naissance)) {
             // methode de la vue pour afficher un message d'erreur
-            System.out.println("Vous devez être majeur pour vous inscrire");
-            return false;
+            return "Vous devez être majeur pour vous inscrire";
         } else {
-            System.out.println("Toutes les données sont valides.");
-            return true;
+            return "Toutes les données sont valides";
         }
     }
 
