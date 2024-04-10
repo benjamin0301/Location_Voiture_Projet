@@ -9,16 +9,18 @@ public class ClientController {
 
     private final ClientModel client;
 
+    private String Phrase;
+
     public ClientController() throws SQLException, ClassNotFoundException {
         this.client = new ClientModel();
     }
 
-    public String ajouterNouveauClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
+    public ClientModel ajouterNouveauClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
-        String phrase = validerDonneesClient( mail, date_naissance);
-        if (!phrase.equals("Toutes les données sont valides")) {
-            return phrase;
+        Phrase = validerDonneesClient( mail, date_naissance);
+        if (!Phrase.equals("Toutes les données sont valides")) {
+            return null;
         }
 
         ClientModel newclient = new ClientModel( prenom, nom, mot_de_passe, mail, date_naissance);
@@ -27,7 +29,7 @@ public class ClientController {
 
         // Si les données sont valides, passer au modèle pour les ajouter à la base de données
         newclient.ajouterClient(newclient, id_client);
-        return phrase; // Succès
+        return newclient; // Succès
     }
 
     private String validerDonneesClient( String mail, String date_naissance) throws SQLException, ClassNotFoundException {
@@ -108,5 +110,9 @@ public class ClientController {
 
     public int verifierConnexionClient(String login, String password) throws SQLException, ClassNotFoundException {
         return client.verif_connexion_client(login, password);
+    }
+
+    public String getPhrase() {
+        return Phrase;
     }
 }
