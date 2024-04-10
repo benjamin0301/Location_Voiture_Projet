@@ -3,8 +3,6 @@ package Model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ClientModel {
@@ -17,7 +15,6 @@ public class ClientModel {
     private boolean fidelite;
     private String date_naissance;
     private String id_vehicule_loue;
-    private Connexion connexion;
 
     private String date_debut_loc;
 
@@ -26,11 +23,9 @@ public class ClientModel {
     // Autres attributs et méthodes de la classe ClientModel
 
     public ClientModel() throws SQLException, ClassNotFoundException {
-        this.connexion = new Connexion("location_voiture", "root", "");
     }
 
     public ClientModel( String prenom, String nom, String motDePasse, String mail, String dateNaissance) throws SQLException, ClassNotFoundException {
-        this.connexion = new Connexion("location_voiture", "root", "");
         this.prenom = prenom;
         this.nom = nom;
         this.mot_de_passe = motDePasse;
@@ -42,7 +37,8 @@ public class ClientModel {
         this.date_fin_loc = null;
     }
 
-    public void ajouterClient(ClientModel client) {
+    public void ajouterClient(ClientModel client, int id_client) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
             connexion.conn.setAutoCommit(false);
@@ -56,13 +52,14 @@ public class ClientModel {
             statement.setString(3, client.mot_de_passe);
             statement.setString(4, client.mail);
             statement.setString(5, client.date_naissance);
-            statement.setInt(6, client.id_client);
+            statement.setInt(6, id_client);
+
 
             int rowsInserted = statement.executeUpdate();
 
             // Valider la transaction
             connexion.conn.commit();
-
+            connexion.closeConnection();
             if (rowsInserted > 0) {
                 System.out.println("Le nouveau client a été ajouté avec succès !");
             } else {
@@ -73,13 +70,16 @@ public class ClientModel {
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
             } catch (SQLException ex) {
+                connexion.closeConnection();
                 ex.printStackTrace();
             }
         }
     }
 
-    public boolean supprimerClient() {
+    public boolean supprimerClient() throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
             connexion.conn.setAutoCommit(false);
@@ -94,6 +94,7 @@ public class ClientModel {
             // Valider la transaction
             connexion.conn.commit();
 
+            connexion.closeConnection();
             if (rowsDeleted > 0) {
                 System.out.println("Le client a été supprimé avec succès !");
                 return true;
@@ -106,7 +107,9 @@ public class ClientModel {
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
             } catch (SQLException ex) {
+                connexion.closeConnection();
                 ex.printStackTrace();
             }
             return false;
@@ -173,7 +176,7 @@ public class ClientModel {
         return id_vehicule_loue;
     }
 
-    public void setId_vehicule_loue(boolean loue, String id_vehicule_loue) {
+    public void setId_vehicule_loue(String id_vehicule_loue) {
         this.id_vehicule_loue = id_vehicule_loue;
     }
 
@@ -193,7 +196,8 @@ public class ClientModel {
         this.date_fin_loc = date_fin_loc;
     }
 
-    public int verif_connexion_client(String login, String password) {
+    public int verif_connexion_client(String login, String password) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Préparation de la requête SQL pour vérifier les identifiants
             String query = "SELECT * FROM client WHERE mail = ? AND mot_de_passe = ?";
@@ -203,8 +207,10 @@ public class ClientModel {
             ResultSet resultSet = statement.executeQuery();
 
             // Si une ligne est retournée, cela signifie que les identifiants sont valides
+
             if (resultSet.next()) {
                 System.out.println("Identifiants valides.");
+                connexion.closeConnection();
                 return 0; // Tout est correct
             } else {
                 // Vérifier si le mail existe
@@ -214,24 +220,76 @@ public class ClientModel {
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     System.out.println("Mot de passe incorrect.");
+                    connexion.closeConnection();
                     return 1; // Mot de passe incorrect
                 } else {
                     System.out.println("Mail incorrect.");
+                    connexion.closeConnection();
                     return 2; // Mail incorrect
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            connexion.closeConnection();
         }
         System.out.println("Erreur lors de la vérification des identifiants.");
         return -1; // Erreur de connexion à la base de données
     }
 
+    public String MajPartielBdd(int id_client, String champ, Object Value) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        try {
+            // Désactiver le mode d'auto-commit
+            connexion.conn.setAutoCommit(false);
+
+            // Exécuter la requête SQL pour mettre à jour le champ spécifié
+            String query = "UPDATE client SET "+champ+" = ? WHERE id_client = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+
+            // Selon le type de valeur, définir le bon type de paramètre
+            if (Value instanceof String) {
+                statement.setString(1, (String) Value);
+            } else if (Value instanceof Integer) {
+                statement.setInt(1, (int) Value);
+            } else if (Value instanceof Float) {
+                statement.setFloat(1, (float) Value);
+            } else if (Value instanceof Boolean) {
+                statement.setBoolean(1, (Boolean) Value);
+            } // Ajoutez d'autres cas selon les types de données que vous souhaitez gérer
+
+            statement.setInt(2, id_client);
+
+            int rowsUpdated = statement.executeUpdate();
+
+            // Valider la transaction
+            connexion.conn.commit();
+
+            connexion.closeConnection();
+            if (rowsUpdated > 0) {
+                System.out.println("Mise à jour réussie !");
+                return "Mise à jour réussie !";
+            } else {
+                System.out.println("Aucun champ mis à jour.");
+                return "Aucun champ mis à jour.";
+            }
+        } catch (SQLException e) {
+            // En cas d'erreur, annuler la transaction
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
+        }return "Echec de la mise à jour";
+    }
+
     // Méthode pour générer un identifiant unique
-    public int generateUniqueClientId() {
+    public int generateUniqueClientId() throws SQLException, ClassNotFoundException {
         Random random = new Random();
         int newClientId;
-
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Préparation de la requête SQL pour vérifier l'unicité de l'identifiant généré
             String query = "SELECT COUNT(*) FROM client WHERE id_client = ?";
@@ -253,19 +311,22 @@ public class ClientModel {
 
                 if (count == 0) {
                     // L'identifiant est unique, on peut le retourner
+                    connexion.closeConnection();
                     return newClientId;
                 }
 
             } while (true);
-
         } catch (SQLException e) {
             e.printStackTrace();
+            connexion.closeConnection();
             // En cas d'erreur, retourner une valeur par défaut ou gérer l'exception selon les besoins
             return -1; // Exemple de valeur par défaut
         }
     }
 
-    public boolean UniciteMail(String mail) {
+    public boolean UniciteMail(String mail) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+
         // Requête SQL pour vérifier l'unicité de le mail
         String query = "SELECT COUNT(*) FROM Client WHERE mail = ?";
         try {
@@ -274,10 +335,12 @@ public class ClientModel {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
+                connexion.closeConnection();
                 return count == 0; // Retourne vrai si le mail est unique
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            connexion.closeConnection();
         }
         // En cas d'erreur, considérer que le mail n'est pas unique
         return false;

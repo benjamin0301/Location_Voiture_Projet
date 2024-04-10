@@ -13,42 +13,28 @@ import java.util.ArrayList;
 public class ListeVoitures extends JPanel
 {
     private ArrayList<VoitureModel> voitures;
+    //private ClientController clientcontroller;
+    //private VoitureController voiturecontroller;
 
-    private Connexion connexion;
+    //private Connexion connexion;
     public ListeVoitures() throws SQLException, ClassNotFoundException {
 
-        ClientController clientcontroller = new ClientController();
+        //ClientController clientcontroller = new ClientController();
         VoitureController voiturecontroller = new VoitureController();
 
-        
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoiture();
+        ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoitureNonLouee();
 
-        JPanel panelToyota = new JPanel();
-        panelToyota.setPreferredSize(new Dimension(2, 300));
-        panelToyota.setBackground(Color.CYAN);
-        JLabel labelPlaque = new JLabel(listeVoitures.get(0).getId_plaque());
-        panelToyota.add(labelPlaque);
-        add(panelToyota);
 
-        JPanel panelTesla = new JPanel();
-        panelTesla.setPreferredSize(new Dimension(2, 300));
-        panelTesla.setBackground(Color.orange);
-        add(panelTesla);
+        for (int i = 0; i < listeVoitures.size()- 5; i++)
+        {
+            JPanel miniEspaceBlanc = new JPanel();
+            miniEspaceBlanc.setPreferredSize(new Dimension(2, 15));
+            miniEspaceBlanc.setBackground(Color.WHITE);
+            add(miniEspaceBlanc);
 
-        JPanel panelBugatti = new JPanel();
-        panelBugatti.setPreferredSize(new Dimension(2, 300));
-        panelBugatti.setBackground(Color.darkGray);
-        add(panelBugatti);
-
-        JPanel panelLotus = new JPanel();
-        panelLotus.setPreferredSize(new Dimension(2, 300));
-        panelLotus.setBackground(Color.decode("#0097B2"));
-        add(panelLotus);
-
-        JPanel panelAlpine = new JPanel();
-        panelAlpine.setPreferredSize(new Dimension(2, 300));
-        panelAlpine.setBackground(Color.decode("#FF66C4"));
-        add(panelAlpine);
+            PanelVoiture panelVoiture = new PanelVoiture(listeVoitures.get(i));
+            add(panelVoiture);
+        }
     }
 }

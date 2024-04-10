@@ -13,8 +13,8 @@ public class ConteneurPrincipal extends JPanel {
 
 
     public ConteneurPrincipal() throws SQLException, ClassNotFoundException {
-        ClientController clientcontroller = new ClientController();
-        VoitureController voiturecontroller = new VoitureController();
+        //ClientController clientcontroller = new ClientController();
+        //VoitureController voiturecontroller = new VoitureController();
 
     }
 

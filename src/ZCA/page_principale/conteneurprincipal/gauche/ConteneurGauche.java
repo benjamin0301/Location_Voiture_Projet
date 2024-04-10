@@ -7,7 +7,7 @@ public class ConteneurGauche extends JPanel {
     public ConteneurGauche()
     {
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10)); // Utilisation d'un BorderLayout
-        setBackground(Color.decode("#9D6BFF")); // Couleur verte
+        setBackground(Color.decode("#FFFFFF")); // Couleur verte
         setPreferredSize(new Dimension(250, 1500)); // Taille préférée
 
         // Création du conteneur pour le résumé du trajet

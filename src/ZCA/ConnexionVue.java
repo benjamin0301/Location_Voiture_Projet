@@ -1,6 +1,6 @@
 package ZCA;
 
-import Model.ClientModel;
+import Controler.ClientController;
 import ZCA.page_principale.ConteneurHaut;
 
 import javax.swing.*;
@@ -10,18 +10,17 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 
-public class
-Connexion extends JFrame {
+public class ConnexionVue extends JFrame {
 
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton createAccountButton;
 
-    public ClientModel clientmodel;
+    public ClientController clientcontroller;
 
-    public Connexion() throws SQLException, ClassNotFoundException {
-        this.clientmodel = new ClientModel();
+    public ConnexionVue() throws SQLException, ClassNotFoundException {
+        this.clientcontroller = new ClientController();
 
         setTitle("Connexion");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,14 +66,21 @@ Connexion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String email = emailField.getText();
                 String password = new String(passwordField.getPassword());
-                int isConnected = authenticate(email, password);
+                int isConnected = 0;
+                try {
+                    isConnected = authenticate(email, password);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
                 if (isConnected == 0) {
                     // Afficher l'interface de connexion
                     // Vous pouvez remplacer cette partie par l'affichage de votre interface de connexion
-                    JOptionPane.showMessageDialog(Connexion.this, "Connexion réussie !");
+                    JOptionPane.showMessageDialog(ConnexionVue.this, "Connexion réussie !");
                 } else if (isConnected == 1) {
                     // Afficher un message d'erreur
-                    JOptionPane.showMessageDialog(Connexion.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
+                    JOptionPane.showMessageDialog(ConnexionVue.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
                 }
             }
         });
@@ -84,7 +90,7 @@ Connexion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Rediriger vers la création de compte
                 // Vous pouvez remplacer cette partie par la redirection vers votre interface de création de compte
-                JOptionPane.showMessageDialog(Connexion.this, "Redirection vers la création de compte");
+                JOptionPane.showMessageDialog(ConnexionVue.this, "Redirection vers la création de compte");
             }
         });
 
@@ -92,12 +98,12 @@ Connexion extends JFrame {
     }
 
     // Méthode pour authentifier l'utilisateur en utilisant le programme xxxx
-    private int authenticate(String email, String password) {
+    private int authenticate(String email, String password) throws SQLException, ClassNotFoundException {
         // Appel à votre programme xxxx avec les informations d'authentification
         // Ici, vous devrez appeler le programme xxxx et obtenir la réponse
         // Pour cet exemple, je suppose que le programme retourne true si l'authentification réussit et false sinon
         // Vous devez remplacer ce code par l'appel réel à votre programme xxxx
-        int isConnected = clientmodel.verif_connexion_client(email, password);
+        int isConnected = clientcontroller.verifierConnexionClient(email, password);
         // Exemple fictif :
         //isConnected = MyApp.authenticate(email, password);
         return isConnected;
@@ -106,7 +112,7 @@ Connexion extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                new Connexion().setVisible(true);
+                new ConnexionVue().setVisible(true);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             } catch (ClassNotFoundException e) {

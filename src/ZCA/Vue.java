@@ -18,8 +18,8 @@ public class Vue extends JFrame {
     public ClientController clientcontroller;
 
     public Vue() throws SQLException, ClassNotFoundException {
-        this.clientcontroller = new ClientController();
-        this.voiturecontroller = new VoitureController();
+        //this.clientcontroller = new ClientController();
+        //this.voiturecontroller = new VoitureController();
     }
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -50,8 +50,8 @@ public class Vue extends JFrame {
         // Ajout du JScrollPane à la fenêtre
         add(scrollPane);
 
+
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein écran
-        setLocationRelativeTo(null); // Centre la fenêtre
 
         setVisible(true);
     }

@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class VoitureModel {
-    Connexion conn;
-
     private  String id_plaque;  // plaque d'immatriculation
     private String nom_modele;
     private int avis; // de 1 à 5
@@ -32,7 +30,6 @@ public class VoitureModel {
     private String marque;
 
     public VoitureModel() throws SQLException, ClassNotFoundException {
-        this.conn = new Connexion("location_voiture", "root", "");
     }
 
     public VoitureModel( String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
@@ -53,7 +50,6 @@ public class VoitureModel {
         this.prix = prix;
         this.lieu_prise_en_charge = lieu_prise_en_charge;
         this.limite_km = limite_km;
-        this.conn = new Connexion("location_voiture", "root", "");
         this.marque = marque;
     }
 
@@ -89,6 +85,9 @@ public class VoitureModel {
         return limite_km;
     }
 
+    public void setLimite_km(int limite_km) {
+        this.limite_km = limite_km;
+    }
     public int getId_facture() {
         return id_facture;
     }
@@ -101,12 +100,23 @@ public class VoitureModel {
         return nom_modele;
     }
 
+    public String setNom_modele(String nom_modele) {
+        return this.nom_modele = nom_modele;
+    }
     public String getType() {
         return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getCouleur() {
         return couleur;
+    }
+
+    public void setCouleur(String couleur) {
+        this.couleur = couleur;
     }
 
     public String getMoteur() {
@@ -117,6 +127,16 @@ public class VoitureModel {
         return nb_place;
     }
 
+    public void setNbPlace(int nb_place) {
+        this.nb_place = nb_place;
+    }
+    public void setNbPorte(int nb_porte) {
+        this.nb_porte = nb_porte;
+    }
+
+    public void setCapacite_valise(int capacite_valise) {
+//        this.capacite_valise = capacite_valise;
+    }
     public int getCapaciteValise() {
         return capacite_valise;
     }
@@ -127,6 +147,10 @@ public class VoitureModel {
 
     public String getTransmission() {
         return transmission;
+    }
+
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
     }
 
     public int getCapaEssence() {
@@ -141,7 +165,7 @@ public class VoitureModel {
         return kilometrage_actuel;
     }
 
-    public void setkilometrage_actuel ( int kilometrage_actuel){
+    public void setKilometrage_actuel ( int kilometrage_actuel){
         this.kilometrage_actuel = kilometrage_actuel;
     }
 
@@ -152,7 +176,6 @@ public class VoitureModel {
     public void setPrix ( float prix){
         this.prix = prix;
     }
-
     public boolean isLouee () {
         return louee;
     }
@@ -199,16 +222,17 @@ public class VoitureModel {
         System.out.println("ID de la facture : " + id_facture);
     }
 
-    public VoitureModel ajouterVoiture(VoitureModel voiture) {
+    public VoitureModel ajouterVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
-            conn.conn.setAutoCommit(false);
+            connexion.conn.setAutoCommit(false);
 
             // Exécuter la requête SQL pour insérer une nouvelle voiture
             String query = "INSERT INTO voiture (id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte," +
                     " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque)" +
                     " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement statement = conn.conn.prepareStatement(query);
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setString(1, voiture.getId_plaque());
             statement.setString(2, voiture.getNom_modele());
             statement.setString(3, voiture.getType());
@@ -229,8 +253,8 @@ public class VoitureModel {
             int rowsInserted = statement.executeUpdate();
 
             // Valider la transaction
-            conn.conn.commit();
-
+            connexion.conn.commit();
+            connexion.closeConnection();
             if (rowsInserted > 0) {
                 System.out.println("La nouvelle voiture a été ajoutée avec succès !");
                 return voiture;
@@ -239,42 +263,48 @@ public class VoitureModel {
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
             try {
-                conn.conn.rollback();
+                connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
             } catch (SQLException ex) {
+                connexion.closeConnection();
                 ex.printStackTrace();
             }
             return null;
         }
     }
 
-    public boolean supprimerVoiture() {
+    public boolean supprimerVoiture() throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
-            conn.conn.setAutoCommit(false);
+            connexion.conn.setAutoCommit(false);
 
             // Exécuter la requête SQL pour supprimer la voiture avec l'ID spécifié
             String query = "DELETE FROM voiture WHERE id_plaque = ?";
-            PreparedStatement statement = conn.conn.prepareStatement(query);
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setString(1, this.id_plaque);
 
             int rowsDeleted = statement.executeUpdate();
 
             // Valider la transaction
-            conn.conn.commit();
+            connexion.conn.commit();
 
             if (rowsDeleted > 0) {
                 System.out.println("La voiture a été supprimée avec succès !");
+                connexion.closeConnection();
                 return true;
             } else {
                 System.out.println("Aucune voiture trouvée avec l'ID spécifié.");
+                connexion.closeConnection();
                 return false;
             }
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
             try {
-                conn.conn.rollback();
+                connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -282,7 +312,7 @@ public class VoitureModel {
         }
     }
 
-    public void chargerInfosDepuisBDD(String voitureId) {
+    /*public String ChargerInfosDepuisBDD(String voitureId) {
         // Model.Connexion à la base de données
         try {
             // Requête SQL pour récupérer les informations de la voiture avec l'ID spécifié
@@ -321,9 +351,10 @@ public class VoitureModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public boolean UnicitePlaque(Connexion connexion, String idPlaque) {
+    public boolean UnicitePlaque(String idPlaque) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         // Requête SQL pour vérifier l'unicité de la plaque
         String query = "SELECT COUNT(*) FROM voiture WHERE id_plaque = ?";
         try {
@@ -332,10 +363,12 @@ public class VoitureModel {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
+                connexion.closeConnection();
                 return count == 0; // Retourne vrai si la plaque est unique
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            connexion.closeConnection();
         }
         // En cas d'erreur, considérer que la plaque n'est pas unique
         return false;
@@ -343,12 +376,13 @@ public class VoitureModel {
 
     private String getNom_modele() { return nom_modele; }
 
-    public ArrayList<VoitureModel> recupListeVoiture() throws ClassNotFoundException {
+    public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException, SQLException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
         ArrayList<VoitureModel> listevoitures = new ArrayList<>();
         try {
             // Préparation de la requête SQL
-            String query = "SELECT * FROM voiture";
-            Statement statement = conn.conn.createStatement();
+            String query = "SELECT * FROM voiture WHERE louee = 0";
+            Statement statement = connexion.conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             // Parcours des résultats pour récupérer les voitures
@@ -372,16 +406,156 @@ public class VoitureModel {
                         resultSet.getInt("limite_km"),
                         resultSet.getString("marque")
                 );
+                voiture.setAvis(resultSet.getInt("avis"));
                 // Ajout de la voiture à la liste
                 listevoitures.add(voiture);
             }
-
+            connexion.closeConnection();
             // Fermeture des ressources
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
+            connexion.closeConnection();
             e.printStackTrace();
         }
         return listevoitures;
+    }
+
+    public ArrayList<VoitureModel> recupListeVoitureFiltrage(String filtre_1, String operateur_1, Object Value_1,
+                                                             String filtre_2, String operateur_2, Object Value_2,
+                                                             String filtre_3, String operateur_3, Object Value_3,
+                                                             String filtre_4, String operateur_4, Object Value_4,
+                                                             String filtre_5, String operateur_5, Object Value_5) throws ClassNotFoundException, SQLException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        ArrayList<VoitureModel> listevoitures = new ArrayList<>();
+        try {
+            // Préparation de la requête SQL
+            String query = "SELECT * FROM voiture WHERE 1=1"; // Initialisation de la requête avec un prédicat vrai
+            if (filtre_1 != null && operateur_1 != null && Value_1 != null) {
+                query += " AND " + filtre_1 + " " + operateur_1 + " ?";
+            }
+            if (filtre_2 != null && operateur_2 != null && Value_2 != null) {
+                query += " AND " + filtre_2 + " " + operateur_2 + " ?";
+            }
+            if (filtre_3 != null && operateur_3 != null && Value_3 != null) {
+                query += " AND " + filtre_3 + " " + operateur_3 + " ?";
+            }
+            if (filtre_4 != null && operateur_4 != null && Value_4 != null) {
+                query += " AND " + filtre_4 + " " + operateur_4 + " ?";
+            }
+            if (filtre_5 != null && operateur_5 != null && Value_5 != null) {
+                query += " AND " + filtre_5 + " " + operateur_5 + " ?";
+            }
+
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+
+            // Affectation des valeurs aux paramètres de la requête
+            int parameterIndex = 1;
+            if (filtre_1 != null && operateur_1 != null && Value_1 != null) {
+                statement.setObject(parameterIndex++, Value_1);
+            }
+            if (filtre_2 != null && operateur_2 != null && Value_2 != null) {
+                statement.setObject(parameterIndex++, Value_2);
+            }
+            if (filtre_3 != null && operateur_3 != null && Value_3 != null) {
+                statement.setObject(parameterIndex++, Value_3);
+            }
+            if (filtre_4 != null && operateur_4 != null && Value_4 != null) {
+                statement.setObject(parameterIndex++, Value_4);
+            }
+            if (filtre_5 != null && operateur_5 != null && Value_5 != null) {
+                statement.setObject(parameterIndex, Value_5);
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+
+            // Parcours des résultats pour récupérer les voitures
+            while (resultSet.next()) {
+                // Création d'un objet Voiture pour chaque ligne de résultat
+                VoitureModel voiture = new VoitureModel(
+                        resultSet.getString("id_plaque"),
+                        resultSet.getString("nom_modele"),
+                        resultSet.getString("type"),
+                        resultSet.getString("couleur"),
+                        resultSet.getString("moteur"),
+                        resultSet.getInt("nb_place"),
+                        resultSet.getInt("capacite_valise"),
+                        resultSet.getInt("nb_porte"),
+                        resultSet.getString("transmission"),
+                        resultSet.getInt("capa_essence"),
+                        resultSet.getInt("annee"),
+                        resultSet.getInt("kilometrage_actuel"),
+                        resultSet.getFloat("prix"),
+                        resultSet.getString("lieu_prise_en_charge"),
+                        resultSet.getInt("limite_km"),
+                        resultSet.getString("marque")
+                );
+                voiture.setAvis(resultSet.getInt("avis"));
+                // Ajout de la voiture à la liste
+                listevoitures.add(voiture);
+            }
+
+            connexion.closeConnection();
+
+        } catch (SQLException e) {
+            connexion.closeConnection();
+            e.printStackTrace();
         }
+        return listevoitures;
+    }
+
+
+
+
+    public String MajPartielBdd(String id_plaque, String champ, Object Value) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        try {
+            // Désactiver le mode d'auto-commit
+            connexion.conn.setAutoCommit(false);
+
+
+            // Exécuter la requête SQL pour mettre à jour le champ spécifié
+            String query = "UPDATE voiture SET "+champ+" = ? WHERE id_plaque = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+
+            System.out.println("test2");
+            // Selon le type de valeur, définir le bon type de paramètre
+            if (Value instanceof String) {
+                statement.setString(1, (String) Value);
+            } else if (Value instanceof Integer) {
+                statement.setInt(1, (int) Value);
+            } else if (Value instanceof Float) {
+                statement.setFloat(1, (float) Value);
+            } else if (Value instanceof Boolean) {
+                statement.setBoolean(1, (Boolean) Value);
+            } // Ajoutez d'autres cas selon les types de données que vous souhaitez gérer
+
+            System.out.println("test3");
+            statement.setString(2, id_plaque);
+
+            int rowsUpdated = statement.executeUpdate();
+
+            // Valider la transaction
+            connexion.conn.commit();
+
+            connexion.closeConnection();
+            if (rowsUpdated > 0) {
+                System.out.println("Le champ "+champ+" a été mis à jour avec succès !");
+                return "Mise à jour réussie !";
+            } else {
+                System.out.println("Aucun champ mis à jour.");
+                return "Aucun champ mis à jour.";
+            }
+        } catch (SQLException e) {
+            // En cas d'erreur, annuler la transaction
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
+        }return "Echec de la mise à jour";
+    }
 }
