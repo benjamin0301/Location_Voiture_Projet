@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 
-public class Connexion extends JFrame {
+public class
+Connexion extends JFrame {
 
     private JTextField emailField;
     private JPasswordField passwordField;
