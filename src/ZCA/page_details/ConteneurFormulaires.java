@@ -12,10 +12,16 @@ import java.sql.SQLException;
 
 public class ConteneurFormulaires extends JPanel {
 
+    private CardLayout cardLayout; // CardLayout pour gérer les différentes pages
+    private JPanel cardPanel; // Conteneur des pages
+
     public ConteneurFormulaires() throws SQLException, ClassNotFoundException
     {
         setLayout(new GridBagLayout());
         setBackground(Color.white);
+
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -67,10 +73,6 @@ public class ConteneurFormulaires extends JPanel {
         espaceVideC.setBackground(Color.white);
         espaceVideC.setPreferredSize(new Dimension(700, 25));
         add(espaceVideC, gbc);
-
-        gbc.gridy++;
-        JButton confirmation = new JButton("Confirmer la réservation");
-        add(confirmation, gbc);
 
 
         gbc.gridy++;

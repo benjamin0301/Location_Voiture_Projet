@@ -1,11 +1,13 @@
 package ZCA.page_details;
 
+import Model.VoitureModel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ResumeMontant extends JPanel
 {
-    public ResumeMontant()
+    public ResumeMontant(VoitureModel voiture)
     {
         setLayout(new BorderLayout()); // Utilisation d'un BorderLayout
         setPreferredSize(new Dimension(230, 300)); // Largeur de 230px, hauteur de 300px
@@ -26,33 +28,46 @@ public class ResumeMontant extends JPanel
         JPanel zoneTexte = new JPanel(new GridLayout(0, 1)); // GridLayout avec une colonne, plusieurs lignes
         zoneTexte.setBackground(Color.decode("#FFFFFF")); // Couleur de fond jaune
 
-        String texte = "Prise en charge\n" +
-                "Paris - Aéroport d'Orly\n" +
-                "4 avril 2024\n" +
-                "10:00\n" +
-                "\n" +
-                "Retour\n" +
-                "Paris - Aéroport d'Orly\n" +
-                "5 avril 2024\n" +
-                "10:00\n" +
-                "\n" +
-                "Devise : EUR";
+        JPanel tarifVoiture = new JPanel();
+        tarifVoiture.setLayout(new BorderLayout());
+        tarifVoiture.setBackground(Color.white);
+        JTextArea descPrix = new JTextArea("Tarif de votre\nlocation de voiture");
+        tarifVoiture.add(descPrix, BorderLayout.WEST);
+        JTextArea prix = new JTextArea(String.valueOf(voiture.getPrix()));
+        prix.setEditable(false); // Empêche l'édition du texte
+        prix.setOpaque(false); // Rend le fond transparent
+        tarifVoiture.add(prix, BorderLayout.EAST);
 
-        JTextArea textArea = new JTextArea(texte);
-        textArea.setEditable(false); // Empêche l'édition du texte
-        textArea.setOpaque(false); // Rend le fond transparent
+        JPanel remises = new JPanel();
+        remises.setLayout(new BorderLayout());
+        remises.setBackground(Color.white);
+        JTextArea descRemises = new JTextArea("Remises");
+        remises.add(descRemises, BorderLayout.WEST);
+
+        float valRemise = 20;
+
+        JTextArea ecritureRem = new JTextArea(String.valueOf(valRemise));
+        ecritureRem.setEditable(false); // Empêche l'édition du texte
+        ecritureRem.setOpaque(false); // Rend le fond transparent
+        remises.add(ecritureRem, BorderLayout.EAST);
+
+        JPanel panelTotal = new JPanel();
+        panelTotal.setLayout(new BorderLayout());
+        panelTotal.setBackground(Color.white);
+        JTextArea descTotal = new JTextArea("Total");
+        panelTotal.add(descTotal, BorderLayout.WEST);
+        float valTotale = voiture.getPrix() - valRemise;
+        JTextArea valTotal = new JTextArea(String.valueOf(valTotale));
+        valTotal.setEditable(false); // Empêche l'édition du texte
+        valTotal.setOpaque(false); // Rend le fond transparent
+        panelTotal.add(valTotal, BorderLayout.EAST);
 
         // Ajout d'une marge à la zone de texte
-        zoneTexte.setBorder(BorderFactory.createEmptyBorder(30, 20, 0, 0));
-        zoneTexte.add(textArea);
+        zoneTexte.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        zoneTexte.add(tarifVoiture);
+        zoneTexte.add(remises);
+        zoneTexte.add(panelTotal);
 
         add(zoneTexte, BorderLayout.CENTER);
-
-        // Création du bouton "Modifier" en bas à droite
-        JButton boutonModifier = new JButton("Modifier");
-        JPanel panelBouton = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Alignement à droite
-        panelBouton.add(boutonModifier);
-        panelBouton.setBackground(Color.decode("#FFFFFF"));
-        add(panelBouton, BorderLayout.SOUTH);
     }
 }

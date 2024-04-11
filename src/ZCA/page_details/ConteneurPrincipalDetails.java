@@ -1,50 +1,71 @@
 package ZCA.page_details;
 
-import Controler.ClientController;
-import Controler.VoitureController;
+import Model.VoitureModel;
 import ZCA.page_principale.conteneurprincipal.Progression;
-import ZCA.page_principale.conteneurprincipal.gauche.ConteneurGauche;
-import ZCA.page_principale.conteneurprincipal.voitures.ConteneurVoitures;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.sql.SQLException;
+import javax.swing.*;
 
 public class ConteneurPrincipalDetails extends JPanel {
 
+    private CardLayout cardLayout;
+    private JPanel cardPanel;
 
-    public ConteneurPrincipalDetails() throws SQLException, ClassNotFoundException {
-        //ClientController clientcontroller = new ClientController();
-        //VoitureController voiturecontroller = new VoitureController();
+    public ConteneurPrincipalDetails(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
 
-    }
-
-    public void initConteneurPrincipalDetails() throws SQLException, ClassNotFoundException {
-        // Création du conteneur gris qui enveloppe le contenu existant
         JPanel conteneurGris = new JPanel(new BorderLayout());
-        conteneurGris.setBackground(Color.decode("#E4E4E4")); // Fond gris
-        conteneurGris.setBorder(BorderFactory.createEmptyBorder(35, 85, 35, 85)); // Ajout d'un espace vide
+        conteneurGris.setBackground(Color.decode("#E4E4E4"));
+        conteneurGris.setBorder(BorderFactory.createEmptyBorder(35, 85, 35, 85));
 
-        // Définition du layout pour le ConteneurPrincipal actuel
-        setLayout(new BorderLayout());
+        // Création des différentes pages
+        JPanel pagePrincipale = createPagePrincipale(voiture);
+        JPanel nouvellePage = createNouvellePage(voiture);
 
-        // Création de la bande rose
-        Progression progression = new Progression(); // Création de l'instance de la classe Progression
-        conteneurGris.add(progression, BorderLayout.NORTH); // Ajout de la bande rose au conteneur gris
+        // Ajout des pages au cardPanel avec des noms associés
+        cardPanel.add(pagePrincipale, "PAGE_PRINCIPALE");
+        cardPanel.add(nouvellePage, "NOUVELLE_PAGE");
 
-        // Création du conteneur horizontal pour la gauche
-        ConteneurDroite conteneurDroite = new ConteneurDroite();
-        // Ajout du conteneur gauche au conteneur gris
-        conteneurGris.add(conteneurDroite, BorderLayout.EAST);
-
-        // Création du conteneur pour les bandes oranges
-        ConteneurFormulaires conteneurFormulaires = new ConteneurFormulaires();
-        // Ajout du conteneurVoitures au conteneur gris
-        conteneurGris.add(conteneurFormulaires, BorderLayout.CENTER);
+        // Ajout du cardPanel au conteneurGris
+        conteneurGris.add(cardPanel, BorderLayout.CENTER);
 
         // Ajout du conteneur gris à ConteneurPrincipal
-        add(conteneurGris, BorderLayout.CENTER);
+        add(conteneurGris);
+    }
+
+    // Crée une nouvelle page avec un conteneur bleu
+    private JPanel createNouvellePage(VoitureModel voiture) {
+        PageConfirmation nouvellePage = new PageConfirmation(voiture);
+        return nouvellePage;
+    }
+
+    // Méthode pour créer la page principale avec les composants existants
+    private JPanel createPagePrincipale(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+        JPanel pagePrincipale = new JPanel(new BorderLayout());
+
+        // Création des composants existants
+        Progression progression = new Progression();
+        ConteneurDroite conteneurDroite = new ConteneurDroite(voiture);
+        ConteneurFormulaires conteneurFormulaires = new ConteneurFormulaires();
+        JButton confirmation = new JButton("Confirmer la réservation");
+
+
+        // Ajout des composants à la page principale
+        pagePrincipale.add(progression, BorderLayout.NORTH);
+        pagePrincipale.add(conteneurDroite, BorderLayout.EAST);
+        pagePrincipale.add(conteneurFormulaires, BorderLayout.CENTER);
+        pagePrincipale.add(confirmation, BorderLayout.SOUTH);
+
+        confirmation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Basculer vers la nouvelle page lorsque le bouton est cliqué
+                cardLayout.show(cardPanel, "NOUVELLE_PAGE");
+            }
+        });
+
+        return pagePrincipale;
     }
 }
-
-

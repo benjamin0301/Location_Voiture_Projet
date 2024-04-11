@@ -25,7 +25,7 @@ public class FrameDetails extends JFrame
         setTitle("RentMyRide - Détails de la sélection");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        System.out.println("voiure id" + voiture.getId_plaque());
+        System.out.println("voiure id " + voiture.getId_plaque());
 
         setLocationRelativeTo(null); // Centrer la nouvelle fenêtre sur l'écran
         setVisible(true);
@@ -36,8 +36,7 @@ public class FrameDetails extends JFrame
         contentPanel.setLayout(new BorderLayout());
 
         // Ajout du conteneur principal
-        ConteneurPrincipalDetails conteneurPrincipalDetails = new ConteneurPrincipalDetails();
-        conteneurPrincipalDetails.initConteneurPrincipalDetails();
+        ConteneurPrincipalDetails conteneurPrincipalDetails = new ConteneurPrincipalDetails(voiture);
         contentPanel.add(conteneurPrincipalDetails, BorderLayout.CENTER);
 
         // Ajout du conteneur haut

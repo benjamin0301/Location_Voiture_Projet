@@ -1,7 +1,12 @@
 package ZCA.page_principale;
 
+import ZCA.EspacePersonnel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class ConteneurHaut extends JPanel {
     public ConteneurHaut() {
@@ -31,7 +36,7 @@ public class ConteneurHaut extends JPanel {
 
         JButton boutonAccueil = new JButton("Accueil");
         JButton boutonContact = new JButton("Contact");
-        JButton boutonQuiSommesNous = new JButton("Qui sommes-nous ?");
+        JButton boutonEspacePerso = new JButton("Mon espace personnel");
         JButton boutonConnexion = new JButton("Connexion");
 
         // Ajout des boutons avec un espace rigide entre chaque bouton
@@ -39,7 +44,7 @@ public class ConteneurHaut extends JPanel {
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0))); // Espacement de 10 pixels entre les boutons
         barreNavigation.add(boutonContact);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0))); // Espacement de 10 pixels entre les boutons
-        barreNavigation.add(boutonQuiSommesNous);
+        barreNavigation.add(boutonEspacePerso);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0))); // Espacement de 10 pixels entre les boutons
         barreNavigation.add(boutonConnexion);
 
@@ -47,5 +52,28 @@ public class ConteneurHaut extends JPanel {
 
         // Ajout d'un espace vertical après le panneau pour centrer verticalement les éléments
         add(Box.createVerticalGlue());
+
+        boutonEspacePerso.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Création de la nouvelle page (JPanel bleu)
+                EspacePersonnel espacePersonnel = null;
+                try {
+                    espacePersonnel = new EspacePersonnel();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                // Retrait de la page actuelle et ajout de la nouvelle page
+                removeAll();
+                add(espacePersonnel, BorderLayout.CENTER);
+
+                // Rafraîchissement de l'affichage
+                revalidate();
+                repaint();
+            }
+        });
     }
 }
