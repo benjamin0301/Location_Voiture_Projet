@@ -1,15 +1,21 @@
 package ZCA.page_principale.conteneurprincipal.voitures;
 
+import Controler.VoitureController;
+import Model.VoitureModel;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ConteneurVoitures extends JPanel {
 
     public ConteneurVoitures() throws SQLException, ClassNotFoundException {
         setLayout(new GridBagLayout());
+        VoitureController voitureController = new VoitureController();
+        VoitureModel voitureModel = new VoitureModel();
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -75,6 +81,54 @@ public class ConteneurVoitures extends JPanel {
 
         gbc.gridy++;
         ListeVoitures listeVoitures = new ListeVoitures();
+        String typeClicked = carouselVoitures.returnTypeClicked();
+
+        ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
+
+        System.out.println("typeClicked = " + typeClicked);
+        if (typeClicked != null){
+            switch (typeClicked) {
+                case "Mini":
+                    try {
+                        listeVoituresPourAffichage = voitureModel.recupListeVoitureFiltrage("type","=", "Mini",
+                                null,null,null,null,null,null,null,
+                                null,null,null,null,null);
+                        System.out.println("si ca rentre dans mini" + listeVoituresPourAffichage.getFirst().getType());
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                case "SUV":
+                    // Action pour le type de voiture "SUV"
+                    break;
+                case "Sportive":
+                    // Action pour le type de voiture "Sportive"
+                    break;
+                case "Supersportive":
+                    // Action pour le type de voiture "Supersportive"
+                    break;
+                case "Berline":
+                    // Action pour le type de voiture "Berline"
+                    break;
+                case "Minivan":
+                    // Action pour le type de voiture "Minivan"
+                    break;
+                case "Spécial":
+                    // Action pour le type de voiture "Spécial"
+                    break;
+                case "TypeXYZ":
+                    // Action pour le type de voiture "TypeXYZ"
+                    break;
+            }
+        } else{
+            listeVoituresPourAffichage = voitureController.recupListeVoitureNonLouee();
+            System.out.println("si ca rentre dans default" + listeVoituresPourAffichage.getFirst().getType());
+        }
+
+
+
+        // liste finale a afficher
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage);
         add(listeVoitures, gbc);
 
 

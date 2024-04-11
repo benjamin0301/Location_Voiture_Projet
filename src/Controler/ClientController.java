@@ -9,6 +9,8 @@ public class ClientController {
 
     private final ClientModel client;
 
+    private String Phrase;
+
     public ClientController() throws SQLException, ClassNotFoundException {
         this.client = new ClientModel();
     }
@@ -16,8 +18,8 @@ public class ClientController {
     public ClientModel ajouterNouveauClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
-        if (!validerDonneesClient( mail, date_naissance)) {
-            System.out.println("Les données saisies ne sont pas valides.");
+        Phrase = validerDonneesClient( mail, date_naissance);
+        if (!Phrase.equals("Toutes les données sont valides")) {
             return null;
         }
 
@@ -30,19 +32,17 @@ public class ClientController {
         return newclient; // Succès
     }
 
-    private boolean validerDonneesClient( String mail, String date_naissance) throws SQLException, ClassNotFoundException {
+    private String validerDonneesClient( String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         if (!client.UniciteMail(mail)) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("Le mail est déjà utilisée.");
-            return false;
+            // methode de la vue pour afficher un message d'
+            // erreur
+            return "Le mail est déjà utilisée";
         } else if (!EstMajeur(date_naissance)) {
             // methode de la vue pour afficher un message d'erreur
-            System.out.println("Vous devez être majeur pour vous inscrire");
-            return false;
+            return "Vous devez être majeur pour vous inscrire";
         } else {
-            System.out.println("Toutes les données sont valides.");
-            return true;
+            return "Toutes les données sont valides";
         }
     }
 
@@ -111,5 +111,9 @@ public class ClientController {
 
     public int verifierConnexionClient(String login, String password) throws SQLException, ClassNotFoundException {
         return client.verif_connexion_client(login, password);
+    }
+
+    public String getPhrase() {
+        return Phrase;
     }
 }

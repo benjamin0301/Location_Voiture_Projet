@@ -1,10 +1,7 @@
 package Controler;
 
-import Model.Connexion;
 import Model.VoitureModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,14 +13,18 @@ public class VoitureController {
         this.voiture = new VoitureModel();
     }
 
-    public VoitureModel ajouterNouvelleVoiture(String id_plaque, String nom_modele, String type, String couleur, String moteur,
+    public String ajouterNouvelleVoiture(String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
                                           float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
-        if (!validerDonnees( id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
-                prix, limite_km)) {
-            return null;
+
+        String phrase = validerDonnees( id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
+                prix, limite_km);
+
+        if (!phrase.equals("Toutes les données sont valides")) {
+
+            return phrase;
         }
 
         VoitureModel newvoiture = new VoitureModel(id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
@@ -32,59 +33,37 @@ public class VoitureController {
 
         // Si les données sont valides, passer au modèle pour les ajouter à la base de données
         newvoiture.ajouterVoiture(newvoiture);
-        return newvoiture; // Succès
+        return phrase; // Succès
     }
 
-    private boolean validerDonnees(String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
+    private String validerDonnees(String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
                                    int capa_essence, int annee, int kilometrage_actuel, float prix, int limite_km) throws SQLException, ClassNotFoundException {
 
         if (!voiture.UnicitePlaque(id_plaque)) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("La plaque est déjà utilisée.");
-            return false;
+
+            return "La plaque est déjà utilisée.";
         } else if (!verifierTypeMoteur(moteur)) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("Le type de moteur est incorrect.");
-            return false;
+            return "Le type de moteur est incorrect.";
         } else if (nb_place <= 0) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("Le nombre de places doit être supérieur à zéro.");
-            return false;
+            return "Le nombre de places doit être supérieur à zéro.";
         } else if (capacite_valise <= 0) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("La capacité de la valise doit être supérieure à zéro.");
-            return false;
-        } else if (nb_porte <= 0 || nb_porte % 2 == 0) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("Le nombre de portes doit être supérieur à zéro et impair");
-            return false;
+            return "La capacité de la valise doit être supérieure à zéro.";
+        } else if (nb_porte <= 0) {
+            return "Le nombre de portes doit être supérieur à zéro et impair";
         } else if (!verifTransmission(transmission)) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("La transmission doit être soit automatique (1) soit manuelle (0).");
-            return false;
+            return "La transmission doit être soit automatique (1) soit manuelle (0).";
         } else if (capa_essence <= 0) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("La capacité du réservoir d'essence doit être supérieure à zéro.");
-            return false;
+            return "La capacité du réservoir d'essence doit être supérieure à zéro.";
         } else if (annee <= 1900 || annee > 2024) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("L'année n'est pas correcte");
-            return false;
+            return "L'année n'est pas correcte";
         } else if (kilometrage_actuel < 0) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("Le kilométrage actuel doit être supérieur ou égal à zéro.");
-            return false;
+            return "Le kilométrage actuel doit être supérieur ou égal à zéro.";
         } else if (prix <= 0) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("Le prix doit être supérieur à zéro.");
-            return false;
+            return "Le prix doit être supérieur à zéro.";
         } else if (limite_km < 0 || limite_km < kilometrage_actuel) {
-            // methode de la vue pour afficher un message d'erreur
-            System.out.println("La limite de kilométrage doit être supérieure ou égale à zéro.");
-            return false;
+            return "La limite de kilométrage doit être supérieure ou égale à zéro.";
         } else {
-            System.out.println("Toutes les données sont valides.");
-            return true;
+            return "Toutes les données sont valides";
         }
     }
 
