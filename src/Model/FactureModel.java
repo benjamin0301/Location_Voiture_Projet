@@ -3,6 +3,7 @@ package Model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Random;
 
 public class FactureModel {
@@ -12,18 +13,51 @@ public class FactureModel {
     private String lieu_facture;
     private int id_facture;
     private float prix_voiture;
-    private int chiffre = 0;
 
     public FactureModel() {}
 
-    public String CreerFacture(ClientModel client, VoitureModel voiture, float prix_voiture) {
-        String PhraseFinale = "";
+    public String CreerFacture(ClientModel client, VoitureModel voiture, float prix_voiture) throws SQLException, ClassNotFoundException {
 
+        String PhraseFinale = "";
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        try {
+            // Désactiver le mode d'auto-commit
+            connexion.conn.setAutoCommit(false);
+
+            // Exécuter la requête SQL pour insérer un nouveau client
+            String query = "INSERT INTO facture (id_client, id_voiture, date_facture, lieu_facture, id_facture, prix_voiture)" +
+                    " VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setInt(1, client.getId_client());
+            statement.setString(2, voiture.getId_plaque());
+            statement.setString(3, LocalDate.now().toString());
+            statement.setString(4, "Paris, Beaugrenelle");
+            statement.setInt(5, generateUniqueIdFacture());
+            statement.setFloat(6, prix_voiture);
+
+            int rowsInserted = statement.executeUpdate();
+
+            // Valider la transaction
+            connexion.conn.commit();
+            connexion.closeConnection();
+            if (rowsInserted > 0) {
+                System.out.println("La facture a été généré avec succès !");
+            } else {
+                System.out.println("Erreur lors de la création de la facture");
+            }
+        } catch (SQLException e) {
+            // En cas d'erreur, annuler la transaction
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
+        }
         return PhraseFinale;
     }
-
-
-
 
 
 
@@ -31,7 +65,6 @@ public class FactureModel {
     // pour générer un identifiant unique
     public int generateUniqueIdFacture() throws SQLException, ClassNotFoundException {
         Random random = new Random();
-        chiffre = 10;
         int newFactureId;
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
@@ -43,14 +76,14 @@ public class FactureModel {
                 // Génération d'un nombre aléatoire entre 0 et 999999
                 newFactureId = random.nextInt(1000000);
 
-                String formattedId = String.format("%06d", newFactureId);
+                if (newFactureId <100000) {
+                    newFactureId = Integer.parseInt("0" + newFactureId);
+                }
 
-                int formattedIdInt = Integer.parseInt(formattedId);
-
-                System.out.println(formattedIdInt);
+                System.out.println(newFactureId);
 
                 // Vérification de l'unicité de l'identifiant
-                statement.setInt(1, formattedIdInt);
+                statement.setInt(1, newFactureId);
                 ResultSet resultSet = statement.executeQuery();
                 resultSet.next();
                 int count = resultSet.getInt(1);
@@ -127,14 +160,11 @@ public class FactureModel {
     public static void main(String[] args) {
             FactureModel factureModel = new FactureModel();
 
-            System.out.println("20 identifiants uniques de facture : ");
-            for (int i = 0; i < 20; i++) {
-                try {
-                    int uniqueId = factureModel.generateUniqueIdFacture();
-                } catch (SQLException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
+        String dateAujourdhuiString = LocalDate.now().toString();
+
+        // Afficher la date d'aujourd'hui en tant que String
+        System.out.println("Date d'aujourd'hui : " + dateAujourdhuiString);
+
         }
     }
 
