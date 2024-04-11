@@ -16,15 +16,20 @@ public class FactureModel {
 
     public FactureModel() {}
 
-    public String CreerFacture(ClientModel client, VoitureModel voiture, float prix_voiture) throws SQLException, ClassNotFoundException {
 
+
+    public FactureModel CreerFacture(ClientModel client, VoitureModel voiture, float prix_voiture) throws SQLException, ClassNotFoundException {
         String PhraseFinale = "";
         Connexion connexion = new Connexion("location_voiture", "root", "");
+        FactureModel facture = new FactureModel();
         try {
             // Désactiver le mode d'auto-commit
             connexion.conn.setAutoCommit(false);
 
-            // Exécuter la requête SQL pour insérer un nouveau client
+            // Générer l'ID unique pour la facture
+            int idFacture = generateUniqueIdFacture();
+
+            // Exécuter la requête SQL pour insérer une nouvelle facture
             String query = "INSERT INTO facture (id_client, id_voiture, date_facture, lieu_facture, id_facture, prix_voiture)" +
                     " VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connexion.conn.prepareStatement(query);
@@ -32,18 +37,33 @@ public class FactureModel {
             statement.setString(2, voiture.getId_plaque());
             statement.setString(3, LocalDate.now().toString());
             statement.setString(4, "Paris, Beaugrenelle");
-            statement.setInt(5, generateUniqueIdFacture());
+            statement.setInt(5, idFacture);
             statement.setFloat(6, prix_voiture);
+
+            facture.id_facture = idFacture;
+            facture.date_facture = LocalDate.now().toString();
+            facture.lieu_facture = "Paris, Beaugrenelle";
+            facture.prix_voiture = prix_voiture;
+            facture.id_voiture = voiture.getId_plaque();
+            facture.id_client = client.getId_client();
 
             int rowsInserted = statement.executeUpdate();
 
             // Valider la transaction
             connexion.conn.commit();
+
+            // Mettre à jour le champ id_facture dans la table client
+            updateClientIdFacture(client.getId_client(), idFacture);
+            updateVoitureIdFacture(voiture.getId_plaque(), idFacture);
+
             connexion.closeConnection();
+
             if (rowsInserted > 0) {
-                System.out.println("La facture a été généré avec succès !");
+                System.out.println("La facture a été générée avec succès !");
+                return facture;
             } else {
                 System.out.println("Erreur lors de la création de la facture");
+                return null;
             }
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
@@ -51,15 +71,50 @@ public class FactureModel {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
                 connexion.closeConnection();
+                return null;
             } catch (SQLException ex) {
                 connexion.closeConnection();
                 ex.printStackTrace();
             }
+        }return null;
+    }
+
+    private void updateClientIdFacture(int clientId, int idFacture) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        try {
+            String query = "UPDATE client SET id_facture = ? WHERE id_client = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setInt(1, idFacture);
+            statement.setInt(2, clientId);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Champ id_facture mis à jour pour le client avec succès !");
+            } else {
+                System.out.println("Erreur lors de la mise à jour du champ id_facture pour le client");
+            }
+        } finally {
+            connexion.closeConnection();
         }
-        return PhraseFinale;
     }
 
 
+    private void updateVoitureIdFacture(String id_plaque, int idFacture) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        try {
+            String query = "UPDATE voiture SET id_facture = ? WHERE id_plaque = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setInt(1, idFacture);
+            statement.setString(2, id_plaque);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Champ id_facture mis à jour pour la voiture avec succès !");
+            } else {
+                System.out.println("Erreur lors de la mise à jour du champ id_facture pour la voiture");
+            }
+        } finally {
+            connexion.closeConnection();
+        }
+    }
 
     // Méthode
     // pour générer un identifiant unique
@@ -105,6 +160,29 @@ public class FactureModel {
     }
 
 
+
+    public FactureModel getFacture(int idFacture) throws SQLException, ClassNotFoundException {
+        FactureModel facture = null;
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        try {
+            String query = "SELECT * FROM facture WHERE id_facture = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setInt(1, idFacture);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                facture = new FactureModel();
+                facture.setId_facture(resultSet.getInt("id_facture"));
+                facture.setId_client(resultSet.getInt("id_client"));
+                facture.setId_voiture(resultSet.getString("id_voiture"));
+                facture.setDate_facture(resultSet.getString("date_facture"));
+                facture.setLieu_facture(resultSet.getString("lieu_facture"));
+                facture.setPrix_voiture(resultSet.getFloat("prix_voiture"));
+            }
+        } finally {
+            connexion.closeConnection();
+        }
+        return facture;
+    }
 
 
 
@@ -157,14 +235,17 @@ public class FactureModel {
         this.prix_voiture = prix_voiture;
     }
 
-    public static void main(String[] args) {
-            FactureModel factureModel = new FactureModel();
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        FactureModel factureModel = new FactureModel();
+        ClientModel clientModel = new ClientModel();
 
-        String dateAujourdhuiString = LocalDate.now().toString();
-
-        // Afficher la date d'aujourd'hui en tant que String
-        System.out.println("Date d'aujourd'hui : " + dateAujourdhuiString);
-
+        clientModel = clientModel.RecupClientById(75239);
+        VoitureModel voitureModel = new VoitureModel();
+        voitureModel = voitureModel.RecupVoitureByIdPlaque("ABC23");
+        float prix = 20.1f;
+        FactureModel facture  = factureModel.CreerFacture(clientModel, voitureModel, prix);
+        FactureModel facturerecup = facture.getFacture(facture.getId_facture());
+        System.out.println("id de la facture inserer = " +facturerecup.getId_facture());
         }
     }
 
