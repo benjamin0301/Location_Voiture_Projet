@@ -26,7 +26,7 @@ public class ListeVoitures extends JPanel
         ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoitureNonLouee();
 
 
-        for (int i = 0; i < listeVoitures.size()- 5; i++)
+        for (int i = 0; i < listeVoitures.size(); i++)
         {
             JPanel miniEspaceBlanc = new JPanel();
             miniEspaceBlanc.setPreferredSize(new Dimension(2, 15));

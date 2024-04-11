@@ -2,11 +2,13 @@ package ZCA.page_principale.conteneurprincipal.voitures;
 
 import Controler.ClientController;
 import Controler.VoitureController;
-import Model.Connexion;
 import Model.VoitureModel;
+import ZCA.FrameDetails;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -175,6 +177,23 @@ public class PanelVoiture extends JPanel
         selectionner.setForeground(Color.white);
         selectionner.setFont(new Font("Aleo", Font.BOLD, 24));
         panelD.add(selectionner);
+
+        selectionner.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Création et affichage d'une nouvelle JFrame
+                try {
+                    FrameDetails frameDetails = new FrameDetails();
+
+                    //float prixVoitureSelect = voiture.getPrix();
+                    //System.out.println(prixVoitureSelect);
+
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         add(panelD, gbc);
     }

@@ -6,7 +6,7 @@ import java.awt.*;
 public class ConteneurGauche extends JPanel {
     public ConteneurGauche()
     {
-        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10)); // Utilisation d'un BorderLayout
+        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20)); // Utilisation d'un BorderLayout
         setBackground(Color.decode("#FFFFFF")); // Couleur verte
         setPreferredSize(new Dimension(250, 1500)); // Taille préférée
 
