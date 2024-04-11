@@ -2,6 +2,7 @@ package ZCA;
 
 import Controler.ClientController;
 import Controler.VoitureController;
+import Model.VoitureModel;
 import ZCA.page_details.ConteneurPrincipalDetails;
 import ZCA.page_principale.ConteneurHaut;
 import ZCA.page_principale.Footer;
@@ -13,14 +14,18 @@ import java.sql.SQLException;
 
 public class FrameDetails extends JFrame
 {
+    VoitureModel voiture;
     private JPanel contentPanel;
-    public FrameDetails() throws SQLException, ClassNotFoundException {
+    public FrameDetails(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+        this.voiture = voiture;
         initialize();
     }
 
     public void initialize() throws SQLException, ClassNotFoundException {
         setTitle("RentMyRide - Détails de la sélection");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        System.out.println("voiure id" + voiture.getId_plaque());
 
         setLocationRelativeTo(null); // Centrer la nouvelle fenêtre sur l'écran
         setVisible(true);

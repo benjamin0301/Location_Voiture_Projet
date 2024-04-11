@@ -17,6 +17,8 @@ public class PanelVoiture extends JPanel
     ClientController clientcontroller = new ClientController();
     VoitureController voiturecontroller = new VoitureController();
     ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoitureNonLouee();
+    VoitureModel voiture_select;
+
     public PanelVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException
     {
         setLayout(new GridBagLayout());
@@ -28,6 +30,7 @@ public class PanelVoiture extends JPanel
 
     public void initialize(VoitureModel voiture)
     {
+        voiture_select = voiture;
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0;
@@ -182,7 +185,7 @@ public class PanelVoiture extends JPanel
             public void actionPerformed(ActionEvent e) {
                 // Création et affichage d'une nouvelle JFrame
                 try {
-                    FrameDetails frameDetails = new FrameDetails();
+                    FrameDetails frameDetails = new FrameDetails(voiture_select);
 
                     //float prixVoitureSelect = voiture.getPrix();
                     //System.out.println(prixVoitureSelect);
