@@ -558,4 +558,50 @@ public class VoitureModel {
             }
         }return "Echec de la mise à jour";
     }
+
+    public VoitureModel RecupVoitureByIdPlaque(String idPlaque) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", null);
+        try {
+            // Exécution de la requête SQL pour récupérer les informations de la voiture avec l'ID de plaque spécifié
+            String query = "SELECT * FROM voiture WHERE id_plaque = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setString(1, idPlaque);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Vérifier si une voiture a été trouvée avec cet ID de plaque
+            if (resultSet.next()) {
+                VoitureModel voiture = new VoitureModel(
+                        resultSet.getString("id_plaque"),
+                        resultSet.getString("nom_modele"),
+                        resultSet.getString("type"),
+                        resultSet.getString("couleur"),
+                        resultSet.getString("moteur"),
+                        resultSet.getInt("nb_place"),
+                        resultSet.getInt("capacite_valise"),
+                        resultSet.getInt("nb_porte"),
+                        resultSet.getString("transmission"),
+                        resultSet.getInt("capa_essence"),
+                        resultSet.getInt("annee"),
+                        resultSet.getInt("kilometrage_actuel"),
+                        resultSet.getFloat("prix"),
+                        resultSet.getString("lieu_prise_en_charge"),
+                        resultSet.getInt("limite_km"),
+                        resultSet.getString("marque")
+                );
+                voiture.setAvis(resultSet.getInt("avis"));
+                voiture.setDate_debut_loc(resultSet.getString("date_debut_loc"));
+                voiture.setDate_fin_loc(resultSet.getString("date_fin_loc"));
+                voiture.setLimite_km(resultSet.getInt("limite_km"));
+                voiture.setId_facture(resultSet.getInt("id_facture"));
+                voiture.setLouee(resultSet.getBoolean("louee"));
+                return voiture;
+            } else {
+                // Aucune voiture trouvée avec cet ID de plaque
+                System.out.println("Aucune voiture trouvée avec l'ID de plaque spécifié : " + idPlaque);
+                return null;
+            }
+        } finally {
+            connexion.closeConnection();
+        }
+    }
 }

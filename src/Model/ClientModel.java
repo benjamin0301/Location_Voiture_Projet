@@ -16,6 +16,7 @@ public class ClientModel {
     private String date_naissance;
     private String id_vehicule_loue;
 
+    private int facture;
     private String date_debut_loc;
 
     private String date_fin_loc;
@@ -35,6 +36,7 @@ public class ClientModel {
         this.id_vehicule_loue = null;
         this.date_debut_loc = null;
         this.date_fin_loc = null;
+        this.facture = 0;
     }
 
     public void ajouterClient(ClientModel client, int id_client) throws SQLException, ClassNotFoundException {
@@ -344,6 +346,41 @@ public class ClientModel {
         }
         // En cas d'erreur, considérer que le mail n'est pas unique
         return false;
+    }
+
+    public ClientModel RecupClientById(int idClient) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        try {
+            // Exécuter la requête SQL pour récupérer les informations du client avec l'ID spécifié
+            String query = "SELECT * FROM client WHERE id_client = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+            statement.setInt(1, idClient);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Vérifier si un client a été trouvé avec cet ID
+            if (resultSet.next()) {
+                ClientModel client = new ClientModel();
+                client.setId_client(resultSet.getInt("id_client"));
+                client.setPrenom(resultSet.getString("prenom"));
+                client.setNom(resultSet.getString("nom"));
+                client.setMotDePasse(resultSet.getString("mot_de_passe"));
+                client.setMail(resultSet.getString("mail"));
+                client.setDateNaissance(resultSet.getString("date_naissance"));
+                client.setFidelite(resultSet.getBoolean("fidelite"));
+                client.setId_vehicule_loue(resultSet.getString("id_vehicule_loue"));
+                client.setDate_debut_loc(resultSet.getString("date_debut_loc"));
+                client.setDate_fin_loc(resultSet.getString("date_fin_loc"));
+                client.setFacture(resultSet.getInt("facture"));
+
+                return client;
+            } else {
+                // Aucun client trouvé avec cet ID
+                System.out.println("Aucun client trouvé avec l'ID spécifié : " + idClient);
+                return null;
+            }
+        } finally {
+            connexion.closeConnection();
+        }
     }
 
 }

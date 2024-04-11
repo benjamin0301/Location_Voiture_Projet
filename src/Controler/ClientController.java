@@ -109,6 +109,8 @@ public class ClientController {
         return PhraseRetour;
     }
 
+    public String Changefacture (ClientModel Client, String facture) throws SQLException, ClassNotFou
+
     public int verifierConnexionClient(String login, String password) throws SQLException, ClassNotFoundException {
         return client.verif_connexion_client(login, password);
     }
