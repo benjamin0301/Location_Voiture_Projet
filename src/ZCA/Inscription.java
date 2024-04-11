@@ -113,23 +113,27 @@ public class Inscription extends JFrame {
                 }
 
                 // Create a new ClientModel instance using the input fields
-
+                String PhraseRecue = null;
                 try {
                     ClientModel client = clientcontroller.ajouterNouveauClient(prenom, nom, motDePasse, email, dateDeNaissanceText);
+                    PhraseRecue = clientcontroller.getPhrase();
+                    System.out.println(PhraseRecue);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 } catch (ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
 
-                String PhraseRecue = "phrase";
-
-                if (PhraseRecue == "phrase") {
+                if (PhraseRecue == "Toutes les données sont valides") {
                     JOptionPane.showMessageDialog(Inscription.this, "Inscription réussie !");
                     // Rediriger vers la page de connexion
                 } else {
                     JOptionPane.showMessageDialog(Inscription.this, "Erreur lors de l'inscription. Veuillez réessayer.");
                 }
+
+
+
+
             }
         });
 

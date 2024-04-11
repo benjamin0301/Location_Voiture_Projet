@@ -18,9 +18,12 @@ public class VoitureController {
                                           float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
 
         // Valider les données saisies par l'utilisateur
+
         String phrase = validerDonnees( id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
                 prix, limite_km);
+
         if (!phrase.equals("Toutes les données sont valides")) {
+
             return phrase;
         }
 
@@ -37,6 +40,7 @@ public class VoitureController {
                                    int capa_essence, int annee, int kilometrage_actuel, float prix, int limite_km) throws SQLException, ClassNotFoundException {
 
         if (!voiture.UnicitePlaque(id_plaque)) {
+
             return "La plaque est déjà utilisée.";
         } else if (!verifierTypeMoteur(moteur)) {
             return "Le type de moteur est incorrect.";

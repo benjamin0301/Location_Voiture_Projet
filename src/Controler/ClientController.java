@@ -35,7 +35,8 @@ public class ClientController {
     private String validerDonneesClient( String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
         if (!client.UniciteMail(mail)) {
-            // methode de la vue pour afficher un message d'erreur
+            // methode de la vue pour afficher un message d'
+            // erreur
             return "Le mail est déjà utilisée";
         } else if (!EstMajeur(date_naissance)) {
             // methode de la vue pour afficher un message d'erreur
