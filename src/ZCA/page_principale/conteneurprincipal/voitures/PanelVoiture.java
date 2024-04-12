@@ -187,7 +187,7 @@ public class PanelVoiture extends JPanel
                 try {
                     FrameDetails frameDetails = new FrameDetails(voiture_select);
 
-                    //float prixVoitureSelect = voiture.getPrix();
+                    //int prixVoitureSelect = voiture.getPrix();
                     //System.out.println(prixVoitureSelect);
 
                 } catch (SQLException ex) {

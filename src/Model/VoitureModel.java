@@ -23,7 +23,7 @@ public class VoitureModel {
     private String date_fin_loc; //format : AAAA-MM-JJ
     private int kilometrage_actuel;
     private int limite_km;
-    private float prix;
+    private int prix;
     private int id_facture;
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;
@@ -34,7 +34,7 @@ public class VoitureModel {
 
     public VoitureModel( String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
                         int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                        float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
+                        int prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
         this.id_plaque = id;
         this.nom_modele = nom_modele;
         this.type = type;
@@ -173,7 +173,7 @@ public class VoitureModel {
         return prix;
     }
 
-    public void setPrix ( float prix){
+    public void setPrix ( int prix){
         this.prix = prix;
     }
     public boolean isLouee () {
@@ -401,7 +401,7 @@ public class VoitureModel {
                         resultSet.getInt("capa_essence"),
                         resultSet.getInt("annee"),
                         resultSet.getInt("kilometrage_actuel"),
-                        resultSet.getFloat("prix"),
+                        resultSet.getInt("prix"),
                         resultSet.getString("lieu_prise_en_charge"),
                         resultSet.getInt("limite_km"),
                         resultSet.getString("marque")
@@ -485,7 +485,7 @@ public class VoitureModel {
                         resultSet.getInt("capa_essence"),
                         resultSet.getInt("annee"),
                         resultSet.getInt("kilometrage_actuel"),
-                        resultSet.getFloat("prix"),
+                        resultSet.getInt("prix"),
                         resultSet.getString("lieu_prise_en_charge"),
                         resultSet.getInt("limite_km"),
                         resultSet.getString("marque")
@@ -583,7 +583,7 @@ public class VoitureModel {
                         resultSet.getInt("capa_essence"),
                         resultSet.getInt("annee"),
                         resultSet.getInt("kilometrage_actuel"),
-                        resultSet.getFloat("prix"),
+                        resultSet.getInt("prix"),
                         resultSet.getString("lieu_prise_en_charge"),
                         resultSet.getInt("limite_km"),
                         resultSet.getString("marque")
