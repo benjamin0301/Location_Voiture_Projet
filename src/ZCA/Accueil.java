@@ -31,14 +31,14 @@ public class Accueil extends JFrame {
         ConteneurHaut conteneurHaut = new ConteneurHaut();
         add(conteneurHaut, BorderLayout.NORTH);
 
-        // Initialisation des listes déroulantes pour les jours, les mois et les années de départ
+        // Initialisation des listes deroulantes pour les jours, les mois et les annees de depart
         initComboBoxes(true);
         JPanel departPanel = new JPanel();
         departPanel.add(JourDepart);
         departPanel.add(MoisDepart);
         departPanel.add(AnneeDepart);
 
-        // Initialisation des listes déroulantes pour les jours, les mois et les années d'arrivée
+        // Initialisation des listes deroulantes pour les jours, les mois et les annees d'arrivee
         initComboBoxes(false);
         JPanel arriveePanel = new JPanel();
         arriveePanel.add(JourArrivee);
@@ -51,13 +51,13 @@ public class Accueil extends JFrame {
         lieuPanel.add(new JLabel("Lieu de prise en charge : "));
         lieuPanel.add(lieuField);
 
-        // Bouton pour confirmer la sélection des dates
+        // Bouton pour confirmer la selection des dates
         JButton confirmButton = new JButton("Confirmer");
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!isDateValid()) {
-                    JOptionPane.showMessageDialog(Accueil.this, "La date d'arrivée doit être après la date de départ.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(Accueil.this, "La date d'arrivee doit être après la date de depart.", "Erreur", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -68,16 +68,16 @@ public class Accueil extends JFrame {
                         (MoisArrivee.getSelectedIndex() + 1) + "/" +
                         AnneeArrivee.getSelectedItem();
                 String lieu = lieuField.getText();
-                JOptionPane.showMessageDialog(Accueil.this, "Date de départ : " + departDate + "\nDate d'arrivée : " + arriveeDate + "\nLieu de prise en charge : " + lieu);
+                JOptionPane.showMessageDialog(Accueil.this, "Date de depart : " + departDate + "\nDate d'arrivee : " + arriveeDate + "\nLieu de prise en charge : " + lieu);
             }
         });
 
         // Ajout des composants à la fenêtre
         JPanel topPanel = new JPanel(new GridLayout(0, 1));
         JPanel datePanel = new JPanel(new FlowLayout());
-        datePanel.add(new JLabel("Date de départ : "));
+        datePanel.add(new JLabel("Date de depart : "));
         datePanel.add(departPanel);
-        datePanel.add(new JLabel("Date d'arrivée : "));
+        datePanel.add(new JLabel("Date d'arrivee : "));
         datePanel.add(arriveePanel);
         topPanel.add(datePanel);
         topPanel.add(lieuPanel);
@@ -88,7 +88,7 @@ public class Accueil extends JFrame {
     }
 
     private void initComboBoxes(boolean isDepart) {
-        // Initialisation des listes déroulantes pour les jours, les mois et les années
+        // Initialisation des listes deroulantes pour les jours, les mois et les annees
         Calendar today = Calendar.getInstance();
         int currentYear = today.get(Calendar.YEAR);
         int currentMonth = today.get(Calendar.MONTH);
@@ -109,7 +109,7 @@ public class Accueil extends JFrame {
             years[i] = Integer.toString(currentYear - 50 + i);
         }
         JComboBox<String> yearComboBox = new JComboBox<>(years);
-        yearComboBox.setSelectedIndex(50); // Sélectionne l'année actuelle par défaut
+        yearComboBox.setSelectedIndex(50); // Selectionne l'annee actuelle par defaut
 
         if (isDepart) {
             JourDepart = dayComboBox;

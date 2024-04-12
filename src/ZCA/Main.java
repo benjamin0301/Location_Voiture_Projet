@@ -12,9 +12,9 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        System.out.println("Connexion établie avec succès !");
+        System.out.println("Connexion etablie avec succès !");
 
-        // Création d'une instance de contrôleur et modele de voiture
+        // Creation d'une instance de contrôleur et modele de voiture
         SwingUtilities.invokeLater(() ->
         {
             try {

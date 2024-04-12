@@ -16,6 +16,7 @@ public class EmployeModel {
     private String prenom;
     private String mail;
     private String num_tel;
+    public String Phrase_de_reponse;
 
     public EmployeModel() {
     }
@@ -29,7 +30,7 @@ public class EmployeModel {
     }
 
     // Méthode pour ajouter un employé à la base de données
-    public String ajouterEmploye(EmployeModel employe) throws SQLException, ClassNotFoundException {
+    public Boolean ajouterEmploye(EmployeModel employe) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
@@ -52,9 +53,13 @@ public class EmployeModel {
             connexion.conn.commit();
             connexion.closeConnection();
             if (rowsInserted > 0) {
-                return "Le nouvel employé a été ajouté avec succès !";
+                Phrase_de_reponse = "Le nouvel employé a été ajouté avec succès !";
+                System.out.println(Phrase_de_reponse);
+                return true;
             } else {
-                return "Aucun employé ajouté.";
+                Phrase_de_reponse = "Aucun employé ajouté.";
+                System.out.println(Phrase_de_reponse);
+                return false;
             }
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
@@ -66,7 +71,7 @@ public class EmployeModel {
                 connexion.closeConnection();
                 ex.printStackTrace();
             }
-            return "La transaction a été annulée en raison d'une erreur : " + e.getMessage();
+            return false;
         }
     }
 
@@ -89,10 +94,12 @@ public class EmployeModel {
 
             connexion.closeConnection();
             if (rowsDeleted > 0) {
-                System.out.println("L'employé a été supprimé avec succès !");
+                Phrase_de_reponse = "L'employé a été supprimé avec succès !";
+                System.out.println(Phrase_de_reponse);
                 return true;
             } else {
-                System.out.println("Aucun employé trouvé avec l'ID spécifié.");
+                Phrase_de_reponse = "Aucun employé trouvé avec l'ID spécifié.";
+                System.out.println(Phrase_de_reponse);
                 return false;
             }
         } catch (SQLException e) {
@@ -122,7 +129,8 @@ public class EmployeModel {
 
             // Si une ligne est retournée, cela signifie que les identifiants sont valides
             if (resultSet.next()) {
-                System.out.println("Identifiants valides.");
+                Phrase_de_reponse = "Identifiants valides.";
+                System.out.println(Phrase_de_reponse);
                 connexion.closeConnection();
                 return 0; // Tout est correct
             } else {
@@ -132,11 +140,13 @@ public class EmployeModel {
                 statement.setInt(1, id_employe);
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
-                    System.out.println("Mot de passe incorrect.");
+                    Phrase_de_reponse = "Mot de passe incorrect.";
+                    System.out.println(Phrase_de_reponse);
                     connexion.closeConnection();
                     return 1; // Mot de passe incorrect
                 } else {
-                    System.out.println("Numéro d'identification incorrect.");
+                    Phrase_de_reponse = "Numéro d'identification incorrect.";
+                    System.out.println(Phrase_de_reponse);
                     connexion.closeConnection();
                     return 2; // Mail incorrect
                 }
@@ -145,7 +155,8 @@ public class EmployeModel {
             e.printStackTrace();
             connexion.closeConnection();
         }
-        System.out.println("Erreur lors de la vérification des identifiants.");
+        Phrase_de_reponse = "Erreur de connexion à la base de données";
+        System.out.println(Phrase_de_reponse);
         return -1; // Erreur de connexion à la base de données
     }
 
@@ -178,9 +189,14 @@ public class EmployeModel {
 
             } while (true);
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
-            // En cas d'erreur, retourner une valeur par défaut ou gérer l'exception selon les besoins
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
             return -1; // Exemple de valeur par défaut
         }
     }
@@ -198,12 +214,21 @@ public class EmployeModel {
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
                 connexion.closeConnection();
-                return count == 0; // Retourne vrai si l'email est unique
+                Phrase_de_reponse = "Le mail est valide";
+                return true; // Retourne vrai si l'email est unique
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
+        Phrase_de_reponse = "Le mail est déjà utilisé";
+        System.out.println(Phrase_de_reponse);
         // En cas d'erreur, considérer que l'email n'est pas unique
         return false;
     }
@@ -224,11 +249,15 @@ public class EmployeModel {
                 if (numTelExist.substring(numTelExist.length() - 9).equals(numeroTel.substring(numeroTel.length() - 9))) {
                     // Si les 9 derniers caractères correspondent, le numéro de téléphone n'est pas unique
                     connexion.closeConnection();
+                    Phrase_de_reponse = "Ce numéro de tel est déja utilisé";
+                    System.out.println(Phrase_de_reponse);
                     return false;
                 }
             }
             // Si aucun numéro de téléphone correspondant n'est trouvé, alors le numéro est unique
             connexion.closeConnection();
+            Phrase_de_reponse = "Le numéro de tel est valide";
+            System.out.println(Phrase_de_reponse);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -236,6 +265,64 @@ public class EmployeModel {
             // En cas d'erreur, considérer que le numéro de téléphone n'est pas unique
             return false;
         }
+    }
+
+
+    public Boolean majPartielBdd(int id_employe, String champ, Object Value) throws SQLException, ClassNotFoundException {
+        Connexion connexion = new Connexion("location_voiture", "root", "");
+        try {
+            // Désactiver le mode d'auto-commit
+            connexion.conn.setAutoCommit(false);
+
+
+            // Exécuter la requête SQL pour mettre à jour le champ spécifié
+            String query = "UPDATE employe SET "+champ+" = ? WHERE id_employe = ?";
+            PreparedStatement statement = connexion.conn.prepareStatement(query);
+
+            System.out.println("test2");
+            // Selon le type de valeur, définir le bon type de paramètre
+            if (Value instanceof String) {
+                statement.setString(1, (String) Value);
+            } else if (Value instanceof Integer) {
+                statement.setInt(1, (int) Value);
+            } else if (Value instanceof Float) {
+                statement.setFloat(1, (float) Value);
+            } else if (Value instanceof Boolean) {
+                statement.setBoolean(1, (Boolean) Value);
+            }
+
+
+            statement.setInt(2, id_employe);
+
+            int rowsUpdated = statement.executeUpdate();
+
+            // Valider la transaction
+            connexion.conn.commit();
+
+            connexion.closeConnection();
+            if (rowsUpdated > 0) {
+                Phrase_de_reponse = "Mise à jour réussie !";
+                System.out.println(Phrase_de_reponse);
+                return true;
+            } else {
+                Phrase_de_reponse = "Aucun champ mis à jour.";
+                System.out.println(Phrase_de_reponse);
+                return false;
+            }
+        } catch (SQLException e) {
+            // En cas d'erreur, annuler la transaction
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
+        }
+        Phrase_de_reponse = "Echec de la connexion";
+        System.out.println(Phrase_de_reponse);
+        return false;
     }
 
 
@@ -264,12 +351,21 @@ public class EmployeModel {
                 return employe;
             } else {
                 // Aucun employé trouvé avec cet ID
-                System.out.println("Aucun employé trouvé avec l'ID spécifié : " + idEmploye);
+                Phrase_de_reponse = "Aucun employé trouvé avec l'ID spécifié : " + idEmploye;
+                System.out.println(Phrase_de_reponse);
                 return null;
             }
-        } finally {
-            connexion.closeConnection();
+        } catch (SQLException e){
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
+        return null;
     }
 
     // Getters and setters
@@ -321,21 +417,5 @@ public class EmployeModel {
         this.num_tel = num_tel;
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        EmployeModel employemodel = new EmployeModel("mdp", "ben", "ben", "mail", "+3333333333");
-        System.out.println("etape1");
-        employemodel.setId_employe(employemodel.generateUniqueEmployeeId());
-        System.out.println("etape2 + new id_emp" + employemodel.id_employe);
-        System.out.println(employemodel.ajouterEmploye(employemodel));
-        System.out.println("etape3 + ajoutnewemp a la base");
-
-        EmployeModel employemodel_2 = employemodel.RecupEmployeById(employemodel.getId_employe());
-        System.out.println("etape4 + recup new emp" + employemodel_2.getMail());
-
-        System.out.println("resultat connexion mploye = "+employemodel.verif_connexion_employe(employemodel_2.getId_employe(), "mdp"));
-        employemodel_2.supprimerEmploye(employemodel_2);
-
-
-    }
 }
 

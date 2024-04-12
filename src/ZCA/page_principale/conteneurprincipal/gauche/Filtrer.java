@@ -94,7 +94,7 @@ public class Filtrer extends JPanel {
 
         JTextArea textAreaTransmission = new JTextArea("Transmission");
         textAreaTransmission.setPreferredSize(new Dimension(200, 20));
-        textAreaTransmission.setEditable(false); // Empêche l'édition du texte
+        textAreaTransmission.setEditable(false); // Empêche l'edition du texte
         textAreaTransmission.setOpaque(false); // Rend le fond transparent
         contenuPanel.add(textAreaTransmission); // Ajout du texte
 
@@ -118,7 +118,7 @@ public class Filtrer extends JPanel {
 
         /// PANEL KILOMETRAGE
 
-        JTextArea textAreaKilometrage = new JTextArea("Kilométrage");
+        JTextArea textAreaKilometrage = new JTextArea("Kilometrage");
         textAreaKilometrage.setPreferredSize(new Dimension(200, 20));
         textAreaKilometrage.setEditable(false); // Empêche l'édition du texte
         textAreaKilometrage.setOpaque(false); // Rend le fond transparent

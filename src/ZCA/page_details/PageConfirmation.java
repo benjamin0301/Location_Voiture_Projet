@@ -31,7 +31,7 @@ public class PageConfirmation extends JPanel
         panneauConfirmation.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray));
 
 
-        JLabel messageConf = new JLabel("Votre réservation est confirmée !");
+        JLabel messageConf = new JLabel("Votre reservation est confirmee !");
         messageConf.setFont(new Font("Aleo", Font.BOLD, 30));
         messageConf.setBackground(Color.white);
         panneauConfirmation.add(messageConf);
@@ -41,7 +41,7 @@ public class PageConfirmation extends JPanel
         separator.setForeground(Color.darkGray);
         panneauConfirmation.add(separator);
 
-        JLabel labelResume = new JLabel("Résumé de votre réservation");
+        JLabel labelResume = new JLabel("Resume de votre reservation");
         labelResume.setFont(new Font("Aleo", Font.BOLD, 15));
         labelResume.setPreferredSize(new Dimension(900, 30));
         labelResume.setBackground(Color.white);
@@ -69,7 +69,7 @@ public class PageConfirmation extends JPanel
         panelBoutons.setPreferredSize(new Dimension(600, 60));
         panelBoutons.setBackground(Color.white);
 
-        JButton boutonFac = new JButton("Télécharger la facture");
+        JButton boutonFac = new JButton("Telecharger la facture");
         boutonFac.setBackground(Color.white);
         boutonFac.setPreferredSize(new Dimension(230, 50));
         panelBoutons.add(boutonFac, BorderLayout.WEST);
@@ -91,7 +91,7 @@ public class PageConfirmation extends JPanel
         boutonEC.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Création de la nouvelle page (JPanel bleu)
+                // Creation de la nouvelle page (JPanel bleu)
                 EspacePersonnel espacePersonnel = null;
                 try {
                     espacePersonnel = new EspacePersonnel();

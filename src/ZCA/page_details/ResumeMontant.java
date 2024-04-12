@@ -14,8 +14,8 @@ public class ResumeMontant extends JPanel
         setBackground(Color.decode("#FFFFFF")); // Couleur jaune
         setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray));
 
-        // Création de la zone "Résumé du trajet" au nord
-        JLabel labelResume = new JLabel("Résumé du montant");
+        // Creation de la zone "Resume du trajet" au nord
+        JLabel labelResume = new JLabel("Resume du montant");
         labelResume.setHorizontalAlignment(SwingConstants.CENTER); // Centre le texte horizontalement
         labelResume.setVerticalAlignment(SwingConstants.CENTER); // Centre le texte verticalement
         labelResume.setOpaque(true); // Permet d'appliquer la couleur de fond
@@ -24,7 +24,7 @@ public class ResumeMontant extends JPanel
         labelResume.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
         add(labelResume, BorderLayout.NORTH);
 
-        // Création de la deuxième zone avec le texte spécifié
+        // Creation de la deuxième zone avec le texte specifie
         JPanel zoneTexte = new JPanel(new GridLayout(0, 1)); // GridLayout avec une colonne, plusieurs lignes
         zoneTexte.setBackground(Color.decode("#FFFFFF")); // Couleur de fond jaune
 
@@ -34,7 +34,7 @@ public class ResumeMontant extends JPanel
         JTextArea descPrix = new JTextArea("Tarif de votre\nlocation de voiture");
         tarifVoiture.add(descPrix, BorderLayout.WEST);
         JTextArea prix = new JTextArea(String.valueOf(voiture.getPrix()));
-        prix.setEditable(false); // Empêche l'édition du texte
+        prix.setEditable(false); // Empêche l'edition du texte
         prix.setOpaque(false); // Rend le fond transparent
         tarifVoiture.add(prix, BorderLayout.EAST);
 
@@ -47,7 +47,7 @@ public class ResumeMontant extends JPanel
         float valRemise = 20;
 
         JTextArea ecritureRem = new JTextArea(String.valueOf(valRemise));
-        ecritureRem.setEditable(false); // Empêche l'édition du texte
+        ecritureRem.setEditable(false); // Empêche l'edition du texte
         ecritureRem.setOpaque(false); // Rend le fond transparent
         remises.add(ecritureRem, BorderLayout.EAST);
 
@@ -58,7 +58,7 @@ public class ResumeMontant extends JPanel
         panelTotal.add(descTotal, BorderLayout.WEST);
         float valTotale = voiture.getPrix() - valRemise;
         JTextArea valTotal = new JTextArea(String.valueOf(valTotale));
-        valTotal.setEditable(false); // Empêche l'édition du texte
+        valTotal.setEditable(false); // Empêche l'edition du texte
         valTotal.setOpaque(false); // Rend le fond transparent
         panelTotal.add(valTotal, BorderLayout.EAST);
 

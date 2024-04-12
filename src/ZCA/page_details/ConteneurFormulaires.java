@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class ConteneurFormulaires extends JPanel {
 
-    private CardLayout cardLayout; // CardLayout pour gérer les différentes pages
+    private CardLayout cardLayout; // CardLayout pour gerer les differentes pages
     private JPanel cardPanel; // Conteneur des pages
 
     public ConteneurFormulaires() throws SQLException, ClassNotFoundException
@@ -60,7 +60,7 @@ public class ConteneurFormulaires extends JPanel {
         espaceVideAnnulation.setPreferredSize(new Dimension(700, 17));
         annulation.add(espaceVideAnnulation);
 
-        JLabel infoAnnulation = new JLabel("<html>Bonne nouvelle ! Vous pouvez modifier votre programme grâce à <b>l’annulation gratuite</b> jusqu’à 48 heures avant le<br>retrait du véhicule.</html>");
+        JLabel infoAnnulation = new JLabel("<html>Bonne nouvelle ! Vous pouvez modifier votre programme grâce à <b>l’annulation gratuite</b> jusqu’à 48 heures avant le<br>retrait du vehicule.</html>");
         infoAnnulation.setForeground(Color.GRAY); // Couleur grise pour le texte
         infoAnnulation.setAlignmentX(SwingConstants.CENTER);
         infoAnnulation.setAlignmentY(SwingConstants.CENTER);

@@ -13,6 +13,7 @@ public class FactureModel {
     private String lieu_facture;
     private int id_facture;
     private int prix_voiture;
+    public String Phrase_de_reponse;
 
     public FactureModel() {
     }
@@ -62,14 +63,15 @@ public class FactureModel {
             connexion.closeConnection();
 
             if (rowsInserted > 0) {
-                System.out.println("La facture a été générée avec succès !");
+               Phrase_de_reponse = "La facture a été générée avec succès !";
+                System.out.println(Phrase_de_reponse);
                 return facture;
             } else {
-                System.out.println("Erreur lors de la création de la facture");
+               Phrase_de_reponse = "Erreur lors de la création de la facture";
+                System.out.println(Phrase_de_reponse);
                 return null;
             }
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -92,11 +94,12 @@ public class FactureModel {
             statement.setInt(2, clientId);
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Champ id_facture mis à jour pour le client avec succès !");
-
+                Phrase_de_reponse = "Champ id_facture mis à jour pour le client avec succès !";
+                System.out.println(Phrase_de_reponse);
                 return true;
             } else {
-                System.out.println("Erreur lors de la mise à jour du champ id_facture pour le client");
+                Phrase_de_reponse = "Erreur lors de la mise à jour du champ id_facture pour le client";
+                System.out.println(Phrase_de_reponse);
                 return false;
             }
         }catch (SQLException e) {
@@ -124,14 +127,15 @@ public class FactureModel {
             statement.setString(2, id_plaque);
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Champ id_facture mis à jour pour la voiture avec succès !");
+               Phrase_de_reponse = "Champ id_facture mis à jour pour la voiture avec succès !";
+                System.out.println(Phrase_de_reponse);
                 return true;
             } else {
-                System.out.println("Erreur lors de la mise à jour du champ id_facture pour la voiture");
+               Phrase_de_reponse = "Erreur lors de la mise à jour du champ id_facture pour la voiture";
+                System.out.println(Phrase_de_reponse);
                 return false;
             }
         }catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -140,8 +144,6 @@ public class FactureModel {
             } catch (SQLException ex) {
                 connexion.closeConnection();
                 ex.printStackTrace();
-            } finally {
-                connexion.closeConnection();
             }
         }
         return false;
@@ -166,8 +168,6 @@ public class FactureModel {
                     newFactureId = Integer.parseInt("0" + newFactureId);
                 }
 
-                System.out.println(newFactureId);
-
                 // Vérification de l'unicité de l'identifiant
                 statement.setInt(1, newFactureId);
                 ResultSet resultSet = statement.executeQuery();
@@ -183,9 +183,14 @@ public class FactureModel {
 
             } while (true);
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
-            // En cas d'erreur, retourner une valeur par défaut ou gérer l'exception selon les besoins
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
             return -1; // Exemple de valeur par défaut
         }
     }
@@ -208,9 +213,15 @@ public class FactureModel {
                 facture.setLieu_facture(resultSet.getString("lieu_facture"));
                 facture.setPrix_voiture(resultSet.getInt("prix_voiture"));
             }
-        } finally {
-            connexion.closeConnection();
-        }
+        } catch (SQLException e){
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }        }
         return facture;
     }
 
@@ -232,14 +243,15 @@ public class FactureModel {
 
             connexion.closeConnection();
             if (rowsDeleted > 0) {
-                System.out.println("La facture a été supprimée avec succès !");
+                Phrase_de_reponse = "La facture a été supprimée avec succès !";
+                System.out.println(Phrase_de_reponse);
                 return true;
             } else {
-                System.out.println("Aucune facture trouvée avec l'ID spécifié.");
+                Phrase_de_reponse = "Aucune facture trouvée avec l'ID spécifié.";
+                System.out.println(Phrase_de_reponse);
                 return false;
             }
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -257,7 +269,7 @@ public class FactureModel {
         return id_client;
     }
 
-    public String MajPartielBdd(String id_plaque, String champ, Object Value) throws SQLException, ClassNotFoundException {
+    public boolean MajPartielBdd(String id_plaque, String champ, Object Value) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
@@ -268,7 +280,6 @@ public class FactureModel {
             String query = "UPDATE voiture SET " + champ + " = ? WHERE id_plaque = ?";
             PreparedStatement statement = connexion.conn.prepareStatement(query);
 
-            System.out.println("test2");
             // Selon le type de valeur, définir le bon type de paramètre
             if (Value instanceof String) {
                 statement.setString(1, (String) Value);
@@ -280,7 +291,6 @@ public class FactureModel {
                 statement.setBoolean(1, (Boolean) Value);
             } // Ajoutez d'autres cas selon les types de données que vous souhaitez gérer
 
-            System.out.println("test3");
             statement.setString(2, id_plaque);
 
             int rowsUpdated = statement.executeUpdate();
@@ -290,14 +300,14 @@ public class FactureModel {
 
             connexion.closeConnection();
             if (rowsUpdated > 0) {
-                System.out.println("Le champ " + champ + " a été mis à jour avec succès !");
-                return "Mise à jour réussie !";
+                Phrase_de_reponse = "Mise à jour réussie !";
+                System.out.println(Phrase_de_reponse);
+                return true;
             } else {
-                System.out.println("Aucun champ mis à jour.");
-                return "Aucun champ mis à jour.";
+                Phrase_de_reponse = "Aucun champ mis à jour.";
+                return false;
             }
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -307,7 +317,9 @@ public class FactureModel {
                 ex.printStackTrace();
             }
         }
-        return "Echec de la mise à jour";
+        Phrase_de_reponse = "Echec de la mise à jour";
+        System.out.println(Phrase_de_reponse);
+        return false;
     }
 
     public void setId_client(int id_client) {

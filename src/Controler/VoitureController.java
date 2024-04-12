@@ -4,66 +4,76 @@ import Model.VoitureModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.Phaser;
 
 public class VoitureController {
 
     private VoitureModel voiture;
 
+    private boolean success;
+
+    public String Phrase_de_reponse;
+
     public VoitureController() throws SQLException, ClassNotFoundException {
         this.voiture = new VoitureModel();
     }
 
-    public String ajouterNouvelleVoiture(String id_plaque, String nom_modele, String type, String couleur, String moteur,
+    public VoitureModel ajouterNouvelleVoiture(String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                                          int prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
+                                          int prix, String lieu_prise_en_charge, int limite_km, String marque, String image_voiture) throws SQLException, ClassNotFoundException {
 
-        // Valider les données saisies par l'root
-
-        String phrase = validerDonnees( id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
-                prix, limite_km);
-
-        if (!phrase.equals("Toutes les données sont valides")) {
-
-            return phrase;
+        if (!validerDonnees( id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
+                prix, limite_km)) {
+            System.out.println(Phrase_de_reponse);
+            return null;
         }
-
         VoitureModel newvoiture = new VoitureModel(id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
-                annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque);
-
+                annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque, image_voiture);
 
         // Si les données sont valides, passer au modèle pour les ajouter à la base de données
-        newvoiture.ajouterVoiture(newvoiture);
-        return phrase; // Succès
+        newvoiture = newvoiture.ajouterVoiture(newvoiture);
+        return newvoiture; // Succès
     }
 
-    private String validerDonnees(String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
+    private boolean validerDonnees(String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
                                    int capa_essence, int annee, int kilometrage_actuel, int prix, int limite_km) throws SQLException, ClassNotFoundException {
 
         if (!voiture.UnicitePlaque(id_plaque)) {
-
-            return "La plaque est déjà utilisée.";
+                Phrase_de_reponse = "La plaque est déja utilisée";
+            return false;
         } else if (!verifierTypeMoteur(moteur)) {
-            return "Le type de moteur est incorrect.";
+            Phrase_de_reponse = "Le moteur n'est pas valide";
+            return false;
         } else if (nb_place <= 0) {
-            return "Le nombre de places doit être supérieur à zéro.";
+            Phrase_de_reponse = "Le nombre de places doit être supérieur à zéro.";
+            return false;
         } else if (capacite_valise <= 0) {
-            return "La capacité de la valise doit être supérieure à zéro.";
+            Phrase_de_reponse = "La capacité de la valise doit être supérieure à zéro.";
+            return false;
         } else if (nb_porte <= 0) {
-            return "Le nombre de portes doit être supérieur à zéro et impair";
+            Phrase_de_reponse = "Le nombre de portes doit être supérieur à zéro et impair";
+            return false;
         } else if (!verifTransmission(transmission)) {
-            return "La transmission doit être soit automatique (1) soit manuelle (0).";
+            Phrase_de_reponse = "La transmission doit être soit automatique (1) soit manuelle (0).";
+            return false;
         } else if (capa_essence <= 0) {
-            return "La capacité du réservoir d'essence doit être supérieure à zéro.";
+            Phrase_de_reponse = "La capacité du réservoir d'essence doit être supérieure à zéro.";
+            return false;
         } else if (annee <= 1900 || annee > 2024) {
-            return "L'année n'est pas correcte";
+            Phrase_de_reponse = "L'année n'est pas correcte";
+            return false;
         } else if (kilometrage_actuel < 0) {
-            return "Le kilométrage actuel doit être supérieur ou égal à zéro.";
+            Phrase_de_reponse = "Le kilométrage actuel doit être supérieur ou égal à zéro.";
+            return false;
         } else if (prix <= 0) {
-            return "Le prix doit être supérieur à zéro.";
+            Phrase_de_reponse = "Le prix doit être supérieur à zéro.";
+            return false;
         } else if (limite_km < 0 || limite_km < kilometrage_actuel) {
-            return "La limite de kilométrage doit être supérieure ou égale à zéro.";
+            Phrase_de_reponse = "La limite de kilométrage doit être supérieure ou égale à zéro.";
+            return false;
         } else {
-            return "Toutes les données sont valides";
+            Phrase_de_reponse = "Toutes les données sont valides";
+            return true;
         }
     }
 
@@ -90,131 +100,130 @@ public class VoitureController {
     }
 
     public boolean supprimerVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException {
-        boolean success = voiture.supprimerVoiture();
-        return true;
+        success = voiture.supprimerVoiture(voiture.getId_plaque());
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;
     }
     
-    public String ChangeLocEstLouee(VoitureModel voiture) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"louee" , true);
+    public Boolean ChangeLocEstLouee(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"louee" , true);
         voiture.setLouee(true);
-        return PhraseRetour;
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;
     }
 
-    public String ChangeLocEstPasLouee(VoitureModel voiture) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"louee" , false);
+    public Boolean ChangeLocEstPasLouee(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"louee" , false);
         voiture.setLouee(false);
-        return PhraseRetour;
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;
     }
 
-    public String ChangeDate_debut_fin_loc(VoitureModel voiture, String date_debut_loc, String date_fin_loc) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"date_debut_loc" , date_debut_loc);
-        String vartemp = voiture.MajPartielBdd(voiture.getId_plaque(),"date_fin_loc" , date_fin_loc);
+    public Boolean ChangeDate_debut_fin_loc(VoitureModel voiture, String date_debut_loc, String date_fin_loc) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"date_debut_loc" , date_debut_loc);
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"date_fin_loc" , date_fin_loc);
         voiture.setDate_debut_loc(date_debut_loc);
         voiture.setDate_fin_loc(date_fin_loc);
-        return PhraseRetour;
-
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;
     }
 
-    public String ChangeKilometrage_actuel(VoitureModel voiture, int kilometrage_actuel) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"kilometrage_actuel" , kilometrage_actuel);
+    public Boolean ChangeKilometrage_actuel(VoitureModel voiture, int kilometrage_actuel) throws SQLException, ClassNotFoundException {
+        success= voiture.MajPartielBdd(voiture.getId_plaque(),"kilometrage_actuel" , kilometrage_actuel);
         voiture.setKilometrage_actuel(kilometrage_actuel);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangePrix(VoitureModel voiture, int prix) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"prix" , prix);
+    public Boolean ChangePrix(VoitureModel voiture, int prix) throws SQLException, ClassNotFoundException {
+        success= voiture.MajPartielBdd(voiture.getId_plaque(),"prix" , prix);
         voiture.setPrix(prix);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeLieuPriseEnCharge(VoitureModel voiture, String lieu_prise_en_charge) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"lieu_prise_en_charge" , lieu_prise_en_charge);
+    public Boolean ChangeLieuPriseEnCharge(VoitureModel voiture, String lieu_prise_en_charge) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"lieu_prise_en_charge" , lieu_prise_en_charge);
         voiture.setLieuPriseEnCharge(lieu_prise_en_charge);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeLimite_km(VoitureModel voiture, int limite_km) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"limite_km" , limite_km);
+    public Boolean ChangeLimite_km(VoitureModel voiture, int limite_km) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"limite_km" , limite_km);
         voiture.setLimite_km(limite_km);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeMarque(VoitureModel voiture, String marque) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"marque" , marque);
+    public Boolean ChangeMarque(VoitureModel voiture, String marque) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"marque" , marque);
         voiture.setMarque(marque);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeNom_modele(VoitureModel voiture, String nom_modele) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"nom_modele" , nom_modele);
+    public Boolean ChangeNom_modele(VoitureModel voiture, String nom_modele) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"nom_modele" , nom_modele);
         voiture.setNom_modele(nom_modele);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeType(VoitureModel voiture, String type) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"type" , type);
+    public Boolean ChangeType(VoitureModel voiture, String type) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"type" , type);
         voiture.setType(type);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeTransmission(VoitureModel voiture, String transmission) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"transmission" , transmission);
+    public Boolean ChangeTransmission(VoitureModel voiture, String transmission) throws SQLException, ClassNotFoundException {
+       success = voiture.MajPartielBdd(voiture.getId_plaque(),"transmission" , transmission);
         voiture.setTransmission(transmission);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeCouleur(VoitureModel voiture, String couleur) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"couleur" , couleur);
+    public Boolean ChangeCouleur(VoitureModel voiture, String couleur) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"couleur" , couleur);
         voiture.setCouleur(couleur);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeCapacite_valise(VoitureModel voiture, int capacite_valise) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"capacite_valise" , capacite_valise);
+    public Boolean ChangeCapacite_valise(VoitureModel voiture, int capacite_valise) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"capacite_valise" , capacite_valise);
         voiture.setCapacite_valise(capacite_valise);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeNb_place(VoitureModel voiture, int nb_place) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"nb_place" , nb_place);
+    public Boolean ChangeNb_place(VoitureModel voiture, int nb_place) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"nb_place" , nb_place);
         voiture.setNbPlace(nb_place);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeNb_porte(VoitureModel voiture, int nb_porte) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"nb_porte" , nb_porte);
+    public Boolean ChangeNb_porte(VoitureModel voiture, int nb_porte) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"nb_porte" , nb_porte);
         voiture.setNbPorte(nb_porte);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    /*public VoitureModel modificationVoiture(VoitureModel voiture, Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
-                                            int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                                            int prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
+    public Boolean ChangeImage_voiture(VoitureModel voiture, String image_voiture) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(), "image_voiture", image_voiture);
+        voiture.setImage_voiture(image_voiture);
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-        if (!validerDonnees(connexion, "0", moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
-                prix, limite_km)) {
-            return null;
-        }
-        voiture.supprimerVoiture();
-        VoitureModel voiture1 = this.ajouterNouvelleVoiture(connexion, id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence,
-                annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque);
-        return voiture1;
-    }*/
 
-    public String ChangeId_facture(VoitureModel voiture, int Id_facture) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"id_facture" , Id_facture);
+    public Boolean ChangeId_facture(VoitureModel voiture, int Id_facture) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"id_facture" , Id_facture);
         voiture.setId_facture(Id_facture);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
-    public String ChangeAvis(VoitureModel voiture, int avis) throws SQLException, ClassNotFoundException {
-        String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"avis" , avis);
+    public Boolean ChangeAvis(VoitureModel voiture, int avis) throws SQLException, ClassNotFoundException {
+        success = voiture.MajPartielBdd(voiture.getId_plaque(),"avis" , avis);
         voiture.setAvis(avis);
-        return PhraseRetour;
-    }
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return success;    }
 
     public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException, SQLException {
-        return voiture.recupListeVoitureNonLouee();
+        ArrayList<VoitureModel> listeVoiture = new ArrayList<>();
+        listeVoiture = voiture.recupListeVoitureNonLouee();
+        Phrase_de_reponse = voiture.Phrase_de_reponse;
+        return listeVoiture;
     }
 
     /*public ArrayList<VoitureModel> recupListeVoitureLouee() throws ClassNotFoundException {
