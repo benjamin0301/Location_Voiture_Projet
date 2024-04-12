@@ -16,7 +16,7 @@ public class ClientModel {
     private String date_naissance;
     private String id_vehicule_loue;
 
-    private int facture;
+    private int id_facture;
     private String date_debut_loc;
 
     private String date_fin_loc;
@@ -36,7 +36,7 @@ public class ClientModel {
         this.id_vehicule_loue = null;
         this.date_debut_loc = null;
         this.date_fin_loc = null;
-        this.facture = 0;
+        this.id_facture = 0;
     }
 
     public void ajouterClient(ClientModel client, int id_client) throws SQLException, ClassNotFoundException {
@@ -180,6 +180,10 @@ public class ClientModel {
 
     public void setId_vehicule_loue(String id_vehicule_loue) {
         this.id_vehicule_loue = id_vehicule_loue;
+    }
+
+    public void setId_facture(int id_facture) {
+        this.id_facture = id_facture;
     }
 
     public String getDate_debut_loc() {
@@ -357,6 +361,7 @@ public class ClientModel {
             statement.setInt(1, idClient);
             ResultSet resultSet = statement.executeQuery();
 
+
             // Vérifier si un client a été trouvé avec cet ID
             if (resultSet.next()) {
                 ClientModel client = new ClientModel();
@@ -370,7 +375,7 @@ public class ClientModel {
                 client.setId_vehicule_loue(resultSet.getString("id_vehicule_loue"));
                 client.setDate_debut_loc(resultSet.getString("date_debut_loc"));
                 client.setDate_fin_loc(resultSet.getString("date_fin_loc"));
-                client.setFacture(resultSet.getInt("facture"));
+                client.setId_facture(resultSet.getInt("id_facture"));
 
                 return client;
             } else {
@@ -383,4 +388,7 @@ public class ClientModel {
         }
     }
 
+    public int getId_facture() {
+        return id_facture;
+    }
 }

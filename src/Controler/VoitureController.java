@@ -15,9 +15,9 @@ public class VoitureController {
 
     public String ajouterNouvelleVoiture(String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                                          float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
+                                          int prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
 
-        // Valider les données saisies par l'utilisateur
+        // Valider les données saisies par l'root
 
         String phrase = validerDonnees( id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
                 prix, limite_km);
@@ -37,7 +37,7 @@ public class VoitureController {
     }
 
     private String validerDonnees(String id_plaque, String moteur,int nb_place,int capacite_valise,int nb_porte, String transmission,
-                                   int capa_essence, int annee, int kilometrage_actuel, float prix, int limite_km) throws SQLException, ClassNotFoundException {
+                                   int capa_essence, int annee, int kilometrage_actuel, int prix, int limite_km) throws SQLException, ClassNotFoundException {
 
         if (!voiture.UnicitePlaque(id_plaque)) {
 
@@ -121,7 +121,7 @@ public class VoitureController {
         return PhraseRetour;
     }
 
-    public String ChangePrix(VoitureModel voiture, float prix) throws SQLException, ClassNotFoundException {
+    public String ChangePrix(VoitureModel voiture, int prix) throws SQLException, ClassNotFoundException {
         String PhraseRetour = voiture.MajPartielBdd(voiture.getId_plaque(),"prix" , prix);
         voiture.setPrix(prix);
         return PhraseRetour;
@@ -189,7 +189,7 @@ public class VoitureController {
 
     /*public VoitureModel modificationVoiture(VoitureModel voiture, Connexion connexion, String id_plaque, String nom_modele, String type, String couleur, String moteur,
                                             int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                                            float prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
+                                            int prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
 
         if (!validerDonnees(connexion, "0", moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
                 prix, limite_km)) {

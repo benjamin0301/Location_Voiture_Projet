@@ -1,6 +1,8 @@
 package Controler;
 
 import Model.ClientModel;
+import Model.VoitureModel;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -17,7 +19,7 @@ public class ClientController {
 
     public ClientModel ajouterNouveauClient( String prenom, String nom, String mot_de_passe, String mail, String date_naissance) throws SQLException, ClassNotFoundException {
 
-        // Valider les données saisies par l'utilisateur
+        // Valider les données saisies par l'root
         Phrase = validerDonneesClient( mail, date_naissance);
         if (!Phrase.equals("Toutes les données sont valides")) {
             return null;
@@ -109,7 +111,6 @@ public class ClientController {
         return PhraseRetour;
     }
 
-    public String Changefacture (ClientModel Client, String facture) throws SQLException, ClassNotFou
 
     public int verifierConnexionClient(String login, String password) throws SQLException, ClassNotFoundException {
         return client.verif_connexion_client(login, password);
