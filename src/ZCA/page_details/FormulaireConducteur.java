@@ -49,24 +49,24 @@ public class FormulaireConducteur extends JPanel
         gbc.insets = new Insets(10, 10, 10, 10); // Marge autour de chaque champ de texte
         gbc.weightx = 1.0; // Permet au champ de texte de remplir l'espace horizontalement
 
-        addLabeledField(formulairePanel, gbc, "Prénom *");
+        addLabeledField(formulairePanel, gbc, "Prenom *");
 
-// Ajout du texte supplémentaire entre les champs "Prénom" et "Nom"
-        gbc.gridy++; // Incrémente le numéro de ligne
+// Ajout du texte supplementaire entre les champs "Prenom" et "Nom"
+        gbc.gridy++; // Incremente le numero de ligne
         gbc.gridwidth = GridBagConstraints.REMAINDER; // Fait en sorte que le composant occupe toute la largeur restante
-        JLabel infoLabel = new JLabel("<html>Le nom doit correspondre au nom qui figure sur le permis de conduire<br>et sur la carte de crédit utilisée lors du retrait de la voiture.</html>");
+        JLabel infoLabel = new JLabel("<html>Le nom doit correspondre au nom qui figure sur le permis de conduire<br>et sur la carte de credit utilisee lors du retrait de la voiture.</html>");
         infoLabel.setForeground(Color.GRAY); // Couleur grise pour le texte
         formulairePanel.add(infoLabel, gbc);
 
         addLabeledField(formulairePanel, gbc, "Nom *");
         addLabeledField(formulairePanel, gbc, "E-mail *");
-        addLabeledField(formulairePanel, gbc, "Téléphone *");
-        addLabeledField(formulairePanel, gbc, "Pays/Région *");
+        addLabeledField(formulairePanel, gbc, "Telephone *");
+        addLabeledField(formulairePanel, gbc, "Pays/Region *");
         addLabeledField(formulairePanel, gbc, "Ville *");
         addLabeledField(formulairePanel, gbc, "Adresse *");
-        addLabeledField(formulairePanel, gbc, "Numéro de vol (en option)");
+        addLabeledField(formulairePanel, gbc, "Numero de vol (en option)");
 
-        gbc.gridy++; // Incrémente le numéro de ligne
+        gbc.gridy++; // Incremente le numero de ligne
         gbc.gridwidth = GridBagConstraints.REMAINDER; // Fait en sorte que le composant occupe toute la largeur restante
         JLabel infoNVol = new JLabel("<html>Il est important de préciser votre numéro de vol en cas<br>de retard ou d’annulation de celui-ci. Cela aidera<br>l’agence de location de voitures à connaître votre<br>heure d’arrivée.</html>");
         infoNVol.setForeground(Color.GRAY); // Couleur grise pour le texte

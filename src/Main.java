@@ -19,7 +19,7 @@ public class Main {
         VoitureController voiturecontroller = new VoitureController();
         ClientModel clientmodel = new ClientModel();
         ClientController clientcontroller = new ClientController();
-        voiturecontroller.ajouterNouvelleVoiture("FL-000-EX", "Huracan", "Sportive", "Rouge", "Essence", 4, 1, 3, "automatique", 40, 2016, 200, 230, "Paris", 1000, "Lamborghini");
+        voiturecontroller.ajouterNouvelleVoiture("FL-000-EX", "Huracan", "Sportive", "Rouge", "Essence", 4, 1, 3, "automatique", 40, 2016, 200, 230, "Paris", 1000, "Lamborghini", "images\\Cybertruck-Dimensionné.png" );
 
         connexion.closeConnection();
 

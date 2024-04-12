@@ -17,7 +17,7 @@ public class InfosVoitureSelect extends JPanel
         contenuPanel.setBackground(Color.decode("#FFFFFF")); // Couleur jaune
         contenuPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        JLabel labelFiltrer = new JLabel("Infos Voiture Sélectionnée");
+        JLabel labelFiltrer = new JLabel("Infos Voiture Selectionnee");
         labelFiltrer.setPreferredSize(new Dimension(220, 50)); // Hauteur de 50px
         labelFiltrer.setOpaque(true); // Permet d'appliquer la couleur de fond
         labelFiltrer.setHorizontalAlignment(SwingConstants.CENTER); // Centre le texte horizontalement
@@ -33,7 +33,7 @@ public class InfosVoitureSelect extends JPanel
         nomVoiture.setPreferredSize(new Dimension(200, 30));
         contenuPanel.add(nomVoiture);
 
-        JLabel carac = new JLabel("Caractéristiques du véhicule :");
+        JLabel carac = new JLabel("Caracteristiques du vehicule :");
         carac.setPreferredSize(new Dimension(200, 30));
         contenuPanel.add(carac);
 
@@ -62,11 +62,11 @@ public class InfosVoitureSelect extends JPanel
         //LPC.setPreferredSize(new Dimension(200, 30));
         //contenuPanel.add(LPC);
 
-        JTextArea PMC = new JTextArea("Kilométrage actuel :\n" + voiture.getkilometrage_actuel());
+        JTextArea PMC = new JTextArea("Kilometrage actuel :\n" + voiture.getkilometrage_actuel());
         PMC.setPreferredSize(new Dimension(200, 30));
         contenuPanel.add(PMC);
 
-        JTextArea kil = new JTextArea("Limite de kilométrage :\n" + voiture.getLimite_km());
+        JTextArea kil = new JTextArea("Limite de kilometrage :\n" + voiture.getLimite_km());
         kil.setPreferredSize(new Dimension(200, 30));
         contenuPanel.add(kil);
 
@@ -75,7 +75,7 @@ public class InfosVoitureSelect extends JPanel
         separator.setForeground(Color.darkGray);
         contenuPanel.add(separator);
 
-        JTextArea depArr = new JTextArea("Départ\n" + voiture.getLieuPriseEnCharge() + "\n" + voiture.getDate_debut_loc() + "\n\nRetour\n" + voiture.getLieuPriseEnCharge() + "\n" + voiture.getDate_fin_loc());
+        JTextArea depArr = new JTextArea("Depart\n" + voiture.getLieuPriseEnCharge() + "\n" + voiture.getDate_debut_loc() + "\n\nRetour\n" + voiture.getLieuPriseEnCharge() + "\n" + voiture.getDate_fin_loc());
         depArr.setPreferredSize(new Dimension(200, 120));
         contenuPanel.add(depArr);
 

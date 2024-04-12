@@ -49,7 +49,7 @@ public class FormulairePaiement extends JPanel
         gbc.weightx = 1.0; // Permet au champ de texte de remplir l'espace horizontalement
 
         addLabeledField(formulairePanel, gbc, "Nom figurant sur la carte *");
-        addLabeledField(formulairePanel, gbc, "Numéro de la carte *");
+        addLabeledField(formulairePanel, gbc, "Numero de la carte *");
         addLabeledField(formulairePanel, gbc, "Date d'expiration *");
         addLabeledField(formulairePanel, gbc, "CVC *");
 
@@ -58,12 +58,12 @@ public class FormulairePaiement extends JPanel
 
     private void addLabeledField(JPanel panel, GridBagConstraints gbc, String defaultText) {
         JTextField field = new JTextField(defaultText, 20);
-        field.setForeground(Color.GRAY); // Couleur grise pour le texte par défaut
+        field.setForeground(Color.GRAY); // Couleur grise pour le texte par defaut
         field.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
                 if (field.getText().equals(defaultText)) {
                     field.setText("");
-                    field.setForeground(Color.BLACK); // Changer la couleur du texte en noir lorsqu'il est cliqué
+                    field.setForeground(Color.BLACK); // Changer la couleur du texte en noir lorsqu'il est clique
                 }
             }
 
@@ -75,7 +75,7 @@ public class FormulairePaiement extends JPanel
             }
         });
 
-        gbc.gridy++; // Incrémente le numéro de ligne
+        gbc.gridy++; // Incremente le numero de ligne
         panel.add(field, gbc);
     }
 }

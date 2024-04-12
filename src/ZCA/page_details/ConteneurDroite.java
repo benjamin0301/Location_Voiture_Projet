@@ -13,16 +13,16 @@ public class ConteneurDroite extends JPanel
     {
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20)); // Utilisation d'un BorderLayout
         setBackground(Color.decode("#FFFFFF")); // Couleur verte
-        setPreferredSize(new Dimension(250, 1500)); // Taille préférée
+        setPreferredSize(new Dimension(250, 1500)); // Taille preferee
 
         System.out.println(voiture.getCouleur());
 
-        // Création du conteneur pour le résumé du trajet
+        // Creation du conteneur pour le resume du trajet
         ResumeMontant resumeMontant = new ResumeMontant(voiture);
         resumeMontant.setPreferredSize(new Dimension(230, 300));
         add(resumeMontant);
 
-        // Création du conteneur pour le filtrage
+        // Creation du conteneur pour le filtrage
         InfosVoitureSelect infosVoitureSelect = new InfosVoitureSelect(voiture);
         infosVoitureSelect.setPreferredSize(new Dimension(230, 800));
         // Ajout du conteneur sous l'espace vertical

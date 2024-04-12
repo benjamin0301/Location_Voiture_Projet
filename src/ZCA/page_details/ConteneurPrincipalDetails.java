@@ -21,11 +21,11 @@ public class ConteneurPrincipalDetails extends JPanel {
         conteneurGris.setBackground(Color.decode("#E4E4E4"));
         conteneurGris.setBorder(BorderFactory.createEmptyBorder(35, 85, 35, 85));
 
-        // Création des différentes pages
+        // Creation des differentes pages
         JPanel pagePrincipale = createPagePrincipale(voiture);
         JPanel nouvellePage = createNouvellePage(voiture);
 
-        // Ajout des pages au cardPanel avec des noms associés
+        // Ajout des pages au cardPanel avec des noms associes
         cardPanel.add(pagePrincipale, "PAGE_PRINCIPALE");
         cardPanel.add(nouvellePage, "NOUVELLE_PAGE");
 
@@ -36,21 +36,21 @@ public class ConteneurPrincipalDetails extends JPanel {
         add(conteneurGris);
     }
 
-    // Crée une nouvelle page avec un conteneur bleu
+    // Cree une nouvelle page avec un conteneur bleu
     private JPanel createNouvellePage(VoitureModel voiture) {
         PageConfirmation nouvellePage = new PageConfirmation(voiture);
         return nouvellePage;
     }
 
-    // Méthode pour créer la page principale avec les composants existants
+    // Methode pour creer la page principale avec les composants existants
     private JPanel createPagePrincipale(VoitureModel voiture) throws SQLException, ClassNotFoundException {
         JPanel pagePrincipale = new JPanel(new BorderLayout());
 
-        // Création des composants existants
+        // Creation des composants existants
         Progression progression = new Progression();
         ConteneurDroite conteneurDroite = new ConteneurDroite(voiture);
         ConteneurFormulaires conteneurFormulaires = new ConteneurFormulaires();
-        JButton confirmation = new JButton("Confirmer la réservation");
+        JButton confirmation = new JButton("Confirmer la reservation");
 
 
         // Ajout des composants à la page principale
@@ -61,7 +61,7 @@ public class ConteneurPrincipalDetails extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Basculer vers la nouvelle page lorsque le bouton est cliqué
+                // Basculer vers la nouvelle page lorsque le bouton est clique
                 cardLayout.show(cardPanel, "NOUVELLE_PAGE");
             }
         });

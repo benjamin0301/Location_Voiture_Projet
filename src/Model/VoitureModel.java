@@ -28,13 +28,16 @@ public class VoitureModel {
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;
     private String marque;
+    private String image_voiture;
+
+    public String Phrase_de_reponse;
 
     public VoitureModel() throws SQLException, ClassNotFoundException {
     }
 
     public VoitureModel( String id, String nom_modele, String type, String couleur, String moteur, int nb_place,
                         int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
-                        int prix, String lieu_prise_en_charge, int limite_km, String marque) throws SQLException, ClassNotFoundException {
+                        int prix, String lieu_prise_en_charge, int limite_km, String marque, String image_voiture) throws SQLException, ClassNotFoundException {
         this.id_plaque = id;
         this.nom_modele = nom_modele;
         this.type = type;
@@ -51,6 +54,8 @@ public class VoitureModel {
         this.lieu_prise_en_charge = lieu_prise_en_charge;
         this.limite_km = limite_km;
         this.marque = marque;
+        this.image_voiture = image_voiture;
+
     }
 
     public String getId_plaque() {
@@ -200,27 +205,14 @@ public class VoitureModel {
         this.lieu_prise_en_charge = lieu_prise_en_charge;
     }
 
-    public void afficherInfos() {
-        System.out.println("ID : " + id_plaque);
-        System.out.println("nom_modele : " + nom_modele);
-        System.out.println("Type : " + type);
-        System.out.println("Couleur : " + couleur);
-        System.out.println("Moteur : " + moteur);
-        System.out.println("nom_modelebre de places : " + nb_place);
-        System.out.println("Capacité de la valise : " + capacite_valise + " litres");
-        System.out.println("nombre de portes : " + nb_porte);
-        System.out.println("Transmission : " + transmission);
-        System.out.println("Capacité du réservoir d'essence : " + capa_essence + " litres");
-        System.out.println("Année : " + annee);
-        System.out.println("Kilométrage actuel : " + kilometrage_actuel + " km");
-        System.out.println("Prix : " + prix + " €");
-        System.out.println("Louée : " + louee);
-        System.out.println("Lieu de prise en charge : " + lieu_prise_en_charge);
-        System.out.println("Date de début de location : " + date_debut_loc);
-        System.out.println("Date de fin de location : " + date_fin_loc);
-        System.out.println("Limite de kilométrage : " + limite_km + " km");
-        System.out.println("ID de la facture : " + id_facture);
+    public String getImage_voiture(){
+        return image_voiture;
     }
+
+    public void setImage_voiture(String image_voiture){
+        this.image_voiture = image_voiture;
+    }
+
 
     public VoitureModel ajouterVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
@@ -230,8 +222,8 @@ public class VoitureModel {
 
             // Exécuter la requête SQL pour insérer une nouvelle voiture
             String query = "INSERT INTO voiture (id_plaque, nom_modele, type, couleur, moteur, nb_place, capacite_valise, nb_porte," +
-                    " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque)" +
-                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    " transmission, capa_essence, annee, kilometrage_actuel, prix, lieu_prise_en_charge, limite_km, marque, image_voiture)" +
+                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setString(1, voiture.getId_plaque());
             statement.setString(2, voiture.getNom_modele());
@@ -249,6 +241,7 @@ public class VoitureModel {
             statement.setString(14, voiture.getLieuPriseEnCharge());
             statement.setInt(15, voiture.getLimite_km());
             statement.setString(16, voiture.getMarque());
+            statement.setString(17, voiture.getImage_voiture());
 
             int rowsInserted = statement.executeUpdate();
 
@@ -256,7 +249,8 @@ public class VoitureModel {
             connexion.conn.commit();
             connexion.closeConnection();
             if (rowsInserted > 0) {
-                System.out.println("La nouvelle voiture a été ajoutée avec succès !");
+                Phrase_de_reponse = "La nouvelle voiture a été ajoutée avec succès !";
+                System.out.println(Phrase_de_reponse);
                 return voiture;
             }
             else return null;
@@ -274,7 +268,7 @@ public class VoitureModel {
         }
     }
 
-    public boolean supprimerVoiture() throws SQLException, ClassNotFoundException {
+    public boolean supprimerVoiture(String id_plaque) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
@@ -283,7 +277,7 @@ public class VoitureModel {
             // Exécuter la requête SQL pour supprimer la voiture avec l'ID spécifié
             String query = "DELETE FROM voiture WHERE id_plaque = ?";
             PreparedStatement statement = connexion.conn.prepareStatement(query);
-            statement.setString(1, this.id_plaque);
+            statement.setString(1, id_plaque);
 
             int rowsDeleted = statement.executeUpdate();
 
@@ -291,11 +285,13 @@ public class VoitureModel {
             connexion.conn.commit();
 
             if (rowsDeleted > 0) {
-                System.out.println("La voiture a été supprimée avec succès !");
+                Phrase_de_reponse = "La voiture a été supprimée avec succès !";
+                System.out.println(Phrase_de_reponse);
                 connexion.closeConnection();
                 return true;
             } else {
-                System.out.println("Aucune voiture trouvée avec l'ID spécifié.");
+                Phrase_de_reponse = "Aucune voiture trouvée avec l'ID spécifié.";
+                System.out.println(Phrase_de_reponse);
                 connexion.closeConnection();
                 return false;
             }
@@ -312,46 +308,7 @@ public class VoitureModel {
         }
     }
 
-    /*public String ChargerInfosDepuisBDD(String voitureId) {
-        // Model.Connexion à la base de données
-        try {
-            // Requête SQL pour récupérer les informations de la voiture avec l'ID spécifié
-            String query = "SELECT * FROM voiture WHERE id_plaque = ?";
-            PreparedStatement statement = Connexion.prepareStatement(conn,query);
-            statement.setString(1, voitureId);
 
-            // Exécution de la requête
-            ResultSet resultSet = statement.executeQuery();
-
-            // Traitement des résultats
-            if (resultSet.next()) {
-                // Récupération des valeurs de la base de données
-                id_plaque = resultSet.getString("id_plaque");
-                nom_modele = resultSet.getString("nom_modele");
-                type = resultSet.getString("type");
-                couleur = resultSet.getString("couleur");
-                moteur = resultSet.getString("moteur");
-                nb_place = resultSet.getInt("nb_place");
-                capacite_valise = resultSet.getInt("capacite_valise");
-                nb_porte = resultSet.getInt("nb_porte");
-                transmission = resultSet.getString("transmission");
-                capa_essence = resultSet.getInt("capa_essence");
-                annee = resultSet.getInt("annee");
-                kilometrage_actuel = resultSet.getInt("kilometrage_actuel");
-                prix = resultSet.getFloat("prix");
-                louee = resultSet.getBoolean("louee");
-                lieu_prise_en_charge = resultSet.getString("lieu_prise_en_charge");
-                date_debut_loc = resultSet.getString("date_debut_loc");
-                date_fin_loc = resultSet.getString("date_fin_loc");
-                limite_km = resultSet.getInt("limite_km");
-                id_facture = resultSet.getInt("id_facture");
-            } else {
-                System.out.println("Aucune voiture trouvée avec l'ID spécifié.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public boolean UnicitePlaque(String idPlaque) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
@@ -376,6 +333,7 @@ public class VoitureModel {
 
     private String getNom_modele() { return nom_modele; }
 
+
     public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException, SQLException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         ArrayList<VoitureModel> listevoitures = new ArrayList<>();
@@ -388,37 +346,25 @@ public class VoitureModel {
             // Parcours des résultats pour récupérer les voitures
             while (resultSet.next()) {
                 // Création d'un objet Voiture pour chaque ligne de résultat
-                VoitureModel voiture = new VoitureModel(
-                        resultSet.getString("id_plaque"),
-                        resultSet.getString("nom_modele"),
-                        resultSet.getString("type"),
-                        resultSet.getString("couleur"),
-                        resultSet.getString("moteur"),
-                        resultSet.getInt("nb_place"),
-                        resultSet.getInt("capacite_valise"),
-                        resultSet.getInt("nb_porte"),
-                        resultSet.getString("transmission"),
-                        resultSet.getInt("capa_essence"),
-                        resultSet.getInt("annee"),
-                        resultSet.getInt("kilometrage_actuel"),
-                        resultSet.getInt("prix"),
-                        resultSet.getString("lieu_prise_en_charge"),
-                        resultSet.getInt("limite_km"),
-                        resultSet.getString("marque")
-                );
+                VoitureModel voiture = SimplificationGetNewModel(resultSet);
                 voiture.setAvis(resultSet.getInt("avis"));
                 // Ajout de la voiture à la liste
                 listevoitures.add(voiture);
             }
             connexion.closeConnection();
-            // Fermeture des ressources
-            resultSet.close();
-            statement.close();
+            if (listevoitures.size() > 0) {
+                Phrase_de_reponse = "Recuperation des voitures réussie";
+                return listevoitures;
+            }
+            else {
+                Phrase_de_reponse = "La récupération des voitures à échoué";
+                return null;
+            }
         } catch (SQLException e) {
             connexion.closeConnection();
             e.printStackTrace();
         }
-        return listevoitures;
+        return null;
     }
 
     public ArrayList<VoitureModel> recupListeVoitureFiltrage(String filtre_1, String operateur_1, Object Value_1,
@@ -472,42 +418,32 @@ public class VoitureModel {
             // Parcours des résultats pour récupérer les voitures
             while (resultSet.next()) {
                 // Création d'un objet Voiture pour chaque ligne de résultat
-                VoitureModel voiture = new VoitureModel(
-                        resultSet.getString("id_plaque"),
-                        resultSet.getString("nom_modele"),
-                        resultSet.getString("type"),
-                        resultSet.getString("couleur"),
-                        resultSet.getString("moteur"),
-                        resultSet.getInt("nb_place"),
-                        resultSet.getInt("capacite_valise"),
-                        resultSet.getInt("nb_porte"),
-                        resultSet.getString("transmission"),
-                        resultSet.getInt("capa_essence"),
-                        resultSet.getInt("annee"),
-                        resultSet.getInt("kilometrage_actuel"),
-                        resultSet.getInt("prix"),
-                        resultSet.getString("lieu_prise_en_charge"),
-                        resultSet.getInt("limite_km"),
-                        resultSet.getString("marque")
-                );
+                VoitureModel voiture = SimplificationGetNewModel(resultSet);
                 voiture.setAvis(resultSet.getInt("avis"));
+
                 // Ajout de la voiture à la liste
                 listevoitures.add(voiture);
             }
-
             connexion.closeConnection();
-
+            if (listevoitures.size() > 0) {
+                Phrase_de_reponse = "Recuperation des voitures avec des filtres réussie ";
+                return listevoitures;
+            }
+            else {
+                Phrase_de_reponse = "La récupération des voitures avec des filtres a échoué";
+                return null;
+            }
         } catch (SQLException e) {
             connexion.closeConnection();
             e.printStackTrace();
         }
-        return listevoitures;
+        return null;
     }
 
 
 
 
-    public String MajPartielBdd(String id_plaque, String champ, Object Value) throws SQLException, ClassNotFoundException {
+    public boolean MajPartielBdd(String id_plaque, String champ, Object Value) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit
@@ -540,11 +476,13 @@ public class VoitureModel {
 
             connexion.closeConnection();
             if (rowsUpdated > 0) {
-                System.out.println("Le champ "+champ+" a été mis à jour avec succès !");
-                return "Mise à jour réussie !";
+               Phrase_de_reponse = "Mise à jour réussie !";
+                System.out.println(Phrase_de_reponse);
+                return true;
             } else {
-                System.out.println("Aucun champ mis à jour.");
-                return "Aucun champ mis à jour.";
+               Phrase_de_reponse = "Aucun champ mis à jour.";
+                System.out.println(Phrase_de_reponse);
+                return false;
             }
         } catch (SQLException e) {
             // En cas d'erreur, annuler la transaction
@@ -556,7 +494,10 @@ public class VoitureModel {
                 connexion.closeConnection();
                 ex.printStackTrace();
             }
-        }return "Echec de la mise à jour";
+        }
+        Phrase_de_reponse = "Echec de la connexion et de la mise a jour";
+        System.out.println(Phrase_de_reponse);
+        return false;
     }
 
     public VoitureModel RecupVoitureByIdPlaque(String idPlaque) throws SQLException, ClassNotFoundException {
@@ -570,24 +511,7 @@ public class VoitureModel {
 
             // Vérifier si une voiture a été trouvée avec cet ID de plaque
             if (resultSet.next()) {
-                VoitureModel voiture = new VoitureModel(
-                        resultSet.getString("id_plaque"),
-                        resultSet.getString("nom_modele"),
-                        resultSet.getString("type"),
-                        resultSet.getString("couleur"),
-                        resultSet.getString("moteur"),
-                        resultSet.getInt("nb_place"),
-                        resultSet.getInt("capacite_valise"),
-                        resultSet.getInt("nb_porte"),
-                        resultSet.getString("transmission"),
-                        resultSet.getInt("capa_essence"),
-                        resultSet.getInt("annee"),
-                        resultSet.getInt("kilometrage_actuel"),
-                        resultSet.getInt("prix"),
-                        resultSet.getString("lieu_prise_en_charge"),
-                        resultSet.getInt("limite_km"),
-                        resultSet.getString("marque")
-                );
+                VoitureModel voiture = SimplificationGetNewModel(resultSet);
                 voiture.setAvis(resultSet.getInt("avis"));
                 voiture.setDate_debut_loc(resultSet.getString("date_debut_loc"));
                 voiture.setDate_fin_loc(resultSet.getString("date_fin_loc"));
@@ -597,11 +521,35 @@ public class VoitureModel {
                 return voiture;
             } else {
                 // Aucune voiture trouvée avec cet ID de plaque
-                System.out.println("Aucune voiture trouvée avec l'ID de plaque spécifié : " + idPlaque);
+                Phrase_de_reponse = "Aucune voiture trouvée avec l'ID de plaque spécifié : " + idPlaque;
+                System.out.println(Phrase_de_reponse);
                 return null;
             }
         } finally {
             connexion.closeConnection();
         }
+    }
+
+    private VoitureModel SimplificationGetNewModel(ResultSet resultSet) throws SQLException, ClassNotFoundException {
+        VoitureModel voiture = new VoitureModel(
+                resultSet.getString("id_plaque"),
+                resultSet.getString("nom_modele"),
+                resultSet.getString("type"),
+                resultSet.getString("couleur"),
+                resultSet.getString("moteur"),
+                resultSet.getInt("nb_place"),
+                resultSet.getInt("capacite_valise"),
+                resultSet.getInt("nb_porte"),
+                resultSet.getString("transmission"),
+                resultSet.getInt("capa_essence"),
+                resultSet.getInt("annee"),
+                resultSet.getInt("kilometrage_actuel"),
+                resultSet.getInt("prix"),
+                resultSet.getString("lieu_prise_en_charge"),
+                resultSet.getInt("limite_km"),
+                resultSet.getString("marque"),
+                resultSet.getString("image_voiture")
+        );
+        return voiture;
     }
 }

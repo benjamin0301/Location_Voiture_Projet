@@ -29,7 +29,7 @@ public class Vue extends JFrame implements EspacePersonnelListener {
         setTitle("Fenêtre Principale");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Création d'un JPanel pour contenir l'ensemble du contenu
+        // Creation d'un JPanel pour contenir l'ensemble du contenu
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
@@ -45,11 +45,11 @@ public class Vue extends JFrame implements EspacePersonnelListener {
         // Liaison du listener pour le bouton "Mon espace personnel" dans ConteneurHaut
         conteneurHaut.setEspacePersonnelListener(this);
 
-        // Création du footer et ajout au contentPanel
+        // Creation du footer et ajout au contentPanel
         Footer footer = new Footer();
         contentPanel.add(footer, BorderLayout.SOUTH);
 
-        // Création du JScrollPane et ajout du JPanel contenant tout le contenu
+        // Creation du JScrollPane et ajout du JPanel contenant tout le contenu
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -57,15 +57,15 @@ public class Vue extends JFrame implements EspacePersonnelListener {
         // Ajout du JScrollPane à la fenêtre
         add(scrollPane);
 
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein écran
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein ecran
 
         setVisible(true);
     }
 
-    // Implémentation de la méthode de l'interface EspacePersonnelListener
+    // Implementation de la methode de l'interface EspacePersonnelListener
     @Override
     public void onEspacePersonnelClicked() throws SQLException, ClassNotFoundException {
-        // Mettre à jour le contenu de la page en conséquence
+        // Mettre à jour le contenu de la page en consequence
         conteneurPrincipal.removeAll(); // Retire le contenu actuel
         conteneurPrincipal.add(new EspacePersonnel()); // Ajoute le contenu de EspacePersonnel
         conteneurPrincipal.revalidate(); // Rafraîchit l'affichage
