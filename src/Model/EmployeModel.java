@@ -189,9 +189,14 @@ public class EmployeModel {
 
             } while (true);
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
-            // En cas d'erreur, retourner une valeur par défaut ou gérer l'exception selon les besoins
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
             return -1; // Exemple de valeur par défaut
         }
     }
@@ -210,12 +215,17 @@ public class EmployeModel {
                 int count = resultSet.getInt(1);
                 connexion.closeConnection();
                 Phrase_de_reponse = "Le mail est valide";
-                System.out.println(Phrase_de_reponse);
-                return count == 0; // Retourne vrai si l'email est unique
+                return true; // Retourne vrai si l'email est unique
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
         Phrase_de_reponse = "Le mail est déjà utilisé";
         System.out.println(Phrase_de_reponse);
@@ -345,9 +355,17 @@ public class EmployeModel {
                 System.out.println(Phrase_de_reponse);
                 return null;
             }
-        } finally {
-            connexion.closeConnection();
+        } catch (SQLException e){
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
+        return null;
     }
 
     // Getters and setters
@@ -399,21 +417,5 @@ public class EmployeModel {
         this.num_tel = num_tel;
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        EmployeModel employemodel = new EmployeModel("mdp", "ben", "ben", "mail", "+3333333333");
-        System.out.println("etape1");
-        employemodel.setId_employe(employemodel.generateUniqueEmployeeId());
-        System.out.println("etape2 + new id_emp" + employemodel.id_employe);
-        System.out.println(employemodel.ajouterEmploye(employemodel));
-        System.out.println("etape3 + ajoutnewemp a la base");
-
-        EmployeModel employemodel_2 = employemodel.RecupEmployeById(employemodel.getId_employe());
-        System.out.println("etape4 + recup new emp" + employemodel_2.getMail());
-
-        System.out.println("resultat connexion mploye = "+employemodel.verif_connexion_employe(employemodel_2.getId_employe(), "mdp"));
-        employemodel_2.supprimerEmploye(employemodel_2);
-
-
-    }
 }
 

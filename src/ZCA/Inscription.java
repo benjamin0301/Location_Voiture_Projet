@@ -116,7 +116,7 @@ public class Inscription extends JFrame {
                 String PhraseRecue = null;
                 try {
                     ClientModel client = clientcontroller.ajouterNouveauClient(prenom, nom, motDePasse, email, dateDeNaissanceText);
-                    PhraseRecue = clientcontroller.getPhrase();
+                    PhraseRecue = clientcontroller.Phrase_de_reponse;
                     System.out.println(PhraseRecue);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);

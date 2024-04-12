@@ -1,8 +1,6 @@
 
 ----------------- Partie BEN ------------------------------
 
--- mettre des rollback partout par securite
--- Tester le EmployeController
 -- Faire le filtrage
 
 
@@ -20,3 +18,10 @@
 ----------------- Partie ANTOINE --------------------------
 
 -- Design général du Site
+
+
+
+------------------ GENERAL ----------------------------------
+
+-- Relier les messages String avec la boite a message visuelle
+-- creer une fenetre ou qqc qui demande au client une note entre 1 et 5 (on mettra ca dans avis)

@@ -244,10 +244,15 @@ public class ClientModel {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
-        System.out.println("Erreur lors de la verification des identifiants.");
         return -1; // Erreur de connexion à la base de donnees
     }
 
@@ -334,9 +339,14 @@ public class ClientModel {
 
             } while (true);
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
-            // En cas d'erreur, retourner une valeur par defaut ou gerer l'exception selon les besoins
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
             return -1; // Exemple de valeur par defaut
         }
     }
@@ -356,8 +366,14 @@ public class ClientModel {
                 return count == 0; // Retourne vrai si le mail est unique
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
         // En cas d'erreur, considerer que le mail n'est pas unique
         return false;
@@ -371,7 +387,6 @@ public class ClientModel {
             PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setInt(1, idClient);
             ResultSet resultSet = statement.executeQuery();
-
 
             // Verifier si un client a ete trouve avec cet ID
             if (resultSet.next()) {
@@ -395,9 +410,17 @@ public class ClientModel {
                 System.out.println(Phrase_de_reponse);
                 return null;
             }
-        } finally {
-            connexion.closeConnection();
+        } catch (SQLException e){
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
+        return null;
     }
 
     public int getId_facture() {

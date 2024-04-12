@@ -72,7 +72,6 @@ public class FactureModel {
                 return null;
             }
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -137,7 +136,6 @@ public class FactureModel {
                 return false;
             }
         }catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -146,8 +144,6 @@ public class FactureModel {
             } catch (SQLException ex) {
                 connexion.closeConnection();
                 ex.printStackTrace();
-            } finally {
-                connexion.closeConnection();
             }
         }
         return false;
@@ -187,9 +183,14 @@ public class FactureModel {
 
             } while (true);
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
-            // En cas d'erreur, retourner une valeur par défaut ou gérer l'exception selon les besoins
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
             return -1; // Exemple de valeur par défaut
         }
     }
@@ -212,9 +213,15 @@ public class FactureModel {
                 facture.setLieu_facture(resultSet.getString("lieu_facture"));
                 facture.setPrix_voiture(resultSet.getInt("prix_voiture"));
             }
-        } finally {
-            connexion.closeConnection();
-        }
+        } catch (SQLException e){
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }        }
         return facture;
     }
 
@@ -245,7 +252,6 @@ public class FactureModel {
                 return false;
             }
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -302,7 +308,6 @@ public class FactureModel {
                 return false;
             }
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());

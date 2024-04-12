@@ -255,7 +255,6 @@ public class VoitureModel {
             }
             else return null;
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -296,7 +295,6 @@ public class VoitureModel {
                 return false;
             }
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -324,10 +322,15 @@ public class VoitureModel {
                 return count == 0; // Retourne vrai si la plaque est unique
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            connexion.closeConnection();
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
-        // En cas d'erreur, considérer que la plaque n'est pas unique
         return false;
     }
 
@@ -361,8 +364,14 @@ public class VoitureModel {
                 return null;
             }
         } catch (SQLException e) {
-            connexion.closeConnection();
-            e.printStackTrace();
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
         return null;
     }
@@ -434,8 +443,14 @@ public class VoitureModel {
                 return null;
             }
         } catch (SQLException e) {
-            connexion.closeConnection();
-            e.printStackTrace();
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
         return null;
     }
@@ -485,7 +500,6 @@ public class VoitureModel {
                 return false;
             }
         } catch (SQLException e) {
-            // En cas d'erreur, annuler la transaction
             try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
@@ -525,9 +539,17 @@ public class VoitureModel {
                 System.out.println(Phrase_de_reponse);
                 return null;
             }
-        } finally {
-            connexion.closeConnection();
+        } catch (SQLException e){
+            try {
+                connexion.conn.rollback();
+                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                connexion.closeConnection();
+            } catch (SQLException ex) {
+                connexion.closeConnection();
+                ex.printStackTrace();
+            }
         }
+        return null;
     }
 
     private VoitureModel SimplificationGetNewModel(ResultSet resultSet) throws SQLException, ClassNotFoundException {

@@ -11,7 +11,7 @@ public class ClientController {
 
     private final ClientModel client;
 
-    private String Phrase_de_reponse;
+    public String Phrase_de_reponse;
 
     public ClientController() throws SQLException, ClassNotFoundException {
         this.client = new ClientModel();
