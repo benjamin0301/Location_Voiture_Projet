@@ -10,8 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class Vue extends JFrame {
+public class Vue extends JFrame implements EspacePersonnelListener {
     private JPanel contentPanel;
+
+    private ConteneurHaut conteneurHaut;
+    private ConteneurPrincipal conteneurPrincipal;
 
     public VoitureController voiturecontroller;
 
@@ -30,15 +33,19 @@ public class Vue extends JFrame {
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        // Ajout du conteneur principal
-        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal();
+        // Initialisation du conteneur principal
+        conteneurPrincipal = new ConteneurPrincipal();
         conteneurPrincipal.initConteneurPrincipal();
         contentPanel.add(conteneurPrincipal, BorderLayout.CENTER);
 
-        // Ajout du conteneur haut
-        ConteneurHaut conteneurHaut = new ConteneurHaut();
+        // Initialisation du conteneur haut
+        conteneurHaut = new ConteneurHaut();
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
+        // Liaison du listener pour le bouton "Mon espace personnel" dans ConteneurHaut
+        conteneurHaut.setEspacePersonnelListener(this);
+
+        // Création du footer et ajout au contentPanel
         Footer footer = new Footer();
         contentPanel.add(footer, BorderLayout.SOUTH);
 
@@ -50,10 +57,18 @@ public class Vue extends JFrame {
         // Ajout du JScrollPane à la fenêtre
         add(scrollPane);
 
-
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein écran
 
         setVisible(true);
     }
-}
 
+    // Implémentation de la méthode de l'interface EspacePersonnelListener
+    @Override
+    public void onEspacePersonnelClicked() throws SQLException, ClassNotFoundException {
+        // Mettre à jour le contenu de la page en conséquence
+        conteneurPrincipal.removeAll(); // Retire le contenu actuel
+        conteneurPrincipal.add(new EspacePersonnel()); // Ajoute le contenu de EspacePersonnel
+        conteneurPrincipal.revalidate(); // Rafraîchit l'affichage
+        conteneurPrincipal.repaint();
+    }
+}

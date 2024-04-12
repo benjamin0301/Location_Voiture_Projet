@@ -1,6 +1,7 @@
 package ZCA.page_principale;
 
 import ZCA.EspacePersonnel;
+import ZCA.EspacePersonnelListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class ConteneurHaut extends JPanel {
+
+    private EspacePersonnelListener listener;
     public ConteneurHaut() {
         setBackground(Color.decode("#FFFFFF")); // Couleur de fond du conteneur principal
         setPreferredSize(new Dimension(800, 80)); // Taille fixe définie
@@ -56,24 +59,20 @@ public class ConteneurHaut extends JPanel {
         boutonEspacePerso.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Création de la nouvelle page (JPanel bleu)
-                EspacePersonnel espacePersonnel = null;
-                try {
-                    espacePersonnel = new EspacePersonnel();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
+                if (listener != null) {
+                    try {
+                        listener.onEspacePersonnelClicked();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
-
-                // Retrait de la page actuelle et ajout de la nouvelle page
-                removeAll();
-                add(espacePersonnel, BorderLayout.CENTER);
-
-                // Rafraîchissement de l'affichage
-                revalidate();
-                repaint();
             }
         });
+    }
+
+    public void setEspacePersonnelListener(EspacePersonnelListener listener) {
+        this.listener = listener;
     }
 }

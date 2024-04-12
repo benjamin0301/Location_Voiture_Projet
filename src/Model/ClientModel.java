@@ -370,7 +370,7 @@ public class ClientModel {
                 client.setId_vehicule_loue(resultSet.getString("id_vehicule_loue"));
                 client.setDate_debut_loc(resultSet.getString("date_debut_loc"));
                 client.setDate_fin_loc(resultSet.getString("date_fin_loc"));
-                client.setFacture(resultSet.getInt("facture"));
+                //client.setFacture(resultSet.getInt("facture"));
 
                 return client;
             } else {

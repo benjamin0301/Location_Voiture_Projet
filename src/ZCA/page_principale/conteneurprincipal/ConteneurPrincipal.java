@@ -2,6 +2,7 @@ package ZCA.page_principale.conteneurprincipal;
 
 import Controler.ClientController;
 import Controler.VoitureController;
+import ZCA.EspacePersonnel;
 import ZCA.page_principale.conteneurprincipal.gauche.ConteneurGauche;
 import ZCA.page_principale.conteneurprincipal.voitures.ConteneurVoitures;
 
@@ -43,6 +44,26 @@ public class ConteneurPrincipal extends JPanel {
 
         // Ajout du conteneur gris à ConteneurPrincipal
         add(conteneurGris, BorderLayout.CENTER);
+    }
+
+    public void afficherEspacePersonnel() {
+        // Retirer le contenu actuel du conteneur principal
+        removeAll();
+
+        // Créer et ajouter le contenu de la page de l'espace personnel
+        EspacePersonnel espacePersonnel = null;
+        try {
+            espacePersonnel = new EspacePersonnel();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+        add(espacePersonnel, BorderLayout.CENTER);
+
+        // Rafraîchir l'affichage pour refléter les changements
+        revalidate();
+        repaint();
     }
 }
 
