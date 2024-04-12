@@ -15,7 +15,7 @@ public class Progression extends JPanel {
         // Définition de la taille préférée
         setPreferredSize(new Dimension(200, 80));
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\toino\\Desktop\\items-projet\\bande-grise-5.png");
+        ImageIcon imageIcon = new ImageIcon("images\\pro-1.png");
 
         // Création d'un JLabel avec l'image
         JLabel imageLabel = new JLabel(imageIcon);
