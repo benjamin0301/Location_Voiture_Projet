@@ -8,6 +8,10 @@ import ZCA.page_principale.Footer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 public class Vue extends JFrame implements EspacePersonnelListener {
@@ -56,7 +60,6 @@ public class Vue extends JFrame implements EspacePersonnelListener {
 
         // Ajout du JScrollPane à la fenêtre
         add(scrollPane);
-
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein écran
 
         setVisible(true);
