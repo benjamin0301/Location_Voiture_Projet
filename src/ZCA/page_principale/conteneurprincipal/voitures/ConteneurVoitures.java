@@ -85,6 +85,7 @@ public class ConteneurVoitures extends JPanel {
 
         ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
 
+
         System.out.println("typeClicked = " + typeClicked);
         if (typeClicked != null){
             switch (typeClicked) {

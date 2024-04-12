@@ -146,6 +146,7 @@ public class PanelVoiture extends JPanel
         gbc.gridx++;
 
         JPanel panelD = new JPanel();
+        panelD.setLayout(new FlowLayout(FlowLayout.RIGHT));
         panelD.setPreferredSize(new Dimension(205, 300));
         panelD.setBackground(Color.decode("#E2FFD6"));
         panelD.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, Color.lightGray));
@@ -157,16 +158,16 @@ public class PanelVoiture extends JPanel
         panelD.add(espaceVideD);
 
 
-        JTextArea prixGras = new JTextArea("       " + voiture.getPrix() + " €/jour");
+        JTextArea prixGras = new JTextArea(voiture.getPrix() + " €/jour");
         prixGras.setFont(new Font("Aleo", Font.BOLD, 25));
         prixGras.setBackground(Color.decode("#E2FFD6"));
-        prixGras.setPreferredSize(new Dimension(200, 32));
+        //prixGras.setPreferredSize(new Dimension(200, 32));
         panelD.add(prixGras);
 
         JTextArea prixCumule = new JTextArea("                        " + "Total " + voiture.getPrix() + " €");
         prixCumule.setFont(new Font("Aleo", Font.PLAIN, 15));
         prixCumule.setBackground(Color.decode("#E2FFD6"));
-        prixCumule.setPreferredSize(new Dimension(200, 20));
+        //prixCumule.setPreferredSize(new Dimension(200, 20));
         panelD.add(prixCumule);
 
         JPanel espaceVide2D = new JPanel();

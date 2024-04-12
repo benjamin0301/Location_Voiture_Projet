@@ -17,7 +17,7 @@ public class ConteneurGauche extends JPanel {
 
         // Création du conteneur pour le filtrage
         Filtrer filtrer = new Filtrer();
-        filtrer.setPreferredSize(new Dimension(230, 800));
+        filtrer.setPreferredSize(new Dimension(230, 900));
         // Ajout du conteneur sous l'espace vertical
         add(filtrer);
     }

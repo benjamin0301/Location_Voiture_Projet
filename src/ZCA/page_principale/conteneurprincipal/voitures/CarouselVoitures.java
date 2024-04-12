@@ -76,6 +76,8 @@ public class CarouselVoitures extends JPanel {
 
                     // Exécuter une action en fonction de la valeur de l'élément
                     TypeClicked = elements.get(index);
+
+                    JOptionPane.showMessageDialog(null, "Filtre appliqué - " + element);
                 }
             });
 

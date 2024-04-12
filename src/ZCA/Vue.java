@@ -1,10 +1,8 @@
 package ZCA;
 
-import Controler.ClientController;
-import Controler.VoitureController;
 import ZCA.page_principale.ConteneurHaut;
-import ZCA.page_principale.conteneurprincipal.ConteneurPrincipal;
 import ZCA.page_principale.Footer;
+import ZCA.page_principale.conteneurprincipal.ConteneurPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,14 +13,8 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 public class Vue extends JFrame implements EspacePersonnelListener {
-    private JPanel contentPanel;
-
     private ConteneurHaut conteneurHaut;
     private ConteneurPrincipal conteneurPrincipal;
-
-    public VoitureController voiturecontroller;
-
-    public ClientController clientcontroller;
 
     public Vue() throws SQLException, ClassNotFoundException {
         //this.clientcontroller = new ClientController();
@@ -33,35 +25,37 @@ public class Vue extends JFrame implements EspacePersonnelListener {
         setTitle("Fenêtre Principale");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Création d'un JPanel pour contenir l'ensemble du contenu
-        contentPanel = new JPanel();
-        contentPanel.setLayout(new BorderLayout());
-
         // Initialisation du conteneur principal
         conteneurPrincipal = new ConteneurPrincipal();
         conteneurPrincipal.initConteneurPrincipal();
-        contentPanel.add(conteneurPrincipal, BorderLayout.CENTER);
 
         // Initialisation du conteneur haut
         conteneurHaut = new ConteneurHaut();
-        contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
         // Liaison du listener pour le bouton "Mon espace personnel" dans ConteneurHaut
         conteneurHaut.setEspacePersonnelListener(this);
 
-        // Création du footer et ajout au contentPanel
+        // Création du footer
         Footer footer = new Footer();
-        contentPanel.add(footer, BorderLayout.SOUTH);
+
+        // Création d'un nouveau JPanel pour contenir le ConteneurPrincipal et le footer
+        JPanel contenuPanel = new JPanel();
+        contenuPanel.setLayout(new BorderLayout());
+        contenuPanel.add(conteneurPrincipal, BorderLayout.CENTER);
+        contenuPanel.add(footer, BorderLayout.SOUTH);
 
         // Création du JScrollPane et ajout du JPanel contenant tout le contenu
-        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        JScrollPane scrollPane = new JScrollPane(contenuPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        // Ajout du JScrollPane à la fenêtre
-        add(scrollPane);
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Affiche la fenêtre en plein écran
+        // Mise en page de la JFrame
+        setLayout(new BorderLayout());
+        add(conteneurHaut, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
 
+        // Affiche la fenêtre en plein écran
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
     }
 

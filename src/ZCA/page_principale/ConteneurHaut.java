@@ -19,7 +19,7 @@ public class ConteneurHaut extends JPanel {
         // Ajout d'un label pour le texte "RentMyRide"
         JLabel labelTitre = new JLabel("RentMyRide");
         labelTitre.setForeground(Color.decode("#5E17EB")); // Couleur du texte
-        labelTitre.setFont(new Font("Arial", Font.BOLD, 23)); // Définition de la police et de la taille
+        labelTitre.setFont(new Font("Georgia", Font.BOLD, 23)); // Définition de la police et de la taille
 
         // Création d'un BoxLayout vertical pour le conteneur principal
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -35,17 +35,18 @@ public class ConteneurHaut extends JPanel {
         barreNavigation.add(labelTitre); // Ajout du label
 
         // Ajout d'un espace rigide pour créer un grand espace entre "RentMyRide" et "Accueil"
-        barreNavigation.add(Box.createRigidArea(new Dimension(500, 0))); // Espacement de 100 pixels
+        barreNavigation.add(Box.createRigidArea(new Dimension(630, 0))); // Espacement de 100 pixels
 
         JButton boutonAccueil = new JButton("Accueil");
-        JButton boutonContact = new JButton("Contact");
+        boutonAccueil.setBackground(Color.decode("#5E17EB"));
+        boutonAccueil.setForeground(Color.white);
+        boutonAccueil.setFont(new Font("Georgia", Font.BOLD, 14));
+
         JButton boutonEspacePerso = new JButton("Mon espace personnel");
         JButton boutonConnexion = new JButton("Connexion");
 
         // Ajout des boutons avec un espace rigide entre chaque bouton
         barreNavigation.add(boutonAccueil);
-        barreNavigation.add(Box.createRigidArea(new Dimension(40, 0))); // Espacement de 10 pixels entre les boutons
-        barreNavigation.add(boutonContact);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0))); // Espacement de 10 pixels entre les boutons
         barreNavigation.add(boutonEspacePerso);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0))); // Espacement de 10 pixels entre les boutons
