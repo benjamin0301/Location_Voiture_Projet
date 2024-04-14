@@ -1,5 +1,6 @@
 package ZCA.page_principale.conteneurprincipal.voitures;
 
+import Controler.ClientController;
 import Model.VoitureModel;
 
 import javax.swing.*;
@@ -76,8 +77,16 @@ public class CarouselVoitures extends JPanel {
 
                     // Exécuter une action en fonction de la valeur de l'élément
                     TypeClicked = elements.get(index);
-
-                    JOptionPane.showMessageDialog(null, "Filtre appliqué - " + element);
+                    ClientController client = null;
+                    try {
+                        client = new ClientController();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }client.Phrase_de_reponse = "bite";
+                    String phrase = client.Phrase_de_reponse;
+                    JOptionPane.showMessageDialog(null, phrase);
                 }
             });
 

@@ -10,9 +10,10 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ConteneurVoitures extends JPanel {
-
-    public ConteneurVoitures() throws SQLException, ClassNotFoundException {
+public class ConteneurVoitures extends JPanel
+{
+    public ConteneurVoitures() throws SQLException, ClassNotFoundException
+    {
         setLayout(new GridBagLayout());
         VoitureController voitureController = new VoitureController();
         VoitureModel voitureModel = new VoitureModel();
@@ -100,25 +101,18 @@ public class ConteneurVoitures extends JPanel {
                     }
                     break;
                 case "SUV":
-                    // Action pour le type de voiture "SUV"
                     break;
                 case "Sportive":
-                    // Action pour le type de voiture "Sportive"
                     break;
                 case "Supersportive":
-                    // Action pour le type de voiture "Supersportive"
                     break;
                 case "Berline":
-                    // Action pour le type de voiture "Berline"
                     break;
                 case "Minivan":
-                    // Action pour le type de voiture "Minivan"
                     break;
                 case "Spécial":
-                    // Action pour le type de voiture "Spécial"
                     break;
                 case "TypeXYZ":
-                    // Action pour le type de voiture "TypeXYZ"
                     break;
             }
         } else{

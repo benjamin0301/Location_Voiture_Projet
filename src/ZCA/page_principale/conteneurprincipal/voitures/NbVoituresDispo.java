@@ -1,5 +1,6 @@
 package ZCA.page_principale.conteneurprincipal.voitures;
 
+import Controler.VoitureController;
 import Model.VoitureModel;
 
 import javax.swing.*;
@@ -11,10 +12,8 @@ public class NbVoituresDispo extends JPanel
 {
     public NbVoituresDispo() throws SQLException, ClassNotFoundException
     {
-        VoitureModel voitureModel = new VoitureModel();
-        ArrayList<VoitureModel> listeVoitures = new ArrayList<>();
-
-        listeVoitures = voitureModel.recupListeVoitureNonLouee();
+        VoitureController voiturecontroller = new VoitureController();
+        ArrayList<VoitureModel> listeVoitures = voiturecontroller.recupListeVoitureNonLouee();
 
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(2, 50));

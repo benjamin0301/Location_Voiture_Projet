@@ -349,13 +349,31 @@ public class VoitureModel {
             // Parcours des résultats pour récupérer les voitures
             while (resultSet.next()) {
                 // Création d'un objet Voiture pour chaque ligne de résultat
-                VoitureModel voiture = SimplificationGetNewModel(resultSet);
+                VoitureModel voiture = new VoitureModel(
+                        resultSet.getString("id_plaque"),
+                        resultSet.getString("nom_modele"),
+                        resultSet.getString("type"),
+                        resultSet.getString("couleur"),
+                        resultSet.getString("moteur"),
+                        resultSet.getInt("nb_place"),
+                        resultSet.getInt("capacite_valise"),
+                        resultSet.getInt("nb_porte"),
+                        resultSet.getString("transmission"),
+                        resultSet.getInt("capa_essence"),
+                        resultSet.getInt("annee"),
+                        resultSet.getInt("kilometrage_actuel"),
+                        resultSet.getInt("prix"),
+                        resultSet.getString("lieu_prise_en_charge"),
+                        resultSet.getInt("limite_km"),
+                        resultSet.getString("marque"),
+                        resultSet.getString("image_voiture")
+                );//SimplificationGetNewModel(resultSet);
                 voiture.setAvis(resultSet.getInt("avis"));
                 // Ajout de la voiture à la liste
                 listevoitures.add(voiture);
             }
             connexion.closeConnection();
-            if (listevoitures.size() > 0) {
+            if (!listevoitures.isEmpty()) {
                 Phrase_de_reponse = "Recuperation des voitures réussie";
                 return listevoitures;
             }
@@ -364,16 +382,17 @@ public class VoitureModel {
                 return null;
             }
         } catch (SQLException e) {
-            try {
+            /*try {
                 connexion.conn.rollback();
                 System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
                 connexion.closeConnection();
             } catch (SQLException ex) {
                 connexion.closeConnection();
                 ex.printStackTrace();
-            }
+            }*/
+            return null;
         }
-        return null;
+
     }
 
     public ArrayList<VoitureModel> recupListeVoitureFiltrage(String filtre_1, String operateur_1, Object Value_1,

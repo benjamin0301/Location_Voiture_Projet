@@ -39,7 +39,7 @@ public class VoitureController {
                                    int capa_essence, int annee, int kilometrage_actuel, int prix, int limite_km) throws SQLException, ClassNotFoundException {
 
         if (!voiture.UnicitePlaque(id_plaque)) {
-                Phrase_de_reponse = "La plaque est déja utilisée";
+            Phrase_de_reponse = "La plaque est déja utilisée";
             return false;
         } else if (!verifierTypeMoteur(moteur)) {
             Phrase_de_reponse = "Le moteur n'est pas valide";
