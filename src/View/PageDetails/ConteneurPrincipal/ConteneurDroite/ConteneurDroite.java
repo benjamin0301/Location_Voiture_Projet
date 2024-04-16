@@ -11,14 +11,14 @@ public class ConteneurDroite extends JPanel
     {
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
         setBackground(Color.decode("#FFFFFF"));
-        setPreferredSize(new Dimension(250, 1500));
+        setPreferredSize(new Dimension(250, 1300));
 
         ResumeMontant resumeMontant = new ResumeMontant(voiture);
-        resumeMontant.setPreferredSize(new Dimension(230, 300));
+        resumeMontant.setPreferredSize(new Dimension(230, 190));
         add(resumeMontant);
 
         InfosVoitureSelect infosVoitureSelect = new InfosVoitureSelect(voiture);
-        infosVoitureSelect.setPreferredSize(new Dimension(230, 800));
+        infosVoitureSelect.setPreferredSize(new Dimension(230, 715));
         add(infosVoitureSelect);
     }
 }

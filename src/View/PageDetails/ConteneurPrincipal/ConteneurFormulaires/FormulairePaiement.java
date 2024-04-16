@@ -21,7 +21,7 @@ public class FormulairePaiement extends JPanel
 
         JTextArea titre = new JTextArea("Informations de paiement");
         titre.setPreferredSize(new Dimension(770, 30));
-        titre.setFont(new Font("Aleo", Font.BOLD, 18));
+        titre.setFont(new Font("Georgia", Font.BOLD, 18));
         titre.setBackground(Color.white);
         add(titre);
 
@@ -49,7 +49,7 @@ public class FormulairePaiement extends JPanel
         gbc.weightx = 1.0; // Permet au champ de texte de remplir l'espace horizontalement
 
         addLabeledField(formulairePanel, gbc, "Nom figurant sur la carte *");
-        addLabeledField(formulairePanel, gbc, "Numero de la carte *");
+        addLabeledField(formulairePanel, gbc, "Numéro de la carte *");
         addLabeledField(formulairePanel, gbc, "Date d'expiration *");
         addLabeledField(formulairePanel, gbc, "CVC *");
 

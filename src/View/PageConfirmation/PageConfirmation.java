@@ -16,8 +16,8 @@ public class PageConfirmation extends JPanel
     {
         setLayout(new BorderLayout());
 
-        Progression progression = new Progression();
-        add(progression, BorderLayout.NORTH);
+        ProgConfirmation progConfirmation = new ProgConfirmation();
+        add(progConfirmation, BorderLayout.NORTH);
 
         JPanel contPrin = new JPanel();
         contPrin.setLayout(new GridBagLayout());

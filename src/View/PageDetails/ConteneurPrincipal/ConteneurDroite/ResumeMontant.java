@@ -15,9 +15,10 @@ public class ResumeMontant extends JPanel
         setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray));
 
 
-        JLabel labelResume = new JLabel("Resume du montant");
-        labelResume.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel labelResume = new JLabel("     Résumé du montant");
+        labelResume.setHorizontalAlignment(SwingConstants.LEFT);
         labelResume.setVerticalAlignment(SwingConstants.CENTER);
+        labelResume.setFont(new Font("Georgia", Font.BOLD, 13));
         labelResume.setOpaque(true);
         labelResume.setBackground(Color.decode("#E6E6E6"));
         labelResume.setPreferredSize(new Dimension(getWidth(), 50));
@@ -30,22 +31,29 @@ public class ResumeMontant extends JPanel
 
         JPanel tarifVoiture = new JPanel();
         tarifVoiture.setLayout(new BorderLayout());
+        tarifVoiture.setPreferredSize(new Dimension(200, 40));
         tarifVoiture.setBackground(Color.white);
+
         JTextArea descPrix = new JTextArea("Tarif de votre\nlocation de voiture");
+        descPrix.setFont(new Font("Georgia", Font.PLAIN, 13));
         tarifVoiture.add(descPrix, BorderLayout.WEST);
-        JTextArea prix = new JTextArea(String.valueOf(voiture.getPrix()));
+        JTextArea prix = new JTextArea(String.valueOf(voiture.getPrix()) + "€");
+        prix.setFont(new Font("Georgia", Font.BOLD, 13));
         prix.setEditable(false);
         prix.setOpaque(false);
         tarifVoiture.add(prix, BorderLayout.EAST);
 
         JPanel remises = new JPanel();
         remises.setLayout(new BorderLayout());
+        remises.setPreferredSize(new Dimension(200, 40));
         remises.setBackground(Color.white);
         JTextArea descRemises = new JTextArea("Remises");
+        descRemises.setFont(new Font("Georgia", Font.PLAIN, 13));
         remises.add(descRemises, BorderLayout.WEST);
 
         float valRemise = 20;
-        JTextArea ecritureRem = new JTextArea(String.valueOf(valRemise));
+        JTextArea ecritureRem = new JTextArea("- " + String.valueOf(valRemise) + "€");
+        ecritureRem.setFont(new Font("Georgia", Font.BOLD, 13));
         ecritureRem.setEditable(false);
         ecritureRem.setOpaque(false);
         remises.add(ecritureRem, BorderLayout.EAST);
@@ -53,10 +61,14 @@ public class ResumeMontant extends JPanel
         JPanel panelTotal = new JPanel();
         panelTotal.setLayout(new BorderLayout());
         panelTotal.setBackground(Color.white);
+        panelTotal.setPreferredSize(new Dimension(200, 40));
         JTextArea descTotal = new JTextArea("Total");
+        descTotal.setFont(new Font("Georgia", Font.PLAIN, 13));
         panelTotal.add(descTotal, BorderLayout.WEST);
         float valTotale = voiture.getPrix() - valRemise;
-        JTextArea valTotal = new JTextArea(String.valueOf(valTotale));
+        JTextArea valTotal = new JTextArea(String.valueOf(valTotale) + "€");
+        valTotal.setFont(new Font("Georgia", Font.BOLD, 14));
+        valTotal.setForeground(Color.decode("#5E17EB"));
         valTotal.setEditable(false);
         valTotal.setOpaque(false);
         panelTotal.add(valTotal, BorderLayout.EAST);
@@ -64,6 +76,7 @@ public class ResumeMontant extends JPanel
 
         zoneTexte.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
         zoneTexte.add(tarifVoiture);
+
         zoneTexte.add(remises);
         zoneTexte.add(panelTotal);
         add(zoneTexte, BorderLayout.CENTER);

@@ -4,18 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class ConteneurFormulaires extends JPanel {
-
-    private CardLayout cardLayout; // CardLayout pour gerer les differentes pages
-    private JPanel cardPanel; // Conteneur des pages
-
+public class ConteneurFormulaires extends JPanel
+{
     public ConteneurFormulaires() throws SQLException, ClassNotFoundException
     {
         setLayout(new GridBagLayout());
         setBackground(Color.white);
-
-        cardLayout = new CardLayout();
-        cardPanel = new JPanel(cardLayout);
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -23,6 +17,12 @@ public class ConteneurFormulaires extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 1.0;
 
+        JPanel espaceB = new JPanel();
+        espaceB.setBackground(Color.white);
+        espaceB.setPreferredSize(new Dimension(600, 10));
+        add(espaceB, gbc);
+
+        gbc.gridy++;
         FormulaireConducteur formulaireConducteur = new FormulaireConducteur();
         add(formulaireConducteur, gbc);
 
@@ -54,23 +54,17 @@ public class ConteneurFormulaires extends JPanel {
         espaceVideAnnulation.setPreferredSize(new Dimension(700, 17));
         annulation.add(espaceVideAnnulation);
 
-        JLabel infoAnnulation = new JLabel("<html>Bonne nouvelle ! Vous pouvez modifier votre programme grâce à <b>l’annulation gratuite</b> jusqu’à 48 heures avant le<br>retrait du vehicule.</html>");
-        infoAnnulation.setForeground(Color.GRAY); // Couleur grise pour le texte
-        infoAnnulation.setAlignmentX(SwingConstants.CENTER);
+        JTextArea infoAnnulation = new JTextArea("Bonne nouvelle ! Vous pouvez modifier votre programme grâce à l’annulation gratuite\njusqu’à 48 heures avant le retrait du véhicule.");
+        infoAnnulation.setForeground(Color.black);
+        infoAnnulation.setFont(new Font("Georgia", Font.BOLD, 15));
+        infoAnnulation.setAlignmentX(SwingConstants.LEFT);
         infoAnnulation.setAlignmentY(SwingConstants.CENTER);
         annulation.add(infoAnnulation);
 
         add(annulation, gbc);
 
         gbc.gridy++;
-        JPanel espaceVideC = new JPanel();
-        espaceVideC.setBackground(Color.white);
-        espaceVideC.setPreferredSize(new Dimension(700, 25));
-        add(espaceVideC, gbc);
-
-
-        gbc.gridy++;
-        gbc.weighty = 10;
+        gbc.weighty = 5;
         gbc.fill = GridBagConstraints.BOTH;
         JPanel espaceBlanc = new JPanel();
         espaceBlanc.setBackground(Color.white);

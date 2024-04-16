@@ -16,12 +16,12 @@ public class FormulaireConducteur extends JPanel
 
         setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
         setBackground(Color.white);
-        setPreferredSize(new Dimension(810, 1050));
+        setPreferredSize(new Dimension(810, 785));
         setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
 
         JTextArea titre = new JTextArea("Informations concernant le conducteur");
         titre.setPreferredSize(new Dimension(770, 30));
-        titre.setFont(new Font("Aleo", Font.BOLD, 18));
+        titre.setFont(new Font("Georgia", Font.BOLD, 18));
         titre.setBackground(Color.white);
         add(titre);
 
@@ -32,7 +32,7 @@ public class FormulaireConducteur extends JPanel
 
         JPanel espaceVideB = new JPanel();
         espaceVideB.setBackground(Color.white);
-        espaceVideB.setPreferredSize(new Dimension(700, 30));
+        espaceVideB.setPreferredSize(new Dimension(700, 20));
         add(espaceVideB);
 
         /// FORMULAIRE
@@ -44,36 +44,46 @@ public class FormulaireConducteur extends JPanel
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 35;
         gbc.ipadx = 160;
-        gbc.insets = new Insets(10, 10, 10, 10); // Marge autour de chaque champ de texte
-        gbc.weightx = 1.0; // Permet au champ de texte de remplir l'espace horizontalement
+        gbc.insets = new Insets(10, 10, 0, 10);
+        gbc.weightx = 1.0;
 
-        addLabeledField(formulairePanel, gbc, "Prenom *");
+        addLabeledField(formulairePanel, gbc, "Prénom *");
 
-// Ajout du texte supplementaire entre les champs "Prenom" et "Nom"
         gbc.gridy++; // Incremente le numero de ligne
-        gbc.gridwidth = GridBagConstraints.REMAINDER; // Fait en sorte que le composant occupe toute la largeur restante
-        JLabel infoLabel = new JLabel("<html>Le nom doit correspondre au nom qui figure sur le permis de conduire<br>et sur la carte de credit utilisee lors du retrait de la voiture.</html>");
-        infoLabel.setForeground(Color.GRAY); // Couleur grise pour le texte
+        gbc.insets = new Insets(0, 10, 0, 10);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        JLabel infoLabel = new JLabel("<html>Le nom doit correspondre au nom qui figure sur le permis de conduire<br>et sur la carte de crédit utilisée lors du retrait de la voiture.</html>");
+        infoLabel.setForeground(Color.GRAY);
         formulairePanel.add(infoLabel, gbc);
 
+        gbc.insets = new Insets(0, 10, 10, 10);
+
         addLabeledField(formulairePanel, gbc, "Nom *");
+
+        gbc.insets = new Insets(10, 10, 10, 10);
+
         addLabeledField(formulairePanel, gbc, "E-mail *");
-        addLabeledField(formulairePanel, gbc, "Telephone *");
-        addLabeledField(formulairePanel, gbc, "Pays/Region *");
+        addLabeledField(formulairePanel, gbc, "Téléphone *");
+        addLabeledField(formulairePanel, gbc, "Pays/Région *");
         addLabeledField(formulairePanel, gbc, "Ville *");
         addLabeledField(formulairePanel, gbc, "Adresse *");
-        addLabeledField(formulairePanel, gbc, "Numero de vol (en option)");
+        gbc.insets = new Insets(10, 10, 0, 10);
+        addLabeledField(formulairePanel, gbc, "Numéro de vol (en option)");
 
-        gbc.gridy++; // Incremente le numero de ligne
-        gbc.gridwidth = GridBagConstraints.REMAINDER; // Fait en sorte que le composant occupe toute la largeur restante
-        JLabel infoNVol = new JLabel("<html>Il est important de préciser votre numéro de vol en cas<br>de retard ou d’annulation de celui-ci. Cela aidera<br>l’agence de location de voitures à connaître votre<br>heure d’arrivée.</html>");
-        infoNVol.setForeground(Color.GRAY); // Couleur grise pour le texte
+        gbc.insets = new Insets(0, 10, 0, 10);
+
+        gbc.gridy++;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        JLabel infoNVol = new JLabel("<html>Il est important de préciser votre numéro de vol en cas de retard ou d’annulation de celui-ci.<br>Cela aidera l’agence de location de voitures à connaître votre heure d’arrivée.</html>");
+        infoNVol.setForeground(Color.GRAY);
         formulairePanel.add(infoNVol, gbc);
 
-        gbc.gridy++; // Incrémente le numéro de ligne
-        gbc.gridwidth = GridBagConstraints.REMAINDER; // Fait en sorte que le composant occupe toute la largeur restante
+        /*
+        gbc.insets = new Insets(0, 10, 10, 10);
+        gbc.gridy++;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
         JLabel infoAge = new JLabel("<html>Âge du conducteur principal</html>");
-        infoAge.setForeground(Color.GRAY); // Couleur grise pour le texte
+        infoAge.setForeground(Color.GRAY);
         formulairePanel.add(infoAge, gbc);
 
         //boutons
@@ -87,34 +97,34 @@ public class FormulaireConducteur extends JPanel
         buttonsContainer.add(button2);
         buttonsContainer.add(button3);
 
-        gbc.gridy++; // Incrémente le numéro de ligne
+        gbc.gridy++;
         gbc.ipady = 10;
-        gbc.gridwidth = GridBagConstraints.REMAINDER; // Fait en sorte que le conteneur occupe toute la largeur restante
-        formulairePanel.add(buttonsContainer, gbc);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        formulairePanel.add(buttonsContainer, gbc);*/
 
         add(formulairePanel, BorderLayout.CENTER);
     }
 
     private void addLabeledField(JPanel panel, GridBagConstraints gbc, String defaultText) {
         JTextField field = new JTextField(defaultText, 20);
-        field.setForeground(Color.GRAY); // Couleur grise pour le texte par défaut
+        field.setForeground(Color.GRAY);
         field.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
                 if (field.getText().equals(defaultText)) {
                     field.setText("");
-                    field.setForeground(Color.BLACK); // Changer la couleur du texte en noir lorsqu'il est cliqué
+                    field.setForeground(Color.BLACK);
                 }
             }
 
             public void focusLost(FocusEvent e) {
                 if (field.getText().isEmpty()) {
                     field.setText(defaultText);
-                    field.setForeground(Color.GRAY); // Revenir à la couleur grise lorsque le champ perd le focus
+                    field.setForeground(Color.GRAY);
                 }
             }
         });
 
-        gbc.gridy++; // Incrémente le numéro de ligne
+        gbc.gridy++;
         panel.add(field, gbc);
     }
 
