@@ -220,7 +220,7 @@ public class VoitureController {
         return success;    }
 
     public ArrayList<VoitureModel> recupListeVoitureNonLouee() throws ClassNotFoundException, SQLException {
-        ArrayList<VoitureModel> listeVoiture = new ArrayList<>();
+        ArrayList<VoitureModel> listeVoiture;
         listeVoiture = voiture.recupListeVoitureNonLouee();
         Phrase_de_reponse = voiture.Phrase_de_reponse;
         return listeVoiture;

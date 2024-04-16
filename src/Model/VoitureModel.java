@@ -379,6 +379,7 @@ public class VoitureModel {
             }
             else {
                 Phrase_de_reponse = "La récupération des voitures à échoué";
+                System.out.println("Erreur 1");
                 return null;
             }
         } catch (SQLException e) {
@@ -390,6 +391,8 @@ public class VoitureModel {
                 connexion.closeConnection();
                 ex.printStackTrace();
             }*/
+            System.out.println("Erreur 2: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
 
