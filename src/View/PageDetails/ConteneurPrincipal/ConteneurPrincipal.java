@@ -1,44 +1,27 @@
 package View.PageDetails.ConteneurPrincipal;
 
 import Model.VoitureModel;
+import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
 import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ConteneurDroite;
 import View.PageDetails.ConteneurPrincipal.ConteneurFormulaires.ConteneurFormulaires;
-import View.PageResultats.conteneurprincipal.Progression;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import javax.swing.*;
 
-public class ConteneurPrincipal extends JPanel
-{
-    private CardLayout cardLayout;
-    private JPanel cardPanel;
-    public ConteneurPrincipal(VoitureModel voiture) throws SQLException, ClassNotFoundException
-    {
-        cardLayout = new CardLayout();
-        cardPanel = new JPanel(cardLayout);
-
+public class ConteneurPrincipal extends JPanel {
+    public ConteneurPrincipal(VoitureModel voiture) throws SQLException, ClassNotFoundException {
         setBackground(Color.decode("#E4E4E4"));
         setBorder(BorderFactory.createMatteBorder(30, 0, 30, 0, Color.decode("#E4E4E4")));
 
-
         JPanel pagePrincipale = createPagePrincipale(voiture);
-        JPanel nouvellePage = createNouvellePage(voiture);
 
-        cardPanel.add(pagePrincipale, "PAGE_PRINCIPALE");
-        cardPanel.add(nouvellePage, "NOUVELLE_PAGE");
+        add(pagePrincipale);
+    }
 
-        add(cardPanel);
-    }
-    private JPanel createNouvellePage(VoitureModel voiture)
-    {
-        PageConfirmation nouvellePage = new PageConfirmation(voiture);
-        return nouvellePage;
-    }
-    private JPanel createPagePrincipale(VoitureModel voiture) throws SQLException, ClassNotFoundException
-    {
+    private JPanel createPagePrincipale(VoitureModel voiture) throws SQLException, ClassNotFoundException {
         JPanel pagePrincipale = new JPanel(new BorderLayout());
         pagePrincipale.setBackground(Color.white);
 
@@ -60,7 +43,7 @@ public class ConteneurPrincipal extends JPanel
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc. weighty = 1;
+        gbc.weighty = 1;
 
         JButton confirmation = new JButton("Confirmer la réservation");
         confirmation.setPreferredSize(new Dimension(500, 45));
@@ -81,13 +64,21 @@ public class ConteneurPrincipal extends JPanel
         pagePrincipale.add(englobeurCF, BorderLayout.CENTER);
         pagePrincipale.add(panelConf, BorderLayout.SOUTH);
 
-        confirmation.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                cardLayout.show(cardPanel, "NOUVELLE_PAGE");
+        confirmation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture);
+
+                // Obtenez la fenêtre actuelle à partir du composant parent du bouton
+                Window window = SwingUtilities.getWindowAncestor(confirmation);
+
+                // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer
+                if (window instanceof JFrame) {
+                    JFrame frame = (JFrame) window;
+                    frame.dispose(); // Fermer la fenêtre actuelle
+                }
             }
         });
+
         return pagePrincipale;
     }
 }
