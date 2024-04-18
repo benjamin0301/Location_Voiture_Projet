@@ -12,7 +12,8 @@ public class EspacePersonnel extends JPanel
         JPanel panelTitre = new JPanel();
         panelTitre.setBackground(Color.white);
         JTextArea titre = new JTextArea("\nMon espace personnel\n");
-        titre.setFont(new Font("Aleo", Font.BOLD, 25));
+        titre.setFont(new Font("Georgia", Font.BOLD, 31));
+        titre.setForeground(Color.decode("#5E17EB"));
         panelTitre.add(titre);
         add(panelTitre, BorderLayout.NORTH);
 
@@ -43,7 +44,6 @@ public class EspacePersonnel extends JPanel
         panelPrincipal.add(espaceBlanc, gbc);
 
         add(panelPrincipal, BorderLayout.CENTER);
-        setBorder(BorderFactory.createEmptyBorder(35, 85, 35, 85));
     }
 }
 

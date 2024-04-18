@@ -22,7 +22,7 @@ public class MesReservations extends JPanel
 
         JLabel titre = new JLabel("Mes réservations");
         titre.setPreferredSize(new Dimension(1000, 30));
-        titre.setFont(new Font("Aleo", Font.BOLD, 18));
+        titre.setFont(new Font("Georgia", Font.BOLD, 18));
         titre.setBackground(Color.white);
         add(titre);
 

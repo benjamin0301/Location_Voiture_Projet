@@ -13,7 +13,7 @@ public class MesInfosPerso extends JPanel
         setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray));
         setBackground(Color.white);
         setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        setPreferredSize(new Dimension(40, 400));
+        setPreferredSize(new Dimension(40, 300));
 
         JPanel espaceVideA = new JPanel();
         espaceVideA.setBackground(Color.white);
@@ -22,7 +22,7 @@ public class MesInfosPerso extends JPanel
 
         JLabel titre = new JLabel("Mes informations personnelles");
         titre.setPreferredSize(new Dimension(1000, 30));
-        titre.setFont(new Font("Aleo", Font.BOLD, 18));
+        titre.setFont(new Font("Georgia", Font.BOLD, 18));
         titre.setBackground(Color.white);
         add(titre);
 
@@ -31,11 +31,117 @@ public class MesInfosPerso extends JPanel
         separator.setForeground(Color.BLACK);
         add(separator);
 
-        JLabel nom = new JLabel("Nom : " + clientModel.getNom());
-        add(nom);
+        JPanel espaceVideB = new JPanel();
+        espaceVideB.setBackground(Color.white);
+        espaceVideB.setPreferredSize(new Dimension(700, 10));
+        add(espaceVideB);
 
-        JLabel prenom = new JLabel("Prénom : " + clientModel.getPrenom());
-        add(prenom);
+        JPanel englobulle = new JPanel();
+        englobulle.setPreferredSize(new Dimension(1050, 220));
+        englobulle.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.weightx = 1;
+
+        JPanel panelA = new JPanel();
+        panelA.setPreferredSize(new Dimension(400, 220));
+        panelA.setBackground(Color.white);
+
+        JPanel ebj = new JPanel();
+        ebj.setBackground(Color.white);
+        ebj.setPreferredSize(new Dimension(380, 30));
+        panelA.add(ebj);
+
+        JLabel prenom = new JLabel("Votre prénom : " + clientModel.getPrenom());
+        prenom.setPreferredSize(new Dimension(300, 45));
+        prenom.setFont(new Font("Georgia", Font.PLAIN, 20));
+        panelA.add(prenom);
+
+        JLabel nom = new JLabel("Votre nom : " + clientModel.getNom());
+        nom.setPreferredSize(new Dimension(300, 45));
+        nom.setFont(new Font("Georgia", Font.PLAIN, 20));
+        panelA.add(nom);
+
+        JLabel dn = new JLabel("Vous êtes né le " + clientModel.getDateNaissance());
+        dn.setPreferredSize(new Dimension(300, 45));
+        dn.setFont(new Font("Georgia", Font.PLAIN, 20));
+        panelA.add(dn);
+
+        englobulle.add(panelA, gbc);
+
+        gbc.gridx++;
+        JSeparator sep1 = new JSeparator(SwingConstants.VERTICAL);
+        sep1.setPreferredSize(new Dimension(2, 200));
+        sep1.setForeground(Color.BLACK);
+        englobulle.add(sep1, gbc);
+
+        gbc.gridx++;
+        JPanel panelB = new JPanel();
+        panelB.setPreferredSize(new Dimension(398, 220));
+        panelB.setBackground(Color.white);
+
+        JPanel ebs = new JPanel();
+        ebs.setBackground(Color.white);
+        ebs.setPreferredSize(new Dimension(380, 30));
+        panelB.add(ebs);
+
+        JLabel id = new JLabel("Votre ID : " + clientModel.getId_client());
+        id.setPreferredSize(new Dimension(300, 45));
+        id.setFont(new Font("Georgia", Font.PLAIN, 20));
+        panelB.add(id);
+
+        JLabel mail = new JLabel("Votre e-mail : " + clientModel.getMail());
+        mail.setPreferredSize(new Dimension(300, 45));
+        mail.setFont(new Font("Georgia", Font.PLAIN, 17));
+        panelB.add(mail);
+
+        JLabel mdp = new JLabel("Votre mot de passe : " + clientModel.getMotDePasse());
+        mdp.setPreferredSize(new Dimension(300, 45));
+        mdp.setFont(new Font("Georgia", Font.PLAIN, 17));
+        panelB.add(mdp);
+
+        englobulle.add(panelB, gbc);
+
+        gbc.gridx++;
+        JSeparator sep2 = new JSeparator(SwingConstants.VERTICAL);
+        sep2.setPreferredSize(new Dimension(2, 200));
+        sep2.setForeground(Color.BLACK);
+        englobulle.add(sep2, gbc);
+
+        gbc.gridx++;
+        JPanel panelC = new JPanel();
+        panelC.setPreferredSize(new Dimension(248, 220));
+        panelC.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panelC.setBackground(Color.white);
+
+        JPanel ebr = new JPanel();
+        ebr.setBackground(Color.white);
+        ebr.setPreferredSize(new Dimension(380, 30));
+        panelC.add(ebr);
+
+        JLabel CF = new JLabel("Client fidèle ?");
+        CF.setPreferredSize(new Dimension(200, 70));
+        CF.setHorizontalAlignment(SwingConstants.CENTER);
+        CF.setFont(new Font("Georgia", Font.PLAIN, 23));
+        panelC.add(CF);
+
+        JLabel CFR = new JLabel(String.valueOf(clientModel.isFidelite()));
+        CFR.setPreferredSize(new Dimension(60, 30));
+        CFR.setHorizontalAlignment(SwingConstants.CENTER);
+        CFR.setForeground(Color.red);
+        CFR.setFont(new Font("Georgia", Font.BOLD, 21));
+        panelC.add(CFR);
+
+        englobulle.add(panelC, gbc);
+
+
+        add(englobulle);
+
+
+        /*
 
         JLabel id = new JLabel("ID : " + clientModel.getId_client());
         add(id);
@@ -50,6 +156,6 @@ public class MesInfosPerso extends JPanel
         add(ddn);
 
         JLabel fidelite = new JLabel("Client fidèle : " + clientModel.isFidelite());
-        add(fidelite);
+        add(fidelite);*/
     }
 }

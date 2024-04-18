@@ -40,7 +40,7 @@ public class PanelVoiture extends JPanel
         panelA.add(espaceVideA);
         JTextArea AType = new JTextArea("  " + voiture.getType());
         AType.setLayout(new BorderLayout());
-        AType.setPreferredSize(new Dimension(200, 25));
+        AType.setPreferredSize(new Dimension(200, 35));
         AType.setEditable(false);
         AType.setFocusable(false);
         AType.setFont(new Font("Georgia", Font.BOLD, 17));
@@ -53,7 +53,7 @@ public class PanelVoiture extends JPanel
         ImageIcon AImage = new ImageIcon(voiture.getImage_voiture());
         JLabel imageLabel = new JLabel(AImage);
         panelA.add(imageLabel);
-        JTextArea ACapacite = new JTextArea("\n    • " + voiture.getNbPlace() + " passagers\n    • " + voiture.getCapaciteValise() + " bagage(s)\n    • " + voiture.getNbPorte() + " portes");
+        JTextArea ACapacite = new JTextArea("\n\n    • " + voiture.getNbPlace() + " passagers\n    • " + voiture.getCapaciteValise() + " bagage(s)\n    • " + voiture.getNbPorte() + " portes");
         ACapacite.setLayout(new BorderLayout());
         ACapacite.setPreferredSize(new Dimension(200, 115));
         ACapacite.setFont(new Font("Georgia", Font.PLAIN, 17));

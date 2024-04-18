@@ -45,16 +45,6 @@ public class ProgConfirmation extends JPanel
         panelGlobal.add(barreJaune, gbc);
 
         gbc.gridx++;
-        /*JTextArea details = new JTextArea("  Détails");
-        details.setBackground(Color.decode("#5E17EB"));
-        details.setForeground(Color.white);
-        details.setPreferredSize(new Dimension(250, 60));
-        details.setMargin(new Insets(20, 86, 20, 10)); // Ajustement des marges internes
-        details.setEditable(false);
-        details.setFont(new Font("Georgia", Font.BOLD, 16));
-        panelGlobal.add(details, gbc);*/
-
-
         JPanel detailsPanel = new JPanel();
         detailsPanel.setPreferredSize(new Dimension(250, 60));
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
@@ -65,7 +55,7 @@ public class ProgConfirmation extends JPanel
         details.setFont(new Font("Georgia", Font.BOLD, 16));
         details.setForeground(Color.decode("#5E17EB"));
         details.setEditable(false);
-        details.setMargin(new Insets(18, 64, 5, 10));
+        details.setMargin(new Insets(18, 72, 5, 10));
         detailsPanel.add(details);
         panelGlobal.add(detailsPanel, gbc);
 
@@ -76,25 +66,11 @@ public class ProgConfirmation extends JPanel
         panelGlobal.add(barreJaune2, gbc);
 
         gbc.gridx++;
-        /*JPanel confPanel = new JPanel();
-        confPanel.setPreferredSize(new Dimension(250, 60));
-        confPanel.setLayout(new BoxLayout(confPanel, BoxLayout.Y_AXIS));
-        confPanel.setBackground(Color.WHITE);
-        confPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#5E17EB")));
-        JTextArea confirmation = new JTextArea("Confirmation");
-        confirmation.setBackground(Color.WHITE);
-        confirmation.setFont(new Font("Georgia", Font.BOLD, 16));
-        confirmation.setForeground(Color.decode("#5E17EB"));
-        confirmation.setEditable(false);
-        confirmation.setMargin(new Insets(18, 66, 5, 10));
-        confPanel.add(confirmation);
-        panelGlobal.add(confPanel, gbc);*/
-
         JTextArea confi = new JTextArea("Confirmation");
         confi.setBackground(Color.decode("#5E17EB"));
         confi.setForeground(Color.white);
         confi.setPreferredSize(new Dimension(250, 60));
-        confi.setMargin(new Insets(20, 72, 20, 10)); // Ajustement des marges internes
+        confi.setMargin(new Insets(20, 68, 20, 10)); // Ajustement des marges internes
         confi.setEditable(false);
         confi.setFont(new Font("Georgia", Font.BOLD, 16));
         panelGlobal.add(confi, gbc);
