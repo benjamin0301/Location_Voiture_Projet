@@ -1,6 +1,8 @@
 package View.PageResultats;
 
 import View.PageEspacePersonnel.EspacePersonnelListener;
+import View.AccueilListener;
+import View.ConnexionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,8 @@ import java.sql.SQLException;
 public class ConteneurHaut extends JPanel
 {
     private EspacePersonnelListener listener;
+    private AccueilListener accueilListener;
+    private ConnexionListener connexionListener;
     public ConteneurHaut()
     {
         setBackground(Color.decode("#FFFFFF"));
@@ -67,8 +71,40 @@ public class ConteneurHaut extends JPanel
                 }
             }
         });
+        boutonAccueil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (accueilListener != null) {
+                    try {
+                        accueilListener.onAccueilClicked();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
+        });
+
+        boutonConnexion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (connexionListener != null) {
+                    try {
+                        connexionListener.onConnexionClicked();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
+        });
     }
     public void setEspacePersonnelListener(EspacePersonnelListener listener) {
         this.listener = listener;
+    }
+    public void setAccueilListener(AccueilListener listener) {
+        this.accueilListener = listener;
+    }
+
+    public void setConnexionListener(ConnexionListener listener) {
+        this.connexionListener = listener;
     }
 }

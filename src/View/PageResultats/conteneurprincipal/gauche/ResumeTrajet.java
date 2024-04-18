@@ -5,8 +5,17 @@ import java.awt.*;
 
 public class ResumeTrajet extends JPanel
 {
-    public ResumeTrajet()
+    private String lieuDepart;
+    private String dateDepart;
+    private String lieuRetour;
+    private String dateRetour;
+    public ResumeTrajet(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour)
     {
+        this.lieuDepart = lieuDepart;
+        this.dateDepart = dateDepart;
+        this.lieuRetour = lieuRetour;
+        this.dateRetour = dateRetour;
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(230, 300));
         setBackground(Color.decode("#FFFFFF"));
@@ -38,7 +47,7 @@ public class ResumeTrajet extends JPanel
         zoneTexte.add(depart, gbc);
 
         gbc.gridy++;
-        JTextArea infosDep = new JTextArea("Paris - Aéroport d'Orly\n" + "4 avril 2024\n" + "10:00\n" + "\n\n");
+        JTextArea infosDep = new JTextArea(lieuDepart + "\n" + dateDepart + "\n" + "10:00\n" + "\n\n");
         infosDep.setFont(new Font("Georgia", Font.PLAIN, 13));
         zoneTexte.add(infosDep, gbc);
 
@@ -48,7 +57,7 @@ public class ResumeTrajet extends JPanel
         zoneTexte.add(retour, gbc);
 
         gbc.gridy++;
-        JTextArea infosRet = new JTextArea("Paris - Aéroport d'Orly\n" + "5 avril 2024\n" + "10:00\n" + "\n");
+        JTextArea infosRet = new JTextArea(lieuRetour + "\n" + dateRetour + "\n" + "10:00\n" + "\n");
         infosRet.setFont(new Font("Georgia", Font.PLAIN, 13));
         zoneTexte.add(infosRet, gbc);
 
