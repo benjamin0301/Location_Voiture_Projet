@@ -1,8 +1,4 @@
 package View;
-
-import Model.Connexion;
-import View.PageEspacePersonnel.EspacePersonnel;
-import View.PageEspacePersonnel.EspacePersonnelListener;
 import View.PageEspacePersonnel.FrameEspacePerso;
 import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
@@ -12,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class Vue extends JFrame implements EspacePersonnelListener, AccueilListener, ConnexionListener
+public class Vue extends JFrame
 {
     private ConteneurHaut conteneurHaut;
     private ConteneurPrincipal conteneurPrincipal;
@@ -28,11 +24,7 @@ public class Vue extends JFrame implements EspacePersonnelListener, AccueilListe
         conteneurPrincipal = new ConteneurPrincipal();
         conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour); // Fournir les arguments ici
 
-
         conteneurHaut = new ConteneurHaut();
-        conteneurHaut.setEspacePersonnelListener(this);
-        conteneurHaut.setAccueilListener(this);
-        conteneurHaut.setConnexionListener(this);
 
         Footer footer = new Footer();
 
@@ -60,30 +52,5 @@ public class Vue extends JFrame implements EspacePersonnelListener, AccueilListe
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
-
     }
-    @Override
-    public void onAccueilClicked() throws SQLException, ClassNotFoundException
-    {
-        conteneurPrincipal.removeAll();
-        conteneurPrincipal.add(new Accueil());
-        conteneurPrincipal.revalidate();
-        conteneurPrincipal.repaint();
-    }
-    @Override
-    public void onConnexionClicked() throws SQLException, ClassNotFoundException
-    {
-       conteneurPrincipal.removeAll();
-
-        conteneurPrincipal.add(new ConnexionVue());
-        conteneurPrincipal.revalidate();
-        conteneurPrincipal.repaint();
-    }
-    @Override
-    public void onEspacePersonnelClicked() throws SQLException, ClassNotFoundException
-    {
-        FrameEspacePerso frameEspacePerso = new FrameEspacePerso();
-    }
-
-
 }

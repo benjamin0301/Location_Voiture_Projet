@@ -1,8 +1,9 @@
 package View.PageResultats;
-
-import View.PageEspacePersonnel.EspacePersonnelListener;
+import View.Accueil;
 import View.AccueilListener;
 import View.ConnexionListener;
+import View.ConnexionVue;
+import View.PageEspacePersonnel.FrameEspacePerso;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,6 @@ import java.sql.SQLException;
 
 public class ConteneurHaut extends JPanel
 {
-    private EspacePersonnelListener listener;
     private AccueilListener accueilListener;
     private ConnexionListener connexionListener;
     public ConteneurHaut()
@@ -55,68 +55,59 @@ public class ConteneurHaut extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 FrameEspacePerso frameEspacePerso = null;
-                try
-                {
-                    frameEspacePerso = new FrameEspacePerso();
-                    Window window = SwingUtilities.getWindowAncestor(boutonEP);
+                    try {
+                        frameEspacePerso = new FrameEspacePerso();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Window window = SwingUtilities.getWindowAncestor(boutonEspacePerso);
 
-                    // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer
                     if (window instanceof JFrame) {
                         JFrame frame = (JFrame) window;
-                        frame.dispose(); // Fermer la fenêtre actuelle
-                if (listener != null)
-                {
-                    try
-                    {
-                        listener.onEspacePersonnelClicked();
+                        frame.dispose();
                     }
-                    catch (SQLException ex)
-                    {
-                        throw new RuntimeException(ex);
-                    }
-                    catch (ClassNotFoundException ex)
-                    {
-                        throw new RuntimeException(ex);
-                    }
-                }
             }
         });
         boutonAccueil.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (accueilListener != null) {
-                    try {
-                        accueilListener.onAccueilClicked();
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
+            public void actionPerformed(ActionEvent e)
+            {
+                Accueil accueil = null;
+                accueil = new Accueil();
+                accueil.setVisible(true);
+
+                Window window = SwingUtilities.getWindowAncestor(boutonAccueil);
+
+                if (window instanceof JFrame)
+                {
+                    JFrame frame = (JFrame) window;
+                    frame.dispose();
                 }
             }
         });
 
         boutonConnexion.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (connexionListener != null) {
-                    try {
-                        connexionListener.onConnexionClicked();
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
+            public void actionPerformed(ActionEvent e)
+            {
+                ConnexionVue connexion = null;
+                try {
+                    connexion = new ConnexionVue();
+                    connexion.setVisible(true);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
                 }
-                catch (SQLException ex) { throw new RuntimeException(ex); }
-                catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
+                Window window = SwingUtilities.getWindowAncestor(boutonConnexion);
+
+                if (window instanceof JFrame) {
+                    JFrame frame = (JFrame) window;
+                    frame.dispose();
+                }
             }
         });
-    }
-    public void setEspacePersonnelListener(EspacePersonnelListener listener) {
-        this.listener = listener;
-    }
-    public void setAccueilListener(AccueilListener listener) {
-        this.accueilListener = listener;
-    }
-
-    public void setConnexionListener(ConnexionListener listener) {
-        this.connexionListener = listener;
     }
 }

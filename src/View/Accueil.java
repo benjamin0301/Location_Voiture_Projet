@@ -33,13 +33,14 @@ public class Accueil extends JFrame {
     }
 
 
-    public Accueil() {
+    public Accueil()
+    {
         setTitle("Accueil");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // ouvre la page en grand directement
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Ajout du conteneur haut
+
         ConteneurHaut conteneurHaut = new ConteneurHaut();
         add(conteneurHaut, BorderLayout.NORTH);
 
@@ -88,13 +89,21 @@ public class Accueil extends JFrame {
 
                 // Initialiser le reste de l'application
                 SwingUtilities.invokeLater(() -> {
-                    try {
+                    try
+                    {
                         Vue vue = new Vue();
-
                         vue.initialize(getLieu(), getDateDepart(), getLieu(), getDateRetour());
-                        fermerFenetre();
-                    } catch (SQLException | ClassNotFoundException ex) {
-                        ex.printStackTrace();
+                        Window window = SwingUtilities.getWindowAncestor(confirmButton);
+
+                        if (window instanceof JFrame) {
+                            JFrame frame = (JFrame) window;
+                            frame.dispose();
+                        }
+
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
                     }
                 });
 
@@ -168,9 +177,4 @@ public class Accueil extends JFrame {
 
         return !departCalendar.after(arriveeCalendar);
     }
-    public void fermerFenetre() {
-        dispose();
-    }
-
-
 }
