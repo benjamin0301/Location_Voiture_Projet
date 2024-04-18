@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
-
+import java.sql.SQLException;
 
 
 public class Accueil extends JFrame {
@@ -20,11 +20,23 @@ public class Accueil extends JFrame {
     private JComboBox<String> MoisArrivee;
     private JComboBox<String> AnneeArrivee;
     private JTextField lieuField;
+    public String getLieu() {
+        return lieuField.getText();
+    }
+
+    public String getDateDepart() {
+        return JourDepart.getSelectedItem() + "/" + (MoisDepart.getSelectedIndex() + 1) + "/" + AnneeDepart.getSelectedItem();
+    }
+
+    public String getDateRetour() {
+        return JourArrivee.getSelectedItem() + "/" + (MoisArrivee.getSelectedIndex() + 1) + "/" + AnneeArrivee.getSelectedItem();
+    }
+
 
     public Accueil() {
         setTitle("Accueil");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 400);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // ouvre la page en grand directement
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
@@ -61,6 +73,7 @@ public class Accueil extends JFrame {
                     return;
                 }
 
+
                 String departDate = JourDepart.getSelectedItem() + "/" +
                         (MoisDepart.getSelectedIndex() + 1) + "/" +
                         AnneeDepart.getSelectedItem();
@@ -69,6 +82,22 @@ public class Accueil extends JFrame {
                         AnneeArrivee.getSelectedItem();
                 String lieu = lieuField.getText();
                 JOptionPane.showMessageDialog(Accueil.this, "Date de depart : " + departDate + "\nDate d'arrivee : " + arriveeDate + "\nLieu de prise en charge : " + lieu);
+
+
+                System.out.println("Connexion établie avec succès !");
+
+                // Initialiser le reste de l'application
+                SwingUtilities.invokeLater(() -> {
+                    try {
+                        Vue vue = new Vue();
+
+                        vue.initialize(getLieu(), getDateDepart(), getLieu(), getDateRetour());
+                        fermerFenetre();
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
             }
         });
 
@@ -139,10 +168,9 @@ public class Accueil extends JFrame {
 
         return !departCalendar.after(arriveeCalendar);
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new Accueil().setVisible(true);
-        });
+    public void fermerFenetre() {
+        dispose();
     }
+
+
 }
