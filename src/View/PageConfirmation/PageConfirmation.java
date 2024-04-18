@@ -197,7 +197,17 @@ public class PageConfirmation extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 FrameEspacePerso frameEspacePerso = null;
-                try { frameEspacePerso = new FrameEspacePerso(); }
+                try
+                {
+                    frameEspacePerso = new FrameEspacePerso();
+                    Window window = SwingUtilities.getWindowAncestor(boutonEC);
+
+                    // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer
+                    if (window instanceof JFrame) {
+                        JFrame frame = (JFrame) window;
+                        frame.dispose(); // Fermer la fenêtre actuelle
+                    }
+                }
                 catch (SQLException ex) { throw new RuntimeException(ex); }
                 catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
             }

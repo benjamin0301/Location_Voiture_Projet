@@ -1,7 +1,5 @@
 package View;
 
-import View.PageEspacePersonnel.EspacePersonnel;
-import View.PageEspacePersonnel.EspacePersonnelListener;
 import View.PageEspacePersonnel.FrameEspacePerso;
 import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
@@ -11,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class Vue extends JFrame implements EspacePersonnelListener
+public class Vue extends JFrame
 {
     private ConteneurHaut conteneurHaut;
     private ConteneurPrincipal conteneurPrincipal;
@@ -28,7 +26,7 @@ public class Vue extends JFrame implements EspacePersonnelListener
         conteneurPrincipal.initConteneurPrincipal();
 
         conteneurHaut = new ConteneurHaut();
-        conteneurHaut.setEspacePersonnelListener(this);
+        //conteneurHaut.setEspacePersonnelListener(this);
 
         Footer footer = new Footer();
 
@@ -40,6 +38,10 @@ public class Vue extends JFrame implements EspacePersonnelListener
         JScrollPane scrollPane = new JScrollPane(contenuPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+        scrollBar.setUI(new CustomScrollBarUI());
+
 
         add(conteneurHaut, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
@@ -53,10 +55,5 @@ public class Vue extends JFrame implements EspacePersonnelListener
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
 
-    }
-    @Override
-    public void onEspacePersonnelClicked() throws SQLException, ClassNotFoundException
-    {
-        FrameEspacePerso frameEspacePerso = new FrameEspacePerso();
     }
 }

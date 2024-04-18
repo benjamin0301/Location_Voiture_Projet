@@ -1,6 +1,6 @@
 package View.PageResultats;
 
-import View.PageEspacePersonnel.EspacePersonnelListener;
+import View.PageEspacePersonnel.FrameEspacePerso;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 public class ConteneurHaut extends JPanel
 {
-    private EspacePersonnelListener listener;
     public ConteneurHaut()
     {
         setBackground(Color.decode("#FFFFFF"));
@@ -27,48 +26,59 @@ public class ConteneurHaut extends JPanel
         barreNavigation.setBackground(Color.decode("#FFFFFF"));
         barreNavigation.setLayout(new BoxLayout(barreNavigation, BoxLayout.X_AXIS));
         barreNavigation.add(labelTitre);
-        barreNavigation.add(Box.createRigidArea(new Dimension(630, 0)));
+        barreNavigation.add(Box.createRigidArea(new Dimension(472, 0)));
 
         JButton boutonAccueil = new JButton("Accueil");
         boutonAccueil.setBackground(Color.decode("#5E17EB"));
         boutonAccueil.setForeground(Color.white);
-        boutonAccueil.setFont(new Font("Georgia", Font.BOLD, 14));
-        JButton boutonEspacePerso = new JButton("Mon espace personnel");
-        JButton boutonConnexion = new JButton("Connexion");
+        boutonAccueil.setFont(new Font("Georgia", Font.BOLD, 17));
+        boutonAccueil.setFocusPainted(false);
+
 
         barreNavigation.add(boutonAccueil);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0)));
-        barreNavigation.add(boutonEspacePerso);
+
+
+        JButton boutonEP = new JButton("Mon espace personnel");
+        boutonEP.setBackground(Color.decode("#5E17EB"));
+        boutonEP.setForeground(Color.white);
+        boutonEP.setFont(new Font("Georgia", Font.BOLD, 17));
+        boutonEP.setFocusPainted(false);
+
+
+        barreNavigation.add(boutonEP);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0)));
+
+        JButton boutonConnexion = new JButton("Connexion");
+        boutonConnexion.setBackground(Color.decode("#5E17EB"));
+        boutonConnexion.setForeground(Color.white);
+        boutonConnexion.setFont(new Font("Georgia", Font.BOLD, 17));
+        boutonConnexion.setFocusPainted(false);
+
         barreNavigation.add(boutonConnexion);
 
         add(barreNavigation);
         add(Box.createVerticalGlue());
 
-        boutonEspacePerso.addActionListener(new ActionListener()
-        {
+        boutonEP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (listener != null)
+                FrameEspacePerso frameEspacePerso = null;
+                try
                 {
-                    try
-                    {
-                        listener.onEspacePersonnelClicked();
-                    }
-                    catch (SQLException ex)
-                    {
-                        throw new RuntimeException(ex);
-                    }
-                    catch (ClassNotFoundException ex)
-                    {
-                        throw new RuntimeException(ex);
+                    frameEspacePerso = new FrameEspacePerso();
+                    Window window = SwingUtilities.getWindowAncestor(boutonEP);
+
+                    // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer
+                    if (window instanceof JFrame) {
+                        JFrame frame = (JFrame) window;
+                        frame.dispose(); // Fermer la fenêtre actuelle
                     }
                 }
+                catch (SQLException ex) { throw new RuntimeException(ex); }
+                catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
             }
         });
-    }
-    public void setEspacePersonnelListener(EspacePersonnelListener listener) {
-        this.listener = listener;
     }
 }

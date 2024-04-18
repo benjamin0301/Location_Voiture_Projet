@@ -1,5 +1,6 @@
 package View.PageEspacePersonnel;
 
+import View.CustomScrollBarUI;
 import View.PageConfirmation.PageConfirmation;
 import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
@@ -39,6 +40,10 @@ public class FrameEspacePerso extends JFrame
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+        scrollBar.setUI(new CustomScrollBarUI());
+
         add(scrollPane);
 
         SwingUtilities.invokeLater(() -> {

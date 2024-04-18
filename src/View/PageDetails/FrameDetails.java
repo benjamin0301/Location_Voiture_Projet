@@ -1,6 +1,7 @@
 package View.PageDetails;
 
 import Model.VoitureModel;
+import View.CustomScrollBarUI;
 import View.PageDetails.ConteneurPrincipal.ConteneurPrincipal;
 import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
@@ -42,6 +43,10 @@ public class FrameDetails extends JFrame
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+        scrollBar.setUI(new CustomScrollBarUI());
+
         add(scrollPane);
 
         SwingUtilities.invokeLater(() -> {

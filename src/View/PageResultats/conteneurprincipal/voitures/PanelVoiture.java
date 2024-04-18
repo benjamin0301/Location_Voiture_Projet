@@ -53,9 +53,9 @@ public class PanelVoiture extends JPanel
         ImageIcon AImage = new ImageIcon(voiture.getImage_voiture());
         JLabel imageLabel = new JLabel(AImage);
         panelA.add(imageLabel);
-        JTextArea ACapacite = new JTextArea("\n\n    • " + voiture.getNbPlace() + " passagers\n    • " + voiture.getCapaciteValise() + " bagage(s)\n    • " + voiture.getNbPorte() + " portes");
+        JTextArea ACapacite = new JTextArea("\n    • " + voiture.getNbPlace() + " passagers\n    • " + voiture.getCapaciteValise() + " bagage(s)\n    • " + voiture.getNbPorte() + " portes");
         ACapacite.setLayout(new BorderLayout());
-        ACapacite.setPreferredSize(new Dimension(200, 115));
+        ACapacite.setPreferredSize(new Dimension(200, 100));
         ACapacite.setFont(new Font("Georgia", Font.PLAIN, 17));
         panelA.add(ACapacite, BorderLayout.EAST);
         add(panelA, gbc);
@@ -200,6 +200,14 @@ public class PanelVoiture extends JPanel
                 try
                 {
                     FrameDetails frameDetails = new FrameDetails(voiture_select);
+
+                    Window window = SwingUtilities.getWindowAncestor(selectionner);
+
+                    // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer
+                    if (window instanceof JFrame) {
+                        JFrame frame = (JFrame) window;
+                        frame.dispose(); // Fermer la fenêtre actuelle
+                    }
                 }
                 catch (SQLException ex) { throw new RuntimeException(ex); }
                 catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
