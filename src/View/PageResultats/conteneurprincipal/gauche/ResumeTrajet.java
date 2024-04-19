@@ -1,7 +1,11 @@
 package View.PageResultats.conteneurprincipal.gauche;
 
+import View.Accueil;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ResumeTrajet extends JPanel
 {
@@ -82,5 +86,24 @@ public class ResumeTrajet extends JPanel
         panelBouton.add(boutonModifier);
         panelBouton.setBackground(Color.decode("#FFFFFF"));
         add(panelBouton, BorderLayout.SOUTH);
+
+
+        boutonModifier.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                Accueil accueil = null;
+                accueil = new Accueil();
+                accueil.setVisible(true);
+
+                Window window = SwingUtilities.getWindowAncestor(boutonModifier);
+
+                if (window instanceof JFrame)
+                {
+                    JFrame frame = (JFrame) window;
+                    frame.dispose();
+                }
+            }
+        });
     }
 }

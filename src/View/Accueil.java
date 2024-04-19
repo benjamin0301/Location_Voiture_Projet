@@ -69,18 +69,26 @@ public class Accueil extends JFrame {
         JPanel departPanel = new JPanel();
         departPanel.setBackground(Color.white);
         JourDepart.setBackground(Color.white);
+        JourDepart.setFont(new Font("Georgia", Font.PLAIN, 16));
         departPanel.add(JourDepart);
         MoisDepart.setBackground(Color.white);
+        MoisDepart.setFont(new Font("Georgia", Font.PLAIN, 16));
         departPanel.add(MoisDepart);
         AnneeDepart.setBackground(Color.white);
+        AnneeDepart.setFont(new Font("Georgia", Font.PLAIN, 16));
         departPanel.add(AnneeDepart);
 
         initComboBoxes(false);
         JPanel arriveePanel = new JPanel();
         arriveePanel.setBackground(Color.white);
         JourArrivee.setBackground(Color.white);
+        JourArrivee.setFont(new Font("Georgia", Font.PLAIN, 16));
         arriveePanel.add(JourArrivee);
+        MoisArrivee.setBackground(Color.white);
+        MoisArrivee.setFont(new Font("Georgia", Font.PLAIN, 16));
         arriveePanel.add(MoisArrivee);
+        AnneeArrivee.setBackground(Color.white);
+        AnneeArrivee.setFont(new Font("Georgia", Font.PLAIN, 16));
         arriveePanel.add(AnneeArrivee);
 
         lieuField = new JTextField(20);
