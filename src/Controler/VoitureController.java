@@ -229,11 +229,10 @@ public class VoitureController {
 
     /*public ArrayList<VoitureModel> recupListeVoitureLouee() throws ClassNotFoundException {
         return voiture.recupListeVoitureLouee();
-    }
-
-    public ArrayList<VoitureModel> recupListeVoiture() throws ClassNotFoundException {
-        return voiture.recupListeVoiture();
     }*/
 
+    /*public ArrayList<VoitureModel> recupListeVoitureFiltrage() throws ClassNotFoundException {
+        return voiture.recupListeVoitureFiltrage();
+    }*/
 }
 
