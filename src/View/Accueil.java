@@ -68,13 +68,17 @@ public class Accueil extends JFrame {
         initComboBoxes(true);
         JPanel departPanel = new JPanel();
         departPanel.setBackground(Color.white);
+        JourDepart.setBackground(Color.white);
         departPanel.add(JourDepart);
+        MoisDepart.setBackground(Color.white);
         departPanel.add(MoisDepart);
+        AnneeDepart.setBackground(Color.white);
         departPanel.add(AnneeDepart);
 
         initComboBoxes(false);
         JPanel arriveePanel = new JPanel();
         arriveePanel.setBackground(Color.white);
+        JourArrivee.setBackground(Color.white);
         arriveePanel.add(JourArrivee);
         arriveePanel.add(MoisArrivee);
         arriveePanel.add(AnneeArrivee);
