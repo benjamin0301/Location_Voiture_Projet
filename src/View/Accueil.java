@@ -40,32 +40,69 @@ public class Accueil extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         ConteneurHaut conteneurHaut = new ConteneurHaut();
         add(conteneurHaut, BorderLayout.NORTH);
 
-        // Initialisation des listes deroulantes pour les jours, les mois et les annees de depart
+        ImageIcon originalImageIcon = new ImageIcon("images/firefly-1.jpg");
+        Image originalImage = originalImageIcon.getImage();
+
+        int targetWidth = 2560; // Largeur cible
+        int targetHeight = 2025; // Hauteur cible
+        Image resizedImage = ImageUtils.resizeImage(originalImage, targetWidth, targetHeight);
+
+        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(resizedImageIcon.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+        backgroundPanel.setPreferredSize(new Dimension(targetWidth, targetHeight));
+        backgroundPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 155, 80));
+
+
+
+
         initComboBoxes(true);
         JPanel departPanel = new JPanel();
+        departPanel.setBackground(Color.white);
         departPanel.add(JourDepart);
         departPanel.add(MoisDepart);
         departPanel.add(AnneeDepart);
 
-        // Initialisation des listes deroulantes pour les jours, les mois et les annees d'arrivee
         initComboBoxes(false);
         JPanel arriveePanel = new JPanel();
+        arriveePanel.setBackground(Color.white);
         arriveePanel.add(JourArrivee);
         arriveePanel.add(MoisArrivee);
         arriveePanel.add(AnneeArrivee);
 
-        // Champ de texte pour le lieu de prise en charge
         lieuField = new JTextField(20);
+        lieuField.setPreferredSize(new Dimension(200, 30));
         JPanel lieuPanel = new JPanel();
-        lieuPanel.add(new JLabel("Lieu de prise en charge : "));
+        lieuPanel.setBackground(Color.white);
+        lieuPanel.setPreferredSize(new Dimension(350, 120));
+        JLabel lieu = new JLabel("Lieu de prise en charge : ");
+        lieu.setFont(new Font("Georgia", Font.PLAIN, 18));
+        lieu.setPreferredSize(new Dimension(200, 40));
+        lieuPanel.add(lieu);
         lieuPanel.add(lieuField);
 
-        // Bouton pour confirmer la selection des dates
+
+
+
         JButton confirmButton = new JButton("Confirmer");
+        confirmButton.setFont(new Font("Georgia", Font.BOLD, 25));
+        confirmButton.setPreferredSize(new Dimension(250, 40));
+        confirmButton.setForeground(Color.white);
+        confirmButton.setBackground(Color.decode("#5E17EB"));
+
+
+        JPanel panelBouton = new JPanel();
+        panelBouton.setPreferredSize(new Dimension(350, 40));
+        panelBouton.add(confirmButton);
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,18 +148,85 @@ public class Accueil extends JFrame {
         });
 
         // Ajout des composants à la fenêtre
-        JPanel topPanel = new JPanel(new GridLayout(0, 1));
-        JPanel datePanel = new JPanel(new FlowLayout());
-        datePanel.add(new JLabel("Date de depart : "));
-        datePanel.add(departPanel);
-        datePanel.add(new JLabel("Date d'arrivee : "));
-        datePanel.add(arriveePanel);
-        topPanel.add(datePanel);
-        topPanel.add(lieuPanel);
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new GridBagLayout());
+        topPanel.setBackground(Color.white);
+        topPanel.setPreferredSize(new Dimension(400, 500));
+        topPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.darkGray));
 
-        //add(datePanel, BorderLayout.CENTER);
-        add(topPanel, BorderLayout.CENTER);
-        add(confirmButton, BorderLayout.SOUTH);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weighty = 1;
+
+        JPanel eb1 = new JPanel();
+        eb1.setBackground(Color.white);
+        eb1.setPreferredSize(new Dimension(398, 20));
+        topPanel.add(eb1, gbc);
+
+        gbc.gridy++;
+        JTextArea titre = new JTextArea("     Bienvenue sur RentMyRide !");
+        titre.setForeground(Color.decode("#5E17EB"));
+        titre.setPreferredSize(new Dimension(398, 28));
+        titre.setBackground(Color.white);
+        titre.setFont(new Font("Georgia", Font.BOLD, 23));
+        topPanel.add(titre, gbc);
+
+        gbc.gridy++;
+        JPanel eb2 = new JPanel();
+        eb2.setBackground(Color.white);
+        eb2.setPreferredSize(new Dimension(398, 20));
+        topPanel.add(eb2, gbc);
+
+        gbc.gridy++;
+        JSeparator sep1 = new JSeparator(SwingConstants.HORIZONTAL);
+        sep1.setPreferredSize(new Dimension(370, 20));
+        sep1.setForeground(Color.BLACK);
+        topPanel.add(sep1, gbc);
+
+        gbc.gridy++;
+        JTextArea accroche = new JTextArea("    Vous cherchez un véhicule ?\n    Vous êtes au bon endroit.");
+        accroche.setPreferredSize(new Dimension(398, 75));
+        accroche.setBackground(Color.white);
+        accroche.setFont(new Font("Georgia", Font.BOLD, 16));
+        topPanel.add(accroche, gbc);
+
+
+
+        JPanel datePanel = new JPanel(new FlowLayout());
+        datePanel.setBackground(Color.white);
+        datePanel.setPreferredSize(new Dimension(350, 100));
+
+        JLabel ddepart = new JLabel("Date de départ : ");
+        ddepart.setFont(new Font("Georgia", Font.PLAIN, 18));
+        datePanel.add(ddepart);
+        datePanel.add(departPanel);
+
+        JLabel darrivee = new JLabel("Date d'arrivée : ");
+        darrivee.setFont(new Font("Georgia", Font.PLAIN, 18));
+        datePanel.add(darrivee);
+        datePanel.add(arriveePanel);
+
+        gbc.gridy++;
+        topPanel.add(datePanel, gbc);
+
+        gbc.gridy++;
+        topPanel.add(lieuPanel, gbc);
+
+        gbc.gridy++;
+        topPanel.add(panelBouton, gbc);
+
+        gbc.gridy++;
+        gbc.weighty = 10;
+        gbc.fill = GridBagConstraints.BOTH;
+        JPanel espaceBlanc = new JPanel();
+        espaceBlanc.setBackground(Color.green);
+        topPanel.add(espaceBlanc, gbc);
+
+        backgroundPanel.add(topPanel);
+
+        add(backgroundPanel, BorderLayout.CENTER);
     }
 
     private void initComboBoxes(boolean isDepart) {
