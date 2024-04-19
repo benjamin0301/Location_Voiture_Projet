@@ -21,6 +21,13 @@ public class ConteneurHaut extends JPanel
         setPreferredSize(new Dimension(800, 80));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        ImageIcon AImage = new ImageIcon("images/RentMyRide.png");
+        JLabel imageLabel = new JLabel(AImage);;
+
+        JPanel imagePanel = new JPanel();
+        imagePanel.setPreferredSize(new Dimension(100, 20));
+        imagePanel.add(imageLabel);
+
         JLabel labelTitre = new JLabel("RentMyRide");
         labelTitre.setForeground(Color.decode("#5E17EB"));
         labelTitre.setFont(new Font("Georgia", Font.BOLD, 23));
@@ -31,14 +38,25 @@ public class ConteneurHaut extends JPanel
         barreNavigation.setBackground(Color.decode("#FFFFFF"));
         barreNavigation.setLayout(new BoxLayout(barreNavigation, BoxLayout.X_AXIS));
         barreNavigation.add(labelTitre);
-        barreNavigation.add(Box.createRigidArea(new Dimension(630, 0)));
+        barreNavigation.add(Box.createRigidArea(new Dimension(500, 0)));
 
         JButton boutonAccueil = new JButton("Accueil");
         boutonAccueil.setBackground(Color.decode("#5E17EB"));
         boutonAccueil.setForeground(Color.white);
-        boutonAccueil.setFont(new Font("Georgia", Font.BOLD, 14));
+        boutonAccueil.setFont(new Font("Georgia", Font.BOLD, 18));
+        boutonAccueil.setFocusPainted(false);
+
         JButton boutonEspacePerso = new JButton("Mon espace personnel");
+        boutonEspacePerso.setBackground(Color.decode("#5E17EB"));
+        boutonEspacePerso.setForeground(Color.white);
+        boutonEspacePerso.setFont(new Font("Georgia", Font.BOLD, 18));
+        boutonEspacePerso.setFocusPainted(false);
+
         JButton boutonConnexion = new JButton("Connexion");
+        boutonConnexion.setBackground(Color.decode("#5E17EB"));
+        boutonConnexion.setForeground(Color.white);
+        boutonConnexion.setFont(new Font("Georgia", Font.BOLD, 18));
+        boutonConnexion.setFocusPainted(false);
 
         barreNavigation.add(boutonAccueil);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0)));
