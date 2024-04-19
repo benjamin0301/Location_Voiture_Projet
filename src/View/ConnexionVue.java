@@ -9,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class ConnexionVue extends JPanel {
+
+public class ConnexionVue extends JFrame {
 
     private JTextField emailField;
     private JPasswordField passwordField;
@@ -18,14 +19,17 @@ public class ConnexionVue extends JPanel {
 
     public ClientController clientcontroller;
 
-    public ConnexionVue(ClientController clientcontroller) throws SQLException, ClassNotFoundException {
-        this.clientcontroller = clientcontroller;
+    public ConnexionVue() throws SQLException, ClassNotFoundException {
+        this.clientcontroller = new ClientController();
 
-        setLayout(new BorderLayout());
+        setTitle("Connexion");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
-        //ConteneurHaut conteneurHaut = new ConteneurHaut();
-       // add(conteneurHaut, BorderLayout.NORTH);
+        ConteneurHaut conteneurHaut = new ConteneurHaut();
+        add(conteneurHaut, BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -39,9 +43,6 @@ public class ConnexionVue extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.CENTER;
-
         panel.add(new JLabel("Email:"), gbc);
 
         gbc.gridy = 1;
@@ -74,20 +75,34 @@ public class ConnexionVue extends JPanel {
                     throw new RuntimeException(ex);
                 }
                 if (isConnected == 0) {
-                    // Afficher l'interface d'accueil
-                    // Vous pouvez remplacer cette partie par l'affichage de votre interface d'accueil
-                    JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Connexion réussie !");
+                    // Afficher l'interface de connexion
+                    // Vous pouvez remplacer cette partie par l'affichage de votre interface de connexion
+                    JOptionPane.showMessageDialog(ConnexionVue.this, "Connexion réussie !");
 
-                    // Créer une nouvelle instance de la fenêtre d'accueil et la rendre visible
-                    Accueil accueil = new Accueil();
-                    accueil.setVisible(true);
+                    // Masquer la fenêtre de connexion actuelle
+                    ConnexionVue.this.setVisible(false);
 
-                    // Fermer la fenêtre de connexion actuelle
-                    SwingUtilities.getWindowAncestor(ConnexionVue.this).dispose();
-                } else if (isConnected == 1 || isConnected == 2) {
+                    // Créer une nouvelle instance de la classe Vue et appeler la méthode initialize
+                    try {
+                        String lieuDepart = ""; // Fournir la valeur appropriée
+                        String dateDepart = ""; // Fournir la valeur appropriée
+                        String lieuRetour = ""; // Fournir la valeur appropriée
+                        String dateRetour = ""; // Fournir la valeur appropriée
+
+                        Vue vue = new Vue();
+
+
+                        vue.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour);
+
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } catch (ClassNotFoundException ex) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Classe introuvable : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else if (isConnected == 1 || isConnected == 2) {
                     // Afficher un message d'erreur
-                    System.out.println("testtttt");
-                    JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
+                    JOptionPane.showMessageDialog(ConnexionVue.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
                 }
             }
         });
@@ -95,6 +110,7 @@ public class ConnexionVue extends JPanel {
         createAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ConnexionVue.this.setVisible(false);
                 // Créer une nouvelle instance de la fenêtre d'inscription et la rendre visible
                 try {
                     Inscription inscription = new Inscription();
@@ -120,5 +136,17 @@ public class ConnexionVue extends JPanel {
         // Exemple fictif :
         //isConnected = MyApp.authenticate(email, password);
         return isConnected;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                new ConnexionVue().setVisible(true);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

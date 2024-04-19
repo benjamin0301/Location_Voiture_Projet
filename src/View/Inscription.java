@@ -30,7 +30,7 @@ public class Inscription extends JFrame {
 
         setTitle("Inscription");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 400);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
@@ -123,10 +123,24 @@ public class Inscription extends JFrame {
                     throw new RuntimeException(ex);
                 }
 
-                if (PhraseRecue == "Toutes les données sont valides") {
+                if (PhraseRecue != null && PhraseRecue.equals("Toutes les données sont valides")) {
                     JOptionPane.showMessageDialog(Inscription.this, "Inscription réussie !");
-                    // Rediriger vers la page de connexion
-                } else {
+
+                    // Masquer la fenêtre d'inscription actuelle
+                    Inscription.this.setVisible(false);
+
+                    // Créer une nouvelle instance de la fenêtre ConnexionVue et la rendre visible
+                    try {
+                        ConnexionVue connexionVue = new ConnexionVue();
+                        connexionVue.setVisible(true);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(Inscription.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } catch (ClassNotFoundException ex) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(Inscription.this), "Classe introuvable : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+                else {
                     JOptionPane.showMessageDialog(Inscription.this, "Erreur lors de l'inscription. Veuillez réessayer.");
                 }
 
@@ -140,11 +154,21 @@ public class Inscription extends JFrame {
         retourButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Rediriger vers la page de connexion
-                // Vous pouvez remplacer cette partie par la redirection vers votre interface de connexion
-                JOptionPane.showMessageDialog(Inscription.this, "Redirection vers la connexion");
+                // Hide the current Inscription window
+                Inscription.this.setVisible(false);
+
+                // Create a new instance of the ConnexionVue window and make it visible
+                try {
+                    ConnexionVue connexionVue = new ConnexionVue();
+                    connexionVue.setVisible(true);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(Inscription.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                } catch (ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(Inscription.this), "Classe introuvable : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
+
 
         add(panel, BorderLayout.CENTER);
     }

@@ -22,6 +22,7 @@ public class VoitureController {
                                           int nb_place, int capacite_valise, int nb_porte, String transmission, int capa_essence, int annee, int kilometrage_actuel,
                                           int prix, String lieu_prise_en_charge, int limite_km, String marque, String image_voiture) throws SQLException, ClassNotFoundException {
 
+        System.out.println("test");
         if (!validerDonnees( id_plaque, moteur, nb_place, capacite_valise, nb_porte, transmission, capa_essence, annee, kilometrage_actuel,
                 prix, limite_km)) {
             System.out.println(Phrase_de_reponse);
