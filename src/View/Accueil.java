@@ -101,7 +101,8 @@ public class Accueil extends JFrame {
 
 
         JPanel panelBouton = new JPanel();
-        panelBouton.setPreferredSize(new Dimension(350, 40));
+        panelBouton.setBackground(Color.white);
+        panelBouton.setPreferredSize(new Dimension(350, 50));
         panelBouton.add(confirmButton);
         confirmButton.addActionListener(new ActionListener() {
             @Override
@@ -221,7 +222,7 @@ public class Accueil extends JFrame {
         gbc.weighty = 10;
         gbc.fill = GridBagConstraints.BOTH;
         JPanel espaceBlanc = new JPanel();
-        espaceBlanc.setBackground(Color.green);
+        espaceBlanc.setBackground(Color.white);
         topPanel.add(espaceBlanc, gbc);
 
         backgroundPanel.add(topPanel);
