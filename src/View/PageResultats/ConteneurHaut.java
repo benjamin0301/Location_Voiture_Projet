@@ -55,19 +55,19 @@ public class ConteneurHaut extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 FrameEspacePerso frameEspacePerso = null;
-                    try {
-                        frameEspacePerso = new FrameEspacePerso();
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (ClassNotFoundException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    Window window = SwingUtilities.getWindowAncestor(boutonEspacePerso);
+                try {
+                    frameEspacePerso = new FrameEspacePerso();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+                Window window = SwingUtilities.getWindowAncestor(boutonEspacePerso);
 
-                    if (window instanceof JFrame) {
-                        JFrame frame = (JFrame) window;
-                        frame.dispose();
-                    }
+                if (window instanceof JFrame) {
+                    JFrame frame = (JFrame) window;
+                    frame.dispose();
+                }
             }
         });
         boutonAccueil.addActionListener(new ActionListener() {
