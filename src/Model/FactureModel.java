@@ -1,5 +1,13 @@
 package Model;
 
+import com.pdfjet.*;
+import com.pdfjet.Font;
+
+import java.awt.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +22,13 @@ public class FactureModel {
     private int id_facture;
     private int prix_voiture;
     public String Phrase_de_reponse;
+    private String factureUrl;
 
     public FactureModel() {
     }
 
 
-    public FactureModel CreerFacture(ClientModel client, VoitureModel voiture, int prix_voiture, String mail, String num_tel, String ville, String adresse, String num_vol, String nom, String prenom) throws SQLException, ClassNotFoundException {
+    public FactureModel CreerFacture(ClientModel client, VoitureModel voiture, int prix_voiture, String mail, String num_tel, String ville, String adresse, String num_vol, String nom, String prenom) throws Exception {
         String PhraseFinale = "";
         Connexion connexion = new Connexion("location_voiture", "root", "");
         FactureModel facture = new FactureModel();
@@ -31,8 +40,8 @@ public class FactureModel {
             int idFacture = generateUniqueIdFacture();
 
             // Exécuter la requête SQL pour insérer une nouvelle facture
-            String query = "INSERT INTO facture (id_client, id_voiture, date_facture, lieu_facture, id_facture, prix_voiture)" +
-                    " VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO facture (id_client, id_voiture, date_facture, lieu_facture, id_facture, prix_voiture, factureUrl)" +
+                    " VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connexion.conn.prepareStatement(query);
             statement.setInt(1, client.getId_client());
             statement.setString(2, voiture.getId_plaque());
@@ -40,6 +49,7 @@ public class FactureModel {
             statement.setString(4, "Paris, Beaugrenelle");
             statement.setInt(5, idFacture);
             statement.setFloat(6, prix_voiture);
+            statement.setString(7, "facture" + idFacture + ".pdf");
 
             facture.id_facture = idFacture;
             facture.date_facture = LocalDate.now().toString();
@@ -47,9 +57,21 @@ public class FactureModel {
             facture.prix_voiture = prix_voiture;
             facture.id_voiture = voiture.getId_plaque();
             facture.id_client = client.getId_client();
+            facture.factureUrl = "facture" + idFacture + ".pdf";
+            factureCreationPdf(facture, client, voiture);
             client.setId_facture(idFacture);
             client.setId_vehicule_loue(voiture.getId_plaque());
+            client.setDate_debut_loc("2000-01-01");
+            client.setDate_fin_loc("2000-01-01");
+            client.MajPartielBdd(client.getId_client(), "date_debut_loc", client.getDate_debut_loc());
+            client.MajPartielBdd(client.getId_client(), "date_fin_loc", client.getDate_fin_loc());
+
+            // a changer car a faire dans le controller
             voiture.setId_facture(idFacture);
+            voiture.setDate_debut_loc("2000-01-01");
+            voiture.setDate_fin_loc("2000-01-01");
+            voiture.MajPartielBdd(voiture.getId_plaque(), "date_debut_loc", client.getDate_debut_loc());
+            voiture.MajPartielBdd(voiture.getId_plaque(), "date_fin_loc", client.getDate_fin_loc());
 
             int rowsInserted = statement.executeUpdate();
 
@@ -63,11 +85,11 @@ public class FactureModel {
             connexion.closeConnection();
 
             if (rowsInserted > 0) {
-               Phrase_de_reponse = "La facture a été générée avec succès !";
+                Phrase_de_reponse = "La facture a été générée avec succès !";
                 System.out.println(Phrase_de_reponse);
                 return facture;
             } else {
-               Phrase_de_reponse = "Erreur lors de la création de la facture";
+                Phrase_de_reponse = "Erreur lors de la création de la facture";
                 System.out.println(Phrase_de_reponse);
                 return null;
             }
@@ -83,6 +105,128 @@ public class FactureModel {
             }
         }
         return null;
+    }
+
+    public void factureCreationPdf(FactureModel facture, ClientModel client, VoitureModel voiture) throws Exception {
+        // Création d'un nouveau document PDF
+        try{
+
+            // Création d'un nouveau document PDF
+            PDF pdf = new PDF(new BufferedOutputStream(new FileOutputStream("Facture/facture" + facture.id_facture +".pdf")));
+
+            // Ajout d'une page au document
+            Page page = new Page(pdf, A4.PORTRAIT);
+
+            // Coordonnées de départ pour le texte
+            float x = 50f;
+            float y = 50f;
+
+            // Création d'un objet Font pour le titre
+            Font titleFont = new Font(pdf, CoreFont.HELVETICA_BOLD);
+            titleFont.setSize(18f);
+
+            // Création d'un objet Font pour le texte
+            Font textFont = new Font(pdf, CoreFont.HELVETICA);
+            textFont.setSize(12f);
+
+            // Section Informations générales
+            TextLine titreGeneral = new TextLine(titleFont, "Confirmation de réservation");
+            titreGeneral.setPosition(x, y);
+            titreGeneral.drawOn(page);
+            y += 50f;
+
+            TextLine numeroReservationLabel = new TextLine(textFont, "Numéro de réservation:");
+            numeroReservationLabel.setPosition(x, y);
+            numeroReservationLabel.drawOn(page);
+
+            TextLine numeroReservationValue = new TextLine(textFont, String.valueOf(facture.id_facture));
+            numeroReservationValue.setPosition(x + 100f, y);
+            numeroReservationValue.drawOn(page);
+            y += 20f;
+
+            TextLine nomClientLabel = new TextLine(textFont, "Informations du client");
+            nomClientLabel.setPosition(x, y);
+            nomClientLabel.drawOn(page);
+
+            TextLine nomClientValue = new TextLine(textFont, client.getNom() + " " + client.getPrenom());
+            nomClientValue.setPosition(x + 100f, y);
+            nomClientValue.drawOn(page);
+            y += 20f;
+
+            // Section Informations de location
+            TextLine titreLocation = new TextLine(titleFont, "Lieu de Prises en charge");
+            titreLocation.setPosition(x, y);
+            titreLocation.drawOn(page);
+            y += 50f;
+
+            TextLine stationDepartLabel = new TextLine(textFont, "Station de départ:");
+            stationDepartLabel.setPosition(x, y);
+            stationDepartLabel.drawOn(page);
+
+            TextLine stationDepartValue = new TextLine(textFont, voiture.getLieuPriseEnCharge());
+            stationDepartValue.setPosition(x + 100f, y);
+            stationDepartValue.drawOn(page);
+            y += 20f;
+
+            TextLine stationRetourLabel = new TextLine(textFont, "Station de retour:");
+            stationRetourLabel.setPosition(x, y);
+            stationRetourLabel.drawOn(page);
+
+            TextLine stationRetourValue = new TextLine(textFont, voiture.getLieuPriseEnCharge());
+            stationRetourValue.setPosition(x + 100f, y);
+            stationRetourValue.drawOn(page);
+            y += 20f;
+
+            TextLine dateDepartLabel = new TextLine(textFont, "Date de début de location");
+            dateDepartLabel.setPosition(x, y);
+            dateDepartLabel.drawOn(page);
+
+            TextLine dateDepartValue = new TextLine(textFont, client.getDate_debut_loc());
+            dateDepartValue.setPosition(x + 100f, y);
+            dateDepartValue.drawOn(page);
+            y += 20f;
+
+            TextLine dateRetourLabel = new TextLine(textFont, "Date de retour:");
+            dateRetourLabel.setPosition(x, y);
+            dateRetourLabel.drawOn(page);
+
+            TextLine dateRetourValue = new TextLine(textFont, client.getDate_fin_loc());
+            dateRetourValue.setPosition(x + 100f, y);
+            dateRetourValue.drawOn(page);
+            y += 20f;
+
+            TextLine categorieVehiculeLabel = new TextLine(textFont, "Catégorie du véhicule:");
+            categorieVehiculeLabel.setPosition(x, y);
+            categorieVehiculeLabel.drawOn(page);
+
+            TextLine categorieVehiculeValue = new TextLine(textFont, voiture.getType());
+            categorieVehiculeValue.setPosition(x + 100f, y);
+            categorieVehiculeValue.drawOn(page);
+            y += 20f;
+
+            TextLine prixLocationLabel = new TextLine(textFont, "Prix de la location:");
+            prixLocationLabel.setPosition(x, y);
+            prixLocationLabel.drawOn(page);
+
+            TextLine prixLocationValue = new TextLine(textFont, String.valueOf(facture.prix_voiture));
+            prixLocationValue.setPosition(x + 100f, y);
+            prixLocationValue.drawOn(page);
+            y += 20f;
+
+            TextLine dateFactureLabel = new TextLine(textFont, "Date de facture:");
+            dateFactureLabel.setPosition(x, y);
+            dateFactureLabel.drawOn(page);
+
+            TextLine dateFactureValue = new TextLine(textFont, facture.date_facture);
+            dateFactureValue.setPosition(x + 100f, y);
+            dateFactureValue.drawOn(page);
+            y += 20f;
+
+            pdf.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Une erreur est survenue lors de la création du PDF : " + e.getMessage());
+        }
     }
 
     public boolean updateClientIdFacture(int clientId, int idFacture) throws SQLException, ClassNotFoundException {
@@ -155,7 +299,7 @@ public class FactureModel {
         Random random = new Random();
         int newFactureId;
         Connexion connexion = new Connexion("location_voiture", "root", "");
-        try {
+        try{
             // Préparation de la requête SQL pour vérifier l'unicité de l'identifiant généré
             String query = "SELECT COUNT(*) FROM facture WHERE id_facture = ?";
             PreparedStatement statement = connexion.conn.prepareStatement(query);
@@ -365,6 +509,8 @@ public class FactureModel {
     public void setPrix_voiture(int prix_voiture) {
         this.prix_voiture = prix_voiture;
     }
+
+
 }
 
 
