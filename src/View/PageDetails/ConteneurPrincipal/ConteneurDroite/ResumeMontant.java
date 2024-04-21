@@ -68,7 +68,7 @@ public class ResumeMontant extends JPanel
         float valTotale = voiture.getPrix() - valRemise;
         JTextArea valTotal = new JTextArea(String.valueOf(valTotale) + "€");
         valTotal.setFont(new Font("Georgia", Font.BOLD, 14));
-        valTotal.setForeground(Color.decode("#5E17EB"));
+        valTotal.setForeground(Color.decode("#7E3DFF"));
         valTotal.setEditable(false);
         valTotal.setOpaque(false);
         panelTotal.add(valTotal, BorderLayout.EAST);

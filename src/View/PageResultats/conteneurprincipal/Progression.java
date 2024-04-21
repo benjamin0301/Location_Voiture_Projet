@@ -25,7 +25,7 @@ public class Progression extends JPanel
         gbc.insets = new Insets(5, 5, 5, 5); // Ajouter des marges ici
 
         JTextArea resultats = new JTextArea("Résultats");
-        resultats.setBackground(Color.decode("#5E17EB"));
+        resultats.setBackground(Color.decode("#7E3DFF"));
         resultats.setForeground(Color.white);
         resultats.setPreferredSize(new Dimension(250, 60));
         resultats.setMargin(new Insets(20, 88, 20, 10)); // Ajustement des marges internes
@@ -35,7 +35,7 @@ public class Progression extends JPanel
 
         gbc.gridx++;
         JPanel barreJaune = new JPanel();
-        barreJaune.setBackground(Color.decode("#5E17EB"));
+        barreJaune.setBackground(Color.decode("#7E3DFF"));
         barreJaune.setPreferredSize(new Dimension(40, 2));
         panelGlobal.add(barreJaune, gbc);
 
@@ -44,11 +44,11 @@ public class Progression extends JPanel
         detailsPanel.setPreferredSize(new Dimension(250, 60));
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
         detailsPanel.setBackground(Color.WHITE);
-        detailsPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#5E17EB")));
+        detailsPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#7E3DFF")));
         JTextArea details = new JTextArea("Détails");
         details.setBackground(Color.WHITE);
         details.setFont(new Font("Georgia", Font.BOLD, 16));
-        details.setForeground(Color.decode("#5E17EB"));
+        details.setForeground(Color.decode("#7E3DFF"));
         details.setEditable(false);
         details.setMargin(new Insets(18, 94, 5, 10));
         detailsPanel.add(details);
@@ -56,7 +56,7 @@ public class Progression extends JPanel
 
         gbc.gridx++;
         JPanel barreJaune2 = new JPanel();
-        barreJaune2.setBackground(Color.decode("#5E17EB"));
+        barreJaune2.setBackground(Color.decode("#7E3DFF"));
         barreJaune2.setPreferredSize(new Dimension(40, 2));
         panelGlobal.add(barreJaune2, gbc);
 
@@ -65,11 +65,11 @@ public class Progression extends JPanel
         confPanel.setPreferredSize(new Dimension(250, 60));
         confPanel.setLayout(new BoxLayout(confPanel, BoxLayout.Y_AXIS));
         confPanel.setBackground(Color.WHITE);
-        confPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#5E17EB")));
+        confPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#7E3DFF")));
         JTextArea confirmation = new JTextArea("Confirmation");
         confirmation.setBackground(Color.WHITE);
         confirmation.setFont(new Font("Georgia", Font.BOLD, 16));
-        confirmation.setForeground(Color.decode("#5E17EB"));
+        confirmation.setForeground(Color.decode("#7E3DFF"));
         confirmation.setEditable(false);
         confirmation.setMargin(new Insets(18, 66, 5, 10));
         confPanel.add(confirmation);

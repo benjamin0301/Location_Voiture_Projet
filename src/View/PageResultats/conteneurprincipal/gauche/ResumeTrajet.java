@@ -80,7 +80,7 @@ public class ResumeTrajet extends JPanel
         JButton boutonModifier = new JButton("Modifier");
         boutonModifier.setPreferredSize(new Dimension(130, 25));
         boutonModifier.setForeground(Color.white);
-        boutonModifier.setBackground(Color.decode("#5E17EB"));
+        boutonModifier.setBackground(Color.decode("#7E3DFF"));
         boutonModifier.setFont(new Font("Georgia", Font.BOLD, 12));
         JPanel panelBouton = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 10));
         panelBouton.add(boutonModifier);

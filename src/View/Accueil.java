@@ -109,7 +109,7 @@ public class Accueil extends JFrame {
         confirmButton.setFont(new Font("Georgia", Font.BOLD, 25));
         confirmButton.setPreferredSize(new Dimension(250, 40));
         confirmButton.setForeground(Color.white);
-        confirmButton.setBackground(Color.decode("#5E17EB"));
+        confirmButton.setBackground(Color.decode("#7E3DFF"));
 
 
         JPanel panelBouton = new JPanel();
@@ -180,7 +180,7 @@ public class Accueil extends JFrame {
 
         gbc.gridy++;
         JTextArea titre = new JTextArea("     Bienvenue sur RentMyRide !");
-        titre.setForeground(Color.decode("#5E17EB"));
+        titre.setForeground(Color.decode("#7E3DFF"));
         titre.setPreferredSize(new Dimension(398, 28));
         titre.setBackground(Color.white);
         titre.setFont(new Font("Georgia", Font.BOLD, 23));
