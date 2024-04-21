@@ -1,6 +1,7 @@
 package View.PageResultats.conteneurprincipal.voitures;
 
 import Controler.VoitureController;
+import Model.ClientModel;
 import Model.VoitureModel;
 
 import javax.swing.*;
@@ -10,9 +11,11 @@ import java.util.ArrayList;
 
 public class ConteneurVoitures extends JPanel
 {
+    public ClientModel clientModel;
 
-    public ConteneurVoitures() throws SQLException, ClassNotFoundException
+    public ConteneurVoitures(ClientModel client) throws SQLException, ClassNotFoundException
     {
+        this.clientModel = client;
 
         setLayout(new GridBagLayout());
         VoitureController voitureController = new VoitureController();
@@ -74,7 +77,7 @@ public class ConteneurVoitures extends JPanel
 
 
         gbc.gridy++;
-        ListeVoitures listeVoitures = new ListeVoitures();
+        ListeVoitures listeVoitures = new ListeVoitures(clientModel);
         String typeClicked = carouselVoitures.returnTypeClicked();
         ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
 

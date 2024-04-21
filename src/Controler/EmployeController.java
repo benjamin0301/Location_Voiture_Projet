@@ -105,15 +105,16 @@ public class EmployeController {
         }
     }
 
-    public int verifierConnexionEmploye(int idEmploye, String password) throws SQLException, ClassNotFoundException {
-        int succes = employe.verif_connexion_employe(idEmploye, password);
+    public EmployeModel verifierConnexionEmploye(int idEmploye, String password) throws SQLException, ClassNotFoundException {
+        EmployeModel employe = new EmployeModel();
+        employe = employe.verif_connexion_employe(idEmploye, password);
         Phrase_de_reponse = employe.Phrase_de_reponse;
-        return succes;
+        return employe;
     }
 
     public EmployeModel RecupEmployeById(int id_employe) throws SQLException, ClassNotFoundException {
         EmployeModel employe = new EmployeModel();
-        employe = employe.RecupEmployeById(id_employe);
+        employe = employe.RecupEmployeById(0, id_employe,null);
         return employe;
     }
 

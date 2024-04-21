@@ -1,8 +1,10 @@
 package View.PageResultats.conteneurprincipal;
 
+import Model.ClientModel;
 import View.PageEspacePersonnel.EspacePersonnel;
 import View.PageResultats.conteneurprincipal.gauche.ConteneurGauche;
 import View.PageResultats.conteneurprincipal.voitures.ConteneurVoitures;
+import com.mysql.cj.xdevapi.Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +16,11 @@ public class ConteneurPrincipal extends JPanel
     private String dateDepart;
     private String lieuRetour;
     private String dateRetour;
+    public ClientModel clientModel;
 
-    public ConteneurPrincipal() throws SQLException, ClassNotFoundException {}
+    public ConteneurPrincipal(ClientModel clientModel) throws SQLException, ClassNotFoundException {
+        this.clientModel = clientModel;
+    }
 
     public void initConteneurPrincipal(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
@@ -32,7 +37,7 @@ public class ConteneurPrincipal extends JPanel
         ConteneurGauche conteneurGauche = new ConteneurGauche(lieuDepart, dateDepart, lieuRetour, dateRetour);
         conteneurGris.add(conteneurGauche, BorderLayout.WEST);
 
-        ConteneurVoitures conteneurVoitures = new ConteneurVoitures();
+        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(clientModel);
         conteneurGris.add(conteneurVoitures, BorderLayout.CENTER);
 
         add(conteneurGris, BorderLayout.CENTER);

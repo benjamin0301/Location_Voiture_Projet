@@ -1,5 +1,6 @@
 package View.PageResultats.conteneurprincipal.voitures;
 
+import Model.ClientModel;
 import Model.VoitureModel;
 
 import javax.swing.*;
@@ -9,9 +10,18 @@ import java.util.ArrayList;
 
 public class ListeVoitures extends JPanel
 {
+    public ClientModel clientModel;
+
     public ListeVoitures() throws SQLException, ClassNotFoundException
     {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.clientModel = null;
+    }
+
+    public ListeVoitures(ClientModel clientModel) throws SQLException, ClassNotFoundException
+    {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.clientModel = clientModel;
     }
     public void afficherListeVoitures(ArrayList<VoitureModel> voitures, int type) throws SQLException, ClassNotFoundException
     {
@@ -24,7 +34,7 @@ public class ListeVoitures extends JPanel
             add(miniEspaceBlanc);
             if (type == 1)
             {
-                PanelVoiture panelVoiture = new PanelVoiture(voiture);
+                PanelVoiture panelVoiture = new PanelVoiture(voiture, clientModel);
                 add(panelVoiture);
             }
             else if (type == 2)

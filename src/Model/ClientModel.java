@@ -16,6 +16,8 @@ public class ClientModel {
     private String date_naissance;
     private String id_vehicule_loue;
 
+    public int Resultat_connexion;
+
     private int id_facture;
     private String date_debut_loc;
 
@@ -208,7 +210,7 @@ public class ClientModel {
         this.date_fin_loc = date_fin_loc;
     }
 
-    public int verif_connexion_client(String login, String password) throws SQLException, ClassNotFoundException {
+    public ClientModel verif_connexion_client(String login, String password) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Preparation de la requête SQL pour verifier les identifiants
@@ -221,10 +223,14 @@ public class ClientModel {
             // Si une ligne est retournee, cela signifie que les identifiants sont valides
 
             if (resultSet.next()) {
+                ClientModel client = new ClientModel();
+                client = client.RecupClientById(1, login, password, 0);
                 Phrase_de_reponse = "Identifiants valides.";
                 System.out.println(Phrase_de_reponse);
+                System.out.println("je teste l'abvnt client = " + client.getId_client());
                 connexion.closeConnection();
-                return 0; // Tout est correct
+                Resultat_connexion = 0;
+                return client; // Tout est correct
             } else {
                 // Verifier si le mail existe
                 query = "SELECT * FROM client WHERE mail = ?";
@@ -235,12 +241,14 @@ public class ClientModel {
                     Phrase_de_reponse = "Mot de passe incorrect.";
                     System.out.println(Phrase_de_reponse);
                     connexion.closeConnection();
-                    return 1; // Mot de passe incorrect
+                    Resultat_connexion = 1;
+                    return null; // Mot de passe incorrect
                 } else {
                     Phrase_de_reponse = "Mail incorrect.";
                     System.out.println(Phrase_de_reponse);
                     connexion.closeConnection();
-                    return 2; // Mail incorrect
+                    Resultat_connexion = 2;
+                    return null; // Mail incorrect
                 }
             }
         } catch (SQLException e) {
@@ -253,7 +261,7 @@ public class ClientModel {
                 ex.printStackTrace();
             }
         }
-        return -1; // Erreur de connexion à la base de donnees
+        return null; // Erreur de connexion à la base de donnees
     }
 
     public Boolean MajPartielBdd(int id_client, String champ, Object Value) throws SQLException, ClassNotFoundException {
@@ -379,36 +387,71 @@ public class ClientModel {
         return false;
     }
 
-    public ClientModel RecupClientById(int idClient) throws SQLException, ClassNotFoundException {
+    public ClientModel RecupClientById(int mode, String mail, String password, int idClient) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
-            // Executer la requête SQL pour recuperer les informations du client avec l'ID specifie
-            String query = "SELECT * FROM client WHERE id_client = ?";
-            PreparedStatement statement = connexion.conn.prepareStatement(query);
-            statement.setInt(1, idClient);
-            ResultSet resultSet = statement.executeQuery();
+            if (mode == 0) {
+                // Executer la requête SQL pour recuperer les informations du client avec l'ID specifie
+                String query = "SELECT * FROM client WHERE id_client = ?";
+                PreparedStatement statement = connexion.conn.prepareStatement(query);
+                statement.setInt(1, idClient);
+                ResultSet resultSet = statement.executeQuery();
 
-            // Verifier si un client a ete trouve avec cet ID
-            if (resultSet.next()) {
-                ClientModel client = new ClientModel();
-                client.setId_client(resultSet.getInt("id_client"));
-                client.setPrenom(resultSet.getString("prenom"));
-                client.setNom(resultSet.getString("nom"));
-                client.setMotDePasse(resultSet.getString("mot_de_passe"));
-                client.setMail(resultSet.getString("mail"));
-                client.setDateNaissance(resultSet.getString("date_naissance"));
-                client.setFidelite(resultSet.getBoolean("fidelite"));
-                client.setId_vehicule_loue(resultSet.getString("id_vehicule_loue"));
-                client.setDate_debut_loc(resultSet.getString("date_debut_loc"));
-                client.setDate_fin_loc(resultSet.getString("date_fin_loc"));
-                client.setId_facture(resultSet.getInt("id_facture"));
+                // Verifier si un client a ete trouve avec cet ID
+                if (resultSet.next()) {
+                    ClientModel client = new ClientModel();
+                    client.setId_client(resultSet.getInt("id_client"));
+                    client.setPrenom(resultSet.getString("prenom"));
+                    client.setNom(resultSet.getString("nom"));
+                    client.setMotDePasse(resultSet.getString("mot_de_passe"));
+                    client.setMail(resultSet.getString("mail"));
+                    client.setDateNaissance(resultSet.getString("date_naissance"));
+                    client.setFidelite(resultSet.getBoolean("fidelite"));
+                    client.setId_vehicule_loue(resultSet.getString("id_vehicule_loue"));
+                    client.setDate_debut_loc(resultSet.getString("date_debut_loc"));
+                    client.setDate_fin_loc(resultSet.getString("date_fin_loc"));
+                    client.setId_facture(resultSet.getInt("id_facture"));
 
-                return client;
-            } else {
-                // Aucun client trouve avec cet ID
-                Phrase_de_reponse = "Aucun client trouve avec l'ID specifie : " + idClient;
-                System.out.println(Phrase_de_reponse);
-                return null;
+                    return client;
+                } else {
+                    // Aucun client trouve avec cet ID
+                    Phrase_de_reponse = "Aucun client trouve avec l'ID specifie : " + idClient;
+                    System.out.println(Phrase_de_reponse);
+                    return null;
+                }
+            }
+            else {
+                // Executer la requête SQL pour recuperer les informations du client avec l'ID specifie
+                String query = "SELECT * FROM client WHERE mail = ? AND mot_de_passe = ?";
+                PreparedStatement statement = connexion.conn.prepareStatement(query);
+                statement.setString(1, mail);
+                statement.setString(2, password);
+                ResultSet resultSet = statement.executeQuery();
+
+                // Verifier si un client a ete trouve avec cet ID
+                if (resultSet.next()) {
+                    System.out.println("ca marche");
+                    ClientModel client = new ClientModel();
+                    client.setId_client(resultSet.getInt("id_client"));
+                    client.setPrenom(resultSet.getString("prenom"));
+                    client.setNom(resultSet.getString("nom"));
+                    client.setMotDePasse(resultSet.getString("mot_de_passe"));
+                    client.setMail(resultSet.getString("mail"));
+                    client.setDateNaissance(resultSet.getString("date_naissance"));
+                    client.setFidelite(resultSet.getBoolean("fidelite"));
+                    client.setId_vehicule_loue(resultSet.getString("id_vehicule_loue"));
+                    client.setDate_debut_loc(resultSet.getString("date_debut_loc"));
+                    client.setDate_fin_loc(resultSet.getString("date_fin_loc"));
+                    client.setId_facture(resultSet.getInt("id_facture"));
+
+                    return client;
+                } else {
+                    // Aucun client trouve avec cet ID
+                    Phrase_de_reponse = "Aucun client trouve avec le mail et mdp specifie : " + idClient;
+                    System.out.println(Phrase_de_reponse);
+                    return null;
+                }
+
             }
         } catch (SQLException e){
             try {

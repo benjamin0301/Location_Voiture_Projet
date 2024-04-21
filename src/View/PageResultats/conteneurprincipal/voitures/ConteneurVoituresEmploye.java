@@ -1,6 +1,7 @@
 package View.PageResultats.conteneurprincipal.voitures;
 
 import Controler.VoitureController;
+import Model.ClientModel;
 import Model.VoitureModel;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class ConteneurVoituresEmploye extends JPanel
 
     public ConteneurVoituresEmploye() throws SQLException, ClassNotFoundException
     {
+
         setLayout(new GridBagLayout());
         VoitureController voitureController = new VoitureController();
         VoitureModel voitureModel = new VoitureModel();

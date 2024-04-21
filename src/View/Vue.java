@@ -12,8 +12,11 @@ public class Vue extends JFrame
 {
     private ConteneurHaut conteneurHaut;
     private ConteneurPrincipal conteneurPrincipal;
+    private ClientModel clientModel;
 
-    public Vue() throws SQLException, ClassNotFoundException {}
+    public Vue(ClientModel client) throws SQLException, ClassNotFoundException {
+        this.clientModel = client;
+    }
 
     public void initialize(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
@@ -22,7 +25,7 @@ public class Vue extends JFrame
         setLayout(new BorderLayout());
 
 
-        conteneurPrincipal = new ConteneurPrincipal();
+        conteneurPrincipal = new ConteneurPrincipal(clientModel);
         conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour); // Fournir les arguments ici
 
         conteneurHaut = new ConteneurHaut();

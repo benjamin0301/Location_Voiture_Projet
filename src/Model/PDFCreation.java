@@ -15,7 +15,7 @@ public class PDFCreation {
        FactureModel facture = new FactureModel();
        VoitureModel voiture = new VoitureModel();
        ClientModel client = new ClientModel();
-       client.RecupClientById(191627);
+       client.RecupClientById(0, null, null,191627);
        voiture.RecupVoitureByIdPlaque("GO-317-AT");
        facture.CreerFacture(client, voiture, 10, "bite", "0694345678","bite","bite","vol 3456789", "bite", "bite");
     }

@@ -17,6 +17,7 @@ public class EmployeModel {
     private String mail;
     private String num_tel;
     public String Phrase_de_reponse;
+    public int Resultat_connexion;
 
     public EmployeModel() {
     }
@@ -117,7 +118,7 @@ public class EmployeModel {
     }
 
     // Méthode pour vérifier l'authentification d'un employé
-    public int verif_connexion_employe(int id_employe, String password) throws SQLException, ClassNotFoundException {
+    public EmployeModel verif_connexion_employe(int id_employe, String password) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Préparation de la requête SQL pour vérifier les identifiants
@@ -129,10 +130,13 @@ public class EmployeModel {
 
             // Si une ligne est retournée, cela signifie que les identifiants sont valides
             if (resultSet.next()) {
+                EmployeModel employe = new EmployeModel();
+                employe = employe.RecupEmployeById(1, id_employe, password);
                 Phrase_de_reponse = "Identifiants valides.";
                 System.out.println(Phrase_de_reponse);
                 connexion.closeConnection();
-                return 3; // Tout est correct
+                Resultat_connexion = 0;
+                return employe; // Tout est correct
             } else {
                 // Vérifier si l'id_employe existe
                 query = "SELECT * FROM employe WHERE id_employe = ?";
@@ -143,12 +147,14 @@ public class EmployeModel {
                     Phrase_de_reponse = "Mot de passe incorrect.";
                     System.out.println(Phrase_de_reponse);
                     connexion.closeConnection();
-                    return 1; // Mot de passe incorrect
+                    Resultat_connexion = 1;
+                    return null; // Mot de passe incorrect
                 } else {
                     Phrase_de_reponse = "Numéro d'identification incorrect.";
                     System.out.println(Phrase_de_reponse);
                     connexion.closeConnection();
-                    return 2; // Mail incorrect
+                    Resultat_connexion = 2;
+                    return null; // Mail incorrect
                 }
             }
         } catch (SQLException e) {
@@ -157,7 +163,7 @@ public class EmployeModel {
         }
         Phrase_de_reponse = "Erreur de connexion à la base de données";
         System.out.println(Phrase_de_reponse);
-        return -1; // Erreur de connexion à la base de données
+        return null; // Erreur de connexion à la base de données
     }
 
     // Méthode pour générer un identifiant unique pour un employé
@@ -329,31 +335,59 @@ public class EmployeModel {
 
 
     // Méthode pour récupérer un employé par son ID
-    public EmployeModel RecupEmployeById(int idEmploye) throws SQLException, ClassNotFoundException {
+    public EmployeModel RecupEmployeById(int mode, int idEmploye, String password) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
-            // Exécuter la requête SQL pour récupérer les informations de l'employé avec l'ID spécifié
-            String query = "SELECT * FROM employe WHERE id_employe = ?";
-            PreparedStatement statement = connexion.conn.prepareStatement(query);
-            statement.setInt(1, idEmploye);
-            ResultSet resultSet = statement.executeQuery();
+            if (mode == 0) {
+                // Exécuter la requête SQL pour récupérer les informations de l'employé avec l'ID spécifié
+                String query = "SELECT * FROM employe WHERE id_employe = ?";
+                PreparedStatement statement = connexion.conn.prepareStatement(query);
+                statement.setInt(1, idEmploye);
+                ResultSet resultSet = statement.executeQuery();
 
-            // Vérifier si un employé a été trouvé avec cet ID
-            if (resultSet.next()) {
-                EmployeModel employe = new EmployeModel();
-                employe.setId_employe(resultSet.getInt("id_employe"));
-                employe.setMdp(resultSet.getString("mdp"));
-                employe.setNom(resultSet.getString("nom"));
-                employe.setPrenom(resultSet.getString("prenom"));
-                employe.setMail(resultSet.getString("mail"));
-                employe.setNum_tel(resultSet.getString("num_tel"));
+                // Vérifier si un employé a été trouvé avec cet ID
+                if (resultSet.next()) {
+                    EmployeModel employe = new EmployeModel();
+                    employe.setId_employe(resultSet.getInt("id_employe"));
+                    employe.setMdp(resultSet.getString("mdp"));
+                    employe.setNom(resultSet.getString("nom"));
+                    employe.setPrenom(resultSet.getString("prenom"));
+                    employe.setMail(resultSet.getString("mail"));
+                    employe.setNum_tel(resultSet.getString("num_tel"));
 
-                return employe;
-            } else {
-                // Aucun employé trouvé avec cet ID
-                Phrase_de_reponse = "Aucun employé trouvé avec l'ID spécifié : " + idEmploye;
-                System.out.println(Phrase_de_reponse);
-                return null;
+                    return employe;
+                } else {
+                    // Aucun employé trouvé avec cet ID
+                    Phrase_de_reponse = "Aucun employé trouvé avec l'ID spécifié : " + idEmploye;
+                    System.out.println(Phrase_de_reponse);
+                    return null;
+                }
+            }
+            else {
+                // Exécuter la requête SQL pour récupérer les informations de l'employé avec l'ID spécifié
+                String query = "SELECT * FROM employe WHERE id_employe = ? AND mdp = ?";
+                PreparedStatement statement = connexion.conn.prepareStatement(query);
+                statement.setInt(1, idEmploye);
+                statement.setString(1, password);
+                ResultSet resultSet = statement.executeQuery();
+
+                // Vérifier si un employé a été trouvé avec cet ID
+                if (resultSet.next()) {
+                    EmployeModel employe = new EmployeModel();
+                    employe.setId_employe(resultSet.getInt("id_employe"));
+                    employe.setMdp(resultSet.getString("mdp"));
+                    employe.setNom(resultSet.getString("nom"));
+                    employe.setPrenom(resultSet.getString("prenom"));
+                    employe.setMail(resultSet.getString("mail"));
+                    employe.setNum_tel(resultSet.getString("num_tel"));
+
+                    return employe;
+                } else {
+                    // Aucun employé trouvé avec cet ID
+                    Phrase_de_reponse = "Aucun employé trouvé avec l'ID spécifié : " + idEmploye;
+                    System.out.println(Phrase_de_reponse);
+                    return null;
+                }
             }
         } catch (SQLException e){
             try {

@@ -1,4 +1,5 @@
 package View;
+import Model.EmployeModel;
 import View.PageEspacePersonnel.FrameEspacePerso;
 import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
@@ -17,7 +18,7 @@ public class VueEmploye extends JFrame
     private ConteneurVoituresEmploye conteneurvoituresemployes;
 
 
-    public VueEmploye() throws SQLException, ClassNotFoundException {}
+    public VueEmploye(EmployeModel employeModel) throws SQLException, ClassNotFoundException {}
 
     public void initialize(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {

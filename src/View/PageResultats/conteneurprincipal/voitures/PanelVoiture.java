@@ -1,6 +1,8 @@
 package View.PageResultats.conteneurprincipal.voitures;
 
+import Model.ClientModel;
 import Model.VoitureModel;
+import View.ConnexionVue;
 import View.PageDetails.FrameDetails;
 
 import javax.swing.*;
@@ -12,8 +14,11 @@ import java.sql.SQLException;
 public class PanelVoiture extends JPanel
 {
     VoitureModel voiture_select;
-    public PanelVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException
+    public ClientModel client;
+
+    public PanelVoiture(VoitureModel voiture, ClientModel clientModel) throws SQLException, ClassNotFoundException
     {
+        this.client = clientModel;
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(2, 300));
         setBackground(Color.white);
@@ -195,11 +200,9 @@ public class PanelVoiture extends JPanel
 
         selectionner.addActionListener(new ActionListener()
         {
-            public void actionPerformed(ActionEvent e)
-            {
-                try
-                {
-                    FrameDetails frameDetails = new FrameDetails(voiture_select);
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("test du client" + client);
+                if (client == null) {
 
                     Window window = SwingUtilities.getWindowAncestor(selectionner);
 
@@ -208,9 +211,34 @@ public class PanelVoiture extends JPanel
                         JFrame frame = (JFrame) window;
                         frame.dispose(); // Fermer la fenêtre actuelle
                     }
+
+                    ConnexionVue connexion = null;
+                    try {
+                        connexion = new ConnexionVue();
+                        connexion.setVisible(true);
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    if (window instanceof JFrame) {
+                        JFrame frame = (JFrame) window;
+                        frame.dispose();
+                    }
+                } else {
+                    try {
+                        FrameDetails frameDetails = new FrameDetails(voiture_select);
+
+                        Window window = SwingUtilities.getWindowAncestor(selectionner);
+
+                        // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer
+                        if (window instanceof JFrame) {
+                            JFrame frame = (JFrame) window;
+                            frame.dispose(); // Fermer la fenêtre actuelle
+                        }
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
-                catch (SQLException ex) { throw new RuntimeException(ex); }
-                catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
             }
         });
 

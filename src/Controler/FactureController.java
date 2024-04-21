@@ -43,7 +43,7 @@ public class FactureController {
         FactureModel factureModel = new FactureModel();
         ClientModel clientModel = new ClientModel();
 
-        clientModel = clientModel.RecupClientById(75239);
+        clientModel = clientModel.RecupClientById(0, null, null,75239);
         VoitureModel voitureModel = new VoitureModel();
         voitureModel = voitureModel.RecupVoitureByIdPlaque("ABC23");
         int prix = 20;

@@ -36,9 +36,9 @@
 -- (***) Creation de la facture en fichier txt ou pdf
 -- (***) Recuperation des infos du clints et des ses reversations dans la page de mon espace personel
 -- (***) Affichage valide des reservations du client dans son espace
--- (***) Interface employé à faire
--- (***) Interface de modification des voitures par un employé
--- (***) Interface d'ajout de voiture par un employé
+-- (***) Interface employé à faire // BON
+-- (***) Interface de modification des voitures par un employé // BON
+-- (***) Interface d'ajout de voiture par un employé  // BON
 
 -- (**) ajouter le compteur de fidelite a chaque connexion du client
 -- (**) Blindage de la remise de fidelite en fonction du compteur.

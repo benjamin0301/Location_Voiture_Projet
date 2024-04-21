@@ -1,5 +1,6 @@
 package View;
 
+import Model.ClientModel;
 import View.PageResultats.ConteneurHaut;
 
 import javax.swing.*;
@@ -141,7 +142,8 @@ public class Accueil extends JFrame {
                 SwingUtilities.invokeLater(() -> {
                     try
                     {
-                        Vue vue = new Vue();
+                        ClientModel clientModel = null;
+                        Vue vue = new Vue(clientModel);
                         vue.initialize(getLieu(), getDateDepart(), getLieu(), getDateRetour());
                         Window window = SwingUtilities.getWindowAncestor(confirmButton);
 

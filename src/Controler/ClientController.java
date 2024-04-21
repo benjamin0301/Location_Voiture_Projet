@@ -118,8 +118,10 @@ public class ClientController {
     }
 
 
-    public int verifierConnexionClient(String login, String password) throws SQLException, ClassNotFoundException {
-        return client.verif_connexion_client(login, password);
+    public ClientModel verifierConnexionClient(String login, String password) throws SQLException, ClassNotFoundException {
+        ClientModel client2= client.verif_connexion_client(login, password);
+        System.out.println("client2 = "+ client2.Resultat_connexion) ;
+        return client2;
     }
 
 

@@ -2,6 +2,8 @@ package View;
 
 import Controler.ClientController;
 import Controler.EmployeController;
+import Model.ClientModel;
+import Model.EmployeModel;
 import View.PageResultats.ConteneurHaut;
 
 import javax.swing.*;
@@ -19,10 +21,14 @@ public class ConnexionVue extends JFrame {
 
     public ClientController clientcontroller;
     public EmployeController employeController;
+    private ClientModel client;
+    private EmployeModel employe;
 
     public ConnexionVue() throws SQLException, ClassNotFoundException {
         this.clientcontroller = new ClientController();
         this.employeController = new EmployeController();
+        this.client = new ClientModel();
+        this.employe = new EmployeModel();
 
         setTitle("Connexion");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,7 +93,7 @@ public class ConnexionVue extends JFrame {
                         String lieuRetour = ""; // Fournir la valeur appropriée
                         String dateRetour = ""; // Fournir la valeur appropriée
 
-                        Vue vue = new Vue();
+                        Vue vue = new Vue(client);
 
 
                         vue.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour);
@@ -111,7 +117,7 @@ public class ConnexionVue extends JFrame {
                         String lieuRetour = ""; // Fournir la valeur appropriée
                         String dateRetour = ""; // Fournir la valeur appropriée
 
-                        VueEmploye vp = new VueEmploye();
+                        VueEmploye vp = new VueEmploye(employe);
 
 
                         vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour);
@@ -152,9 +158,12 @@ public class ConnexionVue extends JFrame {
         int userType = 5;
         try {
             int idEmploye = Integer.parseInt(email);
-            userType = employeController.verifierConnexionEmploye(idEmploye, password);
+            userType = 3;
+            employe = employeController.verifierConnexionEmploye(idEmploye, password);
         } catch (NumberFormatException e) {
-            userType = clientcontroller.verifierConnexionClient(email, password);
+            client = clientcontroller.verifierConnexionClient(email, password);
+            System.out.println("test du client number 2" + client.getId_client());
+            userType = 0;
         }
         return userType;
     }
