@@ -18,7 +18,7 @@ public class FactureController {
         this.facture = new FactureModel();
     }
 
-    public FactureModel CreerNouvelleFacture(VoitureModel voiture, ClientModel client,int prix, String email, String num_tel, String ville, String adresse, String num_vol, String nom, String prenom) throws SQLException, ClassNotFoundException {
+    public FactureModel CreerNouvelleFacture(VoitureModel voiture, ClientModel client,int prix, String email, String num_tel, String ville, String adresse, String num_vol, String nom, String prenom) throws Exception {
         facture = facture.CreerFacture(client, voiture, prix, email, num_tel, ville, adresse, num_vol, nom, prenom);
         if(facture!=null)
             return facture;
@@ -39,7 +39,7 @@ public class FactureController {
         return false;
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws Exception {
         FactureModel factureModel = new FactureModel();
         ClientModel clientModel = new ClientModel();
 
