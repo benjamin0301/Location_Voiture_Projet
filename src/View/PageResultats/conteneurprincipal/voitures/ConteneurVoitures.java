@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ConteneurVoitures extends JPanel
 {
 
-    public ConteneurVoitures() throws SQLException, ClassNotFoundException
+    public ConteneurVoitures(int res) throws SQLException, ClassNotFoundException
     {
 
         setLayout(new GridBagLayout());
@@ -120,7 +120,7 @@ public class ConteneurVoitures extends JPanel
             System.out.println("si ca rentre dans default" + listeVoituresPourAffichage.getFirst().getType());
         }
 
-        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1);
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1, res);
         add(listeVoitures, gbc);
 
 

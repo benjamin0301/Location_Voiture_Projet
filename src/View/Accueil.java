@@ -33,14 +33,14 @@ public class Accueil extends JFrame {
     }
 
 
-    public Accueil()
+    public Accueil(int res)
     {
         setTitle("Accueil");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut();
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res);
         add(conteneurHaut, BorderLayout.NORTH);
 
         ImageIcon originalImageIcon = new ImageIcon("images/firefly-1.jpg");
@@ -142,7 +142,7 @@ public class Accueil extends JFrame {
                     try
                     {
                         Vue vue = new Vue();
-                        vue.initialize(getLieu(), getDateDepart(), getLieu(), getDateRetour());
+                        vue.initialize(getLieu(), getDateDepart(), getLieu(), getDateRetour(),res);
                         Window window = SwingUtilities.getWindowAncestor(confirmButton);
 
                         if (window instanceof JFrame) {

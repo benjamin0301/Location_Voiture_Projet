@@ -13,7 +13,7 @@ public class ResumeTrajet extends JPanel
     private String dateDepart;
     private String lieuRetour;
     private String dateRetour;
-    public ResumeTrajet(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour)
+    public ResumeTrajet(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res)
     {
         this.lieuDepart = lieuDepart;
         this.dateDepart = dateDepart;
@@ -93,7 +93,7 @@ public class ResumeTrajet extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 Accueil accueil = null;
-                accueil = new Accueil();
+                accueil = new Accueil(res);
                 accueil.setVisible(true);
 
                 Window window = SwingUtilities.getWindowAncestor(boutonModifier);

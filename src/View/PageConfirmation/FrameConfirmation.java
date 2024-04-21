@@ -12,7 +12,7 @@ import java.awt.*;
 public class FrameConfirmation extends JFrame
 {
     private JPanel contentPanel;
-    public FrameConfirmation(VoitureModel voiture)
+    public FrameConfirmation(VoitureModel voiture, int res)
     {
         setTitle("Confirmation de réservation");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -22,10 +22,10 @@ public class FrameConfirmation extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut();
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res);
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
-        PageConfirmation nouvellePage = new PageConfirmation(voiture);
+        PageConfirmation nouvellePage = new PageConfirmation(voiture, res);
 
         JPanel englobeurPC = new JPanel(new BorderLayout());
         englobeurPC.setBackground(Color.decode("#E4E4E4"));

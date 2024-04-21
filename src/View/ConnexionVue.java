@@ -30,7 +30,7 @@ public class ConnexionVue extends JFrame {
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
-        ConteneurHaut conteneurHaut = new ConteneurHaut();
+        ConteneurHaut conteneurHaut = new ConteneurHaut(1);
         add(conteneurHaut, BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -90,7 +90,7 @@ public class ConnexionVue extends JFrame {
                         Vue vue = new Vue();
 
 
-                        vue.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour);
+                        vue.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
 
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

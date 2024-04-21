@@ -12,15 +12,15 @@ import java.sql.SQLException;
 public class PanelVoiture extends JPanel
 {
     VoitureModel voiture_select;
-    public PanelVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException
+    public PanelVoiture(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException
     {
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(2, 300));
         setBackground(Color.white);
-        initialize(voiture);
+        initialize(voiture, res);
     }
 
-    public void initialize(VoitureModel voiture)
+    public void initialize(VoitureModel voiture, int res)
     {
         voiture_select = voiture;
         GridBagConstraints gbc = new GridBagConstraints();
@@ -199,7 +199,7 @@ public class PanelVoiture extends JPanel
             {
                 try
                 {
-                    FrameDetails frameDetails = new FrameDetails(voiture_select);
+                    FrameDetails frameDetails = new FrameDetails(voiture_select, res);
 
                     Window window = SwingUtilities.getWindowAncestor(selectionner);
 

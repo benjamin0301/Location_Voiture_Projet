@@ -8,7 +8,7 @@ public class ConteneurGauche extends JPanel
     private String dateDepart;
     private String lieuRetour;
     private String dateRetour;
-    public ConteneurGauche(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour)
+    public ConteneurGauche(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res)
     {
         this.lieuDepart = lieuDepart;
         this.dateDepart = dateDepart;
@@ -18,7 +18,7 @@ public class ConteneurGauche extends JPanel
         setBackground(Color.decode("#FFFFFF"));
         setPreferredSize(new Dimension(250, 1500));
 
-        ResumeTrajet resumeTrajet = new ResumeTrajet(lieuDepart, dateDepart, lieuRetour, dateRetour);
+        ResumeTrajet resumeTrajet = new ResumeTrajet(lieuDepart, dateDepart, lieuRetour, dateRetour, res);
 
         resumeTrajet.setPreferredSize(new Dimension(230, 300));
         add(resumeTrajet);

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class FrameEspacePerso extends JFrame
 {
     private JPanel contentPanel;
-    public FrameEspacePerso() throws SQLException, ClassNotFoundException
+    public FrameEspacePerso(int res) throws SQLException, ClassNotFoundException
     {
         setTitle("Mon espace personnel");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -22,7 +22,7 @@ public class FrameEspacePerso extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut();
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res);
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
         EspacePersonnel espacePersonnel = new EspacePersonnel();
