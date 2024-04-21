@@ -123,7 +123,15 @@ public class VoitureModel {
     public void setCouleur(String couleur) {
         this.couleur = couleur;
     }
-
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+    public void setCapaEssence(int capa_essence) {
+        this.capa_essence = capa_essence;
+    }
+    public void setMoteur(String moteur) {
+        this.moteur = moteur;
+    }
     public String getMoteur() {
         return moteur;
     }
@@ -174,7 +182,7 @@ public class VoitureModel {
         this.kilometrage_actuel = kilometrage_actuel;
     }
 
-    public float getPrix () {
+    public int getPrix () {
         return prix;
     }
 
@@ -596,4 +604,7 @@ public class VoitureModel {
         );
         return voiture;
     }
+
+
+
 }

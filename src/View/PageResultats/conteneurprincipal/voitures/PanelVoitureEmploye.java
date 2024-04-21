@@ -9,10 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class PanelVoiture extends JPanel
+public class PanelVoitureEmploye extends JPanel
 {
     VoitureModel voiture_select;
-    public PanelVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException
+    public PanelVoitureEmploye(VoitureModel voiture) throws SQLException, ClassNotFoundException
     {
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(2, 300));
@@ -185,23 +185,26 @@ public class PanelVoiture extends JPanel
         espaceVide2D.setBackground(Color.decode("#F5EFFF"));
         espaceVide2D.setPreferredSize(new Dimension(200, 10));
         panelD.add(espaceVide2D);
-        JButton selectionner = new JButton("Sélectionner");
-        selectionner.setPreferredSize(new Dimension(192, 50));
-        selectionner.setBackground(Color.decode("#7E3DFF"));
-        selectionner.setForeground(Color.white);
-        selectionner.setFont(new Font("Georgia", Font.BOLD, 21));
-        panelD.add(selectionner);
+        JButton modifier = new JButton("Modifier");
+        modifier.setPreferredSize(new Dimension(192, 50));
+        modifier.setBackground(Color.decode("#5E17EB"));
+        modifier.setForeground(Color.white);
+        modifier.setFont(new Font("Georgia", Font.BOLD, 21));
+        panelD.add(modifier);
 
 
-        selectionner.addActionListener(new ActionListener()
+        modifier.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
                 try
                 {
-                    FrameDetails frameDetails = new FrameDetails(voiture_select);
+                    //FrameDetails frameDetails = new FrameDetails(voiture_select);
+                    ModifierVoiture modifierVoiture = new ModifierVoiture(voiture_select);
+                    modifierVoiture.setVisible(true);
 
-                    Window window = SwingUtilities.getWindowAncestor(selectionner);
+
+                    Window window = SwingUtilities.getWindowAncestor(modifier);
 
                     // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer
                     if (window instanceof JFrame) {

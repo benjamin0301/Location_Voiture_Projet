@@ -37,7 +37,7 @@ public class PanelReservation extends JPanel
         idR.setFont(new Font("Georgia", Font.BOLD, 18));
         idR.setPreferredSize(new Dimension(310, 32));
         panelA.add(idR);
-        idR.setForeground(Color.decode("#5E17EB"));
+        idR.setForeground(Color.decode("#7E3DFF"));
 
         JLabel type = new JLabel("Type : " +voiture.getType());
         type.setBackground(Color.white);
@@ -118,7 +118,7 @@ public class PanelReservation extends JPanel
         panelC.add(ebs3);
 
         JLabel depart = new JLabel("Départ");
-        depart.setForeground(Color.decode("#5E17EB"));
+        depart.setForeground(Color.decode("#7E3DFF"));
         depart.setPreferredSize(new Dimension(270, 22));
         depart.setFont(new Font("Georgia", Font.BOLD, 19));
         panelC.add(depart);
@@ -140,7 +140,7 @@ public class PanelReservation extends JPanel
 
 
         JLabel arrivee = new JLabel("Arrivée");
-        arrivee.setForeground(Color.decode("#5E17EB"));
+        arrivee.setForeground(Color.decode("#7E3DFF"));
         arrivee.setPreferredSize(new Dimension(270, 22));
         arrivee.setFont(new Font("Georgia", Font.BOLD, 19));
         panelC.add(arrivee);
@@ -162,7 +162,7 @@ public class PanelReservation extends JPanel
 
 
         JButton supp = new JButton("Supprimer cette réservation");
-        supp.setBackground(Color.decode("#5E17EB"));
+        supp.setBackground(Color.decode("#7E3DFF"));
         supp.setForeground(Color.white);
         supp.setFont(new Font("Georgia", Font.BOLD, 15));
         panelC.add(supp);

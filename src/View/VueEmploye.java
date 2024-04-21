@@ -4,16 +4,20 @@ import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
 import View.PageResultats.conteneurprincipal.ConteneurPrincipal;
 import Model.ClientModel;
+import View.PageResultats.conteneurprincipal.voitures.ConteneurVoituresEmploye;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class Vue extends JFrame
+public class VueEmploye extends JFrame
 {
-    private ConteneurHaut conteneurHaut;
+    private ConteneurEmploye conteneurEmploye;
     private ConteneurPrincipal conteneurPrincipal;
+    private ConteneurVoituresEmploye conteneurvoituresemployes;
 
-    public Vue() throws SQLException, ClassNotFoundException {}
+
+    public VueEmploye() throws SQLException, ClassNotFoundException {}
 
     public void initialize(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
@@ -22,16 +26,16 @@ public class Vue extends JFrame
         setLayout(new BorderLayout());
 
 
-        conteneurPrincipal = new ConteneurPrincipal();
-        conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour); // Fournir les arguments ici
-
-        conteneurHaut = new ConteneurHaut();
+        //conteneurPrincipal = new ConteneurPrincipal();
+        //conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour); // Fournir les arguments ici
+        conteneurvoituresemployes = new ConteneurVoituresEmploye();
+        conteneurEmploye = new ConteneurEmploye();
 
         Footer footer = new Footer();
 
         JPanel contenuPanel = new JPanel();
         contenuPanel.setLayout(new BorderLayout());
-        contenuPanel.add(conteneurPrincipal, BorderLayout.CENTER);
+        contenuPanel.add(conteneurvoituresemployes, BorderLayout.CENTER);
         contenuPanel.add(footer, BorderLayout.SOUTH);
 
         JScrollPane scrollPane = new JScrollPane(contenuPanel);
@@ -42,7 +46,7 @@ public class Vue extends JFrame
         scrollBar.setUI(new CustomScrollBarUI());
 
 
-        add(conteneurHaut, BorderLayout.NORTH);
+        add(conteneurEmploye, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
 
         // Déplace la vue du JScrollPane vers le haut du contenuPanel

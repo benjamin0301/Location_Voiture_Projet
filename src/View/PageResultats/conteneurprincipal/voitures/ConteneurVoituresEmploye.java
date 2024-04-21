@@ -8,12 +8,11 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ConteneurVoitures extends JPanel
+public class ConteneurVoituresEmploye extends JPanel
 {
 
-    public ConteneurVoitures() throws SQLException, ClassNotFoundException
+    public ConteneurVoituresEmploye() throws SQLException, ClassNotFoundException
     {
-
         setLayout(new GridBagLayout());
         VoitureController voitureController = new VoitureController();
         VoitureModel voitureModel = new VoitureModel();
@@ -120,7 +119,7 @@ public class ConteneurVoitures extends JPanel
             System.out.println("si ca rentre dans default" + listeVoituresPourAffichage.getFirst().getType());
         }
 
-        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1);
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 2);
         add(listeVoitures, gbc);
 
 

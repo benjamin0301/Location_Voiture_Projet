@@ -1,6 +1,7 @@
 package View;
 
 import Controler.ClientController;
+import Controler.EmployeController;
 import View.PageResultats.ConteneurHaut;
 
 import javax.swing.*;
@@ -8,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
 
 public class ConnexionVue extends JFrame {
 
@@ -18,9 +18,11 @@ public class ConnexionVue extends JFrame {
     private JButton createAccountButton;
 
     public ClientController clientcontroller;
+    public EmployeController employeController;
 
     public ConnexionVue() throws SQLException, ClassNotFoundException {
         this.clientcontroller = new ClientController();
+        this.employeController = new EmployeController();
 
         setTitle("Connexion");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,23 +68,19 @@ public class ConnexionVue extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String email = emailField.getText();
                 String password = new String(passwordField.getPassword());
-                int isConnected = 0;
+                int userType = 0;
                 try {
-                    isConnected = authenticate(email, password);
+                    userType = authenticate(email, password);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 } catch (ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
-                if (isConnected == 0) {
-                    // Afficher l'interface de connexion
-                    // Vous pouvez remplacer cette partie par l'affichage de votre interface de connexion
+                if (userType == 0) {
+                    // C'est un client, redirigez vers la vue client
+                    // ...
                     JOptionPane.showMessageDialog(ConnexionVue.this, "Connexion réussie !");
-
-                    // Masquer la fenêtre de connexion actuelle
                     ConnexionVue.this.setVisible(false);
-
-                    // Créer une nouvelle instance de la classe Vue et appeler la méthode initialize
                     try {
                         String lieuDepart = ""; // Fournir la valeur appropriée
                         String dateDepart = ""; // Fournir la valeur appropriée
@@ -99,9 +97,32 @@ public class ConnexionVue extends JFrame {
                     } catch (ClassNotFoundException ex) {
                         JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Classe introuvable : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                else if (isConnected == 1 || isConnected == 2) {
-                    // Afficher un message d'erreur
+
+
+
+                } else if (userType == 3) {
+                    // C'est un employé, redirigez vers la vue employé
+                    // ...
+                    JOptionPane.showMessageDialog(ConnexionVue.this, "Connexion réussie !");
+                    ConnexionVue.this.setVisible(false);
+                    try {
+                        String lieuDepart = ""; // Fournir la valeur appropriée
+                        String dateDepart = ""; // Fournir la valeur appropriée
+                        String lieuRetour = ""; // Fournir la valeur appropriée
+                        String dateRetour = ""; // Fournir la valeur appropriée
+
+                        VueEmploye vp = new VueEmploye();
+
+
+                        vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour);
+
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } catch (ClassNotFoundException ex) {
+                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Classe introuvable : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    // La connexion a échoué, affichez un message d'erreur
                     JOptionPane.showMessageDialog(ConnexionVue.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
                 }
             }
@@ -128,15 +149,16 @@ public class ConnexionVue extends JFrame {
 
     // Méthode pour authentifier l'utilisateur en utilisant le programme xxxx
     private int authenticate(String email, String password) throws SQLException, ClassNotFoundException {
-        // Appel à votre programme xxxx avec les informations d'authentification
-        // Ici, vous devrez appeler le programme xxxx et obtenir la réponse
-        // Pour cet exemple, je suppose que le programme retourne true si l'authentification réussit et false sinon
-        // Vous devez remplacer ce code par l'appel réel à votre programme xxxx
-        int isConnected = clientcontroller.verifierConnexionClient(email, password);
-        // Exemple fictif :
-        //isConnected = MyApp.authenticate(email, password);
-        return isConnected;
+        int userType = 5;
+        try {
+            int idEmploye = Integer.parseInt(email);
+            userType = employeController.verifierConnexionEmploye(idEmploye, password);
+        } catch (NumberFormatException e) {
+            userType = clientcontroller.verifierConnexionClient(email, password);
+        }
+        return userType;
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

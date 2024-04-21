@@ -132,7 +132,7 @@ public class EmployeModel {
                 Phrase_de_reponse = "Identifiants valides.";
                 System.out.println(Phrase_de_reponse);
                 connexion.closeConnection();
-                return 0; // Tout est correct
+                return 3; // Tout est correct
             } else {
                 // Vérifier si l'id_employe existe
                 query = "SELECT * FROM employe WHERE id_employe = ?";

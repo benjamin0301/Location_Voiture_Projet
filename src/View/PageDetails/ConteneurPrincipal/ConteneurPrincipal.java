@@ -49,7 +49,7 @@ public class ConteneurPrincipal extends JPanel {
         confirmation.setPreferredSize(new Dimension(500, 45));
         confirmation.setFont(new Font("Georgia", Font.BOLD, 16));
         confirmation.setForeground(Color.white);
-        confirmation.setBackground(Color.decode("#5E17EB"));
+        confirmation.setBackground(Color.decode("#7E3DFF"));
 
         panelConf.add(confirmation, gbc);
 

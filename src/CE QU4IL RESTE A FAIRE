@@ -30,7 +30,7 @@
 
 -- (***) Filtrage lieu de prise en charge et si les voitures sont dispo en fonction des dates selectionnées
 -- (***) Filtrage des voitures en fonction du type scpecifié + Message associé
--- (***) Connexion à rediriger soit vers la page selection de voitures soit vers l'acceuil soit vers le detail.
+-- (***) Connexion à rediriger soit vers la page selection de voitures .(pas assez fluide mais c'est fait)
 -- (***) Envoie et recuperation des données de la page details. (appels des prog de FactureController)
 -- (***) Ajout valide de la voiture dans la bdd apres la validation effectuée (id du client, id du vehicule dans client...)
 -- (***) Creation de la facture en fichier txt ou pdf

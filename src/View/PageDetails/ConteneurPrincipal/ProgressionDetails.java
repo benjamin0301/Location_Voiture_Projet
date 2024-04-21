@@ -29,11 +29,11 @@ public class ProgressionDetails extends JPanel
         resuPanel.setPreferredSize(new Dimension(250, 60));
         resuPanel.setLayout(new BoxLayout(resuPanel, BoxLayout.Y_AXIS));
         resuPanel.setBackground(Color.WHITE);
-        resuPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#5E17EB")));
+        resuPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#7E3DFF")));
         JTextArea resultats = new JTextArea("     Résultats");
         resultats.setBackground(Color.WHITE);
         resultats.setFont(new Font("Georgia", Font.BOLD, 16));
-        resultats.setForeground(Color.decode("#5E17EB"));
+        resultats.setForeground(Color.decode("#7E3DFF"));
         resultats.setEditable(false);
         resultats.setMargin(new Insets(18, 64, 5, 10));
         resuPanel.add(resultats);
@@ -41,13 +41,13 @@ public class ProgressionDetails extends JPanel
 
         gbc.gridx++;
         JPanel barreJaune = new JPanel();
-        barreJaune.setBackground(Color.decode("#5E17EB"));
+        barreJaune.setBackground(Color.decode("#7E3DFF"));
         barreJaune.setPreferredSize(new Dimension(40, 2));
         panelGlobal.add(barreJaune, gbc);
 
         gbc.gridx++;
         JTextArea details = new JTextArea("  Détails");
-        details.setBackground(Color.decode("#5E17EB"));
+        details.setBackground(Color.decode("#7E3DFF"));
         details.setForeground(Color.white);
         details.setPreferredSize(new Dimension(250, 60));
         details.setMargin(new Insets(20, 86, 20, 10)); // Ajustement des marges internes
@@ -57,7 +57,7 @@ public class ProgressionDetails extends JPanel
 
         gbc.gridx++;
         JPanel barreJaune2 = new JPanel();
-        barreJaune2.setBackground(Color.decode("#5E17EB"));
+        barreJaune2.setBackground(Color.decode("#7E3DFF"));
         barreJaune2.setPreferredSize(new Dimension(40, 2));
         panelGlobal.add(barreJaune2, gbc);
 
@@ -66,11 +66,11 @@ public class ProgressionDetails extends JPanel
         confPanel.setPreferredSize(new Dimension(250, 60));
         confPanel.setLayout(new BoxLayout(confPanel, BoxLayout.Y_AXIS));
         confPanel.setBackground(Color.WHITE);
-        confPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#5E17EB")));
+        confPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#7E3DFF")));
         JTextArea confirmation = new JTextArea("Confirmation");
         confirmation.setBackground(Color.WHITE);
         confirmation.setFont(new Font("Georgia", Font.BOLD, 16));
-        confirmation.setForeground(Color.decode("#5E17EB"));
+        confirmation.setForeground(Color.decode("#7E3DFF"));
         confirmation.setEditable(false);
         confirmation.setMargin(new Insets(18, 66, 5, 10));
         confPanel.add(confirmation);

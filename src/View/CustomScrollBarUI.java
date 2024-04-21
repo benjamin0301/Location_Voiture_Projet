@@ -23,11 +23,11 @@ public class CustomScrollBarUI extends BasicScrollBarUI
     {
         super.configureScrollBarColors();
         // Set the desired color for the thumb
-        thumbColor = Color.decode("#5E17EB"); // Example: Dark green
+        thumbColor = Color.decode("#7E3DFF"); // Example: Dark green
         trackColor = Color.white;
-        thumbHighlightColor = Color.decode("#5E17EB");
-        thumbDarkShadowColor = Color.decode("#5E17EB");
-        thumbLightShadowColor = Color.decode("#5E17EB");
+        thumbHighlightColor = Color.decode("#7E3DFF");
+        thumbDarkShadowColor = Color.decode("#7E3DFF");
+        thumbLightShadowColor = Color.decode("#7E3DFF");
     }
 
 
