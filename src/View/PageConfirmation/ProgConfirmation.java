@@ -28,11 +28,11 @@ public class ProgConfirmation extends JPanel
         resuPanel.setPreferredSize(new Dimension(250, 60));
         resuPanel.setLayout(new BoxLayout(resuPanel, BoxLayout.Y_AXIS));
         resuPanel.setBackground(Color.WHITE);
-        resuPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#5E17EB")));
+        resuPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#7E3DFF")));
         JTextArea resultats = new JTextArea("     Résultats");
         resultats.setBackground(Color.WHITE);
         resultats.setFont(new Font("Georgia", Font.BOLD, 16));
-        resultats.setForeground(Color.decode("#5E17EB"));
+        resultats.setForeground(Color.decode("#7E3DFF"));
         resultats.setEditable(false);
         resultats.setMargin(new Insets(18, 64, 5, 10));
         resuPanel.add(resultats);
@@ -40,7 +40,7 @@ public class ProgConfirmation extends JPanel
 
         gbc.gridx++;
         JPanel barreJaune = new JPanel();
-        barreJaune.setBackground(Color.decode("#5E17EB"));
+        barreJaune.setBackground(Color.decode("#7E3DFF"));
         barreJaune.setPreferredSize(new Dimension(40, 2));
         panelGlobal.add(barreJaune, gbc);
 
@@ -49,11 +49,11 @@ public class ProgConfirmation extends JPanel
         detailsPanel.setPreferredSize(new Dimension(250, 60));
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
         detailsPanel.setBackground(Color.WHITE);
-        detailsPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#5E17EB")));
+        detailsPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#7E3DFF")));
         JTextArea details = new JTextArea("     Détails");
         details.setBackground(Color.WHITE);
         details.setFont(new Font("Georgia", Font.BOLD, 16));
-        details.setForeground(Color.decode("#5E17EB"));
+        details.setForeground(Color.decode("#7E3DFF"));
         details.setEditable(false);
         details.setMargin(new Insets(18, 72, 5, 10));
         detailsPanel.add(details);
@@ -61,13 +61,13 @@ public class ProgConfirmation extends JPanel
 
         gbc.gridx++;
         JPanel barreJaune2 = new JPanel();
-        barreJaune2.setBackground(Color.decode("#5E17EB"));
+        barreJaune2.setBackground(Color.decode("#7E3DFF"));
         barreJaune2.setPreferredSize(new Dimension(40, 2));
         panelGlobal.add(barreJaune2, gbc);
 
         gbc.gridx++;
         JTextArea confi = new JTextArea("Confirmation");
-        confi.setBackground(Color.decode("#5E17EB"));
+        confi.setBackground(Color.decode("#7E3DFF"));
         confi.setForeground(Color.white);
         confi.setPreferredSize(new Dimension(250, 60));
         confi.setMargin(new Insets(20, 68, 20, 10)); // Ajustement des marges internes

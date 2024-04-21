@@ -29,7 +29,7 @@ public class ConteneurHaut extends JPanel
         imagePanel.add(imageLabel);
 
         JLabel labelTitre = new JLabel("RentMyRide");
-        labelTitre.setForeground(Color.decode("#5E17EB"));
+        labelTitre.setForeground(Color.decode("#7E3DFF"));
         labelTitre.setFont(new Font("Georgia", Font.BOLD, 23));
 
         add(Box.createVerticalGlue());
@@ -41,19 +41,19 @@ public class ConteneurHaut extends JPanel
         barreNavigation.add(Box.createRigidArea(new Dimension(500, 0)));
 
         JButton boutonAccueil = new JButton("Accueil");
-        boutonAccueil.setBackground(Color.decode("#5E17EB"));
+        boutonAccueil.setBackground(Color.decode("#7E3DFF"));
         boutonAccueil.setForeground(Color.white);
         boutonAccueil.setFont(new Font("Georgia", Font.BOLD, 18));
         boutonAccueil.setFocusPainted(false);
 
         JButton boutonEspacePerso = new JButton("Mon espace personnel");
-        boutonEspacePerso.setBackground(Color.decode("#5E17EB"));
+        boutonEspacePerso.setBackground(Color.decode("#7E3DFF"));
         boutonEspacePerso.setForeground(Color.white);
         boutonEspacePerso.setFont(new Font("Georgia", Font.BOLD, 18));
         boutonEspacePerso.setFocusPainted(false);
 
         JButton boutonConnexion = new JButton("Connexion");
-        boutonConnexion.setBackground(Color.decode("#5E17EB"));
+        boutonConnexion.setBackground(Color.decode("#7E3DFF"));
         boutonConnexion.setForeground(Color.white);
         boutonConnexion.setFont(new Font("Georgia", Font.BOLD, 18));
         boutonConnexion.setFocusPainted(false);

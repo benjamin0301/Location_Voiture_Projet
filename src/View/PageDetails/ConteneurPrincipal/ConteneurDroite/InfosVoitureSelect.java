@@ -92,7 +92,7 @@ public class InfosVoitureSelect extends JPanel
 
 
         JLabel depart = new JLabel("Départ");
-        depart.setForeground(Color.decode("#5E17EB"));
+        depart.setForeground(Color.decode("#7E3DFF"));
         depart.setPreferredSize(new Dimension(200, 16));
         depart.setFont(new Font("Georgia", Font.BOLD, 13));
         contenuPanel.add(depart);
@@ -109,7 +109,7 @@ public class InfosVoitureSelect extends JPanel
 
 
         JLabel arrivee = new JLabel("Arrivée");
-        arrivee.setForeground(Color.decode("#5E17EB"));
+        arrivee.setForeground(Color.decode("#7E3DFF"));
         arrivee.setPreferredSize(new Dimension(200, 16));
         arrivee.setFont(new Font("Georgia", Font.BOLD, 13));
         contenuPanel.add(arrivee);

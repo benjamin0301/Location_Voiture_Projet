@@ -94,7 +94,7 @@ public class PageConfirmation extends JPanel
         panelB.setBackground(Color.decode("#F6F6F6"));
 
         JLabel depart = new JLabel("Départ");
-        depart.setForeground(Color.decode("#5E17EB"));
+        depart.setForeground(Color.decode("#7E3DFF"));
         depart.setPreferredSize(new Dimension(200, 22));
         depart.setFont(new Font("Georgia", Font.BOLD, 19));
         panelB.add(depart);
@@ -111,7 +111,7 @@ public class PageConfirmation extends JPanel
 
 
         JLabel arrivee = new JLabel("Arrivée");
-        arrivee.setForeground(Color.decode("#5E17EB"));
+        arrivee.setForeground(Color.decode("#7E3DFF"));
         arrivee.setPreferredSize(new Dimension(200, 22));
         arrivee.setFont(new Font("Georgia", Font.BOLD, 19));
         panelB.add(arrivee);
@@ -127,7 +127,7 @@ public class PageConfirmation extends JPanel
         panelB.add(arrivee3);
 
         JLabel prix1 = new JLabel("Prix total :");
-        prix1.setForeground(Color.decode("#5E17EB"));
+        prix1.setForeground(Color.decode("#7E3DFF"));
         prix1.setPreferredSize(new Dimension(200, 22));
         prix1.setFont(new Font("Georgia", Font.BOLD, 19));
         panelB.add(prix1);
@@ -171,14 +171,14 @@ public class PageConfirmation extends JPanel
 
         JButton boutonFac = new JButton("Télécharger la facture");
         boutonFac.setFont(new Font("Georgia", Font.BOLD, 19));
-        boutonFac.setBackground(Color.decode("#5E17EB"));
+        boutonFac.setBackground(Color.decode("#7E3DFF"));
         boutonFac.setForeground(Color.white);
         boutonFac.setPreferredSize(new Dimension(360, 50));
         panelBoutons.add(boutonFac, BorderLayout.WEST);
 
         JButton boutonEC = new JButton("J'accède à mon espace personnel");
         boutonEC.setFont(new Font("Georgia", Font.BOLD, 19));
-        boutonEC.setBackground(Color.decode("#5E17EB"));
+        boutonEC.setBackground(Color.decode("#7E3DFF"));
         boutonEC.setForeground(Color.white);
         boutonEC.setPreferredSize(new Dimension(360, 50));
         panelBoutons.add(boutonEC, BorderLayout.EAST);

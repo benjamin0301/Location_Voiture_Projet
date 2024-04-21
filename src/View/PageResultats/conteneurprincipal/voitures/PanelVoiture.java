@@ -187,7 +187,7 @@ public class PanelVoiture extends JPanel
         panelD.add(espaceVide2D);
         JButton selectionner = new JButton("Sélectionner");
         selectionner.setPreferredSize(new Dimension(192, 50));
-        selectionner.setBackground(Color.decode("#5E17EB"));
+        selectionner.setBackground(Color.decode("#7E3DFF"));
         selectionner.setForeground(Color.white);
         selectionner.setFont(new Font("Georgia", Font.BOLD, 21));
         panelD.add(selectionner);
