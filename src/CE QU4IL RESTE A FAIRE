@@ -27,5 +27,37 @@
 
 ------------------ GENERAL ----------------------------------
 
--- Relier les messages String avec la boite a message visuelle
--- creer une fenetre ou qqc qui demande au client une note entre 1 et 5 (on mettra ca dans avis)
+
+-- (***) Filtrage lieu de prise en charge et si les voitures sont dispo en fonction des dates selectionnées
+-- (***) Filtrage des voitures en fonction du type scpecifié + Message associé
+-- (***) Connexion à rediriger soit vers la page selection de voitures soit vers l'acceuil soit vers le detail.
+-- (***) Envoie et recuperation des données de la page details. (appels des prog de FactureController)
+-- (***) Ajout valide de la voiture dans la bdd apres la validation effectuée (id du client, id du vehicule dans client...)
+-- (***) Creation de la facture en fichier txt ou pdf
+-- (***) Recuperation des infos du clints et des ses reversations dans la page de mon espace personel
+-- (***) Affichage valide des reservations du client dans son espace
+-- (***) Interface employé à faire
+-- (***) Interface de modification des voitures par un employé
+-- (***) Interface d'ajout de voiture par un employé
+
+-- (**) ajouter le compteur de fidelite a chaque connexion du client
+-- (**) Blindage de la remise de fidelite en fonction du compteur.
+-- (**) Faire la page factice de validation du paiement
+-- (**) Modification du prix total dans la page confirmation
+-- (**) Suppression de la voiture depuis l'espace personnel du client
+-- (**)  afficahge de la facture avec le bouton de telechargement dans la page confirmation
+
+-- (*) creer une fenetre ou qqc qui demande au client une note entre 1 et 5 (on mettra ca dans avis)
+-- (*) Blindage du bouton de choix des dates et lieu de prise en charge
+-- (*) Modification des dates de disponibilite des voitures à amméliorer
+-- (*) Blindage des boutons de filtre (impossibilite de cliquer sur deux boutons en meme temps)
+-- (*) Calcul du total du prix en fonction du nb de jours selectionnés
+-- (*) Remplissage automatique des champs du clients dans le detail de la selection de la voiture
+-- (*) Blindage de la confirmation de la page details en fonction des données rentrées
+-- (*) Blindage des types et de la forme des champs de la page detail
+-- (*) Affichage popup en fonction des actions effectuées
+
+
+
+
+
