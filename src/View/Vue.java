@@ -3,7 +3,7 @@ import View.PageEspacePersonnel.FrameEspacePerso;
 import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
 import View.PageResultats.conteneurprincipal.ConteneurPrincipal;
-
+import Model.ClientModel;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -20,6 +20,7 @@ public class Vue extends JFrame
         setTitle("RentMyRide");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
 
         conteneurPrincipal = new ConteneurPrincipal();
         conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour); // Fournir les arguments ici

@@ -10,8 +10,10 @@ import java.util.ArrayList;
 
 public class ConteneurVoitures extends JPanel
 {
+
     public ConteneurVoitures() throws SQLException, ClassNotFoundException
     {
+
         setLayout(new GridBagLayout());
         VoitureController voitureController = new VoitureController();
         VoitureModel voitureModel = new VoitureModel();
@@ -118,7 +120,7 @@ public class ConteneurVoitures extends JPanel
             System.out.println("si ca rentre dans default" + listeVoituresPourAffichage.getFirst().getType());
         }
 
-        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage);
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1);
         add(listeVoitures, gbc);
 
 
@@ -129,4 +131,6 @@ public class ConteneurVoitures extends JPanel
         espaceBlanc.setBackground(Color.white);
         add(espaceBlanc, gbc);
     }
+
+
 }
