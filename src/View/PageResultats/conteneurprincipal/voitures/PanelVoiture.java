@@ -22,6 +22,7 @@ public class PanelVoiture extends JPanel
         setPreferredSize(new Dimension(2, 300));
         setBackground(Color.white);
         initialize(voiture, res);
+        this.client = clientModel;
     }
 
     public void initialize(VoitureModel voiture, int res)

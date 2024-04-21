@@ -35,7 +35,7 @@ public class ListeVoitures extends JPanel
             if (type == 1)
             {
                 PanelVoiture panelVoiture = new PanelVoiture(voiture, clientModel, res);
-                add(panelVoiture);
+                        add(panelVoiture);
             }
             else if (type == 2)
             {
