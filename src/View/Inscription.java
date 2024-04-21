@@ -34,7 +34,7 @@ public class Inscription extends JFrame {
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
-        ConteneurHaut conteneurHaut = new ConteneurHaut();
+        ConteneurHaut conteneurHaut = new ConteneurHaut(1);
         add(conteneurHaut, BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridBagLayout());

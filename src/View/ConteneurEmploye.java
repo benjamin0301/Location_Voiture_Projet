@@ -75,7 +75,7 @@ public class ConteneurEmploye extends JPanel
             {
                 FrameEspacePerso frameEspacePerso = null;
                 try {
-                    frameEspacePerso = new FrameEspacePerso();
+                    frameEspacePerso = new FrameEspacePerso(1);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 } catch (ClassNotFoundException ex) {

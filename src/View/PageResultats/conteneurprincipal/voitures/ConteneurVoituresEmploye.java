@@ -121,7 +121,7 @@ public class ConteneurVoituresEmploye extends JPanel
             System.out.println("si ca rentre dans default" + listeVoituresPourAffichage.getFirst().getType());
         }
 
-        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 2);
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 2, 1);
         add(listeVoitures, gbc);
 
 

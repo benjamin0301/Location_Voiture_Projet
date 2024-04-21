@@ -12,16 +12,16 @@ import java.sql.SQLException;
 import javax.swing.*;
 
 public class ConteneurPrincipal extends JPanel {
-    public ConteneurPrincipal(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+    public ConteneurPrincipal(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException {
         setBackground(Color.decode("#E4E4E4"));
         setBorder(BorderFactory.createMatteBorder(30, 0, 30, 0, Color.decode("#E4E4E4")));
 
-        JPanel pagePrincipale = createPagePrincipale(voiture);
+        JPanel pagePrincipale = createPagePrincipale(voiture, res);
 
         add(pagePrincipale);
     }
 
-    private JPanel createPagePrincipale(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+    private JPanel createPagePrincipale(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException {
         JPanel pagePrincipale = new JPanel(new BorderLayout());
         pagePrincipale.setBackground(Color.white);
 
@@ -66,7 +66,7 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture);
+                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);

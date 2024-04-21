@@ -16,16 +16,15 @@ public class PanelVoiture extends JPanel
     VoitureModel voiture_select;
     public ClientModel client;
 
-    public PanelVoiture(VoitureModel voiture, ClientModel clientModel) throws SQLException, ClassNotFoundException
+    public PanelVoiture(VoitureModel voiture, ClientModel clientModel, int res) throws SQLException, ClassNotFoundException
     {
-        this.client = clientModel;
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(2, 300));
         setBackground(Color.white);
-        initialize(voiture);
+        initialize(voiture, res);
     }
 
-    public void initialize(VoitureModel voiture)
+    public void initialize(VoitureModel voiture, int res)
     {
         voiture_select = voiture;
         GridBagConstraints gbc = new GridBagConstraints();
@@ -226,7 +225,7 @@ public class PanelVoiture extends JPanel
                     }
                 } else {
                     try {
-                        FrameDetails frameDetails = new FrameDetails(voiture_select);
+                        FrameDetails frameDetails = new FrameDetails(voiture_select, res);
 
                         Window window = SwingUtilities.getWindowAncestor(selectionner);
 

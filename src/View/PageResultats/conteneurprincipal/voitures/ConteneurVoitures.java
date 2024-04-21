@@ -13,7 +13,7 @@ public class ConteneurVoitures extends JPanel
 {
     public ClientModel clientModel;
 
-    public ConteneurVoitures(ClientModel client) throws SQLException, ClassNotFoundException
+    public ConteneurVoitures(ClientModel client, int res) throws SQLException, ClassNotFoundException
     {
         this.clientModel = client;
 
@@ -123,7 +123,7 @@ public class ConteneurVoitures extends JPanel
             System.out.println("si ca rentre dans default" + listeVoituresPourAffichage.getFirst().getType());
         }
 
-        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1);
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1, res);
         add(listeVoitures, gbc);
 
 

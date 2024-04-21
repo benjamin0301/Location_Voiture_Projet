@@ -22,7 +22,7 @@ public class ConteneurPrincipal extends JPanel
         this.clientModel = clientModel;
     }
 
-    public void initConteneurPrincipal(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
+    public void initConteneurPrincipal(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res) throws SQLException, ClassNotFoundException
     {
         setLayout(new BorderLayout());
 
@@ -34,10 +34,10 @@ public class ConteneurPrincipal extends JPanel
         Progression progression = new Progression();
         conteneurGris.add(progression, BorderLayout.NORTH);
 
-        ConteneurGauche conteneurGauche = new ConteneurGauche(lieuDepart, dateDepart, lieuRetour, dateRetour);
+        ConteneurGauche conteneurGauche = new ConteneurGauche(lieuDepart, dateDepart, lieuRetour, dateRetour, res);
         conteneurGris.add(conteneurGauche, BorderLayout.WEST);
 
-        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(clientModel);
+        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(clientModel,res);
         conteneurGris.add(conteneurVoitures, BorderLayout.CENTER);
 
         add(conteneurGris, BorderLayout.CENTER);

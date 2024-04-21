@@ -14,13 +14,13 @@ public class FrameDetails extends JFrame
 {
     VoitureModel voiture;
     private JPanel contentPanel;
-    public FrameDetails(VoitureModel voiture) throws SQLException, ClassNotFoundException
+    public FrameDetails(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException
     {
         this.voiture = voiture;
-        initialize();
+        initialize(res);
     }
 
-    public void initialize() throws SQLException, ClassNotFoundException
+    public void initialize(int res) throws SQLException, ClassNotFoundException
     {
         setTitle("RentMyRide");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -31,10 +31,10 @@ public class FrameDetails extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut();
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res);
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
-        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(voiture);
+        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(voiture, res);
         contentPanel.add(conteneurPrincipal);
 
         Footer footer = new Footer();

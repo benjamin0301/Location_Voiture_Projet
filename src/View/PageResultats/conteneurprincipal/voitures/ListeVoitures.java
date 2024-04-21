@@ -23,7 +23,7 @@ public class ListeVoitures extends JPanel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.clientModel = clientModel;
     }
-    public void afficherListeVoitures(ArrayList<VoitureModel> voitures, int type) throws SQLException, ClassNotFoundException
+    public void afficherListeVoitures(ArrayList<VoitureModel> voitures, int type, int res) throws SQLException, ClassNotFoundException
     {
         System.out.println(voitures.getFirst().getType());
         for (VoitureModel voiture : voitures)
@@ -34,7 +34,7 @@ public class ListeVoitures extends JPanel
             add(miniEspaceBlanc);
             if (type == 1)
             {
-                PanelVoiture panelVoiture = new PanelVoiture(voiture, clientModel);
+                PanelVoiture panelVoiture = new PanelVoiture(voiture, clientModel, res);
                 add(panelVoiture);
             }
             else if (type == 2)

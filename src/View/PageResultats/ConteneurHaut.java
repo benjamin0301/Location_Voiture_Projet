@@ -15,7 +15,7 @@ public class ConteneurHaut extends JPanel
 {
     private AccueilListener accueilListener;
     private ConnexionListener connexionListener;
-    public ConteneurHaut()
+    public ConteneurHaut(int res)
     {
         setBackground(Color.decode("#FFFFFF"));
         setPreferredSize(new Dimension(800, 80));
@@ -58,11 +58,17 @@ public class ConteneurHaut extends JPanel
         boutonConnexion.setFont(new Font("Georgia", Font.BOLD, 18));
         boutonConnexion.setFocusPainted(false);
 
+        JButton boutonConnecte = new JButton("Connecté");
+        boutonConnecte.setBackground(Color.decode("#7E3DFF"));
+        boutonConnecte.setForeground(Color.white);
+        boutonConnecte.setFont(new Font("Georgia", Font.BOLD, 18));
+        boutonConnecte.setFocusPainted(false);
+
         barreNavigation.add(boutonAccueil);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0)));
         barreNavigation.add(boutonEspacePerso);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0)));
-        barreNavigation.add(boutonConnexion);
+
 
         add(barreNavigation);
         add(Box.createVerticalGlue());
@@ -74,7 +80,7 @@ public class ConteneurHaut extends JPanel
             {
                 FrameEspacePerso frameEspacePerso = null;
                 try {
-                    frameEspacePerso = new FrameEspacePerso();
+                    frameEspacePerso = new FrameEspacePerso(res);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 } catch (ClassNotFoundException ex) {
@@ -93,7 +99,7 @@ public class ConteneurHaut extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 Accueil accueil = null;
-                accueil = new Accueil();
+                accueil = new Accueil(res);
                 accueil.setVisible(true);
 
                 Window window = SwingUtilities.getWindowAncestor(boutonAccueil);
@@ -105,7 +111,8 @@ public class ConteneurHaut extends JPanel
                 }
             }
         });
-
+        if(res == 1){
+            barreNavigation.add(boutonConnexion);
         boutonConnexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -127,5 +134,15 @@ public class ConteneurHaut extends JPanel
                 }
             }
         });
+        }
+        else {
+            barreNavigation.add(boutonConnecte);
+
+
+
+
+
+
+        }
     }
 }
