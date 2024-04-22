@@ -52,6 +52,7 @@ public class PanelVoiture extends JPanel
         panelA.add(AType, BorderLayout.WEST);
         JTextArea AModele = new JTextArea("   " + voiture.getMarque() + " " + voiture.getnom_modele());
         AModele.setLayout(new BorderLayout());
+        AModele.setEditable(false);
         AModele.setPreferredSize(new Dimension(200, 20));
         AModele.setFont(new Font("Georgia", Font.PLAIN, 15));
         panelA.add(AModele, BorderLayout.WEST);
@@ -60,6 +61,7 @@ public class PanelVoiture extends JPanel
         panelA.add(imageLabel);
         JTextArea ACapacite = new JTextArea("\n    • " + voiture.getNbPlace() + " passagers\n    • " + voiture.getCapaciteValise() + " bagage(s)\n    • " + voiture.getNbPorte() + " portes");
         ACapacite.setLayout(new BorderLayout());
+        ACapacite.setEditable(false);
         ACapacite.setPreferredSize(new Dimension(200, 100));
         ACapacite.setFont(new Font("Georgia", Font.PLAIN, 17));
         panelA.add(ACapacite, BorderLayout.EAST);
@@ -80,22 +82,26 @@ public class PanelVoiture extends JPanel
         panelB.add(espaceVideB);
 
         JTextArea trans1 = new JTextArea("       Transmission :\n");
+        trans1.setEditable(false);
         trans1.setBackground(Color.decode("#F6F6F6"));
         trans1.setPreferredSize(new Dimension(200, 19));
         trans1.setFont(new Font("Georgia", Font.BOLD, 15));
         panelB.add(trans1);
         JTextArea trans2 = new JTextArea("        " + voiture.getTransmission());
+        trans2.setEditable(false);
         trans2.setBackground(Color.decode("#F6F6F6"));
         trans2.setPreferredSize(new Dimension(200, 30));
         trans2.setFont(new Font("Georgia", Font.PLAIN, 15));
         panelB.add(trans2);
 
         JTextArea moteur1 = new JTextArea("       Moteur :\n");
+        moteur1.setEditable(false);
         moteur1.setBackground(Color.decode("#F6F6F6"));
         moteur1.setPreferredSize(new Dimension(200, 19));
         moteur1.setFont(new Font("Georgia", Font.BOLD, 15));
         panelB.add(moteur1);
         JTextArea moteur2 = new JTextArea("        " + voiture.getMoteur());
+        moteur2.setEditable(false);
         moteur2.setBackground(Color.decode("#F6F6F6"));
         moteur2.setPreferredSize(new Dimension(200, 30));
         moteur2.setFont(new Font("Georgia", Font.PLAIN, 15));
@@ -103,34 +109,40 @@ public class PanelVoiture extends JPanel
 
 
         JTextArea kilometrageActuel1 = new JTextArea("        Kilométrage actuel :");
+        kilometrageActuel1.setEditable(false);
         kilometrageActuel1.setBackground(Color.decode("#F6F6F6"));
         kilometrageActuel1.setPreferredSize(new Dimension(200, 16));
         kilometrageActuel1.setFont(new Font("Georgia", Font.BOLD, 13));
         panelB.add(kilometrageActuel1);
         JTextArea kilometrageActuel2 = new JTextArea("         " + voiture.getkilometrage_actuel() + " km");
         kilometrageActuel2.setBackground(Color.decode("#F6F6F6"));
+        kilometrageActuel2.setEditable(false);
         kilometrageActuel2.setPreferredSize(new Dimension(200, 25));
         kilometrageActuel2.setFont(new Font("Georgia", Font.PLAIN, 13));
         panelB.add(kilometrageActuel2);
 
         JTextArea kilometrageLimite1 = new JTextArea("        Kilométrage limite :");
         kilometrageLimite1.setBackground(Color.decode("#F6F6F6"));
+        kilometrageLimite1.setEditable(false);
         kilometrageLimite1.setPreferredSize(new Dimension(200, 16));
         kilometrageLimite1.setFont(new Font("Georgia", Font.BOLD, 13));
         panelB.add(kilometrageLimite1);
         JTextArea kilometrageLimite2 = new JTextArea("         " + voiture.getLimite_km() + " km");
         kilometrageLimite2.setBackground(Color.decode("#F6F6F6"));
+        kilometrageLimite2.setEditable(false);
         kilometrageLimite2.setPreferredSize(new Dimension(200, 30));
         kilometrageLimite2.setFont(new Font("Georgia", Font.PLAIN, 13));
         panelB.add(kilometrageLimite2);
 
         JTextArea avisClients1 = new JTextArea("       Avis des clients :");
         avisClients1.setBackground(Color.decode("#F6F6F6"));
+        avisClients1.setEditable(false);
         avisClients1.setPreferredSize(new Dimension(200, 19));
         avisClients1.setFont(new Font("Georgia", Font.BOLD, 15));
         panelB.add(avisClients1);
         JTextArea avisClients2 = new JTextArea("        " + voiture.getAvis() + "/5 étoiles");
         avisClients2.setBackground(Color.decode("#F6F6F6"));
+        avisClients2.setEditable(false);
         avisClients2.setPreferredSize(new Dimension(200, 30));
         avisClients2.setFont(new Font("Georgia", Font.PLAIN, 15));
         panelB.add(avisClients2);
@@ -151,6 +163,7 @@ public class PanelVoiture extends JPanel
         espaceVideC.setPreferredSize(new Dimension(200, 17));
         panelC.add(espaceVideC);
         JTextArea areaC1 = new JTextArea("  Inclus gratuitement :");
+        areaC1.setEditable(false);
         areaC1.setBackground(Color.decode("#F6F6F6"));
         areaC1.setFont(new Font("Georgia", Font.BOLD, 15));
         areaC1.setForeground(Color.decode("#5500FF"));
@@ -158,6 +171,7 @@ public class PanelVoiture extends JPanel
         panelC.add(areaC1);
         JTextArea areaC = new JTextArea("   - Annulation\n\n   - Modifications\n\n   - Assurance dommage\n      en cas de collision\n\n   - Assurance vol\n\n   - Assurance\n      responsabilité civile");
         areaC.setBackground(Color.decode("#F6F6F6"));
+        areaC.setEditable(false);
         areaC.setFont(new Font("Georgia", Font.PLAIN, 15));
         areaC.setForeground(Color.decode("#5500FF"));
         areaC.setPreferredSize(new Dimension(200, 200));
@@ -179,11 +193,13 @@ public class PanelVoiture extends JPanel
         espaceVideD.setPreferredSize(new Dimension(200, 150));
         panelD.add(espaceVideD);
         JTextArea prixGras = new JTextArea(voiture.getPrix() + " €/jour");
+        prixGras.setEditable(false);
         prixGras.setFont(new Font("Georgia", Font.BOLD, 25));
         prixGras.setBackground(Color.decode("#F5EFFF"));
         panelD.add(prixGras);
         JTextArea prixCumule = new JTextArea("                        " + "Total " + voiture.getPrix() + " €");
         prixCumule.setFont(new Font("Georgia", Font.PLAIN, 15));
+        prixCumule.setEditable(false);
         prixCumule.setBackground(Color.decode("#F5EFFF"));
         panelD.add(prixCumule);
         JPanel espaceVide2D = new JPanel();

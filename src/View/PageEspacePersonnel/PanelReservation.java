@@ -91,6 +91,7 @@ public class PanelReservation extends JPanel
 
         JTextArea ACapacite = new JTextArea("Nombre de passagers : " + voiture.getNbPlace() + "\nCapacité (bagages) : " + voiture.getCapaciteValise() + "\nNombre de portes : " + voiture.getNbPorte());
         ACapacite.setLayout(new BorderLayout());
+        ACapacite.setEditable(false);
         ACapacite.setBackground(Color.decode("#F6F6F6"));
         ACapacite.setPreferredSize(new Dimension(310, 60));
         ACapacite.setFont(new Font("Georgia", Font.PLAIN, 15));

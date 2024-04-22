@@ -47,22 +47,26 @@ public class ResumeTrajet extends JPanel
         gbc.weighty = 1;
 
         JTextArea depart = new JTextArea("Départ\n");
+        depart.setEditable(false);
         depart.setFont(new Font("Georgia", Font.BOLD, 13));
         zoneTexte.add(depart, gbc);
 
         gbc.gridy++;
-        JTextArea infosDep = new JTextArea(lieuDepart + "\n" + dateDepart + "\n" + "10:00\n" + "\n\n");
+        JTextArea infosDep = new JTextArea(lieuDepart + "\n" + dateDepart + "\n" + "\n\n");
         infosDep.setFont(new Font("Georgia", Font.PLAIN, 13));
+        infosDep.setEditable(false);
         zoneTexte.add(infosDep, gbc);
 
         gbc.gridy++;
         JTextArea retour = new JTextArea("Retour\n");
+        retour.setEditable(false);
         retour.setFont(new Font("Georgia", Font.BOLD, 13));
         zoneTexte.add(retour, gbc);
 
         gbc.gridy++;
-        JTextArea infosRet = new JTextArea(lieuRetour + "\n" + dateRetour + "\n" + "10:00\n" + "\n");
+        JTextArea infosRet = new JTextArea(lieuRetour + "\n" + dateRetour + "\n" + "\n");
         infosRet.setFont(new Font("Georgia", Font.PLAIN, 13));
+        infosRet.setEditable(false);
         zoneTexte.add(infosRet, gbc);
 
         zoneTexte.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));

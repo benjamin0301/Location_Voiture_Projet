@@ -62,6 +62,7 @@ public class PageConfirmation extends JPanel
         espaceVideA.setPreferredSize(new Dimension(200, 25));
         panelA.add(espaceVideA);
         JTextArea AType = new JTextArea("  " + voiture.getType());
+        AType.setEditable(false);
         AType.setLayout(new BorderLayout());
         AType.setPreferredSize(new Dimension(200, 25));
         AType.setEditable(false);
@@ -70,6 +71,7 @@ public class PageConfirmation extends JPanel
         panelA.add(AType, BorderLayout.WEST);
         JTextArea AModele = new JTextArea("  " + voiture.getMarque() + " " + voiture.getnom_modele());
         AModele.setLayout(new BorderLayout());
+        AModele.setEditable(false);
         AModele.setPreferredSize(new Dimension(200, 40));
         AModele.setFont(new Font("Georgia", Font.PLAIN, 18));
         panelA.add(AModele, BorderLayout.WEST);
@@ -78,6 +80,7 @@ public class PageConfirmation extends JPanel
         panelA.add(imageLabel);
         JTextArea ACapacite = new JTextArea("\n\n    • " + voiture.getNbPlace() + " passagers\n    • " + voiture.getCapaciteValise() + " bagage(s)\n    • " + voiture.getNbPorte() + " portes");
         ACapacite.setLayout(new BorderLayout());
+        ACapacite.setEditable(false);
         ACapacite.setPreferredSize(new Dimension(200, 140));
         ACapacite.setFont(new Font("Georgia", Font.PLAIN, 18));
         panelA.add(ACapacite, BorderLayout.EAST);

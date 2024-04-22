@@ -20,6 +20,7 @@ public class FormulairePaiement extends JPanel
         setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
 
         JTextArea titre = new JTextArea("Informations de paiement");
+        titre.setEditable(false);
         titre.setPreferredSize(new Dimension(770, 30));
         titre.setFont(new Font("Georgia", Font.BOLD, 18));
         titre.setBackground(Color.white);

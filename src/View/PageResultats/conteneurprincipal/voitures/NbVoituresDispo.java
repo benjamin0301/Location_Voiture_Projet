@@ -23,6 +23,7 @@ public class NbVoituresDispo extends JPanel
         panelOuest.setBackground(Color.white);
 
         JTextArea textAreaOuest = new JTextArea();
+        textAreaOuest.setEditable(false);
         textAreaOuest.setText("     " + listeVoitures.size() + " voitures disponibles !");
         textAreaOuest.setFont(new Font("Georgia",Font.BOLD,16));
         panelOuest.add(textAreaOuest);

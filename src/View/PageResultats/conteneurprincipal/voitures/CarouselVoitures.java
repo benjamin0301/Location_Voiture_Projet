@@ -95,6 +95,7 @@ public class CarouselVoitures extends JPanel {
 
 
             JTextArea typeVoiture = new JTextArea(element);
+            typeVoiture.setEditable(false);
             typeVoiture.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             typeVoiture.setFont(new Font("Georgia", Font.BOLD, 18));
             typeVoiture.setMargin(new Insets(20, 0, 0, 0));

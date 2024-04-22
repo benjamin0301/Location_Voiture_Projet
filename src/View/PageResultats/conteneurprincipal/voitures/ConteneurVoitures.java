@@ -42,6 +42,7 @@ public class ConteneurVoitures extends JPanel
         messageIndicatif.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#25991B")));
         JTextArea areaMI = new JTextArea("Bonne nouvelle ! Annulation flexible pour chaque réservation.");
         areaMI.setBackground(Color.decode("#F5FFF4"));
+        areaMI.setEditable(false);
         areaMI.setFont(new Font("Georgia", Font.BOLD, 14));
         areaMI.setForeground(Color.decode("#25991B"));
         messageIndicatif.add(areaMI);
@@ -59,6 +60,7 @@ public class ConteneurVoitures extends JPanel
         messageAlerte.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#FF3D00")));
         JTextArea areaMA = new JTextArea("Mauvaise nouvelle ! Il y a une forte demande à Paris en avril. Les prix risquent d'augmenter.");
         areaMA.setBackground(Color.decode("#FFF7F2"));
+        areaMA.setEditable(false);
         areaMA.setFont(new Font("Georgia", Font.BOLD, 14));
         areaMA.setForeground(Color.decode("#FF3D00"));
         messageAlerte.add(areaMA);

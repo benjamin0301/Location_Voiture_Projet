@@ -27,12 +27,14 @@ public class InfosVoitureSelect extends JPanel
         contenuPanel.add(labelFiltrer);
 
         JTextArea typeVoitureSelect = new JTextArea(voiture.getType());
+        typeVoitureSelect.setEditable(false);
         typeVoitureSelect.setFont(new Font("Georgia", Font.BOLD, 13));
         typeVoitureSelect.setPreferredSize(new Dimension(200, 16));
         contenuPanel.add(typeVoitureSelect);
 
         JTextArea nomVoiture = new JTextArea(voiture.getMarque() + " " + voiture.getnom_modele());
         nomVoiture.setPreferredSize(new Dimension(200, 16));
+        nomVoiture.setEditable(false);
         nomVoiture.setFont(new Font("Georgia", Font.PLAIN, 13));
         contenuPanel.add(nomVoiture);
 
@@ -66,22 +68,26 @@ public class InfosVoitureSelect extends JPanel
         contenuPanel.add(panelBlanc);
 
         JTextArea PMC = new JTextArea("Kilométrage actuel :");
+        PMC.setEditable(false);
         PMC.setPreferredSize(new Dimension(200, 18));
         PMC.setFont(new Font("Georgia", Font.BOLD, 13));
         contenuPanel.add(PMC);
 
         JTextArea KA2 = new JTextArea(String.valueOf(voiture.getkilometrage_actuel()) + " km");
         KA2.setPreferredSize(new Dimension(200, 22));
+        KA2.setEditable(false);
         KA2.setFont(new Font("Georgia", Font.PLAIN, 13));
         contenuPanel.add(KA2);
 
         JTextArea kil = new JTextArea("Limite de kilométrage :");
+        kil.setEditable(false);
         kil.setPreferredSize(new Dimension(200, 18));
         kil.setFont(new Font("Georgia", Font.BOLD, 13));
         contenuPanel.add(kil);
 
         JTextArea kil2 = new JTextArea(String.valueOf(voiture.getLimite_km()) + " km");
         kil2.setPreferredSize(new Dimension(200, 30));
+        kil2.setEditable(false);
         kil2.setFont(new Font("Georgia", Font.PLAIN, 13));
         contenuPanel.add(kil2);
 
