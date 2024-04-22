@@ -41,6 +41,7 @@ public class ConteneurPrincipal extends JPanel
         conteneurGris.add(conteneurVoitures, BorderLayout.CENTER);
 
         add(conteneurGris, BorderLayout.CENTER);
+        
     }
     public void afficherEspacePersonnel()
     {
