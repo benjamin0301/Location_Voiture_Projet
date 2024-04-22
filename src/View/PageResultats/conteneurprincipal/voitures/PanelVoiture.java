@@ -242,7 +242,7 @@ public class PanelVoiture extends JPanel
                     }
                 } else {
                     try {
-                        FrameDetails frameDetails = new FrameDetails(voiture_select, res);
+                        FrameDetails frameDetails = new FrameDetails(voiture_select, client, res);
 
                         Window window = SwingUtilities.getWindowAncestor(selectionner);
 

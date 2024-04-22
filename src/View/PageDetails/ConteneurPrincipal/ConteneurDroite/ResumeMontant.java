@@ -1,5 +1,6 @@
 package View.PageDetails.ConteneurPrincipal.ConteneurDroite;
 
+import Model.ClientModel;
 import Model.VoitureModel;
 
 import javax.swing.*;
@@ -7,8 +8,10 @@ import java.awt.*;
 
 public class ResumeMontant extends JPanel
 {
-    public ResumeMontant(VoitureModel voiture)
+    public float valTotale;
+    public ResumeMontant(VoitureModel voiture, ClientModel client)
     {
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(230, 300));
         setBackground(Color.decode("#FFFFFF"));
@@ -54,7 +57,17 @@ public class ResumeMontant extends JPanel
         descRemises.setFont(new Font("Georgia", Font.PLAIN, 13));
         remises.add(descRemises, BorderLayout.WEST);
 
-        float valRemise = 20;
+        float valRemise = 0;
+
+        if (client.isFidelite() >= 3)
+        {
+            valRemise = 50;
+        }
+        else
+        {
+            valRemise = 0;
+        }
+
         JTextArea ecritureRem = new JTextArea("- " + String.valueOf(valRemise) + "€");
         ecritureRem.setFont(new Font("Georgia", Font.BOLD, 13));
         ecritureRem.setEditable(false);
@@ -70,7 +83,9 @@ public class ResumeMontant extends JPanel
         descTotal.setEditable(false);
         descTotal.setFont(new Font("Georgia", Font.PLAIN, 13));
         panelTotal.add(descTotal, BorderLayout.WEST);
-        float valTotale = voiture.getPrix() - valRemise;
+
+        valTotale = voiture.getPrix() - valRemise;
+
         JTextArea valTotal = new JTextArea(String.valueOf(valTotale) + "€");
         valTotal.setEditable(false);
         valTotal.setFont(new Font("Georgia", Font.BOLD, 14));

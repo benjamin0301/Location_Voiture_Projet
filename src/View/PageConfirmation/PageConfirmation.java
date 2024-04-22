@@ -1,6 +1,8 @@
 package View.PageConfirmation;
 
+import Model.ClientModel;
 import Model.VoitureModel;
+import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ResumeMontant;
 import View.PageEspacePersonnel.EspacePersonnel;
 import View.PageEspacePersonnel.FrameEspacePerso;
 import View.PageResultats.conteneurprincipal.Progression;
@@ -13,7 +15,7 @@ import java.sql.SQLException;
 
 public class PageConfirmation extends JPanel
 {
-    public PageConfirmation(VoitureModel voiture, int res)
+    public PageConfirmation(VoitureModel voiture, ClientModel client, int res)
     {
         setLayout(new BorderLayout());
 
@@ -135,10 +137,10 @@ public class PageConfirmation extends JPanel
         prix1.setFont(new Font("Georgia", Font.BOLD, 19));
         panelB.add(prix1);
 
-        JLabel prix2 = new JLabel(String.valueOf(voiture.getPrix()) + "€ TTC");
+        /*JLabel prix2 = new JLabel(String.valueOf(voiture.getPrix()) + "€ TTC");
         prix2.setPreferredSize(new Dimension(200, 21));
         prix2.setFont(new Font("Georgia", Font.PLAIN, 18));
-        panelB.add(prix2);
+        panelB.add(prix2);*/
 
         engloBeurre.add(panelB, gdc);
 

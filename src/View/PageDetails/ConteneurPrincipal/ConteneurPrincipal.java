@@ -1,5 +1,6 @@
 package View.PageDetails.ConteneurPrincipal;
 
+import Model.ClientModel;
 import Model.VoitureModel;
 import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
@@ -12,21 +13,21 @@ import java.sql.SQLException;
 import javax.swing.*;
 
 public class ConteneurPrincipal extends JPanel {
-    public ConteneurPrincipal(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException {
+    public ConteneurPrincipal(VoitureModel voiture, ClientModel client, int res) throws SQLException, ClassNotFoundException {
         setBackground(Color.decode("#E4E4E4"));
         setBorder(BorderFactory.createMatteBorder(30, 0, 30, 0, Color.decode("#E4E4E4")));
 
-        JPanel pagePrincipale = createPagePrincipale(voiture, res);
+        JPanel pagePrincipale = createPagePrincipale(voiture, client, res);
 
         add(pagePrincipale);
     }
 
-    private JPanel createPagePrincipale(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException {
+    private JPanel createPagePrincipale(VoitureModel voiture, ClientModel client, int res) throws SQLException, ClassNotFoundException {
         JPanel pagePrincipale = new JPanel(new BorderLayout());
         pagePrincipale.setBackground(Color.white);
 
         ProgressionDetails progressionDetails = new ProgressionDetails();
-        ConteneurDroite conteneurDroite = new ConteneurDroite(voiture);
+        ConteneurDroite conteneurDroite = new ConteneurDroite(voiture, client);
 
         ConteneurFormulaires conteneurFormulaires = new ConteneurFormulaires();
         JPanel englobeurCF = new JPanel();
@@ -66,7 +67,7 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res);
+                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, client, res);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);

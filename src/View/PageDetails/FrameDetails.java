@@ -1,5 +1,6 @@
 package View.PageDetails;
 
+import Model.ClientModel;
 import Model.VoitureModel;
 import View.CustomScrollBarUI;
 import View.PageDetails.ConteneurPrincipal.ConteneurPrincipal;
@@ -13,10 +14,12 @@ import java.sql.SQLException;
 public class FrameDetails extends JFrame
 {
     VoitureModel voiture;
+    ClientModel client;
     private JPanel contentPanel;
-    public FrameDetails(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException
+    public FrameDetails(VoitureModel voiture, ClientModel client, int res) throws SQLException, ClassNotFoundException
     {
         this.voiture = voiture;
+        this.client = client;
         initialize(res);
     }
 
@@ -34,7 +37,7 @@ public class FrameDetails extends JFrame
         ConteneurHaut conteneurHaut = new ConteneurHaut(res);
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
-        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(voiture, res);
+        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(voiture, client, res);
         contentPanel.add(conteneurPrincipal);
 
         Footer footer = new Footer();
