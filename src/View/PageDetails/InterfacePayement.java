@@ -1,5 +1,6 @@
 package View.PageDetails;
 import Model.ClientModel;
+import Model.FactureModel;
 import Model.VoitureModel;
 import View.PageConfirmation.FrameConfirmation;
 
@@ -18,7 +19,7 @@ public class InterfacePayement {
     private JButton bouton;
     private Container conteneurPrincipal;
 
-    public InterfacePayement(Container conteneurPrincipal, VoitureModel voiture, int res,ClientModel clientModel) {
+    public InterfacePayement(Container conteneurPrincipal, VoitureModel voiture, int res, ClientModel clientModel, FactureModel factureModel) {
         this.client = clientModel;
         this.conteneurPrincipal = conteneurPrincipal;
 
@@ -54,7 +55,7 @@ public class InterfacePayement {
                 conteneurPrincipal.revalidate();
 
                 // Ouvrir la fenêtre de confirmation
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, clientModel);
+                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, clientModel, factureModel);
                 frameConfirmation.setVisible(true);
             }
         });

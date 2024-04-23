@@ -4,8 +4,8 @@
 -- (***) Filtrage lieu de prise en charge et si les voitures sont dispo en fonction des dates selectionnées
 -- (***) Filtrage des voitures en fonction du type scpecifié + Message associé
 -- (***) Envoie et recuperation des données de la page details. (appels des prog de FactureController)
--- (***) Ajout valide de la voiture dans la bdd apres la validation effectuée (id du client, id du vehicule dans client...)
 -- (***) Modifier les valeurs par default et mettre des vrais valeurs dans le listener du bouton de confirmation sur la page de details
+-- Faire le controler de la facture
 
 -- (**) Modification du prix total dans la page confirmation
 -- (**) Suppression de la voiture depuis l'espace personnel du client
