@@ -35,12 +35,9 @@ public class ConnexionVue extends JFrame {
 
         setTitle("Connexion");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(300, 400);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-
-        // Ajout du conteneur haut
-        ConteneurHaut conteneurHaut = new ConteneurHaut(1, client);
-        add(conteneurHaut, BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -48,28 +45,47 @@ public class ConnexionVue extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         emailField = new JTextField(20);
+        emailField.setPreferredSize(new Dimension(200, 30));
         passwordField = new JPasswordField(20);
+        passwordField.setPreferredSize(new Dimension(200, 30));
+
         loginButton = new JButton("Se connecter");
+        loginButton.setFont(new Font("Georgia", Font.BOLD, 20));
+        loginButton.setForeground(Color.white);
+        loginButton.setBackground(Color.decode("#7E3DFF"));
+
         createAccountButton = new JButton("Créer un compte");
+        createAccountButton.setFont(new Font("Georgia", Font.BOLD, 20));
+        createAccountButton.setForeground(Color.decode("#7E3DFF"));
+        createAccountButton.setBackground(Color.white);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Email:"), gbc);
+        JLabel email = new JLabel("Email :");
+        email.setFont(new Font("Georgia", Font.BOLD, 16));
+        panel.add(email, gbc);
 
         gbc.gridy = 1;
         panel.add(emailField, gbc);
 
-        gbc.gridy = 2;
-        panel.add(new JLabel("Mot de passe:"), gbc);
+        gbc.gridy++;
+        JLabel mdp = new JLabel("Mot de passe :");
+        mdp.setFont(new Font("Georgia", Font.BOLD, 16));
+        panel.add(mdp, gbc);
 
-        gbc.gridy = 3;
+        gbc.gridy++;
         panel.add(passwordField, gbc);
 
-        gbc.gridy = 4;
+        gbc.gridy++;
+        JPanel espaceVide1 = new JPanel();
+        espaceVide1.setPreferredSize(new Dimension(200, 15));
+        panel.add(espaceVide1, gbc);
+
+        gbc.gridy++;
         gbc.gridwidth = 2;
         panel.add(loginButton, gbc);
 
-        gbc.gridy = 5;
+        gbc.gridy++;
         panel.add(createAccountButton, gbc);
 
         loginButton.addActionListener(new ActionListener() {
