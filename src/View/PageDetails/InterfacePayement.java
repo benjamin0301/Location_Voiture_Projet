@@ -20,7 +20,7 @@ public class InterfacePayement {
     private JButton bouton;
     private Container conteneurPrincipal;
 
-    public InterfacePayement(Container conteneurPrincipal, VoitureModel voiture, int res, ClientModel clientModel, FactureModel factureModel) {
+    public InterfacePayement(Container conteneurPrincipal, VoitureModel voiture, int res, ClientModel clientModel, FactureModel facture) {
         this.client = clientModel;
         this.conteneurPrincipal = conteneurPrincipal;
 
@@ -50,7 +50,7 @@ public class InterfacePayement {
                 fenetre.dispose();
 
                 try {
-                    FrameAvis frameAvis = new FrameAvis(voiture, res, clientModel);
+                    FrameAvis frameAvis = new FrameAvis(voiture, res, clientModel, facture);
                 } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }

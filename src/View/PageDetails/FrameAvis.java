@@ -3,6 +3,7 @@ package View.PageDetails;
 import Controler.ClientController;
 import Controler.VoitureController;
 import Model.ClientModel;
+import Model.FactureModel;
 import Model.VoitureModel;
 import View.PageConfirmation.FrameConfirmation;
 
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 
 public class FrameAvis extends JFrame {
 
-    public FrameAvis(VoitureModel voiture, int res, ClientModel clientModel) throws SQLException, ClassNotFoundException {
+    public FrameAvis(VoitureModel voiture, int res, ClientModel clientModel, FactureModel facture) throws SQLException, ClassNotFoundException {
         VoitureController voitureController = new VoitureController();
         // Définir le titre de la fenêtre
         setTitle("Donnez-nous votre avis !");
@@ -164,7 +165,7 @@ public class FrameAvis extends JFrame {
 
 
                 dispose();
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, clientModel);
+                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, clientModel, facture);
                 frameConfirmation.setVisible(true);
             }
         });
