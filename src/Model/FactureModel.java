@@ -106,12 +106,8 @@ public class FactureModel {
         // Création d'un nouveau document PDF
         String lien = "Factures/facture" + facture.id_facture +".pdf";
         System.out.println("afficahge du lien " + lien);
-        System.out.println("double facture = "+ facture.id_facture);
         PDF pdf = new PDF(new BufferedOutputStream(new FileOutputStream(lien)));
         try{
-
-
-
             // Ajout d'une page au document
             Page page = new Page(pdf, A4.PORTRAIT);
 
@@ -131,14 +127,14 @@ public class FactureModel {
             TextLine titreGeneral = new TextLine(titleFont, "Confirmation de réservation");
             titreGeneral.setPosition(x, y);
             titreGeneral.drawOn(page);
-            y += 50f;
+            y += 20f;
 
             TextLine numeroReservationLabel = new TextLine(textFont, "Numéro de réservation:");
             numeroReservationLabel.setPosition(x, y);
             numeroReservationLabel.drawOn(page);
 
             TextLine numeroReservationValue = new TextLine(textFont, String.valueOf(facture.id_facture));
-            numeroReservationValue.setPosition(x + 100f, y);
+            numeroReservationValue.setPosition(x + 150f, y);
             numeroReservationValue.drawOn(page);
             y += 20f;
 
@@ -147,22 +143,22 @@ public class FactureModel {
             nomClientLabel.drawOn(page);
 
             TextLine nomClientValue = new TextLine(textFont, client.getNom() + " " + client.getPrenom());
-            nomClientValue.setPosition(x + 100f, y);
+            nomClientValue.setPosition(x + 150f, y);
             nomClientValue.drawOn(page);
-            y += 20f;
+            y += 50f;
 
             // Section Informations de location
             TextLine titreLocation = new TextLine(titleFont, "Lieu de Prises en charge");
             titreLocation.setPosition(x, y);
             titreLocation.drawOn(page);
-            y += 50f;
+            y += 20f;
 
             TextLine stationDepartLabel = new TextLine(textFont, "Station de départ:");
             stationDepartLabel.setPosition(x, y);
             stationDepartLabel.drawOn(page);
 
             TextLine stationDepartValue = new TextLine(textFont, voiture.getLieuPriseEnCharge());
-            stationDepartValue.setPosition(x + 100f, y);
+            stationDepartValue.setPosition(x + 150f, y);
             stationDepartValue.drawOn(page);
             y += 20f;
 
@@ -171,7 +167,7 @@ public class FactureModel {
             stationRetourLabel.drawOn(page);
 
             TextLine stationRetourValue = new TextLine(textFont, voiture.getLieuPriseEnCharge());
-            stationRetourValue.setPosition(x + 100f, y);
+            stationRetourValue.setPosition(x + 150f, y);
             stationRetourValue.drawOn(page);
             y += 20f;
 
@@ -180,7 +176,7 @@ public class FactureModel {
             dateDepartLabel.drawOn(page);
 
             TextLine dateDepartValue = new TextLine(textFont, client.getDate_debut_loc());
-            dateDepartValue.setPosition(x + 100f, y);
+            dateDepartValue.setPosition(x + 150f, y);
             dateDepartValue.drawOn(page);
             y += 20f;
 
@@ -189,7 +185,7 @@ public class FactureModel {
             dateRetourLabel.drawOn(page);
 
             TextLine dateRetourValue = new TextLine(textFont, client.getDate_fin_loc());
-            dateRetourValue.setPosition(x + 100f, y);
+            dateRetourValue.setPosition(x + 150f, y);
             dateRetourValue.drawOn(page);
             y += 20f;
 
@@ -198,7 +194,7 @@ public class FactureModel {
             categorieVehiculeLabel.drawOn(page);
 
             TextLine categorieVehiculeValue = new TextLine(textFont, voiture.getType());
-            categorieVehiculeValue.setPosition(x + 100f, y);
+            categorieVehiculeValue.setPosition(x + 150f, y);
             categorieVehiculeValue.drawOn(page);
             y += 20f;
 
@@ -207,7 +203,7 @@ public class FactureModel {
             prixLocationLabel.drawOn(page);
 
             TextLine prixLocationValue = new TextLine(textFont, String.valueOf(facture.prix_voiture));
-            prixLocationValue.setPosition(x + 100f, y);
+            prixLocationValue.setPosition(x + 150f, y);
             prixLocationValue.drawOn(page);
             y += 20f;
 
@@ -216,7 +212,7 @@ public class FactureModel {
             dateFactureLabel.drawOn(page);
 
             TextLine dateFactureValue = new TextLine(textFont, facture.date_facture);
-            dateFactureValue.setPosition(x + 100f, y);
+            dateFactureValue.setPosition(x + 150f, y);
             dateFactureValue.drawOn(page);
             y += 20f;
 

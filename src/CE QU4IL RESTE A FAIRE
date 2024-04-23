@@ -12,7 +12,6 @@
 -- (**) afficahge de la facture avec le bouton de telechargement dans la page confirmation
 -- (**) Essayer de mettre en forme les options d'une entreprise donc prendre plusieurs voiture ...
 
--- (*) creer une fenetre ou qqc qui demande au client une note entre 1 et 5 (on mettra ca dans avis)
 -- (*) Blindage du bouton de choix des dates et lieu de prise en charge
 -- (*) Modification des dates de disponibilite des voitures à amméliorer
 -- (*) Calcul du total du prix en fonction du nb de jours selectionnés
@@ -20,3 +19,8 @@
 -- (*) Blindage de la confirmation de la page details en fonction des données rentrées
 -- (*) Blindage des types et de la forme des champs de la page detail
 -- (*) Affichage popup en fonction des actions effectuées
+
+BEUG
+
+-- si plus de voiture alors plus d'affichage
+-- employé doit pouvoir voir toutes les voitures meme si elles sont loués

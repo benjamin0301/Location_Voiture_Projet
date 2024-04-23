@@ -50,7 +50,7 @@ public class InterfacePayement {
                 fenetre.dispose();
 
                 try {
-                    FrameAvis frameAvis = new FrameAvis(voiture, res, clientModel, facture);
+                    new FrameAvis(voiture, res, clientModel, facture);
                 } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -67,12 +67,12 @@ public class InterfacePayement {
 
     private void validerPayement() {
         Instant debut = Instant.now();
-        Timer minuteur = new Timer(1000, new ActionListener() {
+        Timer minuteur = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int pourcentage = (int) ((Duration.between(debut, Instant.now()).getSeconds() + 1) * 10);
+                int pourcentage = (int) ((Duration.between(debut, Instant.now()).getSeconds() + 1) );
                 barreProgression.setValue(pourcentage);
-                if (pourcentage >= 100) {
+                if (pourcentage >= 1) {
                     etiquette.setText("Le paiement a été validé avec succès.");
                     bouton.setVisible(true); // Afficher le bouton lorsque la barre est à 100%
                     ((Timer) e.getSource()).stop();

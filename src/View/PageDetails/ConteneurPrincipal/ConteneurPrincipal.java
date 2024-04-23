@@ -316,7 +316,7 @@ public class ConteneurPrincipal extends JPanel {
                 try {
                     ClientController clientController = new ClientController();
                     VoitureController voitureController = new VoitureController();
-                    facture.CreerFacture(client, voiture, 12, client.getMail(),"carre","carre","carre","carre","carre","carre");
+                    facture = facture.CreerFacture(client, voiture, 12, client.getMail(),"carre","carre","carre","carre","carre","carre");
                     clientController.ChangeId_vehicule_loue(client, voiture.getId_plaque());
                     clientController.ChangeDate_debut_fin_loc(client, client.getDate_debut_loc(), client.getDate_fin_loc());
                     voitureController.ChangeLocEstLouee(voiture);
@@ -325,7 +325,7 @@ public class ConteneurPrincipal extends JPanel {
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
-                InterfacePayement interfacePayement = new InterfacePayement(ConteneurPrincipal.this, voiture, res, client, facture);
+                new InterfacePayement(ConteneurPrincipal.this, voiture, res, client, facture);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);
