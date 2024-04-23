@@ -1,5 +1,6 @@
 package View.PageResultats.conteneurprincipal.voitures;
 
+import Model.EmployeModel;
 import Model.VoitureModel;
 import View.PageDetails.FrameDetails;
 
@@ -12,8 +13,11 @@ import java.sql.SQLException;
 public class PanelVoitureEmploye extends JPanel
 {
     VoitureModel voiture_select;
-    public PanelVoitureEmploye(VoitureModel voiture) throws SQLException, ClassNotFoundException
+    EmployeModel employe;
+    public PanelVoitureEmploye(VoitureModel voiture, EmployeModel employeModel) throws SQLException, ClassNotFoundException
     {
+        this.voiture_select = voiture;
+        this.employe = employeModel;
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(2, 300));
         setBackground(Color.white);
@@ -200,7 +204,7 @@ public class PanelVoitureEmploye extends JPanel
                 try
                 {
                     //FrameDetails frameDetails = new FrameDetails(voiture_select);
-                    ModifierVoiture modifierVoiture = new ModifierVoiture(voiture_select);
+                    ModifierVoiture modifierVoiture = new ModifierVoiture(voiture_select, employe);
                     modifierVoiture.setVisible(true);
 
 

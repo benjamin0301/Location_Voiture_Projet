@@ -1,6 +1,7 @@
 package View.PageResultats.conteneurprincipal.voitures;
 
 import Model.ClientModel;
+import Model.EmployeModel;
 import Model.VoitureModel;
 
 import javax.swing.*;
@@ -10,19 +11,27 @@ import java.util.ArrayList;
 
 public class ListeVoitures extends JPanel
 {
-    public ClientModel clientModel;
+    private ClientModel client;
+    private EmployeModel employe;
 
     public ListeVoitures() throws SQLException, ClassNotFoundException
     {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.clientModel = null;
+        this.client = null;
     }
 
     public ListeVoitures(ClientModel clientModel) throws SQLException, ClassNotFoundException
     {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.clientModel = clientModel;
+        this.client = clientModel;
     }
+
+    public ListeVoitures(EmployeModel employeModel) throws SQLException, ClassNotFoundException
+    {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.employe = employeModel;
+    }
+
     public void afficherListeVoitures(ArrayList<VoitureModel> voitures, int type, int res) throws SQLException, ClassNotFoundException
     {
         System.out.println(voitures.getFirst().getType());
@@ -34,12 +43,12 @@ public class ListeVoitures extends JPanel
             add(miniEspaceBlanc);
             if (type == 1)
             {
-                PanelVoiture panelVoiture = new PanelVoiture(voiture, clientModel, res);
+                PanelVoiture panelVoiture = new PanelVoiture(voiture, client, res);
                         add(panelVoiture);
             }
             else if (type == 2)
             {
-                PanelVoitureEmploye panelVoitureEmploye = new PanelVoitureEmploye(voiture);
+                PanelVoitureEmploye panelVoitureEmploye = new PanelVoitureEmploye(voiture, employe);
                 add(panelVoitureEmploye);
             }
         }

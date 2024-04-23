@@ -1,5 +1,6 @@
 package View.PageResultats.conteneurprincipal.voitures;
 
+import Model.EmployeModel;
 import Model.VoitureModel;
 import javax.swing.*;
 import java.awt.*;
@@ -29,9 +30,11 @@ public class ModifierVoiture extends JDialog {
     private JTextField fieldLimiteKm;
     private JTextField fieldMarque;
     private JTextField fieldImageVoiture;
+    private EmployeModel employe;
 
-    public ModifierVoiture(VoitureModel voiture) throws SQLException, ClassNotFoundException {
+    public ModifierVoiture(VoitureModel voiture, EmployeModel employeModel) throws SQLException, ClassNotFoundException {
         this.voiture = voiture;
+        this.employe = employeModel;
         initialize();
     }
 
@@ -40,7 +43,7 @@ public class ModifierVoiture extends JDialog {
         setSize(1000, 800);
 
         setLayout(new GridLayout(16, 2));
-        ConteneurEmploye conteneurEmploye = new ConteneurEmploye();
+        ConteneurEmploye conteneurEmploye = new ConteneurEmploye(employe);
         add(conteneurEmploye, BorderLayout.NORTH);
 
 

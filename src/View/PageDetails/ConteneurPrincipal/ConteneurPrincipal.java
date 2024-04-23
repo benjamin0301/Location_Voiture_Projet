@@ -1,5 +1,6 @@
 package View.PageDetails.ConteneurPrincipal;
 
+import Model.ClientModel;
 import Model.VoitureModel;
 import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
@@ -12,23 +13,27 @@ import java.sql.SQLException;
 import javax.swing.*;
 
 public class ConteneurPrincipal extends JPanel {
-    public ConteneurPrincipal(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException {
+    private ClientModel client;
+
+    public ConteneurPrincipal(VoitureModel voiture, int res, ClientModel clientModel) throws SQLException, ClassNotFoundException {
+        this.client = clientModel;
         setBackground(Color.decode("#E4E4E4"));
         setBorder(BorderFactory.createMatteBorder(30, 0, 30, 0, Color.decode("#E4E4E4")));
 
-        JPanel pagePrincipale = createPagePrincipale(voiture, res);
+        JPanel pagePrincipale = createPagePrincipale(voiture, res, client);
 
         add(pagePrincipale);
     }
 
-    private JPanel createPagePrincipale(VoitureModel voiture, int res) throws SQLException, ClassNotFoundException {
+    private JPanel createPagePrincipale(VoitureModel voiture, int res, ClientModel clientModel) throws SQLException, ClassNotFoundException {
+        this.client = clientModel;
         JPanel pagePrincipale = new JPanel(new BorderLayout());
         pagePrincipale.setBackground(Color.white);
 
         ProgressionDetails progressionDetails = new ProgressionDetails();
         ConteneurDroite conteneurDroite = new ConteneurDroite(voiture);
 
-        ConteneurFormulaires conteneurFormulaires = new ConteneurFormulaires();
+        ConteneurFormulaires conteneurFormulaires = new ConteneurFormulaires(client);
         JPanel englobeurCF = new JPanel();
         englobeurCF.setBackground(Color.white);
         englobeurCF.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.white));
@@ -66,7 +71,7 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res);
+                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);

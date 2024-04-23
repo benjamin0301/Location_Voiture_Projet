@@ -1,5 +1,6 @@
 package View.PageResultats.conteneurprincipal.gauche;
 
+import Model.ClientModel;
 import View.Accueil;
 
 import javax.swing.*;
@@ -13,12 +14,15 @@ public class ResumeTrajet extends JPanel
     private String dateDepart;
     private String lieuRetour;
     private String dateRetour;
-    public ResumeTrajet(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res)
+    private ClientModel client;
+
+    public ResumeTrajet(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res, ClientModel clientModel)
     {
         this.lieuDepart = lieuDepart;
         this.dateDepart = dateDepart;
         this.lieuRetour = lieuRetour;
         this.dateRetour = dateRetour;
+        this.client = clientModel;
 
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(230, 300));
@@ -93,7 +97,7 @@ public class ResumeTrajet extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 Accueil accueil = null;
-                accueil = new Accueil(res);
+                accueil = new Accueil(res, client);
                 accueil.setVisible(true);
 
                 Window window = SwingUtilities.getWindowAncestor(boutonModifier);

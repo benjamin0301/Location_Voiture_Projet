@@ -87,7 +87,7 @@ public class CarouselVoitures extends JPanel {
                     catch (SQLException ex) { throw new RuntimeException(ex); }
                     catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
 
-                    client.Phrase_de_reponse = "bite";
+                    client.Phrase_de_reponse = "test";
                     String phrase = client.Phrase_de_reponse;
                     JOptionPane.showMessageDialog(null, phrase);
                 }

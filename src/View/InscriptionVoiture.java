@@ -1,6 +1,7 @@
 package View;
 
 import Controler.VoitureController;
+import Model.EmployeModel;
 import Model.VoitureModel;
 import javax.swing.*;
 import java.awt.*;
@@ -31,10 +32,11 @@ public class InscriptionVoiture extends JFrame {
     private JButton retourButton;
 
     private VoitureController voitureController;
+    private EmployeModel employe;
 
-    public InscriptionVoiture() throws SQLException, ClassNotFoundException {
+    public InscriptionVoiture(EmployeModel employeModel) throws SQLException, ClassNotFoundException {
         this.voitureController = new VoitureController();
-
+        this.employe = employeModel;
         setTitle("Inscription Voiture");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -258,7 +260,7 @@ public class InscriptionVoiture extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                new InscriptionVoiture().setVisible(true);
+                new InscriptionVoiture(new EmployeModel()).setVisible(true);
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Erreur de base de données : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             } catch (ClassNotFoundException e) {

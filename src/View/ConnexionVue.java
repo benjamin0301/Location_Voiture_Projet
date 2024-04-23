@@ -36,7 +36,7 @@ public class ConnexionVue extends JFrame {
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
-        ConteneurHaut conteneurHaut = new ConteneurHaut(1);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(1, client);
         add(conteneurHaut, BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -140,7 +140,7 @@ public class ConnexionVue extends JFrame {
                 ConnexionVue.this.setVisible(false);
                 // Créer une nouvelle instance de la fenêtre d'inscription et la rendre visible
                 try {
-                    Inscription inscription = new Inscription();
+                    Inscription inscription = new Inscription(client);
                     inscription.setVisible(true);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

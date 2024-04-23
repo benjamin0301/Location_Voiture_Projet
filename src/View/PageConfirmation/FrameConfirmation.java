@@ -1,5 +1,6 @@
 package View.PageConfirmation;
 
+import Model.ClientModel;
 import Model.VoitureModel;
 import View.CustomScrollBarUI;
 import View.PageDetails.ConteneurPrincipal.ConteneurPrincipal;
@@ -11,9 +12,14 @@ import java.awt.*;
 
 public class FrameConfirmation extends JFrame
 {
+    private ClientModel client;
     private JPanel contentPanel;
-    public FrameConfirmation(VoitureModel voiture, int res)
+    private VoitureModel voiture;
+
+    public FrameConfirmation(VoitureModel voitureModel, int res, ClientModel clientModel)
     {
+        this.client = clientModel;
+        this.voiture = voitureModel;
         setTitle("Confirmation de réservation");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -22,10 +28,10 @@ public class FrameConfirmation extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
-        PageConfirmation nouvellePage = new PageConfirmation(voiture, res);
+        PageConfirmation nouvellePage = new PageConfirmation(voiture, res, client);
 
         JPanel englobeurPC = new JPanel(new BorderLayout());
         englobeurPC.setBackground(Color.decode("#E4E4E4"));

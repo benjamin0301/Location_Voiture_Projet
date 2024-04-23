@@ -5,6 +5,7 @@ import Model.ClientModel;
 
 
 import View.PageResultats.ConteneurHaut;
+import com.mysql.cj.xdevapi.Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,9 +25,11 @@ public class Inscription extends JFrame {
     private JButton retourButton;
 
     private ClientController clientcontroller;
+    private ClientModel client;
 
-    public Inscription() throws SQLException, ClassNotFoundException {
+    public Inscription(ClientModel clientModel) throws SQLException, ClassNotFoundException {
         this.clientcontroller = new ClientController();
+        this.client = clientModel;
 
         setTitle("Inscription");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +37,7 @@ public class Inscription extends JFrame {
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
-        ConteneurHaut conteneurHaut = new ConteneurHaut(1);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(1, client);
         add(conteneurHaut, BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -179,7 +182,7 @@ public class Inscription extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                new Inscription().setVisible(true);
+                new Inscription(new ClientModel()).setVisible(true);
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Erreur de base de données : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             } catch (ClassNotFoundException e) {

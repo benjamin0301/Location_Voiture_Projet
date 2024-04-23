@@ -12,10 +12,10 @@ public class Vue extends JFrame
 {
     private ConteneurHaut conteneurHaut;
     private ConteneurPrincipal conteneurPrincipal;
-    private ClientModel clientModel;
+    private ClientModel client;
 
-    public Vue(ClientModel client) throws SQLException, ClassNotFoundException {
-        this.clientModel = client;
+    public Vue(ClientModel clientModel) throws SQLException, ClassNotFoundException {
+        this.client = clientModel;
     }
 
     public void initialize(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res) throws SQLException, ClassNotFoundException
@@ -25,10 +25,10 @@ public class Vue extends JFrame
         setLayout(new BorderLayout());
 
 
-        conteneurPrincipal = new ConteneurPrincipal(clientModel);
+        conteneurPrincipal = new ConteneurPrincipal(client);
         conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour, res); // Fournir les arguments ici
 
-        conteneurHaut = new ConteneurHaut(res);
+        conteneurHaut = new ConteneurHaut(res, client);
 
         Footer footer = new Footer();
 

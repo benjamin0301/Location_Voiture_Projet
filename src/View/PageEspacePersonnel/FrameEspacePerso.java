@@ -1,5 +1,7 @@
 package View.PageEspacePersonnel;
 
+import Model.ClientModel;
+import Model.EmployeModel;
 import View.CustomScrollBarUI;
 import View.PageConfirmation.PageConfirmation;
 import View.PageResultats.ConteneurHaut;
@@ -12,8 +14,12 @@ import java.sql.SQLException;
 public class FrameEspacePerso extends JFrame
 {
     private JPanel contentPanel;
-    public FrameEspacePerso(int res) throws SQLException, ClassNotFoundException
+    private ClientModel client;
+    private EmployeModel employe;
+
+    public FrameEspacePerso(int res, ClientModel clientModel) throws SQLException, ClassNotFoundException
     {
+        this.client = clientModel;
         setTitle("Mon espace personnel");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -22,10 +28,53 @@ public class FrameEspacePerso extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
-        EspacePersonnel espacePersonnel = new EspacePersonnel();
+        EspacePersonnel espacePersonnel = new EspacePersonnel(client);
+
+        JPanel englobeurPC = new JPanel(new BorderLayout());
+        englobeurPC.setBackground(Color.decode("#E4E4E4"));
+        englobeurPC.setBorder(BorderFactory.createEmptyBorder(35, 85, 35, 85));
+        englobeurPC.add(espacePersonnel, BorderLayout.CENTER);
+
+        contentPanel.add(englobeurPC, BorderLayout.CENTER);
+
+        Footer footer = new Footer();
+        contentPanel.add(footer, BorderLayout.SOUTH);
+
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+        scrollBar.setUI(new CustomScrollBarUI());
+
+        add(scrollPane);
+
+        SwingUtilities.invokeLater(() -> {
+            JViewport viewport = scrollPane.getViewport();
+            viewport.setViewPosition(new Point(0, 0));
+        });
+
+        setVisible(true);
+    }
+
+    public FrameEspacePerso(int res, EmployeModel employeModel) throws SQLException, ClassNotFoundException
+    {
+        this.employe = employeModel;
+        setTitle("Mon espace personnel");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
+        contentPanel.add(conteneurHaut, BorderLayout.NORTH);
+
+        EspacePersonnel espacePersonnel = new EspacePersonnel(employe);
 
         JPanel englobeurPC = new JPanel(new BorderLayout());
         englobeurPC.setBackground(Color.decode("#E4E4E4"));

@@ -16,10 +16,10 @@ public class ConteneurPrincipal extends JPanel
     private String dateDepart;
     private String lieuRetour;
     private String dateRetour;
-    public ClientModel clientModel;
+    public ClientModel client;
 
     public ConteneurPrincipal(ClientModel clientModel) throws SQLException, ClassNotFoundException {
-        this.clientModel = clientModel;
+        this.client = clientModel;
     }
 
     public void initConteneurPrincipal(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res) throws SQLException, ClassNotFoundException
@@ -34,10 +34,10 @@ public class ConteneurPrincipal extends JPanel
         Progression progression = new Progression();
         conteneurGris.add(progression, BorderLayout.NORTH);
 
-        ConteneurGauche conteneurGauche = new ConteneurGauche(lieuDepart, dateDepart, lieuRetour, dateRetour, res);
+        ConteneurGauche conteneurGauche = new ConteneurGauche(lieuDepart, dateDepart, lieuRetour, dateRetour, res, client);
         conteneurGris.add(conteneurGauche, BorderLayout.WEST);
 
-        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(clientModel,res);
+        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(client,res);
         conteneurGris.add(conteneurVoitures, BorderLayout.CENTER);
 
         add(conteneurGris, BorderLayout.CENTER);
@@ -47,9 +47,8 @@ public class ConteneurPrincipal extends JPanel
         removeAll();
         EspacePersonnel espacePersonnel = null;
 
-        try { espacePersonnel = new EspacePersonnel(); }
-        catch (SQLException ex) { throw new RuntimeException(ex); }
-        catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
+        try { espacePersonnel = new EspacePersonnel(client); }
+        catch (SQLException | ClassNotFoundException ex) { throw new RuntimeException(ex); }
         add(espacePersonnel, BorderLayout.CENTER);
 
         revalidate();
