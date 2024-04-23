@@ -68,7 +68,7 @@ public class Accueil extends JFrame {
         };
 
         backgroundPanel.setPreferredSize(new Dimension(targetWidth, targetHeight));
-        backgroundPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 155, 80));
+        backgroundPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 155, 120));
 
 
 

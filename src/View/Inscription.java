@@ -5,6 +5,7 @@ import Model.ClientModel;
 
 
 import View.PageResultats.ConteneurHaut;
+import View.popup.PopUpDef2;
 import com.mysql.cj.xdevapi.Client;
 
 import javax.swing.*;
@@ -142,7 +143,8 @@ public class Inscription extends JFrame {
 
 
                 if (!motDePasse.equals(confirmationMotDePasse)) {
-                    JOptionPane.showMessageDialog(Inscription.this, "Les mots de passe ne correspondent pas.");
+                    PopUpDef2 pop1 = new PopUpDef2("Les mots de passe ne correspondent pas.");
+                    pop1.setVisible(true);
                     return;
                 }
 
