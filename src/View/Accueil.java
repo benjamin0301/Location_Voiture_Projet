@@ -2,6 +2,7 @@ package View;
 
 import Model.ClientModel;
 import View.PageResultats.ConteneurHaut;
+import View.popup.PopUpDef2;
 import View.popup.popUpReservation;
 
 import javax.swing.*;
@@ -128,13 +129,15 @@ public class Accueil extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!isDateValid()) {
-                    JOptionPane.showMessageDialog(Accueil.this, "La date d'arrivee doit être après la date de depart.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    PopUpDef2 pop1 = new PopUpDef2("La date d'arrivee doit être après la date de depart.");
+                    pop1.setVisible(true);
                     return;
                 }
                 String lieu = lieuField.getText().trim(); // Récupérer le lieu et supprimer les espaces en début et fin
 
                 if (lieu.isEmpty()) { // Vérifier si le lieu est vide
-                    JOptionPane.showMessageDialog(Accueil.this, "Veuillez saisir un lieu de départ.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    PopUpDef2 pop2 = new PopUpDef2("Veuillez saisir un lieu de départ.");
+                    pop2.setVisible(true);
                     return;
                 }
 

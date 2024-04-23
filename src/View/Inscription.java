@@ -161,7 +161,8 @@ public class Inscription extends JFrame {
                 }
 
                 if (PhraseRecue != null && PhraseRecue.equals("Toutes les données sont valides")) {
-                    JOptionPane.showMessageDialog(Inscription.this, "Inscription réussie !");
+                    PopUpDef2 popX = new PopUpDef2("Inscription réussie !");
+                    popX.setVisible(true);
 
                     // Masquer la fenêtre d'inscription actuelle
                     Inscription.this.setVisible(false);

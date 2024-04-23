@@ -14,7 +14,7 @@ public class PopUpDef2 extends JDialog {
         departLabel.setHorizontalAlignment(SwingConstants.CENTER);
         departLabel.setForeground(Color.black);
         departLabel.setFont(new Font("Georgia", Font.BOLD, 15));
-        departLabel.setPreferredSize(new Dimension(390, 25));
+        departLabel.setPreferredSize(new Dimension(440, 25));
 
         // Création du conteneur pour les composants
         JPanel panel = new JPanel();
@@ -37,7 +37,7 @@ public class PopUpDef2 extends JDialog {
         getContentPane().add(panel, BorderLayout.CENTER);
 
         // Taille et position de la fenêtre
-        setSize(400, 130);
+        setSize(450, 130);
         setLocationRelativeTo(null);
 
         // Création du timer pour fermer la fenêtre après 2 secondes
