@@ -5,7 +5,7 @@
 -- (***) Filtrage des voitures en fonction du type scpecifié + Message associé
 -- (***) Envoie et recuperation des données de la page details. (appels des prog de FactureController)
 -- (***) Ajout valide de la voiture dans la bdd apres la validation effectuée (id du client, id du vehicule dans client...)
-
+-- (***) Modifier les valeurs par default et mettre des vrais valeurs dans le listener du bouton de confirmation sur la page de details
 
 -- (**) Modification du prix total dans la page confirmation
 -- (**) Suppression de la voiture depuis l'espace personnel du client
@@ -15,7 +15,6 @@
 -- (*) creer une fenetre ou qqc qui demande au client une note entre 1 et 5 (on mettra ca dans avis)
 -- (*) Blindage du bouton de choix des dates et lieu de prise en charge
 -- (*) Modification des dates de disponibilite des voitures à amméliorer
--- (*) Blindage des boutons de filtre (impossibilite de cliquer sur deux boutons en meme temps)
 -- (*) Calcul du total du prix en fonction du nb de jours selectionnés
 -- (*) Remplissage automatique des champs du clients dans le detail de la selection de la voiture
 -- (*) Blindage de la confirmation de la page details en fonction des données rentrées

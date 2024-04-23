@@ -1,7 +1,10 @@
 package View.PageDetails.ConteneurPrincipal;
 
+import Controler.ClientController;
+import Controler.FactureController;
 import Controler.VoitureController;
 import Model.ClientModel;
+import Model.FactureModel;
 import Model.VoitureModel;
 import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
@@ -309,10 +312,9 @@ public class ConteneurPrincipal extends JPanel {
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    VoitureController voitureController = new VoitureController();
-                    //voitureController.ChangeDate_debut_fin_loc()
-                    //voitureController.ajouterNouvelleVoiture(voiture.getId_plaque(), voiture.getnom_modele(), voiture.getType(), voiture.getCouleur(), voiture.getMoteur(), voiture.getNbPlace(), voiture.getCapaciteValise(), voiture.getNbPorte(), voiture.getTransmission(), voiture.getCapaEssence(), voiture.getAnnee(), voiture.getkilometrage_actuel(), )
-                } catch (SQLException | ClassNotFoundException ex) {
+                    FactureModel facture = new FactureModel();
+                    facture = facture.CreerFacture(client, voiture, 12, client.getMail(),"carre","carre","carre","carre","carre","carre");
+                } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
 
