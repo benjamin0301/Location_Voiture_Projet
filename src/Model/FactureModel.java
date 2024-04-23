@@ -60,18 +60,12 @@ public class FactureModel {
             client.setId_vehicule_loue(voiture.getId_plaque());
             client.setDate_debut_loc("2000-01-01");
             client.setDate_fin_loc("2000-01-01");
-            client.MajPartielBdd(client.getId_client(), "date_debut_loc", client.getDate_debut_loc());
-            client.MajPartielBdd(client.getId_client(), "date_fin_loc", client.getDate_fin_loc());
-            client.MajPartielBdd(client.getId_client(), "id_vehicule_loue", voiture.getId_plaque());
 
 
             // a changer car a faire dans le controller
             voiture.setId_facture(idFacture);
             voiture.setDate_debut_loc("2000-01-01");
             voiture.setDate_fin_loc("2000-01-01");
-            voiture.MajPartielBdd(voiture.getId_plaque(), "date_debut_loc", client.getDate_debut_loc());
-            voiture.MajPartielBdd(voiture.getId_plaque(), "date_fin_loc", client.getDate_fin_loc());
-            voiture.MajPartielBdd(voiture.getId_plaque(), "louee", 1);
 
             int rowsInserted = statement.executeUpdate();
 

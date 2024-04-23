@@ -81,9 +81,8 @@ public class ConteneurHaut extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                FrameEspacePerso frameEspacePerso = null;
                 try {
-                    frameEspacePerso = new FrameEspacePerso(res, client);
+                    new FrameEspacePerso(res, client);
                 } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -311,27 +311,28 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                FactureModel facture = new FactureModel();
+
                 try {
-                    FactureModel facture = new FactureModel();
-                    facture = facture.CreerFacture(client, voiture, 12, client.getMail(),"carre","carre","carre","carre","carre","carre");
+                    ClientController clientController = new ClientController();
+                    VoitureController voitureController = new VoitureController();
+                    facture.CreerFacture(client, voiture, 12, client.getMail(),"carre","carre","carre","carre","carre","carre");
+                    clientController.ChangeId_vehicule_loue(client, voiture.getId_plaque());
+                    clientController.ChangeDate_debut_fin_loc(client, client.getDate_debut_loc(), client.getDate_fin_loc());
+                    voitureController.ChangeLocEstLouee(voiture);
+                    voitureController.ChangeDate_debut_fin_loc(voiture, voiture.getDate_debut_loc(), voiture.getDate_fin_loc());
+
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
-
-                //FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
-                InterfacePayement interfacePayement = new InterfacePayement(ConteneurPrincipal.this, voiture, res, client);
+                InterfacePayement interfacePayement = new InterfacePayement(ConteneurPrincipal.this, voiture, res, client, facture);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);
 
-                // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de fermer
-                if (window instanceof JFrame) {
-                    // Fermez la fenêtre actuelle
-                    ((JFrame) window).dispose();
-                }
+
             }
         });
-
 
         return pagePrincipale;
     }

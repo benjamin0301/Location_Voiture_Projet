@@ -1,6 +1,7 @@
 package View.PageConfirmation;
 
 import Model.ClientModel;
+import Model.FactureModel;
 import Model.VoitureModel;
 import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ResumeMontant;
 import View.PageEspacePersonnel.EspacePersonnel;
@@ -11,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class PageConfirmation extends JPanel
@@ -19,7 +22,7 @@ public class PageConfirmation extends JPanel
     private ClientModel client;
     private VoitureModel voiture;
 
-    public PageConfirmation(VoitureModel voitureModel, int res, ClientModel clientModel)
+    public PageConfirmation(VoitureModel voitureModel, int res, ClientModel clientModel, FactureModel factureModel)
     {
         this.client = clientModel;
         this.voiture = voitureModel;
@@ -151,9 +154,6 @@ public class PageConfirmation extends JPanel
         engloBeurre.add(panelB, gdc);
 
 
-
-
-
         gdc.gridx++;
         gdc.weightx = 2;
         JPanel panelC = new JPanel();
@@ -180,7 +180,7 @@ public class PageConfirmation extends JPanel
         panelBoutons.setPreferredSize(new Dimension(850, 60));
         panelBoutons.setBackground(Color.white);
 
-        JButton boutonFac = new JButton("Télécharger la facture");
+        JButton boutonFac = new JButton("Ouvrir la facture");
         boutonFac.setFont(new Font("Georgia", Font.BOLD, 19));
         boutonFac.setBackground(Color.decode("#7E3DFF"));
         boutonFac.setForeground(Color.white);
@@ -224,7 +224,26 @@ public class PageConfirmation extends JPanel
             }
         });
 
-
+        boutonFac.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                File file = new File("Facture/facture" + factureModel.getId_facture() + ".pdf");
+                if (file.exists()) {
+                    if (Desktop.isDesktopSupported()) {
+                        try {
+                            Desktop.getDesktop().open(file);
+                        } catch (IOException exc) {
+                            throw new RuntimeException(exc);
+                        }
+                    } else {
+                        System.out.println("Le bureau n'est pas supporté.");
+                    }
+                } else {
+                    System.out.println("Le fichier n'existe pas.");
+                }
+            };
+        });
         add(contPrin, BorderLayout.CENTER);
     }
 }

@@ -29,7 +29,6 @@ public class PanelReservation extends JPanel
         panelA.setPreferredSize(new Dimension(350, 250));
         panelA.setBackground(Color.white);
         panelA.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
-        panelA.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.lightGray));
 
 
         JPanel ebs = new JPanel();
@@ -37,6 +36,9 @@ public class PanelReservation extends JPanel
         ebs.setPreferredSize(new Dimension(350, 15));
         panelA.add(ebs);
 
+        if (client.getId_facture() != 0) {
+
+        panelA.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.lightGray));
         JLabel idR = new JLabel("Réservation #" + client.getId_facture());
         idR.setBackground(Color.white);
         idR.setFont(new Font("Georgia", Font.BOLD, 18));
@@ -44,8 +46,7 @@ public class PanelReservation extends JPanel
         panelA.add(idR);
         idR.setForeground(Color.decode("#7E3DFF"));
 
-
-        JLabel type = new JLabel("Type : " +voiture.getType() + "    Marque : " +voiture.getMarque());
+        JLabel type = new JLabel("Type : " + voiture.getType() + "    Marque : " + voiture.getMarque());
         type.setBackground(Color.white);
         type.setFont(new Font("Georgia", Font.BOLD, 16));
         type.setPreferredSize(new Dimension(310, 25));
@@ -172,7 +173,18 @@ public class PanelReservation extends JPanel
         supp.setFont(new Font("Georgia", Font.BOLD, 15));
         panelC.add(supp);
 
-
         add(panelC, gbc);
+
+        }else {
+            JLabel idR = new JLabel("Vous n'avez aucune réservation");
+            idR.setBackground(Color.white);
+            idR.setFont(new Font("Georgia", Font.BOLD, 18));
+            idR.setPreferredSize(new Dimension(310, 32));
+            panelA.add(idR);
+            idR.setForeground(Color.decode("#7E3DFF"));
+            add(panelA, gbc);
+            setBackground(Color.white);
+
+        }
     }
 }
