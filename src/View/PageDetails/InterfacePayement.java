@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -48,15 +49,11 @@ public class InterfacePayement {
                 // Fermer la fenêtre de validation de paiement
                 fenetre.dispose();
 
-                // Supprimer tous les composants du conteneur principal
-                conteneurPrincipal.removeAll();
-
-                // Mettre à jour l'affichage
-                conteneurPrincipal.revalidate();
-
-                // Ouvrir la fenêtre de confirmation
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, clientModel, factureModel);
-                frameConfirmation.setVisible(true);
+                try {
+                    FrameAvis frameAvis = new FrameAvis(voiture, res, clientModel);
+                } catch (SQLException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         fenetre.add(bouton, BorderLayout.NORTH);
