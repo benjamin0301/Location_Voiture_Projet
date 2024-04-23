@@ -6,7 +6,6 @@ import Model.VoitureModel;
 import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
 import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ConteneurDroite;
-import View.PageDetails.ConteneurPrincipal.ConteneurFormulaires.ConteneurFormulaires;
 import View.PageDetails.InterfacePayement;
 
 import java.awt.*;
@@ -316,15 +315,21 @@ public class ConteneurPrincipal extends JPanel {
                 } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
+
                 //FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
                 InterfacePayement interfacePayement = new InterfacePayement(ConteneurPrincipal.this, voiture, res, client);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);
 
-
+                // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de fermer
+                if (window instanceof JFrame) {
+                    // Fermez la fenêtre actuelle
+                    ((JFrame) window).dispose();
+                }
             }
         });
+
 
         return pagePrincipale;
     }
