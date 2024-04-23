@@ -29,6 +29,7 @@ public class PanelReservation extends JPanel
         panelA.setPreferredSize(new Dimension(350, 250));
         panelA.setBackground(Color.white);
         panelA.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        panelA.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.lightGray));
 
 
         JPanel ebs = new JPanel();
@@ -172,6 +173,7 @@ public class PanelReservation extends JPanel
         supp.setForeground(Color.white);
         supp.setFont(new Font("Georgia", Font.BOLD, 15));
         panelC.add(supp);
+
 
         add(panelC, gbc);
 

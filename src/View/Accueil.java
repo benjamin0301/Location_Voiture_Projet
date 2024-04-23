@@ -2,6 +2,7 @@ package View;
 
 import Model.ClientModel;
 import View.PageResultats.ConteneurHaut;
+import View.popup.PopUpDef2;
 import View.popup.popUpReservation;
 
 import javax.swing.*;
@@ -36,9 +37,9 @@ public class Accueil extends JFrame {
         return JourArrivee.getSelectedItem() + "/" + (MoisArrivee.getSelectedIndex() + 1) + "/" + AnneeArrivee.getSelectedItem();
     }
 
-    public Accueil(ClientModel client) {
-        this.client = client;
-    }
+    //public Accueil(ClientModel client) {
+     //   this.client = client;
+  //  }
 
     public Accueil(int res, ClientModel clientModel)
     {
@@ -48,8 +49,8 @@ public class Accueil extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
-        add(conteneurHaut, BorderLayout.NORTH);
+        //ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
+        //add(conteneurHaut, BorderLayout.NORTH);
 
         ImageIcon originalImageIcon = new ImageIcon("images/firefly-1.jpg");
         Image originalImage = originalImageIcon.getImage();
@@ -68,7 +69,7 @@ public class Accueil extends JFrame {
         };
 
         backgroundPanel.setPreferredSize(new Dimension(targetWidth, targetHeight));
-        backgroundPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 155, 80));
+        backgroundPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 155, 120));
 
 
 
@@ -128,10 +129,17 @@ public class Accueil extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!isDateValid()) {
-                    JOptionPane.showMessageDialog(Accueil.this, "La date d'arrivee doit être après la date de depart.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    PopUpDef2 pop1 = new PopUpDef2("La date d'arrivee doit être après la date de depart.");
+                    pop1.setVisible(true);
                     return;
                 }
+                String lieu = lieuField.getText().trim(); // Récupérer le lieu et supprimer les espaces en début et fin
 
+                if (lieu.isEmpty()) { // Vérifier si le lieu est vide
+                    PopUpDef2 pop2 = new PopUpDef2("Veuillez saisir un lieu de départ.");
+                    pop2.setVisible(true);
+                    return;
+                }
 
                 String departDate = JourDepart.getSelectedItem() + "/" +
                         (MoisDepart.getSelectedIndex() + 1) + "/" +
@@ -139,7 +147,7 @@ public class Accueil extends JFrame {
                 String arriveeDate = JourArrivee.getSelectedItem() + "/" +
                         (MoisArrivee.getSelectedIndex() + 1) + "/" +
                         AnneeArrivee.getSelectedItem();
-                String lieu = lieuField.getText();
+                //String lieu = lieuField.getText();
 
                 popUpReservation customDialog = new popUpReservation(Accueil.this, departDate, arriveeDate, lieu);
                 customDialog.setVisible(true);
@@ -150,8 +158,8 @@ public class Accueil extends JFrame {
                 SwingUtilities.invokeLater(() -> {
                     try
                     {
-                        ClientModel clientModel = null;
-                        Vue vue = new Vue(clientModel);
+
+                        Vue vue = new Vue(client);
                         vue.initialize(getLieu(), getDateDepart(), getLieu(), getDateRetour(),res);
                         Window window = SwingUtilities.getWindowAncestor(confirmButton);
 

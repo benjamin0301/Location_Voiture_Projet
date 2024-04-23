@@ -28,7 +28,7 @@ public class FrameConfirmation extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client,"","","","");
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
         PageConfirmation nouvellePage = new PageConfirmation( voiture, res, client, factureModel);

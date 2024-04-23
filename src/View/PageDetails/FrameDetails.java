@@ -34,7 +34,7 @@ public class FrameDetails extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client,"","","","");
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
         ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(voiture, res, client);

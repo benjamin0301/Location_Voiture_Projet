@@ -6,10 +6,12 @@ import Controler.VoitureController;
 import Model.ClientModel;
 import Model.FactureModel;
 import Model.VoitureModel;
+import View.Accueil;
 import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
 import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ConteneurDroite;
 import View.PageDetails.InterfacePayement;
+import View.popup.PopUpDef2;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,6 +20,19 @@ import javax.swing.*;
 
 public class ConteneurPrincipal extends JPanel {
     private ClientModel client;
+    private JTextField prenomField;
+    private JTextField nomField;
+    private JTextField emailField;
+    private JTextField telephoneField;
+    private JTextField paysRegionField;
+    private JTextField villeField;
+    private JTextField adresseField;
+    private JTextField nomCarteField;
+    private JTextField numeroCarteField;
+    private JTextField dateExpirationField;
+    private JTextField cvcField;
+
+
 
     public ConteneurPrincipal(VoitureModel voiture, int res, ClientModel clientModel) throws SQLException, ClassNotFoundException {
         this.client = clientModel;
@@ -48,10 +63,34 @@ public class ConteneurPrincipal extends JPanel {
             }
         });
 
+        // Attribution des champs de texte correspondants
+        if (defaultText.equals("Prénom *")) {
+            prenomField = field;
+        } else if (defaultText.equals("Nom *")) {
+            nomField = field;
+        } else if (defaultText.equals("E-mail *")) {
+            emailField = field;
+        } else if (defaultText.equals("Téléphone *")) {
+            telephoneField = field;
+        } else if (defaultText.equals("Pays/Région *")) {
+            paysRegionField = field;
+        } else if (defaultText.equals("Ville *")) {
+            villeField = field;
+        } else if (defaultText.equals("Adresse *")) {
+            adresseField = field;
+        } else if (defaultText.equals("Nom figurant sur la carte *")) {
+            nomCarteField = field;
+        } else if (defaultText.equals("Numéro de la carte *")) {
+            numeroCarteField = field;
+        } else if (defaultText.equals("Date d'expiration *")) {
+            dateExpirationField = field;
+        } else if (defaultText.equals("CVC *")) {
+            cvcField = field;
+        }
+
         gbc.gridy++;
         panel.add(field, gbc);
     }
-
 
 
     private JPanel createPagePrincipale(VoitureModel voiture, int res, ClientModel clientModel) throws SQLException, ClassNotFoundException {
@@ -311,7 +350,52 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FactureModel facture = new FactureModel();
+
+                String prenom = prenomField.getText();
+                String nom = nomField.getText();
+                String email = emailField.getText();
+                String telephone = telephoneField.getText();
+                String paysRegion = paysRegionField.getText();
+                String ville = villeField.getText();
+                String adresse = adresseField.getText();
+                String nomCarte = nomCarteField.getText();
+                String numeroCarte = numeroCarteField.getText();
+                String dateExpiration = dateExpirationField.getText();
+                String cvc = cvcField.getText();
+
+                // Vérifiez si l'un des champs obligatoires est vide
+                if (prenom.isEmpty() || prenom.equals("Prénom *") ||
+                        nom.isEmpty() || nom.equals("Nom *") ||
+                        email.isEmpty() || email.equals("E-mail *") ||
+                        telephone.isEmpty() || telephone.equals("Téléphone *") ||
+                        paysRegion.isEmpty() || paysRegion.equals("Pays/Région *") ||
+                        ville.isEmpty() || ville.equals("Ville *") ||
+                        adresse.isEmpty() || adresse.equals("Adresse *") ||
+                        nomCarte.isEmpty() || nomCarte.equals("Nom figurant sur la carte *") ||
+                        numeroCarte.isEmpty() || numeroCarte.equals("Numéro de la carte *") ||
+                        dateExpiration.isEmpty() || dateExpiration.equals("Date d'expiration *") ||
+                        cvc.isEmpty() || cvc.equals("CVC *")) {
+                    // Affichez un message d'erreur ou effectuez une action appropriée
+                    PopUpDef2 poppy = new PopUpDef2("Veuillez remplir tous les champs obligatoires.");
+                    poppy.setVisible(true);
+                    return; // Arrêtez l'exécution de la méthode
+                }
+
+                // Si tous les champs obligatoires sont remplis, continuez avec l'action suivante
+                // Par exemple, vous pouvez l'imprimer dans la console
+                System.out.println("Prénom : " + prenom);
+                System.out.println("Nom : " + nom);
+                System.out.println("E-mail : " + email);
+                System.out.println("Téléphone : " + telephone);
+                System.out.println("Pays/Région : " + paysRegion);
+                System.out.println("Ville : " + ville);
+                System.out.println("Adresse : " + adresse);
+                System.out.println("Nom figurant sur la carte : " + nomCarte);
+                System.out.println("Numéro de la carte : " + numeroCarte);
+                System.out.println("Date d'expiration : " + dateExpiration);
+                System.out.println("CVC : " + cvc);
+
+
 
                 try {
                     ClientController clientController = new ClientController();

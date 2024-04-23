@@ -218,7 +218,7 @@ public class PanelVoiture extends JPanel
         {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("test du client" + client);
-                if (client == null) {
+                if (res == 1) {
 
                     Window window = SwingUtilities.getWindowAncestor(selectionner);
 
@@ -230,7 +230,7 @@ public class PanelVoiture extends JPanel
 
                     ConnexionVue connexion = null;
                     try {
-                        connexion = new ConnexionVue();
+                        connexion = new ConnexionVue( "",  "dateDepart",  "lieuRetour",  "dateRetour");
                         connexion.setVisible(true);
                     } catch (SQLException | ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
