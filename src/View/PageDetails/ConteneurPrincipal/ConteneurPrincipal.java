@@ -71,7 +71,7 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, client, res);
+                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);

@@ -123,7 +123,6 @@ public class CarouselVoitures extends JPanel {
                     int index = carouselPanel.getComponentZOrder(clickedButton);
 
                     TypeClicked = elements.get(index);
-                    ClientController client = null;
 
                     /*client.Phrase_de_reponse = "bite";
                     String phrase = client.Phrase_de_reponse;
