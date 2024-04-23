@@ -106,17 +106,27 @@ public class Filtrer extends JPanel
         textAreaTransmission.setOpaque(false);
         contenuPanel.add(textAreaTransmission);
 
-        JCheckBox checkBoxAutomatique = new JCheckBox("Automatique");
-        checkBoxAutomatique.setPreferredSize(new Dimension(200, 20));
-        checkBoxAutomatique.setFont(new Font("Georgia", Font.PLAIN, 12));
-        checkBoxAutomatique.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(checkBoxAutomatique);
+        // Création d'un groupe de boutons
+        ButtonGroup buttonGroup = new ButtonGroup();
 
-        JCheckBox checkBoxManuelle = new JCheckBox("Manuelle");
-        checkBoxManuelle.setPreferredSize(new Dimension(200, 20));
-        checkBoxManuelle.setFont(new Font("Georgia", Font.PLAIN, 12));
-        checkBoxManuelle.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(checkBoxManuelle);
+// Création du bouton radio "Automatique"
+        JRadioButton radioButtonAutomatique = new JRadioButton("Automatique");
+        radioButtonAutomatique.setPreferredSize(new Dimension(200, 20));
+        radioButtonAutomatique.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonAutomatique.setBackground(Color.decode("#FFFFFF"));
+        buttonGroup.add(radioButtonAutomatique); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonAutomatique);
+
+// Création du bouton radio "Manuelle"
+        JRadioButton radioButtonManuelle = new JRadioButton("Manuelle");
+        radioButtonManuelle.setPreferredSize(new Dimension(200, 20));
+        radioButtonManuelle.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonManuelle.setBackground(Color.decode("#FFFFFF"));
+        buttonGroup.add(radioButtonManuelle); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonManuelle);
+
+
+
 
         JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
         separator.setPreferredSize(new Dimension(190, 2));
@@ -130,17 +140,25 @@ public class Filtrer extends JPanel
         textAreaKilometrage.setOpaque(false);
         contenuPanel.add(textAreaKilometrage);
 
-        JCheckBox checkBoxLimite = new JCheckBox("Limité");
-        checkBoxLimite.setPreferredSize(new Dimension(200, 20));
-        checkBoxLimite.setFont(new Font("Georgia", Font.PLAIN, 12));
-        checkBoxLimite.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(checkBoxLimite);
+        // Création d'un groupe de boutons
+        ButtonGroup buttonGroupLimite = new ButtonGroup();
 
-        JCheckBox checkBoxIllimite = new JCheckBox("Illimité");
-        checkBoxIllimite.setPreferredSize(new Dimension(200, 20));
-        checkBoxIllimite.setFont(new Font("Georgia", Font.PLAIN, 12));
-        checkBoxIllimite.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(checkBoxIllimite);
+// Création du bouton radio "Limité"
+        JRadioButton radioButtonLimite = new JRadioButton("Limité");
+        radioButtonLimite.setPreferredSize(new Dimension(200, 20));
+        radioButtonLimite.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonLimite.setBackground(Color.decode("#FFFFFF"));
+        buttonGroupLimite.add(radioButtonLimite); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonLimite);
+
+// Création du bouton radio "Illimité"
+        JRadioButton radioButtonIllimite = new JRadioButton("Illimité");
+        radioButtonIllimite.setPreferredSize(new Dimension(200, 20));
+        radioButtonIllimite.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonIllimite.setBackground(Color.decode("#FFFFFF"));
+        buttonGroupLimite.add(radioButtonIllimite); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonIllimite);
+
 
         JSeparator separatorB = new JSeparator(SwingConstants.HORIZONTAL);
         separatorB.setPreferredSize(new Dimension(190, 2));
@@ -154,17 +172,24 @@ public class Filtrer extends JPanel
         taElectrique.setOpaque(false);
         contenuPanel.add(taElectrique);
 
-        JCheckBox oui = new JCheckBox("Oui");
-        oui.setPreferredSize(new Dimension(200, 20));
-        oui.setFont(new Font("Georgia", Font.PLAIN, 12));
-        oui.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(oui);
+        // Création d'un groupe de boutons
+        ButtonGroup buttonGroupOuiNon = new ButtonGroup();
 
-        JCheckBox non = new JCheckBox("Non");
-        non.setPreferredSize(new Dimension(200, 20));
-        non.setFont(new Font("Georgia", Font.PLAIN, 12));
-        non.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(non);
+// Création du bouton radio "Oui"
+        JRadioButton radioButtonOui = new JRadioButton("Oui");
+        radioButtonOui.setPreferredSize(new Dimension(200, 20));
+        radioButtonOui.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonOui.setBackground(Color.decode("#FFFFFF"));
+        buttonGroupOuiNon.add(radioButtonOui); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonOui);
+
+// Création du bouton radio "Non"
+        JRadioButton radioButtonNon = new JRadioButton("Non");
+        radioButtonNon.setPreferredSize(new Dimension(200, 20));
+        radioButtonNon.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonNon.setBackground(Color.decode("#FFFFFF"));
+        buttonGroupOuiNon.add(radioButtonNon); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonNon);
 
         JSeparator separatorC = new JSeparator(SwingConstants.HORIZONTAL);
         separatorC.setPreferredSize(new Dimension(190, 2));
@@ -178,17 +203,25 @@ public class Filtrer extends JPanel
         nbP.setOpaque(false);
         contenuPanel.add(nbP);
 
-        JCheckBox inf4 = new JCheckBox("1-4");
-        inf4.setPreferredSize(new Dimension(200, 20));
-        inf4.setFont(new Font("Georgia", Font.PLAIN, 12));
-        inf4.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(inf4);
+        // Création d'un groupe de boutons
+        ButtonGroup buttonGroupInfSup = new ButtonGroup();
 
-        JCheckBox sup5 = new JCheckBox("5+");
-        sup5.setPreferredSize(new Dimension(200, 20));
-        sup5.setFont(new Font("Georgia", Font.PLAIN, 12));
-        sup5.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(sup5);
+// Création du bouton radio "1-4"
+        JRadioButton radioButtonInf4 = new JRadioButton("1-4");
+        radioButtonInf4.setPreferredSize(new Dimension(200, 20));
+        radioButtonInf4.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonInf4.setBackground(Color.decode("#FFFFFF"));
+        buttonGroupInfSup.add(radioButtonInf4); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonInf4);
+
+// Création du bouton radio "5+"
+        JRadioButton radioButtonSup5 = new JRadioButton("5+");
+        radioButtonSup5.setPreferredSize(new Dimension(200, 20));
+        radioButtonSup5.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonSup5.setBackground(Color.decode("#FFFFFF"));
+        buttonGroupInfSup.add(radioButtonSup5); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonSup5);
+
 
         JSeparator separatorD = new JSeparator(SwingConstants.HORIZONTAL);
         separatorD.setPreferredSize(new Dimension(190, 2));
@@ -202,17 +235,25 @@ public class Filtrer extends JPanel
         nbB.setOpaque(false);
         contenuPanel.add(nbB);
 
-        JCheckBox inf3 = new JCheckBox("1-3");
-        inf3.setPreferredSize(new Dimension(200, 20));
-        inf3.setFont(new Font("Georgia", Font.PLAIN, 12));
-        inf3.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(inf3);
+        // Création d'un groupe de boutons
+        ButtonGroup buttonGroupInf3Sup4 = new ButtonGroup();
 
-        JCheckBox sup4 = new JCheckBox("4+");
-        sup4.setPreferredSize(new Dimension(200, 20));
-        sup4.setFont(new Font("Georgia", Font.PLAIN, 12));
-        sup4.setBackground(Color.decode("#FFFFFF"));
-        contenuPanel.add(sup4);
+// Création du bouton radio "1-3"
+        JRadioButton radioButtonInf3 = new JRadioButton("1-3");
+        radioButtonInf3.setPreferredSize(new Dimension(200, 20));
+        radioButtonInf3.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonInf3.setBackground(Color.decode("#FFFFFF"));
+        buttonGroupInf3Sup4.add(radioButtonInf3); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonInf3);
+
+// Création du bouton radio "4+"
+        JRadioButton radioButtonSup4 = new JRadioButton("4+");
+        radioButtonSup4.setPreferredSize(new Dimension(200, 20));
+        radioButtonSup4.setFont(new Font("Georgia", Font.PLAIN, 12));
+        radioButtonSup4.setBackground(Color.decode("#FFFFFF"));
+        buttonGroupInf3Sup4.add(radioButtonSup4); // Ajout au groupe de boutons
+        contenuPanel.add(radioButtonSup4);
+
 
 
 

@@ -2,6 +2,7 @@ package View;
 
 import Model.ClientModel;
 import View.PageResultats.ConteneurHaut;
+import View.popup.popUpReservation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -133,8 +134,9 @@ public class Accueil extends JFrame {
                         (MoisArrivee.getSelectedIndex() + 1) + "/" +
                         AnneeArrivee.getSelectedItem();
                 String lieu = lieuField.getText();
-                JOptionPane.showMessageDialog(Accueil.this, "Date de depart : " + departDate + "\nDate d'arrivee : " + arriveeDate + "\nLieu de prise en charge : " + lieu);
 
+                popUpReservation customDialog = new popUpReservation(Accueil.this, departDate, arriveeDate, lieu);
+                customDialog.setVisible(true);
 
                 System.out.println("Connexion établie avec succès !");
 

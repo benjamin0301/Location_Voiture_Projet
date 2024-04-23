@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class MesInfosPerso extends JPanel
 {
-    ClientModel clientModel = new ClientModel();
-    public MesInfosPerso() throws SQLException, ClassNotFoundException
+    ClientModel client = new ClientModel();
+    public MesInfosPerso(ClientModel client) throws SQLException, ClassNotFoundException
     {
         setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray));
         setBackground(Color.white);
@@ -55,17 +55,17 @@ public class MesInfosPerso extends JPanel
         ebj.setPreferredSize(new Dimension(380, 30));
         panelA.add(ebj);
 
-        JLabel prenom = new JLabel("Votre prénom : " + clientModel.getPrenom());
+        JLabel prenom = new JLabel("Votre prénom : " + client.getPrenom());
         prenom.setPreferredSize(new Dimension(300, 45));
         prenom.setFont(new Font("Georgia", Font.PLAIN, 20));
         panelA.add(prenom);
 
-        JLabel nom = new JLabel("Votre nom : " + clientModel.getNom());
+        JLabel nom = new JLabel("Votre nom : " + client.getNom());
         nom.setPreferredSize(new Dimension(300, 45));
         nom.setFont(new Font("Georgia", Font.PLAIN, 20));
         panelA.add(nom);
 
-        JLabel dn = new JLabel("Vous êtes né le " + clientModel.getDateNaissance());
+        JLabel dn = new JLabel("Vous êtes né le " + client.getDateNaissance());
         dn.setPreferredSize(new Dimension(300, 45));
         dn.setFont(new Font("Georgia", Font.PLAIN, 20));
         panelA.add(dn);
@@ -88,17 +88,17 @@ public class MesInfosPerso extends JPanel
         ebs.setPreferredSize(new Dimension(380, 30));
         panelB.add(ebs);
 
-        JLabel id = new JLabel("Votre ID : " + clientModel.getId_client());
+        JLabel id = new JLabel("Votre ID : " + client.getId_client());
         id.setPreferredSize(new Dimension(300, 45));
         id.setFont(new Font("Georgia", Font.PLAIN, 20));
         panelB.add(id);
 
-        JLabel mail = new JLabel("Votre e-mail : " + clientModel.getMail());
+        JLabel mail = new JLabel("Votre e-mail : " + client.getMail());
         mail.setPreferredSize(new Dimension(300, 45));
         mail.setFont(new Font("Georgia", Font.PLAIN, 17));
         panelB.add(mail);
 
-        JLabel mdp = new JLabel("Votre mot de passe : " + clientModel.getMotDePasse());
+        JLabel mdp = new JLabel("Votre mot de passe : " + client.getMotDePasse());
         mdp.setPreferredSize(new Dimension(300, 45));
         mdp.setFont(new Font("Georgia", Font.PLAIN, 17));
         panelB.add(mdp);
@@ -122,16 +122,16 @@ public class MesInfosPerso extends JPanel
         ebr.setPreferredSize(new Dimension(380, 30));
         panelC.add(ebr);
 
-        JLabel CF = new JLabel("Client fidèle ?");
+        JLabel CF = new JLabel("Niveau de fidélité :");
         CF.setPreferredSize(new Dimension(200, 70));
         CF.setHorizontalAlignment(SwingConstants.CENTER);
         CF.setFont(new Font("Georgia", Font.PLAIN, 23));
         panelC.add(CF);
 
-        JLabel CFR = new JLabel(String.valueOf(clientModel.isFidelite()));
+        JLabel CFR = new JLabel(String.valueOf(client.isFidelite()));
         CFR.setPreferredSize(new Dimension(60, 30));
         CFR.setHorizontalAlignment(SwingConstants.CENTER);
-        CFR.setForeground(Color.red);
+        CFR.setForeground(Color.decode("#7E3DFF"));
         CFR.setFont(new Font("Georgia", Font.BOLD, 21));
         panelC.add(CFR);
 

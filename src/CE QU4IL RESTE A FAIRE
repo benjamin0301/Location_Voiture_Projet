@@ -41,7 +41,7 @@
 -- (***) Interface d'ajout de voiture par un employé  // BON
 
 -- (**) ajouter le compteur de fidelite a chaque connexion du client // OK
--- (**) Blindage de la remise de fidelite en fonction du compteur.
+-- (**) Blindage de la remise de fidelite en fonction du compteur. // OK
 -- (**) Faire la page factice de validation du paiement
 -- (**) Modification du prix total dans la page confirmation
 -- (**) Suppression de la voiture depuis l'espace personnel du client

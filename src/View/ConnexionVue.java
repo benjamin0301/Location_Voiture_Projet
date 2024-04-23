@@ -5,6 +5,8 @@ import Controler.EmployeController;
 import Model.ClientModel;
 import Model.EmployeModel;
 import View.PageResultats.ConteneurHaut;
+import View.popup.popUpConnexion;
+import View.popup.popUpReservation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,7 +87,10 @@ public class ConnexionVue extends JFrame {
                 if (userType == 0) {
                     // C'est un client, redirigez vers la vue client
                     // ...
-                    JOptionPane.showMessageDialog(ConnexionVue.this, "Connexion réussie !");
+
+                    popUpConnexion customDialog = new popUpConnexion(ConnexionVue.this);
+                    customDialog.setVisible(true);
+
                     ConnexionVue.this.setVisible(false);
                     try {
                         String lieuDepart = ""; // Fournir la valeur appropriée

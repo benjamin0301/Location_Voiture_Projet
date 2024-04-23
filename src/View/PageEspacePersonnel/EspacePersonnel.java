@@ -1,10 +1,13 @@
 package View.PageEspacePersonnel;
+import Model.ClientModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
 public class EspacePersonnel extends JPanel
 {
+    ClientModel client = new ClientModel();
     public EspacePersonnel() throws SQLException, ClassNotFoundException
     {
         setLayout(new BorderLayout());
@@ -30,7 +33,7 @@ public class EspacePersonnel extends JPanel
         gbc.weightx = 1.0;
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        MesInfosPerso mesInfosPerso = new MesInfosPerso();
+        MesInfosPerso mesInfosPerso = new MesInfosPerso(client);
         panelPrincipal.add(mesInfosPerso, gbc);
 
         gbc.gridy++;

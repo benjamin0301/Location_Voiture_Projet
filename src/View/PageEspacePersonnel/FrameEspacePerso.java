@@ -1,5 +1,7 @@
 package View.PageEspacePersonnel;
 
+import Controler.ClientController;
+import Model.ClientModel;
 import View.CustomScrollBarUI;
 import View.PageConfirmation.PageConfirmation;
 import View.PageResultats.ConteneurHaut;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 public class FrameEspacePerso extends JFrame
 {
     private JPanel contentPanel;
+    ClientModel client = new ClientModel();
     public FrameEspacePerso(int res) throws SQLException, ClassNotFoundException
     {
         setTitle("Mon espace personnel");
