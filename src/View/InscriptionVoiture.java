@@ -34,7 +34,7 @@ public class InscriptionVoiture extends JFrame {
     private VoitureController voitureController;
     private EmployeModel employe;
 
-    public InscriptionVoiture(EmployeModel employeModel) throws SQLException, ClassNotFoundException {
+    public InscriptionVoiture(EmployeModel employeModel, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res) throws SQLException, ClassNotFoundException {
         this.voitureController = new VoitureController();
         this.employe = employeModel;
         setTitle("Inscription Voiture");
@@ -64,7 +64,7 @@ public class InscriptionVoiture extends JFrame {
         limiteKmSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1000000, 1));
         marqueField = new JTextField(20);
         imageVoitureField = new JTextField(20);
-        inscriptionButton = new JButton("S'inscrire");
+        inscriptionButton = new JButton("Ajouter");
         retourButton = new JButton("Retour");
 
         // Ajouter les composants au panel
@@ -225,6 +225,20 @@ public class InscriptionVoiture extends JFrame {
 
                     if (voiture != null) {
                         JOptionPane.showMessageDialog(InscriptionVoiture.this, "Inscription réussie !");
+                        InscriptionVoiture.this.setVisible(false);
+
+                        // Create a new instance of the ConnexionVue window and make it visible
+                        try {
+                            //A REFAIRE GROS
+                            VueEmploye vueEmploye = new VueEmploye(employe);
+                            vueEmploye.initialize( lieuDepart,  dateDepart,  lieuRetour,  dateRetour, res);
+                            vueEmploye.setVisible(true);
+
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(InscriptionVoiture.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                        } catch (ClassNotFoundException ex) {
+                            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(InscriptionVoiture.this), "Classe introuvable : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(InscriptionVoiture.this, "Erreur lors de l'inscription. Veuillez réessayer.");
                     }
@@ -243,9 +257,12 @@ public class InscriptionVoiture extends JFrame {
                 InscriptionVoiture.this.setVisible(false);
 
                 // Create a new instance of the ConnexionVue window and make it visible
-                try {
-                    ConnexionVue connexionVue = new ConnexionVue();
-                    connexionVue.setVisible(true);
+               try {
+                    //A REFAIRE GROS
+                   VueEmploye vueEmploye = new VueEmploye(employe);
+                   vueEmploye.initialize( lieuDepart,  dateDepart,  lieuRetour,  dateRetour, res);
+                   vueEmploye.setVisible(true);
+
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(InscriptionVoiture.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 } catch (ClassNotFoundException ex) {
@@ -257,15 +274,5 @@ public class InscriptionVoiture extends JFrame {
         add(panel, BorderLayout.CENTER);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new InscriptionVoiture(new EmployeModel()).setVisible(true);
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erreur de base de données : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            } catch (ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, "Classe introuvable : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-    }
+
 }

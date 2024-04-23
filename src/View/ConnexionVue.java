@@ -27,7 +27,7 @@ public class ConnexionVue extends JFrame {
     private ClientModel client;
     private EmployeModel employe;
 
-    public ConnexionVue() throws SQLException, ClassNotFoundException {
+    public ConnexionVue(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException {
         this.clientcontroller = new ClientController();
         this.employeController = new EmployeController();
         this.client = new ClientModel();
@@ -39,7 +39,7 @@ public class ConnexionVue extends JFrame {
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
-        ConteneurHaut conteneurHaut = new ConteneurHaut(1, client);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(1, client, lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
         add(conteneurHaut, BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -97,10 +97,7 @@ public class ConnexionVue extends JFrame {
 
                     ConnexionVue.this.setVisible(false);
                     try {
-                        String lieuDepart = ""; // Fournir la valeur appropriée
-                        String dateDepart = ""; // Fournir la valeur appropriée
-                        String lieuRetour = ""; // Fournir la valeur appropriée
-                        String dateRetour = ""; // Fournir la valeur appropriée
+
 
                         Vue vue = new Vue(client);
 
@@ -136,7 +133,7 @@ public class ConnexionVue extends JFrame {
                         VueEmploye vp = new VueEmploye(employe);
 
 
-                        vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour);
+                        vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
 
                     } catch (SQLException ex)
                     {
@@ -162,7 +159,7 @@ public class ConnexionVue extends JFrame {
                 ConnexionVue.this.setVisible(false);
                 // Créer une nouvelle instance de la fenêtre d'inscription et la rendre visible
                 try {
-                    Inscription inscription = new Inscription(client);
+                    Inscription inscription = new Inscription(client, lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
                     inscription.setVisible(true);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -191,15 +188,5 @@ public class ConnexionVue extends JFrame {
     }
 
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new ConnexionVue().setVisible(true);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
+
 }

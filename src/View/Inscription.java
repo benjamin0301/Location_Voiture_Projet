@@ -27,7 +27,7 @@ public class Inscription extends JFrame {
     private ClientController clientcontroller;
     private ClientModel client;
 
-    public Inscription(ClientModel clientModel) throws SQLException, ClassNotFoundException {
+    public Inscription(ClientModel clientModel, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException {
         this.clientcontroller = new ClientController();
         this.client = clientModel;
 
@@ -37,7 +37,7 @@ public class Inscription extends JFrame {
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
-        ConteneurHaut conteneurHaut = new ConteneurHaut(1, client);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(1, client,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
         add(conteneurHaut, BorderLayout.NORTH);
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -134,7 +134,7 @@ public class Inscription extends JFrame {
 
                     // Créer une nouvelle instance de la fenêtre ConnexionVue et la rendre visible
                     try {
-                        ConnexionVue connexionVue = new ConnexionVue();
+                        ConnexionVue connexionVue = new ConnexionVue( lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
                         connexionVue.setVisible(true);
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(Inscription.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -162,7 +162,7 @@ public class Inscription extends JFrame {
 
                 // Create a new instance of the ConnexionVue window and make it visible
                 try {
-                    ConnexionVue connexionVue = new ConnexionVue();
+                    ConnexionVue connexionVue = new ConnexionVue( lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
                     connexionVue.setVisible(true);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(Inscription.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -179,16 +179,6 @@ public class Inscription extends JFrame {
     // Méthode pour enregistrer l'utilisateur dans la base de données
 
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new Inscription(new ClientModel()).setVisible(true);
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erreur de base de données : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            } catch (ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, "Classe introuvable : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-    }
+
 
 }

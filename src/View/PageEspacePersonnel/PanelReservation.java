@@ -45,7 +45,7 @@ public class PanelReservation extends JPanel
         idR.setForeground(Color.decode("#7E3DFF"));
 
 
-        JLabel type = new JLabel("Type : " +voiture.getType() + "    Marque : " +voiture.getMarque());
+        JLabel type = new JLabel("Type : " + voiture.getType() + "    Marque : " +voiture.getMarque());
         type.setBackground(Color.white);
         type.setFont(new Font("Georgia", Font.BOLD, 16));
         type.setPreferredSize(new Dimension(310, 25));

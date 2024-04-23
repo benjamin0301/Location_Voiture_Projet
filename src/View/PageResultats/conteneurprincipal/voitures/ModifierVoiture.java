@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import View.ConteneurEmploye;
+import View.VueEmploye;
 
 
 public class ModifierVoiture extends JDialog {
@@ -43,8 +44,8 @@ public class ModifierVoiture extends JDialog {
         setSize(1000, 800);
 
         setLayout(new GridLayout(16, 2));
-        ConteneurEmploye conteneurEmploye = new ConteneurEmploye(employe);
-        add(conteneurEmploye, BorderLayout.NORTH);
+        //ConteneurEmploye conteneurEmploye = new ConteneurEmploye(employe,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
+        //add(conteneurEmploye, BorderLayout.NORTH);
 
 
         add(new JLabel("ID Plaque : "));
@@ -156,9 +157,48 @@ public class ModifierVoiture extends JDialog {
                     voiture.MajPartielBdd(voiture.getId_plaque(), "image_voiture", fieldImageVoiture.getText());
 
                     JOptionPane.showMessageDialog(null, "Les modifications ont été enregistrées avec succès !");
-                    dispose();
+                    String lieuDepart = ""; // Fournir la valeur appropriée
+                    String dateDepart = ""; // Fournir la valeur appropriée
+                    String lieuRetour = ""; // Fournir la valeur appropriée
+                    String dateRetour = ""; // Fournir la valeur appropriée
+
+                    VueEmploye vp = new VueEmploye(employe);
+
+
+                    vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
+                    dispose(); // fermer la fenêtre actuelle
                 } catch (SQLException | ClassNotFoundException ex) {
                     JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour de la voiture : " + ex.getMessage());
+                }
+            }
+        });
+        JButton boutonRetour = new JButton("Retour");
+        add(boutonRetour);
+        //conteneurEmploye.add(boutonRetour, BorderLayout.SOUTH);
+
+        boutonRetour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String lieuDepart = ""; // Fournir la valeur appropriée
+                    String dateDepart = ""; // Fournir la valeur appropriée
+                    String lieuRetour = ""; // Fournir la valeur appropriée
+                    String dateRetour = ""; // Fournir la valeur appropriée
+
+                    VueEmploye vp = new VueEmploye(employe);
+
+
+                    vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
+                    dispose(); // fermer la fenêtre actuelle
+                } catch (SQLException ex)
+                {
+                    //popUpDefault erreur1emp = new popUpDefault(ConnexionVue.this, "Erreur de base de données : " + ex.getMessage());
+                    //erreur1emp.setVisible(true);
+                }
+                catch (ClassNotFoundException ex)
+                {
+                    //popUpDefault erreur2 = new popUpDefault(ConnexionVue.this, "Classe introuvable : " + ex.getMessage());
+                    //erreur2.setVisible(true);
                 }
             }
         });
