@@ -2,6 +2,8 @@ package View.popup;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class popUpReservation extends JDialog {
     public popUpReservation(JFrame parent, String departDate, String arriveeDate, String lieu)
@@ -63,19 +65,47 @@ public class popUpReservation extends JDialog {
         panel.add(arriveeLabel);
         panel.add(arriveeLabel2);
 
+        JPanel espaceBlanc3 = new JPanel();
+        espaceBlanc3.setBackground(Color.white);
+        espaceBlanc3.setPreferredSize(new Dimension(200, 7));
+        panel.add(espaceBlanc3);
+
+        panel.add(lieuLabel);
+        panel.add(lieuLabel2);
+
+
+        JPanel espaceBlanc4 = new JPanel();
+        espaceBlanc4.setBackground(Color.white);
+        espaceBlanc4.setPreferredSize(new Dimension(200, 6));
+        panel.add(espaceBlanc4);
+
+
+        JButton ok = new JButton("Continuer");
+        ok.setFocusPainted(false);
+        ok.setForeground(Color.white);
+        ok.setFont(new Font("Georgia", Font.BOLD, 19));
+        ok.setPreferredSize(new Dimension(150, 30));
+        ok.setBackground(Color.decode("#7E3DFF"));
+        panel.add(ok);
+
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Fermeture de la fenêtre
+                dispose();
+            }
+        });
+
         JPanel espaceBlanc2 = new JPanel();
         espaceBlanc2.setBackground(Color.white);
         espaceBlanc2.setPreferredSize(new Dimension(200, 12));
         panel.add(espaceBlanc2);
 
-        panel.add(lieuLabel);
-        panel.add(lieuLabel2);
-
         // Ajout du conteneur à la fenêtre
         getContentPane().add(panel, BorderLayout.CENTER);
 
         // Taille et position de la fenêtre
-        setSize(300, 245);
+        setSize(300, 290);
         setLocationRelativeTo(parent);
     }
 }

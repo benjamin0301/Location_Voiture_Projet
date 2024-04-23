@@ -6,6 +6,7 @@ import Model.ClientModel;
 import Model.EmployeModel;
 import View.PageResultats.ConteneurHaut;
 import View.popup.popUpConnexion;
+import View.popup.popUpDefault;
 import View.popup.popUpReservation;
 
 import javax.swing.*;
@@ -88,8 +89,11 @@ public class ConnexionVue extends JFrame {
                     // C'est un client, redirigez vers la vue client
                     // ...
 
-                    popUpConnexion customDialog = new popUpConnexion(ConnexionVue.this);
-                    customDialog.setVisible(true);
+                    //popUpConnexion customDialog = new popUpConnexion(ConnexionVue.this);
+                    //customDialog.setVisible(true);
+
+                    popUpDefault popUpDefault = new popUpDefault(ConnexionVue.this, "Connexion réussie !");
+                    popUpDefault.setVisible(true);
 
                     ConnexionVue.this.setVisible(false);
                     try {
@@ -103,10 +107,16 @@ public class ConnexionVue extends JFrame {
 
                         vue.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
 
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-                    } catch (ClassNotFoundException ex) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Classe introuvable : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                    catch (SQLException ex)
+                    {
+                        popUpDefault erreur1 = new popUpDefault(ConnexionVue.this, "Erreur de base de données : " + ex.getMessage());
+                        erreur1.setVisible(true);
+                    }
+                    catch (ClassNotFoundException ex)
+                    {
+                        popUpDefault erreur2 = new popUpDefault(ConnexionVue.this, "Classe introuvable : " + ex.getMessage());
+                        erreur2.setVisible(true);
                     }
 
 
@@ -114,7 +124,8 @@ public class ConnexionVue extends JFrame {
                 } else if (userType == 3) {
                     // C'est un employé, redirigez vers la vue employé
                     // ...
-                    JOptionPane.showMessageDialog(ConnexionVue.this, "Connexion réussie !");
+                    popUpDefault popUpEmp = new popUpDefault(ConnexionVue.this, "Connexion réussie !");
+                    popUpEmp.setVisible(true);
                     ConnexionVue.this.setVisible(false);
                     try {
                         String lieuDepart = ""; // Fournir la valeur appropriée
@@ -127,14 +138,20 @@ public class ConnexionVue extends JFrame {
 
                         vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour);
 
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-                    } catch (ClassNotFoundException ex) {
-                        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(ConnexionVue.this), "Classe introuvable : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } catch (SQLException ex)
+                    {
+                        popUpDefault erreur1emp = new popUpDefault(ConnexionVue.this, "Erreur de base de données : " + ex.getMessage());
+                        erreur1emp.setVisible(true);
                     }
-                } else {
+                    catch (ClassNotFoundException ex)
+                    {
+                        popUpDefault erreur2 = new popUpDefault(ConnexionVue.this, "Classe introuvable : " + ex.getMessage());
+                        erreur2.setVisible(true);                    }
+                } else
+                {
                     // La connexion a échoué, affichez un message d'erreur
-                    JOptionPane.showMessageDialog(ConnexionVue.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
+                    popUpDefault erreurMailMDP = new popUpDefault(ConnexionVue.this, "Email ou mot de passe incorrect, veuillez réessayer ou créer un compte.");
+                    erreurMailMDP.setVisible(true);
                 }
             }
         });
