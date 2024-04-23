@@ -5,11 +5,16 @@ import Model.VoitureModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class PanelReservation extends JPanel
 {
-    public PanelReservation(ClientModel client, VoitureModel voiture)
-    {
+    private ClientModel client;
+    private VoitureModel voiture;
+
+    public PanelReservation(ClientModel clientModel, VoitureModel voitureModel) throws SQLException, ClassNotFoundException {
+        this.client = clientModel;
+        this.voiture = voitureModel;
         setPreferredSize(new Dimension(1000, 250));
         setBackground(Color.CYAN);
         setLayout(new GridBagLayout());
@@ -39,24 +44,24 @@ public class PanelReservation extends JPanel
         panelA.add(idR);
         idR.setForeground(Color.decode("#7E3DFF"));
 
-        JLabel type = new JLabel("Type : " +voiture.getType());
+
+        JLabel type = new JLabel("Type : " +voiture.getType() + "    Marque : " +voiture.getMarque());
         type.setBackground(Color.white);
         type.setFont(new Font("Georgia", Font.BOLD, 16));
         type.setPreferredSize(new Dimension(310, 25));
         panelA.add(type);
 
-        JLabel mm = new JLabel("Marque : " +voiture.getMarque() + ", Modèle : " + voiture.getnom_modele());
+        JLabel mm = new JLabel("Modèle : " + voiture.getnom_modele());
         mm.setBackground(Color.white);
         mm.setFont(new Font("Georgia", Font.PLAIN, 16));
         mm.setPreferredSize(new Dimension(310, 50));
         panelA.add(mm);
 
-        ImageIcon AImage = new ImageIcon("images/veyron-16.4.png");
+        ImageIcon AImage = new ImageIcon(voiture.getImage_voiture());
         JLabel imageLabel = new JLabel(AImage);
         panelA.add(imageLabel);
 
         add(panelA, gbc);
-
 
 
         gbc.gridx++;
@@ -129,7 +134,7 @@ public class PanelReservation extends JPanel
         depart2.setFont(new Font("Georgia", Font.PLAIN, 17));
         panelC.add(depart2);
 
-        JLabel depart3 = new JLabel("Date : " + voiture.getDate_debut_loc());
+        JLabel depart3 = new JLabel("Date : " + client.getDate_debut_loc());
         depart3.setPreferredSize(new Dimension(270, 21));
         depart3.setFont(new Font("Georgia", Font.PLAIN, 17));
         panelC.add(depart3);
@@ -138,7 +143,6 @@ public class PanelReservation extends JPanel
         ebs4.setBackground(Color.white);
         ebs4.setPreferredSize(new Dimension(270, 10));
         panelC.add(ebs4);
-
 
         JLabel arrivee = new JLabel("Arrivée");
         arrivee.setForeground(Color.decode("#7E3DFF"));
@@ -151,7 +155,7 @@ public class PanelReservation extends JPanel
         arrivee2.setFont(new Font("Georgia", Font.PLAIN, 17));
         panelC.add(arrivee2);
 
-        JLabel arrivee3 = new JLabel("Date : " + voiture.getDate_fin_loc());
+        JLabel arrivee3 = new JLabel("Date : " + client.getDate_fin_loc());
         arrivee3.setPreferredSize(new Dimension(270, 21));
         arrivee3.setFont(new Font("Georgia", Font.PLAIN, 17));
         panelC.add(arrivee3);

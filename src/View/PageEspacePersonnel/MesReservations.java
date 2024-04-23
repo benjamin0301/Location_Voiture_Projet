@@ -6,13 +6,15 @@ import Model.VoitureModel;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MesReservations extends JPanel
 {
-    ClientModel clientModel = new ClientModel();
-    VoitureModel voiture = new VoitureModel();
-    public MesReservations() throws SQLException, ClassNotFoundException
+    private ClientModel client;
+
+    public MesReservations(ClientModel clientModel) throws SQLException, ClassNotFoundException
     {
+        this.client = clientModel;
         setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray));
         setBackground(Color.white);
         setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
@@ -39,7 +41,11 @@ public class MesReservations extends JPanel
         espaceVideB.setPreferredSize(new Dimension(700, 25));
         add(espaceVideB);
 
-        PanelReservation panelReservation = new PanelReservation(clientModel, voiture);
+        //ArrayList<VoitureModel> liste_voiture = new ArrayList<>();
+        // plus tard si j'ai le temps
+        VoitureModel voiture = new VoitureModel();
+        voiture = voiture.RecupVoitureByIdPlaque(client.getId_vehicule_loue());
+        PanelReservation panelReservation = new PanelReservation(client, voiture);
         add(panelReservation);
     }
 }

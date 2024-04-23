@@ -1,4 +1,5 @@
 package View.PageResultats;
+import Model.ClientModel;
 import View.Accueil;
 import View.AccueilListener;
 import View.ConnexionListener;
@@ -15,8 +16,10 @@ public class ConteneurHaut extends JPanel
 {
     private AccueilListener accueilListener;
     private ConnexionListener connexionListener;
-    public ConteneurHaut(int res)
+    public ClientModel client;
+    public ConteneurHaut(int res, ClientModel clientModel)
     {
+        this.client = clientModel;
         setBackground(Color.decode("#FFFFFF"));
         setPreferredSize(new Dimension(800, 80));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -80,10 +83,8 @@ public class ConteneurHaut extends JPanel
             {
                 FrameEspacePerso frameEspacePerso = null;
                 try {
-                    frameEspacePerso = new FrameEspacePerso(res);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
+                    frameEspacePerso = new FrameEspacePerso(res, client);
+                } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
                 Window window = SwingUtilities.getWindowAncestor(boutonEspacePerso);
@@ -99,7 +100,7 @@ public class ConteneurHaut extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 Accueil accueil = null;
-                accueil = new Accueil(res);
+                accueil = new Accueil(res, client);
                 accueil.setVisible(true);
 
                 Window window = SwingUtilities.getWindowAncestor(boutonAccueil);

@@ -1,5 +1,7 @@
 package View.PageDetails.ConteneurPrincipal.ConteneurFormulaires;
 
+import Model.ClientModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -7,8 +9,10 @@ import java.awt.event.FocusListener;
 
 public class FormulaireConducteur extends JPanel
 {
-    public FormulaireConducteur()
+    private ClientModel client;
+    public FormulaireConducteur(ClientModel clientModel)
     {
+        this.client = clientModel;
         JPanel espaceVideA = new JPanel();
         espaceVideA.setBackground(Color.white);
         espaceVideA.setPreferredSize(new Dimension(700, 25));

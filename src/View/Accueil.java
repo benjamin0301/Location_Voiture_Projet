@@ -22,6 +22,8 @@ public class Accueil extends JFrame {
     private JComboBox<String> MoisArrivee;
     private JComboBox<String> AnneeArrivee;
     private JTextField lieuField;
+    private ClientModel client;
+
     public String getLieu() {
         return lieuField.getText();
     }
@@ -34,15 +36,19 @@ public class Accueil extends JFrame {
         return JourArrivee.getSelectedItem() + "/" + (MoisArrivee.getSelectedIndex() + 1) + "/" + AnneeArrivee.getSelectedItem();
     }
 
+    public Accueil(ClientModel client) {
+        this.client = client;
+    }
 
-    public Accueil(int res)
+    public Accueil(int res, ClientModel clientModel)
     {
+        this.client = clientModel;
         setTitle("Accueil");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
         add(conteneurHaut, BorderLayout.NORTH);
 
         ImageIcon originalImageIcon = new ImageIcon("images/firefly-1.jpg");

@@ -15,8 +15,14 @@ import java.sql.SQLException;
 
 public class PageConfirmation extends JPanel
 {
-    public PageConfirmation(VoitureModel voiture, ClientModel client, int res)
+
+    private ClientModel client;
+    private VoitureModel voiture;
+
+    public PageConfirmation(VoitureModel voitureModel, int res, ClientModel clientModel)
     {
+        this.client = clientModel;
+        this.voiture = voitureModel;
         setLayout(new BorderLayout());
 
         ProgConfirmation progConfirmation = new ProgConfirmation();
@@ -204,7 +210,7 @@ public class PageConfirmation extends JPanel
                 FrameEspacePerso frameEspacePerso = null;
                 try
                 {
-                    frameEspacePerso = new FrameEspacePerso(res);
+                    frameEspacePerso = new FrameEspacePerso(res, client);
                     Window window = SwingUtilities.getWindowAncestor(boutonEC);
 
                     // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer

@@ -337,7 +337,11 @@ public class EmployeModel {
     // Méthode pour récupérer un employé par son ID
     public EmployeModel RecupEmployeById(int mode, int idEmploye, String password) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
+
         try {
+            // Désactiver l'auto-commit
+            connexion.conn.setAutoCommit(false);
+
             if (mode == 0) {
                 // Exécuter la requête SQL pour récupérer les informations de l'employé avec l'ID spécifié
                 String query = "SELECT * FROM employe WHERE id_employe = ?";
@@ -355,6 +359,10 @@ public class EmployeModel {
                     employe.setMail(resultSet.getString("mail"));
                     employe.setNum_tel(resultSet.getString("num_tel"));
 
+                    // Commit de la transaction
+                    connexion.conn.commit();
+                    connexion.closeConnection();
+
                     return employe;
                 } else {
                     // Aucun employé trouvé avec cet ID
@@ -362,13 +370,12 @@ public class EmployeModel {
                     System.out.println(Phrase_de_reponse);
                     return null;
                 }
-            }
-            else {
+            } else {
                 // Exécuter la requête SQL pour récupérer les informations de l'employé avec l'ID spécifié
                 String query = "SELECT * FROM employe WHERE id_employe = ? AND mdp = ?";
                 PreparedStatement statement = connexion.conn.prepareStatement(query);
                 statement.setInt(1, idEmploye);
-                statement.setString(1, password);
+                statement.setString(2, password);
                 ResultSet resultSet = statement.executeQuery();
 
                 // Vérifier si un employé a été trouvé avec cet ID
@@ -381,6 +388,10 @@ public class EmployeModel {
                     employe.setMail(resultSet.getString("mail"));
                     employe.setNum_tel(resultSet.getString("num_tel"));
 
+                    // Commit de la transaction
+                    connexion.conn.commit();
+                    connexion.closeConnection();
+
                     return employe;
                 } else {
                     // Aucun employé trouvé avec cet ID
@@ -389,10 +400,11 @@ public class EmployeModel {
                     return null;
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             try {
+                // Rollback de la transaction en cas d'erreur
                 connexion.conn.rollback();
-                System.out.println("La transaction a ete annulee en raison d'une erreur : " + e.getMessage());
+                System.out.println("La transaction a été annulée en raison d'une erreur : " + e.getMessage());
                 connexion.closeConnection();
             } catch (SQLException ex) {
                 connexion.closeConnection();
@@ -401,6 +413,7 @@ public class EmployeModel {
         }
         return null;
     }
+
 
     // Getters and setters
     public int getId_employe() {

@@ -1,4 +1,6 @@
 package View;
+import Model.ClientModel;
+import Model.EmployeModel;
 import View.Accueil;
 import View.AccueilListener;
 import View.ConnexionListener;
@@ -16,8 +18,11 @@ public class ConteneurEmploye extends JPanel
 {
     private AccueilListener accueilListener;
     private ConnexionListener connexionListener;
-    public ConteneurEmploye()
+    private EmployeModel employe;
+
+    public ConteneurEmploye(EmployeModel employeModel)
     {
+        this.employe = employeModel;
         setBackground(Color.decode("#FFFFFF"));
         setPreferredSize(new Dimension(800, 80));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -73,12 +78,9 @@ public class ConteneurEmploye extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                FrameEspacePerso frameEspacePerso = null;
                 try {
-                    frameEspacePerso = new FrameEspacePerso(1);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
+                    FrameEspacePerso frameEspacePerso = new FrameEspacePerso(1, employe);
+                } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
                 Window window = SwingUtilities.getWindowAncestor(boutonEspacePerso);
@@ -94,7 +96,7 @@ public class ConteneurEmploye extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 try {
-                    InscriptionVoiture inscriptionVoiture = new InscriptionVoiture();
+                    InscriptionVoiture inscriptionVoiture = new InscriptionVoiture(employe);
                     inscriptionVoiture.setVisible(true);
 
                     Window window = SwingUtilities.getWindowAncestor(boutonAccueil);
@@ -120,9 +122,7 @@ public class ConteneurEmploye extends JPanel
                 try {
                     connexion = new ConnexionVue();
                     connexion.setVisible(true);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
                 Window window = SwingUtilities.getWindowAncestor(boutonConnexion);

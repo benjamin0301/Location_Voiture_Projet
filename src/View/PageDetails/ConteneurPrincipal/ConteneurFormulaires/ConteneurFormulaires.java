@@ -1,13 +1,18 @@
 package View.PageDetails.ConteneurPrincipal.ConteneurFormulaires;
 
+import Model.ClientModel;
+import com.mysql.cj.xdevapi.Client;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
 public class ConteneurFormulaires extends JPanel
 {
-    public ConteneurFormulaires() throws SQLException, ClassNotFoundException
+    private ClientModel client;
+    public ConteneurFormulaires(ClientModel clientModel) throws SQLException, ClassNotFoundException
     {
+        this.client = clientModel;
         setLayout(new GridBagLayout());
         setBackground(Color.white);
 
@@ -23,7 +28,7 @@ public class ConteneurFormulaires extends JPanel
         add(espaceB, gbc);
 
         gbc.gridy++;
-        FormulaireConducteur formulaireConducteur = new FormulaireConducteur();
+        FormulaireConducteur formulaireConducteur = new FormulaireConducteur(client);
         add(formulaireConducteur, gbc);
 
         gbc.gridy++;

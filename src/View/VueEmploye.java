@@ -16,9 +16,12 @@ public class VueEmploye extends JFrame
     private ConteneurEmploye conteneurEmploye;
     private ConteneurPrincipal conteneurPrincipal;
     private ConteneurVoituresEmploye conteneurvoituresemployes;
+    private EmployeModel employe;
 
 
-    public VueEmploye(EmployeModel employeModel) throws SQLException, ClassNotFoundException {}
+    public VueEmploye(EmployeModel employeModel) throws SQLException, ClassNotFoundException {
+        this.employe = employeModel;
+    }
 
     public void initialize(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
@@ -30,7 +33,7 @@ public class VueEmploye extends JFrame
         //conteneurPrincipal = new ConteneurPrincipal();
         //conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour); // Fournir les arguments ici
         conteneurvoituresemployes = new ConteneurVoituresEmploye();
-        conteneurEmploye = new ConteneurEmploye();
+        conteneurEmploye = new ConteneurEmploye(employe);
 
         Footer footer = new Footer();
 
