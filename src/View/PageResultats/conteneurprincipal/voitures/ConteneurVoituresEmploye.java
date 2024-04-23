@@ -14,9 +14,14 @@ public class ConteneurVoituresEmploye extends JPanel
 
     public ConteneurVoituresEmploye() throws SQLException, ClassNotFoundException
     {
+        VoitureController voitureController = new VoitureController();
+
+        ListeVoitures listeVoitures = new ListeVoitures();
+        ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
+
+        listeVoituresPourAffichage = voitureController.recupListeVoitureNonLouee();
 
         setLayout(new GridBagLayout());
-        VoitureController voitureController = new VoitureController();
         VoitureModel voitureModel = new VoitureModel();
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -65,7 +70,8 @@ public class ConteneurVoituresEmploye extends JPanel
 
 
         gbc.gridy++;
-        CarouselVoitures carouselVoitures = new CarouselVoitures();
+        ClientModel client = new ClientModel()
+;        CarouselVoitures carouselVoitures = new CarouselVoitures(listeVoituresPourAffichage, 0);
         add(carouselVoitures, gbc);
 
 
@@ -75,51 +81,6 @@ public class ConteneurVoituresEmploye extends JPanel
 
 
         gbc.gridy++;
-        ListeVoitures listeVoitures = new ListeVoitures();
-        String typeClicked = carouselVoitures.returnTypeClicked();
-        ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
-
-        System.out.println("typeClicked = " + typeClicked);
-        if (typeClicked != null)
-        {
-            switch (typeClicked)
-            {
-                case "Mini":
-                    try
-                    {
-                        listeVoituresPourAffichage = voitureModel.recupListeVoitureFiltrage("type","=", "Mini", null,null,null,null,null,null,null, null,null,null,null,null);
-                        System.out.println("si ca rentre dans mini" + listeVoituresPourAffichage.getFirst().getType());
-                    }
-                    catch (ClassNotFoundException | SQLException ex) { throw new RuntimeException(ex); }
-                    break;
-
-                case "SUV":
-                    break;
-
-                case "Sportive":
-                    break;
-
-                case "Supersportive":
-                    break;
-
-                case "Berline":
-                    break;
-
-                case "Minivan":
-                    break;
-
-                case "Spécial":
-                    break;
-
-                case "TypeXYZ":
-                    break;
-            }
-        }
-        else
-        {
-            listeVoituresPourAffichage = voitureController.recupListeVoitureNonLouee();
-            System.out.println("si ca rentre dans default" + listeVoituresPourAffichage.getFirst().getType());
-        }
 
         listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 2, 1);
         add(listeVoitures, gbc);

@@ -1,6 +1,7 @@
 package View.PageResultats.conteneurprincipal.voitures;
 
 import Controler.ClientController;
+import Model.ClientModel;
 import Model.VoitureModel;
 
 import javax.swing.*;
@@ -19,9 +20,50 @@ public class CarouselVoitures extends JPanel {
     private JButton previousButton;
     private JButton nextButton;
     public String TypeClicked;
+    private ArrayList<VoitureModel> listePersonnellealaClasse;
 
-    public CarouselVoitures() throws SQLException, ClassNotFoundException
+    private int res;
+    private ClientModel client;
+
+    public CarouselVoitures(ClientModel clientModel,ArrayList<VoitureModel> newliste, int res) throws SQLException, ClassNotFoundException
     {
+        this.res = res;
+        this.client = clientModel;
+        this.listePersonnellealaClasse = newliste;
+        elements = new ArrayList<>();
+        setLayout(new BorderLayout());
+
+        ArrayList<String> listeTypes = new ArrayList<>(Arrays.asList("Mini", "SUV", "Sportive", "Supersportive", "Berline", "Minivan", "Spécial"));
+
+        for (int i = 0; i < listeTypes.size(); i++)
+        {
+            addElement(listeTypes.get(i));
+        }
+
+        previousButton = createArrowButton('<');
+        nextButton = createArrowButton('>');
+
+        previousButton.addActionListener(e -> showPreviousElements());
+        nextButton.addActionListener(e -> showNextElements());
+
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(Color.white);
+
+        buttonPanel.add(previousButton);
+        buttonPanel.add(nextButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
+        add(createCarouselPanel(), BorderLayout.CENTER);
+
+        showElements(0, 4);
+    }
+
+    public CarouselVoitures(ArrayList<VoitureModel> newliste, int res) throws SQLException, ClassNotFoundException
+    {
+        this.res = res;
+        this.listePersonnellealaClasse = newliste;
         elements = new ArrayList<>();
         setLayout(new BorderLayout());
 
@@ -83,18 +125,51 @@ public class CarouselVoitures extends JPanel {
                     TypeClicked = elements.get(index);
                     ClientController client = null;
 
-                    try { client = new ClientController(); }
-                    catch (SQLException ex) { throw new RuntimeException(ex); }
-                    catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
-
-                    client.Phrase_de_reponse = "test";
+                    /*client.Phrase_de_reponse = "bite";
                     String phrase = client.Phrase_de_reponse;
-                    JOptionPane.showMessageDialog(null, phrase);
+                    JOptionPane.showMessageDialog(null, phrase);*/
+
+                    switch (TypeClicked)
+                    {
+                        case "Mini":
+                            try
+                            {
+                                VoitureModel voiture = new VoitureModel();
+                                listePersonnellealaClasse = voiture.recupListeVoitureFiltrage("type","=", "Mini", null,null,null,null,null,null,null, null,null,null,null,null);
+                                System.out.println("si ca rentre dans mini" + listePersonnellealaClasse.getFirst().getType());
+                                new ConteneurVoitures(client, res, listePersonnellealaClasse);
+                            }
+                            catch (ClassNotFoundException | SQLException ex) { throw new RuntimeException(ex); }
+                            break;
+
+                        case "SUV":
+                            break;
+
+                        case "Sportive":
+                            break;
+
+                        case "Supersportive":
+                            break;
+
+                        case "Berline":
+                            break;
+
+                        case "Minivan":
+                            break;
+
+                        case "Spécial":
+                            break;
+
+                        case "TypeXYZ":
+                            break;
+                    }
+
                 }
             });
 
 
             JTextArea typeVoiture = new JTextArea(element);
+            typeVoiture.setEditable(false);
             typeVoiture.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             typeVoiture.setFont(new Font("Georgia", Font.BOLD, 18));
             typeVoiture.setMargin(new Insets(20, 0, 0, 0));

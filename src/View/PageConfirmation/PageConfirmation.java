@@ -2,6 +2,7 @@ package View.PageConfirmation;
 
 import Model.ClientModel;
 import Model.VoitureModel;
+import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ResumeMontant;
 import View.PageEspacePersonnel.EspacePersonnel;
 import View.PageEspacePersonnel.FrameEspacePerso;
 import View.PageResultats.conteneurprincipal.Progression;
@@ -69,6 +70,7 @@ public class PageConfirmation extends JPanel
         espaceVideA.setPreferredSize(new Dimension(200, 25));
         panelA.add(espaceVideA);
         JTextArea AType = new JTextArea("  " + voiture.getType());
+        AType.setEditable(false);
         AType.setLayout(new BorderLayout());
         AType.setPreferredSize(new Dimension(200, 25));
         AType.setEditable(false);
@@ -77,6 +79,7 @@ public class PageConfirmation extends JPanel
         panelA.add(AType, BorderLayout.WEST);
         JTextArea AModele = new JTextArea("  " + voiture.getMarque() + " " + voiture.getnom_modele());
         AModele.setLayout(new BorderLayout());
+        AModele.setEditable(false);
         AModele.setPreferredSize(new Dimension(200, 40));
         AModele.setFont(new Font("Georgia", Font.PLAIN, 18));
         panelA.add(AModele, BorderLayout.WEST);
@@ -85,6 +88,7 @@ public class PageConfirmation extends JPanel
         panelA.add(imageLabel);
         JTextArea ACapacite = new JTextArea("\n\n    • " + voiture.getNbPlace() + " passagers\n    • " + voiture.getCapaciteValise() + " bagage(s)\n    • " + voiture.getNbPorte() + " portes");
         ACapacite.setLayout(new BorderLayout());
+        ACapacite.setEditable(false);
         ACapacite.setPreferredSize(new Dimension(200, 140));
         ACapacite.setFont(new Font("Georgia", Font.PLAIN, 18));
         panelA.add(ACapacite, BorderLayout.EAST);
@@ -139,10 +143,10 @@ public class PageConfirmation extends JPanel
         prix1.setFont(new Font("Georgia", Font.BOLD, 19));
         panelB.add(prix1);
 
-        JLabel prix2 = new JLabel(String.valueOf(voiture.getPrix()) + "€ TTC");
+        /*JLabel prix2 = new JLabel(String.valueOf(voiture.getPrix()) + "€ TTC");
         prix2.setPreferredSize(new Dimension(200, 21));
         prix2.setFont(new Font("Georgia", Font.PLAIN, 18));
-        panelB.add(prix2);
+        panelB.add(prix2);*/
 
         engloBeurre.add(panelB, gdc);
 

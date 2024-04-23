@@ -30,6 +30,7 @@ public class ProgConfirmation extends JPanel
         resuPanel.setBackground(Color.WHITE);
         resuPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#7E3DFF")));
         JTextArea resultats = new JTextArea("     Résultats");
+        resultats.setEditable(false);
         resultats.setBackground(Color.WHITE);
         resultats.setFont(new Font("Georgia", Font.BOLD, 16));
         resultats.setForeground(Color.decode("#7E3DFF"));
@@ -51,6 +52,7 @@ public class ProgConfirmation extends JPanel
         detailsPanel.setBackground(Color.WHITE);
         detailsPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#7E3DFF")));
         JTextArea details = new JTextArea("     Détails");
+        details.setEditable(false);
         details.setBackground(Color.WHITE);
         details.setFont(new Font("Georgia", Font.BOLD, 16));
         details.setForeground(Color.decode("#7E3DFF"));
@@ -67,6 +69,7 @@ public class ProgConfirmation extends JPanel
 
         gbc.gridx++;
         JTextArea confi = new JTextArea("Confirmation");
+        confi.setEditable(false);
         confi.setBackground(Color.decode("#7E3DFF"));
         confi.setForeground(Color.white);
         confi.setPreferredSize(new Dimension(250, 60));

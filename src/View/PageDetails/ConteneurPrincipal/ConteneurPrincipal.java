@@ -31,7 +31,7 @@ public class ConteneurPrincipal extends JPanel {
         pagePrincipale.setBackground(Color.white);
 
         ProgressionDetails progressionDetails = new ProgressionDetails();
-        ConteneurDroite conteneurDroite = new ConteneurDroite(voiture);
+        ConteneurDroite conteneurDroite = new ConteneurDroite(voiture, client);
 
         ConteneurFormulaires conteneurFormulaires = new ConteneurFormulaires(client);
         JPanel englobeurCF = new JPanel();
@@ -71,7 +71,7 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
+                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, client, res);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);

@@ -101,9 +101,9 @@ public class ClientController {
             return false;
     }
 
-    public Boolean ChangeFidelite(ClientModel Client) throws SQLException, ClassNotFoundException {
-        success = client.MajPartielBdd(Client.getId_client(), "fidelite", true);
-        Client.setFidelite(true);
+    public Boolean ChangeFidelite(ClientModel Client, int newfidelite) throws SQLException, ClassNotFoundException {
+        success = client.MajPartielBdd(Client.getId_client(), "fidelite", newfidelite);
+        Client.setFidelite(newfidelite);
         Phrase_de_reponse = client.Phrase_de_reponse;
         return success;
     }

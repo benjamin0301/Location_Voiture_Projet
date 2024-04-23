@@ -61,6 +61,7 @@ public class ConteneurFormulaires extends JPanel
 
         JTextArea infoAnnulation = new JTextArea("Bonne nouvelle ! Vous pouvez modifier votre programme grâce à l’annulation gratuite\njusqu’à 48 heures avant le retrait du véhicule.");
         infoAnnulation.setForeground(Color.black);
+        infoAnnulation.setEditable(false);
         infoAnnulation.setFont(new Font("Georgia", Font.BOLD, 15));
         infoAnnulation.setAlignmentX(SwingConstants.LEFT);
         infoAnnulation.setAlignmentY(SwingConstants.CENTER);

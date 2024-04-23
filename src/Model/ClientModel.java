@@ -12,7 +12,7 @@ public class ClientModel {
     private int id_client;
     private String mot_de_passe;
     private String mail;
-    private boolean fidelite;
+    private int fidelite;
     private String date_naissance;
     private String id_vehicule_loue;
 
@@ -36,7 +36,7 @@ public class ClientModel {
         this.mot_de_passe = motDePasse;
         this.mail = mail;
         this.date_naissance = dateNaissance;
-        this.fidelite = false;
+        this.fidelite = 0;
         this.id_vehicule_loue = null;
         this.date_debut_loc = null;
         this.date_fin_loc = null;
@@ -166,11 +166,11 @@ public class ClientModel {
         this.mail = mail;
     }
 
-    public boolean isFidelite() {
+    public int isFidelite() {
         return fidelite;
     }
 
-    public void setFidelite(boolean fidelite) {
+    public void setFidelite(int fidelite) {
         this.fidelite = fidelite;
     }
 
@@ -227,6 +227,19 @@ public class ClientModel {
                 client = client.RecupClientById(1, login, password, 0);
                 Phrase_de_reponse = "Identifiants valides.";
                 System.out.println(Phrase_de_reponse);
+                System.out.println("Fidélité du client (pré-incrémentation) : " + client.isFidelite());
+
+                System.out.println(client.isFidelite());
+
+                int nouvelleFidelite = client.isFidelite() + 1;
+
+                MajPartielBdd(client.getId_client(), "fidelite", nouvelleFidelite);
+
+                client.setFidelite(nouvelleFidelite);
+
+                System.out.println("Fidélité du client (post-incrémentation) : " + client.isFidelite());
+
+
                 System.out.println("je teste l'abvnt client = " + client.getId_client());
                 connexion.closeConnection();
                 Resultat_connexion = 0;
@@ -406,7 +419,7 @@ public class ClientModel {
                     client.setMotDePasse(resultSet.getString("mot_de_passe"));
                     client.setMail(resultSet.getString("mail"));
                     client.setDateNaissance(resultSet.getString("date_naissance"));
-                    client.setFidelite(resultSet.getBoolean("fidelite"));
+                    client.setFidelite(resultSet.getInt("fidelite"));
                     client.setId_vehicule_loue(resultSet.getString("id_vehicule_loue"));
                     client.setDate_debut_loc(resultSet.getString("date_debut_loc"));
                     client.setDate_fin_loc(resultSet.getString("date_fin_loc"));
@@ -438,7 +451,7 @@ public class ClientModel {
                     client.setMotDePasse(resultSet.getString("mot_de_passe"));
                     client.setMail(resultSet.getString("mail"));
                     client.setDateNaissance(resultSet.getString("date_naissance"));
-                    client.setFidelite(resultSet.getBoolean("fidelite"));
+                    client.setFidelite(resultSet.getInt("fidelite"));
                     client.setId_vehicule_loue(resultSet.getString("id_vehicule_loue"));
                     client.setDate_debut_loc(resultSet.getString("date_debut_loc"));
                     client.setDate_fin_loc(resultSet.getString("date_fin_loc"));

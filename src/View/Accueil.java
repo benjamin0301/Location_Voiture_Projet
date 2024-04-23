@@ -188,6 +188,7 @@ public class Accueil extends JFrame {
 
         gbc.gridy++;
         JTextArea titre = new JTextArea("     Bienvenue sur RentMyRide !");
+        titre.setEditable(false);
         titre.setForeground(Color.decode("#7E3DFF"));
         titre.setPreferredSize(new Dimension(398, 28));
         titre.setBackground(Color.white);
@@ -209,6 +210,7 @@ public class Accueil extends JFrame {
         gbc.gridy++;
         JTextArea accroche = new JTextArea("    Vous cherchez un véhicule ?\n    Vous êtes au bon endroit.");
         accroche.setPreferredSize(new Dimension(398, 75));
+        accroche.setEditable(false);
         accroche.setBackground(Color.white);
         accroche.setFont(new Font("Georgia", Font.BOLD, 16));
         topPanel.add(accroche, gbc);
