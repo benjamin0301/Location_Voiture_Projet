@@ -29,12 +29,17 @@ public class Accueil extends JFrame {
     }
 
     public String getDateDepart() {
-        return JourDepart.getSelectedItem() + "/" + (MoisDepart.getSelectedIndex() + 1) + "/" + AnneeDepart.getSelectedItem();
+        int mois = MoisDepart.getSelectedIndex() + 1;
+        String moisFormate = (mois < 10) ? "0" + mois : "" + mois;
+        return JourDepart.getSelectedItem() + "/" + moisFormate + "/" + AnneeDepart.getSelectedItem();
     }
 
     public String getDateRetour() {
-        return JourArrivee.getSelectedItem() + "/" + (MoisArrivee.getSelectedIndex() + 1) + "/" + AnneeArrivee.getSelectedItem();
+        int mois = MoisArrivee.getSelectedIndex() + 1;
+        String moisFormate = (mois < 10) ? "0" + mois : "" + mois;
+        return JourArrivee.getSelectedItem() + "/" + moisFormate + "/" + AnneeArrivee.getSelectedItem();
     }
+
 
     //public Accueil(ClientModel client) {
      //   this.client = client;
@@ -266,22 +271,30 @@ public class Accueil extends JFrame {
         int currentMonth = today.get(Calendar.MONTH);
         int currentDay = today.get(Calendar.DAY_OF_MONTH);
 
-        String[] days = new String[31 - currentDay + 1];
-        for (int i = 0; i < 31 - currentDay + 1; i++) {
-            days[i] = Integer.toString(currentDay + i);
+        // Remplir la liste déroulante des mois
+        String[] months = new String[12];
+        for (int i = 1; i <= 12; i++) {
+            months[i - 1] = String.format("%02d", i);
         }
-        JComboBox<String> dayComboBox = new JComboBox<>(days);
-
-        String[] months = new DateFormatSymbols().getMonths();
         JComboBox<String> monthComboBox = new JComboBox<>(months);
         monthComboBox.setSelectedIndex(currentMonth);
 
+        // Remplir la liste déroulante des années
         String[] years = new String[100];
         for (int i = 0; i < 100; i++) {
             years[i] = Integer.toString(currentYear - 50 + i);
         }
         JComboBox<String> yearComboBox = new JComboBox<>(years);
-        yearComboBox.setSelectedIndex(50); // Selectionne l'annee actuelle par defaut
+        yearComboBox.setSelectedIndex(50); // Sélectionne l'année actuelle par défaut
+
+        // Remplir la liste déroulante des jours en fonction de la date actuelle et de la valeur sélectionnée pour le mois et l'année
+        int maxDay = getMaxDayOfMonth(currentMonth, currentYear);
+        String[] days = new String[maxDay];
+        for (int i = 1; i <= maxDay; i++) {
+            days[i - 1] = String.format("%02d", i);
+        }
+        JComboBox<String> dayComboBox = new JComboBox<>(days);
+        dayComboBox.setSelectedIndex(currentDay - 1); // Sélectionne le jour actuel par défaut
 
         if (isDepart) {
             JourDepart = dayComboBox;
@@ -293,6 +306,23 @@ public class Accueil extends JFrame {
             AnneeArrivee = yearComboBox;
         }
     }
+
+    private int getMaxDayOfMonth(int month, int year) {
+        switch (month) {
+            case 1: // Février
+                return (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? 29 : 28;
+            case 3: // Avril
+            case 5: // Juin
+            case 8: // Août
+            case 10: // Octobre
+                return 30;
+            default:
+                return 31;
+        }
+    }
+
+
+
 
     private boolean isDateValid() {
         int departYear = Integer.parseInt((String) AnneeDepart.getSelectedItem());
@@ -309,6 +339,14 @@ public class Accueil extends JFrame {
         Calendar arriveeCalendar = Calendar.getInstance();
         arriveeCalendar.set(arriveeYear, arriveeMonth, arriveeDay);
 
+        // Vérifier que la date de départ n'est pas antérieure à la date actuelle
+        Calendar today = Calendar.getInstance();
+        if (departCalendar.before(today)) {
+            return false;
+        }
+
+        // Vérifier que la date d'arrivée est après la date de départ
         return !departCalendar.after(arriveeCalendar);
     }
+
 }

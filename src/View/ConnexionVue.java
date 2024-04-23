@@ -145,10 +145,7 @@ public class ConnexionVue extends JFrame {
                     popUpEmp.setVisible(true);
                     ConnexionVue.this.setVisible(false);
                     try {
-                        String lieuDepart = ""; // Fournir la valeur appropriée
-                        String dateDepart = ""; // Fournir la valeur appropriée
-                        String lieuRetour = ""; // Fournir la valeur appropriée
-                        String dateRetour = ""; // Fournir la valeur appropriée
+
 
                         VueEmploye vp = new VueEmploye(employe);
 

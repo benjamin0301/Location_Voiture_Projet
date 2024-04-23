@@ -28,7 +28,7 @@ public class CarouselVoitures extends JPanel {
     private int res;
     private ClientModel client;
 
-    public CarouselVoitures(ClientModel clientModel,ArrayList<VoitureModel> newliste, int res) throws SQLException, ClassNotFoundException
+    public CarouselVoitures(ClientModel clientModel,ArrayList<VoitureModel> newliste, int res, int nbjour, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
         this.res = res;
         this.client = clientModel;
@@ -58,12 +58,12 @@ public class CarouselVoitures extends JPanel {
         buttonPanel.add(nextButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
-        add(createCarouselPanel(), BorderLayout.CENTER);
+        add(createCarouselPanel(nbjour,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour), BorderLayout.CENTER);
 
         showElements(0, 4);
     }
 
-    public CarouselVoitures(ArrayList<VoitureModel> newliste, int res) throws SQLException, ClassNotFoundException
+    public CarouselVoitures(ArrayList<VoitureModel> newliste, int res, int nbjour, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
         this.res = res;
         this.listePersonnellealaClasse = newliste;
@@ -92,12 +92,12 @@ public class CarouselVoitures extends JPanel {
         buttonPanel.add(nextButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
-        add(createCarouselPanel(), BorderLayout.CENTER);
+        add(createCarouselPanel(nbjour,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour), BorderLayout.CENTER);
 
         showElements(0, 4);
     }
 
-    private JPanel createCarouselPanel() throws SQLException, ClassNotFoundException
+    private JPanel createCarouselPanel(int nbjour, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
         JPanel carouselPanel = new JPanel();
         carouselPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -143,7 +143,7 @@ public class CarouselVoitures extends JPanel {
                                 VoitureModel voiture = new VoitureModel();
                                 listePersonnellealaClasse = voiture.recupListeVoitureFiltrage("type","=", "Mini", null,null,null,null,null,null,null, null,null,null,null,null);
                                 System.out.println("si ca rentre dans mini" + listePersonnellealaClasse.getFirst().getType());
-                                new ConteneurVoitures(client, res, listePersonnellealaClasse);
+                                new ConteneurVoitures(client, res, listePersonnellealaClasse, nbjour,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
                             }
                             catch (ClassNotFoundException | SQLException ex) { throw new RuntimeException(ex); }
                             break;

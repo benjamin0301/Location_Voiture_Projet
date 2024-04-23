@@ -24,6 +24,7 @@ public class VoitureModel {
     private int kilometrage_actuel;
     private int limite_km;
     private int prix;
+
     private int id_facture;
     private boolean louee; //0 pour non louée, 1 pour louée
     private String lieu_prise_en_charge;

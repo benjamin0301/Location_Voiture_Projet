@@ -71,7 +71,7 @@ public class ConteneurVoituresEmploye extends JPanel
 
         gbc.gridy++;
         ClientModel client = new ClientModel()
-;        CarouselVoitures carouselVoitures = new CarouselVoitures(listeVoituresPourAffichage, 0);
+;        CarouselVoitures carouselVoitures = new CarouselVoitures(listeVoituresPourAffichage, 0, 1,"","","","");
         add(carouselVoitures, gbc);
 
 
@@ -82,7 +82,7 @@ public class ConteneurVoituresEmploye extends JPanel
 
         gbc.gridy++;
 
-        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 2, 1);
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 2, 1, 1, "","","","");
         add(listeVoitures, gbc);
 
 

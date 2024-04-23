@@ -13,7 +13,7 @@ public class ConteneurVoitures extends JPanel
 {
     public ClientModel clientModel;
 
-    public ConteneurVoitures(ClientModel client, int res) throws SQLException, ClassNotFoundException
+    public ConteneurVoitures(ClientModel client, int res, int nbjour,String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
 
         VoitureController voitureController = new VoitureController();
@@ -74,7 +74,7 @@ public class ConteneurVoitures extends JPanel
 
 
         gbc.gridy++;
-        CarouselVoitures carouselVoitures = new CarouselVoitures(listeVoituresPourAffichage, res);
+        CarouselVoitures carouselVoitures = new CarouselVoitures(listeVoituresPourAffichage, res, nbjour,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
         add(carouselVoitures, gbc);
 
 
@@ -86,7 +86,7 @@ public class ConteneurVoitures extends JPanel
         gbc.gridy++;
 
 
-        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1, res);
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1, res, nbjour,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
         add(listeVoitures, gbc);
 
 
@@ -98,7 +98,7 @@ public class ConteneurVoitures extends JPanel
         add(espaceBlanc, gbc);
     }
 
-    public ConteneurVoitures(ClientModel client, int res, ArrayList<VoitureModel> newliste) throws SQLException, ClassNotFoundException
+    public ConteneurVoitures(ClientModel client, int res, ArrayList<VoitureModel> newliste, int nbjour, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
         VoitureController voitureController = new VoitureController();
         VoitureModel voitureModel = new VoitureModel();
@@ -160,7 +160,7 @@ public class ConteneurVoitures extends JPanel
 
 
         gbc.gridy++;
-        CarouselVoitures carouselVoitures = new CarouselVoitures(newliste, res);
+        CarouselVoitures carouselVoitures = new CarouselVoitures(newliste, res, nbjour,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
         add(carouselVoitures, gbc);
 
 
@@ -172,7 +172,7 @@ public class ConteneurVoitures extends JPanel
         gbc.gridy++;
 
         System.out.println(listeVoituresPourAffichage.getFirst().getCouleur());
-        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1, res);
+        listeVoitures.afficherListeVoitures(listeVoituresPourAffichage, 1, res, nbjour,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
         add(listeVoitures, gbc);
 
 

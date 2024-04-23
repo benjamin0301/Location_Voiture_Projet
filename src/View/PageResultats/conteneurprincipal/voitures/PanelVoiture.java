@@ -16,17 +16,19 @@ public class PanelVoiture extends JPanel
     VoitureModel voiture_select;
     public ClientModel client;
 
-    public PanelVoiture(VoitureModel voiture, ClientModel clientModel, int res) throws SQLException, ClassNotFoundException
+    public PanelVoiture(VoitureModel voiture, ClientModel clientModel, int res, int nbjour, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(2, 300));
         setBackground(Color.white);
-        initialize(voiture, res);
+        initialize(voiture, res, nbjour,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
         this.client = clientModel;
     }
 
-    public void initialize(VoitureModel voiture, int res)
+    public void initialize(VoitureModel voiture, int res, int nbjour, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour)
     {
+
+
         voiture_select = voiture;
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -197,7 +199,7 @@ public class PanelVoiture extends JPanel
         prixGras.setFont(new Font("Georgia", Font.BOLD, 25));
         prixGras.setBackground(Color.decode("#F5EFFF"));
         panelD.add(prixGras);
-        JTextArea prixCumule = new JTextArea("                        " + "Total " + voiture.getPrix() + " €");
+        JTextArea prixCumule = new JTextArea("                        " + "Total " + (voiture.getPrix())*(nbjour+1) + " €");
         prixCumule.setFont(new Font("Georgia", Font.PLAIN, 15));
         prixCumule.setEditable(false);
         prixCumule.setBackground(Color.decode("#F5EFFF"));
@@ -230,7 +232,7 @@ public class PanelVoiture extends JPanel
 
                     ConnexionVue connexion = null;
                     try {
-                        connexion = new ConnexionVue( "",  "dateDepart",  "lieuRetour",  "dateRetour");
+                        connexion = new ConnexionVue( lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
                         connexion.setVisible(true);
                     } catch (SQLException | ClassNotFoundException ex) {
                         throw new RuntimeException(ex);

@@ -320,7 +320,7 @@ public class ConteneurPrincipal extends JPanel {
                     throw new RuntimeException(ex);
                 }
                 //FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
-                //InterfacePayement interfacePayement = new InterfacePayement(ConteneurPrincipal.this, voiture, res, client);
+                InterfacePayement interfacePayement = new InterfacePayement(ConteneurPrincipal.this, voiture, res, client, new FactureModel());
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);
