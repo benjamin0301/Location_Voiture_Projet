@@ -1,16 +1,20 @@
 package View.PageDetails.ConteneurPrincipal.ConteneurFormulaires;
 
 import Model.ClientModel;
+import Model.VoitureModel;
+import View.PageConfirmation.FrameConfirmation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 public class FormulaireConducteur extends JPanel
 {
     private ClientModel client;
-    public FormulaireConducteur(ClientModel clientModel)
+    public FormulaireConducteur(ClientModel clientModel )
     {
         this.client = clientModel;
         JPanel espaceVideA = new JPanel();
@@ -52,7 +56,10 @@ public class FormulaireConducteur extends JPanel
         gbc.insets = new Insets(10, 10, 0, 10);
         gbc.weightx = 1.0;
 
-        addLabeledField(formulairePanel, gbc, "Prénom *");
+        // Supposons que vous ayez un objet ClientModel appelé clientModel avec les données à pré-remplir
+        JTextField prenomField = addLabeledField(formulairePanel, gbc, "Prénom *");
+        prenomField.setText(clientModel.getPrenom());
+
 
         gbc.gridy++; // Incremente le numero de ligne
         gbc.insets = new Insets(0, 10, 0, 10);
@@ -108,9 +115,11 @@ public class FormulaireConducteur extends JPanel
         formulairePanel.add(buttonsContainer, gbc);*/
 
         add(formulairePanel, BorderLayout.CENTER);
+
+
     }
 
-    private void addLabeledField(JPanel panel, GridBagConstraints gbc, String defaultText) {
+    private JTextField addLabeledField(JPanel panel, GridBagConstraints gbc, String defaultText) {
         JTextField field = new JTextField(defaultText, 20);
         field.setForeground(Color.GRAY);
         field.addFocusListener(new FocusListener() {
@@ -131,6 +140,7 @@ public class FormulaireConducteur extends JPanel
 
         gbc.gridy++;
         panel.add(field, gbc);
+        return field;
     }
 
 }

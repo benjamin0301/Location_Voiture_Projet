@@ -1,5 +1,6 @@
 package View.PageDetails.ConteneurPrincipal;
 
+import Controler.VoitureController;
 import Model.ClientModel;
 import Model.VoitureModel;
 import View.PageConfirmation.FrameConfirmation;
@@ -71,6 +72,13 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
+                    VoitureController voitureController = new VoitureController();
+                    //voitureController.ChangeDate_debut_fin_loc()
+                    //voitureController.ajouterNouvelleVoiture(voiture.getId_plaque(), voiture.getnom_modele(), voiture.getType(), voiture.getCouleur(), voiture.getMoteur(), voiture.getNbPlace(), voiture.getCapaciteValise(), voiture.getNbPorte(), voiture.getTransmission(), voiture.getCapaEssence(), voiture.getAnnee(), voiture.getkilometrage_actuel(), )
+                } catch (SQLException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
                 FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
