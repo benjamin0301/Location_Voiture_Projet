@@ -77,6 +77,20 @@ public class ClientController {
         return success;
     }
 
+    public Boolean ChangeId_facture(ClientModel Client, int newid) throws SQLException, ClassNotFoundException {
+        success = client.MajPartielBdd(Client.getId_client(), "id_facture", newid);
+        Phrase_de_reponse = client.Phrase_de_reponse;
+        Client.setId_facture(newid);
+        return success;
+    }
+
+    public Boolean ChangeId_vehicule_loue(ClientModel Client, String id_plaque) throws SQLException, ClassNotFoundException {
+        success = client.MajPartielBdd(Client.getId_client(), "id_vehicule_loue", id_plaque);
+        Phrase_de_reponse = client.Phrase_de_reponse;
+        Client.setId_vehicule_loue(id_plaque);
+        return success;
+    }
+
     public Boolean ChangeNom(ClientModel Client, String newnom) throws SQLException, ClassNotFoundException {
         success = client.MajPartielBdd(Client.getId_client(), "nom", newnom);
         Phrase_de_reponse = client.Phrase_de_reponse;

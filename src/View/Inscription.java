@@ -33,7 +33,8 @@ public class Inscription extends JFrame {
 
         setTitle("Inscription");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(350, 600);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
         // Ajout du conteneur haut
@@ -46,56 +47,87 @@ public class Inscription extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         prenomField = new JTextField(20);
+        prenomField.setPreferredSize(new Dimension(300, 30));
         nomField = new JTextField(20);
+        nomField.setPreferredSize(new Dimension(300, 30));
         emailField = new JTextField(20);
+        emailField.setPreferredSize(new Dimension(300, 30));
         motDePasseField = new JPasswordField(20);
+        motDePasseField.setPreferredSize(new Dimension(300, 30));
         confirmationMotDePasseField = new JPasswordField(20);
+        confirmationMotDePasseField.setPreferredSize(new Dimension(300, 30));
         dateDeNaissanceField = new JTextField(20);
+        dateDeNaissanceField.setPreferredSize(new Dimension(300, 30));
+
         inscriptionButton = new JButton("S'inscrire");
+        inscriptionButton.setFont(new Font("Georgia", Font.BOLD, 20));
+        inscriptionButton.setForeground(Color.white);
+        inscriptionButton.setBackground(Color.decode("#7E3DFF"));
+
         retourButton = new JButton("Retour");
+        retourButton.setFont(new Font("Georgia", Font.BOLD, 20));
+        retourButton.setForeground(Color.decode("#7E3DFF"));
+        retourButton.setBackground(Color.white);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Prénom:"), gbc);
+        JLabel prenom = new JLabel("Prénom :");
+        prenom.setFont(new Font("Georgia", Font.BOLD, 16));
+        panel.add(prenom, gbc);
 
         gbc.gridy = 1;
         panel.add(prenomField, gbc);
 
         gbc.gridy = 2;
-        panel.add(new JLabel("Nom:"), gbc);
+        JLabel nom = new JLabel("Nom :");
+        nom.setFont(new Font("Georgia", Font.BOLD, 16));
+        panel.add(nom, gbc);
 
         gbc.gridy = 3;
         panel.add(nomField, gbc);
 
         gbc.gridy = 4;
-        panel.add(new JLabel("Email:"), gbc);
+        JLabel email = new JLabel("Email :");
+        email.setFont(new Font("Georgia", Font.BOLD, 16));
+        panel.add(email, gbc);
 
         gbc.gridy = 5;
         panel.add(emailField, gbc);
 
         gbc.gridy = 6;
-        panel.add(new JLabel("Mot de passe:"), gbc);
+        JLabel mdp = new JLabel("Mot de passe :");
+        mdp.setFont(new Font("Georgia", Font.BOLD, 16));
+        panel.add(mdp, gbc);
 
         gbc.gridy = 7;
         panel.add(motDePasseField, gbc);
 
         gbc.gridy = 8;
-        panel.add(new JLabel("Confirmer le mot de passe:"), gbc);
+        JLabel cmdp = new JLabel("Confirmer le mot de passe :");
+        cmdp.setFont(new Font("Georgia", Font.BOLD, 16));
+        panel.add(cmdp, gbc);
 
         gbc.gridy = 9;
         panel.add(confirmationMotDePasseField, gbc);
 
         gbc.gridy = 10;
-        panel.add(new JLabel("Date de naissance (AAAA-MM-JJ):"), gbc);
+        JLabel ddn = new JLabel("Date de naissance (AAAA-MM-JJ) :");
+        ddn.setFont(new Font("Georgia", Font.BOLD, 16));
+        panel.add(ddn, gbc);
 
         gbc.gridy = 11;
         panel.add(dateDeNaissanceField, gbc);
 
-        gbc.gridy = 12;
+        gbc.gridy++;
+        JPanel espaceBlanc1 = new JPanel();
+        espaceBlanc1.setPreferredSize(new Dimension(300, 20));
+        panel.add(espaceBlanc1, gbc);
+
+        gbc.gridy++;
         gbc.gridwidth = 2;
         panel.add(inscriptionButton, gbc);
 
-        gbc.gridy = 13;
+        gbc.gridy++;
         panel.add(retourButton, gbc);
 
         inscriptionButton.addActionListener(new ActionListener() {

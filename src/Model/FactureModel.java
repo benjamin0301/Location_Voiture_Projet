@@ -4,10 +4,7 @@ import com.pdfjet.*;
 import com.pdfjet.Font;
 
 import java.awt.*;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,15 +60,12 @@ public class FactureModel {
             client.setId_vehicule_loue(voiture.getId_plaque());
             client.setDate_debut_loc("2000-01-01");
             client.setDate_fin_loc("2000-01-01");
-            client.MajPartielBdd(client.getId_client(), "date_debut_loc", client.getDate_debut_loc());
-            client.MajPartielBdd(client.getId_client(), "date_fin_loc", client.getDate_fin_loc());
+
 
             // a changer car a faire dans le controller
             voiture.setId_facture(idFacture);
             voiture.setDate_debut_loc("2000-01-01");
             voiture.setDate_fin_loc("2000-01-01");
-            voiture.MajPartielBdd(voiture.getId_plaque(), "date_debut_loc", client.getDate_debut_loc());
-            voiture.MajPartielBdd(voiture.getId_plaque(), "date_fin_loc", client.getDate_fin_loc());
 
             int rowsInserted = statement.executeUpdate();
 
@@ -109,10 +103,14 @@ public class FactureModel {
 
     public void factureCreationPdf(FactureModel facture, ClientModel client, VoitureModel voiture) throws Exception {
         // Création d'un nouveau document PDF
+        // Création d'un nouveau document PDF
+        String lien = "Factures/facture" + facture.id_facture +".pdf";
+        System.out.println("afficahge du lien " + lien);
+        System.out.println("double facture = "+ facture.id_facture);
+        PDF pdf = new PDF(new BufferedOutputStream(new FileOutputStream(lien)));
         try{
 
-            // Création d'un nouveau document PDF
-            PDF pdf = new PDF(new BufferedOutputStream(new FileOutputStream("Facture/facture" + facture.id_facture +".pdf")));
+
 
             // Ajout d'une page au document
             Page page = new Page(pdf, A4.PORTRAIT);
@@ -226,6 +224,15 @@ public class FactureModel {
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Une erreur est survenue lors de la création du PDF : " + e.getMessage());
+        } finally {
+            if (pdf != null) {
+                try {
+                    pdf.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.err.println("Erreur lors de la fermeture du PDF : " + e.getMessage());
+                }
+            }
         }
     }
 

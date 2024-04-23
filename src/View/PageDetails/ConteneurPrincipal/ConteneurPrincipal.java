@@ -1,13 +1,15 @@
 package View.PageDetails.ConteneurPrincipal;
 
+import Controler.ClientController;
+import Controler.FactureController;
 import Controler.VoitureController;
 import Model.ClientModel;
+import Model.FactureModel;
 import Model.VoitureModel;
 import View.Accueil;
 import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
 import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ConteneurDroite;
-
 import View.PageDetails.InterfacePayement;
 
 import java.awt.*;
@@ -310,55 +312,6 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Vérifier que tous les champs sont remplis
-
-
-                if (((JTextField) formulairePanelFC.getComponent(0)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Prénom est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (((JTextField) formulairePanelFC.getComponent(2)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Nom est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (((JTextField) formulairePanelFC.getComponent(4)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ E-mail est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (((JTextField) formulairePanelFC.getComponent(6)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Téléphone est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                /*if (((JTextField) formulairePanelFC.getComponent(8)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Pays/Région est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (((JTextField) formulairePanelFC.getComponent(10)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Ville est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (((JTextField) formulairePanelFC.getComponent(12)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Adresse est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }*/
-                if (((JTextField) formulairePanelFP.getComponent(0)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Nom figurant sur la carte est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (((JTextField) formulairePanelFP.getComponent(2)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Numéro de la carte est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }/*
-                if (((JTextField) formulairePanelFP.getComponent(4)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ Date d'expiration est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if (((JTextField) formulairePanelFP.getComponent(6)).getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Le champ CVC est vide.", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }*/
-
-
                 try {
                     VoitureController voitureController = new VoitureController();
                     //voitureController.ChangeDate_debut_fin_loc()

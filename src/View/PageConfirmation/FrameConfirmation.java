@@ -1,9 +1,9 @@
 package View.PageConfirmation;
 
 import Model.ClientModel;
+import Model.FactureModel;
 import Model.VoitureModel;
 import View.CustomScrollBarUI;
-import View.PageDetails.ConteneurPrincipal.ConteneurPrincipal;
 import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
 
@@ -16,7 +16,7 @@ public class FrameConfirmation extends JFrame
     private JPanel contentPanel;
     private VoitureModel voiture;
 
-    public FrameConfirmation(VoitureModel voitureModel, int res, ClientModel clientModel)
+    public FrameConfirmation(VoitureModel voitureModel, int res, ClientModel clientModel, FactureModel factureModel)
     {
         this.client = clientModel;
         this.voiture = voitureModel;
@@ -31,7 +31,7 @@ public class FrameConfirmation extends JFrame
         ConteneurHaut conteneurHaut = new ConteneurHaut(res, client,"","","","");
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
-        PageConfirmation nouvellePage = new PageConfirmation(voiture, res, client);
+        PageConfirmation nouvellePage = new PageConfirmation( voiture, res, client, factureModel);
 
         JPanel englobeurPC = new JPanel(new BorderLayout());
         englobeurPC.setBackground(Color.decode("#E4E4E4"));
