@@ -134,7 +134,6 @@ public class MesInfosPerso extends JPanel
         panelC.add(CF);
 
         JLabel CFR = new JLabel(String.valueOf(client.isFidelite()));
-        JLabel CFR = new JLabel(String.valueOf(client.isFidelite()));
         CFR.setPreferredSize(new Dimension(60, 30));
         CFR.setHorizontalAlignment(SwingConstants.CENTER);
         CFR.setForeground(Color.red);

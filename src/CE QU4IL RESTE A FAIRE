@@ -1,31 +1,4 @@
-
------------------ Partie BEN ------------------------------
-
--- Faire le filtrage
-
-
-
------------------ Partie HUGO -----------------------------
-
--- Calendrier et utilisation des dates et tt (fais mais petit probleme de précision à règler)
--- inscription employe (si j'ai le temps mais connexion c'est fait)
--- modifs employe (a confirmer les données qu'on doit modifier pour l'instant j'ai fait avec nom prénom et email)
--- modifs clients (fait)
--- modifs voiture (pas finit)
--- quand on clique sur qqch de l'en tete on accède directement à une nouvelle page
--- profil (modifier ses infos et voir ses infos/réservztions)
--- design accueil, connexion... 
-
-
-
------------------ Partie ANTOINE --------------------------
-
--- Design général du Site
--- Essayer de me pencher sur le filtrage
--- Mettre en place les boites de dialogues là où c'est nécessaire
-
-
------------------- GENERAL ----------------------------------
+-------------------- GENERAL ----------------------------------
 
 
 -- (***) Filtrage lieu de prise en charge et si les voitures sont dispo en fonction des dates selectionnées
@@ -36,7 +9,7 @@
 
 -- (**) Modification du prix total dans la page confirmation
 -- (**) Suppression de la voiture depuis l'espace personnel du client
--- (**)  afficahge de la facture avec le bouton de telechargement dans la page confirmation
+-- (**) afficahge de la facture avec le bouton de telechargement dans la page confirmation
 -- (**) Essayer de mettre en forme les options d'une entreprise donc prendre plusieurs voiture ...
 
 -- (*) creer une fenetre ou qqc qui demande au client une note entre 1 et 5 (on mettra ca dans avis)

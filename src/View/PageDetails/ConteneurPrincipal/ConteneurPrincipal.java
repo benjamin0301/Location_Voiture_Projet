@@ -1,11 +1,13 @@
 package View.PageDetails.ConteneurPrincipal;
 
+import Controler.VoitureController;
 import Model.ClientModel;
 import Model.VoitureModel;
 import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
 import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ConteneurDroite;
 import View.PageDetails.ConteneurPrincipal.ConteneurFormulaires.ConteneurFormulaires;
+import View.PageDetails.InterfacePayement;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -71,16 +73,20 @@ public class ConteneurPrincipal extends JPanel {
 
         confirmation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
+                try {
+                    VoitureController voitureController = new VoitureController();
+                    //voitureController.ChangeDate_debut_fin_loc()
+                    //voitureController.ajouterNouvelleVoiture(voiture.getId_plaque(), voiture.getnom_modele(), voiture.getType(), voiture.getCouleur(), voiture.getMoteur(), voiture.getNbPlace(), voiture.getCapaciteValise(), voiture.getNbPorte(), voiture.getTransmission(), voiture.getCapaEssence(), voiture.getAnnee(), voiture.getkilometrage_actuel(), )
+                } catch (SQLException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+                //FrameConfirmation frameConfirmation = new FrameConfirmation(voiture, res, client);
+                InterfacePayement interfacePayement = new InterfacePayement(ConteneurPrincipal.this, voiture, res, client);
 
                 // Obtenez la fenêtre actuelle à partir du composant parent du bouton
                 Window window = SwingUtilities.getWindowAncestor(confirmation);
 
-                // Vérifiez si la fenêtre actuelle est une instance de JFrame avant de la fermer
-                if (window instanceof JFrame) {
-                    JFrame frame = (JFrame) window;
-                    frame.dispose(); // Fermer la fenêtre actuelle
-                }
+
             }
         });
 

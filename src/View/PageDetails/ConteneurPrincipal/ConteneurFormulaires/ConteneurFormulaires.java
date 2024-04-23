@@ -1,6 +1,7 @@
 package View.PageDetails.ConteneurPrincipal.ConteneurFormulaires;
 
 import Model.ClientModel;
+import Model.VoitureModel;
 import com.mysql.cj.xdevapi.Client;
 
 import javax.swing.*;
