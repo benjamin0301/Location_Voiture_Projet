@@ -11,6 +11,7 @@ import View.PageConfirmation.FrameConfirmation;
 import View.PageConfirmation.PageConfirmation;
 import View.PageDetails.ConteneurPrincipal.ConteneurDroite.ConteneurDroite;
 import View.PageDetails.InterfacePayement;
+import View.popup.PopUpDef2;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -375,7 +376,8 @@ public class ConteneurPrincipal extends JPanel {
                         dateExpiration.isEmpty() || dateExpiration.equals("Date d'expiration *") ||
                         cvc.isEmpty() || cvc.equals("CVC *")) {
                     // Affichez un message d'erreur ou effectuez une action appropriée
-                    JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs obligatoires.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    PopUpDef2 poppy = new PopUpDef2("Veuillez remplir tous les champs obligatoires.");
+                    poppy.setVisible(true);
                     return; // Arrêtez l'exécution de la méthode
                 }
 
