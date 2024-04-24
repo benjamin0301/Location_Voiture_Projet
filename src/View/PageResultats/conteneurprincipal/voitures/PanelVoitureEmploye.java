@@ -228,9 +228,7 @@ public class PanelVoitureEmploye extends JPanel
                         vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
                         vp.setVisible(true);
 
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (ClassNotFoundException ex) {
+                    } catch (SQLException | ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
@@ -258,8 +256,7 @@ public class PanelVoitureEmploye extends JPanel
                         frame.dispose(); // Fermer la fenêtre actuelle
                     }
                 }
-                catch (SQLException ex) { throw new RuntimeException(ex); }
-                catch (ClassNotFoundException ex) { throw new RuntimeException(ex); }
+                catch (SQLException | ClassNotFoundException ex) { throw new RuntimeException(ex); }
             }
         });
 

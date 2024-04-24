@@ -233,7 +233,7 @@ public class PanelVoiture extends JPanel
 
                     ConnexionVue connexion = null;
                     try {
-                        connexion = new ConnexionVue( "",  "dateDepart",  "lieuRetour",  "dateRetour");
+                        connexion = new ConnexionVue( "",  dateDepart,  "",  dateRetour);
                         connexion.setVisible(true);
                     } catch (SQLException | ClassNotFoundException ex) {
                         throw new RuntimeException(ex);

@@ -1,9 +1,6 @@
 package View.PageResultats;
 import Model.ClientModel;
-import View.Accueil;
-import View.AccueilListener;
-import View.ConnexionListener;
-import View.ConnexionVue;
+import View.*;
 import View.PageEspacePersonnel.FrameEspacePerso;
 
 import javax.swing.*;
@@ -121,9 +118,7 @@ public class ConteneurHaut extends JPanel
                 try {
                     connexion = new ConnexionVue(lieuDepart, dateDepart, lieuRetour, dateRetour);
                     connexion.setVisible(true);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
                 Window window = SwingUtilities.getWindowAncestor(boutonConnexion);
@@ -137,6 +132,23 @@ public class ConteneurHaut extends JPanel
         }
         else {
             barreNavigation.add(boutonConnecte);
+            boutonConnecte.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vous déconnecter ?", "Déconnexion", JOptionPane.YES_NO_OPTION);
+                    if (result == JOptionPane.YES_OPTION) {
+                        // fermer la fenêtre actuelle
+                        Window window = SwingUtilities.getWindowAncestor(boutonConnecte);
+                        if (window instanceof JFrame) {
+                            JFrame frame = (JFrame) window;
+                            frame.dispose();
+                        }
+
+                        Accueil accueil = new Accueil(1, null );
+                        accueil.setVisible(true);
+                    }
+                }
+            });
 
 
 

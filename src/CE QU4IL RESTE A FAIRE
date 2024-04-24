@@ -14,10 +14,3 @@
 
 BEUG
 
--- si plus de voiture alors plus d'affichage
--- employé doit pouvoir voir toutes les voitures meme si elles sont loués
--- lors de la suppression d'une reservation, il faut supp aussi des elements dans clients et factures
--- Si on se deconnecte depuis un employe = plus d'image
--- Suppression d'une reservation pas fonctionnelle
--- deconnection client impossible
--- finir de d'afficher et utiliser les bonnes dates

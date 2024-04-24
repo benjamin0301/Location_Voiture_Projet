@@ -160,7 +160,7 @@ public class ConteneurEmploye extends JPanel
 
                         // ouvrir la page de connexion
                         //ConnexionVue connexion = null;
-                        Accueil accueil = new Accueil(null);
+                        Accueil accueil = new Accueil(1, null);
                         accueil.setVisible(true);
                     }
                 }
