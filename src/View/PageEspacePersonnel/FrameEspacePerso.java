@@ -2,13 +2,19 @@ package View.PageEspacePersonnel;
 
 import Model.ClientModel;
 import Model.EmployeModel;
+import View.ConnexionVue;
+import View.ConteneurEmploye;
 import View.CustomScrollBarUI;
 import View.PageConfirmation.PageConfirmation;
 import View.PageResultats.ConteneurHaut;
 import View.PageResultats.Footer;
+import View.VueEmploye;
+import View.popup.popUpDefault;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class FrameEspacePerso extends JFrame
@@ -28,7 +34,7 @@ public class FrameEspacePerso extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client, "","","","");
         contentPanel.add(conteneurHaut, BorderLayout.NORTH);
 
         EspacePersonnel espacePersonnel = new EspacePersonnel(client);
@@ -71,8 +77,8 @@ public class FrameEspacePerso extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
-        contentPanel.add(conteneurHaut, BorderLayout.NORTH);
+        ConteneurEmploye conteneurEmploye = new ConteneurEmploye( employe,"","","","", res);
+        contentPanel.add(conteneurEmploye, BorderLayout.NORTH);
 
         EspacePersonnel espacePersonnel = new EspacePersonnel(employe);
 
@@ -101,5 +107,40 @@ public class FrameEspacePerso extends JFrame
         });
 
         setVisible(true);
+
+
+
+        JButton boutonRetour = new JButton("Retour");
+        add(boutonRetour, BorderLayout.SOUTH);
+        //conteneurEmploye.add(boutonRetour, BorderLayout.SOUTH);
+
+        boutonRetour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String lieuDepart = ""; // Fournir la valeur appropriée
+                    String dateDepart = ""; // Fournir la valeur appropriée
+                    String lieuRetour = ""; // Fournir la valeur appropriée
+                    String dateRetour = ""; // Fournir la valeur appropriée
+
+                    VueEmploye vp = new VueEmploye(employe);
+
+
+                    vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
+                    dispose(); // fermer la fenêtre actuelle
+                } catch (SQLException ex)
+                {
+                    //popUpDefault erreur1emp = new popUpDefault(ConnexionVue.this, "Erreur de base de données : " + ex.getMessage());
+                    //erreur1emp.setVisible(true);
+                }
+                catch (ClassNotFoundException ex)
+                {
+                    //popUpDefault erreur2 = new popUpDefault(ConnexionVue.this, "Classe introuvable : " + ex.getMessage());
+                    //erreur2.setVisible(true);
+                }
+            }
+        });
+
+
     }
 }

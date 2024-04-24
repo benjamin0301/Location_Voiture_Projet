@@ -20,13 +20,16 @@ public class FactureModel {
     private int prix_voiture;
     public String Phrase_de_reponse;
     private String factureUrl;
+    private String dateDepart, dateRetour;
 
     public FactureModel() {
     }
 
 
-    public FactureModel CreerFacture(ClientModel client, VoitureModel voiture, int prix_voiture, String mail, String num_tel, String ville, String adresse, String num_vol, String nom, String prenom) throws Exception {
+    public FactureModel CreerFacture(ClientModel client, VoitureModel voiture, int prix_voiture, String mail, String num_tel, String ville, String adresse, String num_vol, String nom, String prenom, String numcarte, String date_exp, String cvc, String dateDepart, String dateRetour) throws Exception {
         String PhraseFinale = "";
+        this.dateDepart = dateDepart;
+        this.dateRetour = dateRetour;
         Connexion connexion = new Connexion("location_voiture", "root", "");
         FactureModel facture = new FactureModel();
         try {
@@ -55,7 +58,7 @@ public class FactureModel {
             facture.id_voiture = voiture.getId_plaque();
             facture.id_client = client.getId_client();
             facture.factureUrl = "facture" + idFacture + ".pdf";
-            factureCreationPdf(facture, client, voiture);
+            factureCreationPdf(facture, client, voiture, prix_voiture, mail, num_tel, ville, adresse, num_vol, nom, prenom, numcarte, date_exp, cvc);
             client.setId_facture(idFacture);
             client.setId_vehicule_loue(voiture.getId_plaque());
             client.setDate_debut_loc("2000-01-01");
@@ -101,7 +104,7 @@ public class FactureModel {
         return null;
     }
 
-    public void factureCreationPdf(FactureModel facture, ClientModel client, VoitureModel voiture) throws Exception {
+    public void factureCreationPdf(FactureModel facture, ClientModel client, VoitureModel voiture, int prix_voiture, String mail, String num_tel, String ville, String adresse, String num_vol, String nom, String prenom, String numcarte, String date_exp, String cvc) throws Exception {
         // Création d'un nouveau document PDF
         // Création d'un nouveau document PDF
         String lien = "Factures/facture" + facture.id_facture +".pdf";
@@ -142,9 +145,90 @@ public class FactureModel {
             nomClientLabel.setPosition(x, y);
             nomClientLabel.drawOn(page);
 
-            TextLine nomClientValue = new TextLine(textFont, client.getNom() + " " + client.getPrenom());
+            TextLine nomClientValue = new TextLine(textFont, nom + " " + prenom);
             nomClientValue.setPosition(x + 150f, y);
             nomClientValue.drawOn(page);
+
+            y += 20f;
+
+            TextLine mailClientLabel = new TextLine(textFont, "Mail");
+            mailClientLabel.setPosition(x, y);
+            mailClientLabel.drawOn(page);
+
+            TextLine mailClientValue = new TextLine(textFont, mail);
+            mailClientValue.setPosition(x + 150f, y);
+            mailClientValue.drawOn(page);
+
+            y += 20f;
+
+            TextLine numeroTelClientLabel = new TextLine(textFont, "Numero tel");
+            numeroTelClientLabel.setPosition(x, y);
+            numeroTelClientLabel.drawOn(page);
+
+            TextLine numTelClientValue = new TextLine(textFont, num_tel);
+            numTelClientValue.setPosition(x + 150f, y);
+            numTelClientValue.drawOn(page);
+
+            y += 20f;
+
+            TextLine adresseClientLabel = new TextLine(textFont, "adresse");
+            adresseClientLabel.setPosition(x, y);
+            adresseClientLabel.drawOn(page);
+
+            TextLine adresseClientValue = new TextLine(textFont, adresse);
+            adresseClientValue.setPosition(x + 150f, y);
+            adresseClientValue.drawOn(page);
+
+            y += 20f;
+
+            TextLine villeClientLabel = new TextLine(textFont, "Ville ");
+            villeClientLabel.setPosition(x, y);
+            villeClientLabel.drawOn(page);
+
+            TextLine villeClientValue = new TextLine(textFont, ville);
+            villeClientValue.setPosition(x + 150f, y);
+            villeClientValue.drawOn(page);
+
+            y += 20f;
+
+            TextLine numvolClientLabel = new TextLine(textFont, "Numero vol ");
+            numvolClientLabel.setPosition(x, y);
+            numvolClientLabel.drawOn(page);
+
+            TextLine numvolClientValue = new TextLine(textFont, num_vol);
+            numvolClientValue.setPosition(x + 150f, y);
+            numvolClientValue.drawOn(page);
+
+            y += 20f;
+
+            TextLine numeroDeCarteClientLabel = new TextLine(textFont, "numero de carte ");
+            numeroDeCarteClientLabel.setPosition(x, y);
+            numeroDeCarteClientLabel.drawOn(page);
+
+            TextLine numcarteClientValue = new TextLine(textFont, numcarte);
+            numcarteClientValue.setPosition(x + 150f, y);
+            numcarteClientValue.drawOn(page);
+
+            y += 20f;
+
+            TextLine dateexpClientLabel = new TextLine(textFont, "date exp");
+            dateexpClientLabel.setPosition(x, y);
+            dateexpClientLabel.drawOn(page);
+
+            TextLine dateexpClientValue = new TextLine(textFont, date_exp);
+            dateexpClientValue.setPosition(x + 150f, y);
+            dateexpClientValue.drawOn(page);
+
+            y += 20f;
+
+            TextLine cvcClientLabel = new TextLine(textFont, "CVC ");
+            cvcClientLabel.setPosition(x, y);
+            cvcClientLabel.drawOn(page);
+
+            TextLine cvcClientValue = new TextLine(textFont, cvc);
+            cvcClientValue.setPosition(x + 150f, y);
+            cvcClientValue.drawOn(page);
+
             y += 50f;
 
             // Section Informations de location
@@ -175,7 +259,7 @@ public class FactureModel {
             dateDepartLabel.setPosition(x, y);
             dateDepartLabel.drawOn(page);
 
-            TextLine dateDepartValue = new TextLine(textFont, client.getDate_debut_loc());
+            TextLine dateDepartValue = new TextLine(textFont, dateDepart);
             dateDepartValue.setPosition(x + 150f, y);
             dateDepartValue.drawOn(page);
             y += 20f;
@@ -184,7 +268,7 @@ public class FactureModel {
             dateRetourLabel.setPosition(x, y);
             dateRetourLabel.drawOn(page);
 
-            TextLine dateRetourValue = new TextLine(textFont, client.getDate_fin_loc());
+            TextLine dateRetourValue = new TextLine(textFont, dateRetour);
             dateRetourValue.setPosition(x + 150f, y);
             dateRetourValue.drawOn(page);
             y += 20f;
@@ -202,7 +286,7 @@ public class FactureModel {
             prixLocationLabel.setPosition(x, y);
             prixLocationLabel.drawOn(page);
 
-            TextLine prixLocationValue = new TextLine(textFont, String.valueOf(facture.prix_voiture));
+            TextLine prixLocationValue = new TextLine(textFont, String.valueOf(prix_voiture));
             prixLocationValue.setPosition(x + 150f, y);
             prixLocationValue.drawOn(page);
             y += 20f;

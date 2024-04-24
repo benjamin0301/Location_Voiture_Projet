@@ -16,10 +16,13 @@ public class FrameDetails extends JFrame
     VoitureModel voiture;
     private JPanel contentPanel;
     private ClientModel client;
-    public FrameDetails(VoitureModel voiture, int res, ClientModel clientModel) throws SQLException, ClassNotFoundException
+    private String dateDepart, dateRetour;
+    public FrameDetails(VoitureModel voiture, int res, ClientModel clientModel, String dateDepart, String dateRetour) throws SQLException, ClassNotFoundException
     {
         this.voiture = voiture;
         this.client = clientModel;
+        this.dateDepart = dateDepart;
+        this.dateRetour = dateRetour;
         initialize(res);
     }
 
@@ -34,10 +37,9 @@ public class FrameDetails extends JFrame
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client);
-        contentPanel.add(conteneurHaut, BorderLayout.NORTH);
+        ConteneurHaut conteneurHaut = new ConteneurHaut(res, client,"","","","");
 
-        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(voiture, res, client);
+        ConteneurPrincipal conteneurPrincipal = new ConteneurPrincipal(voiture, res, client, dateDepart, dateRetour);
         contentPanel.add(conteneurPrincipal);
 
         Footer footer = new Footer();

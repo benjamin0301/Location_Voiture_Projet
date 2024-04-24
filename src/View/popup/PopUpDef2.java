@@ -54,4 +54,3 @@ public class PopUpDef2 extends JDialog {
         timer.start();
     }
 }
-

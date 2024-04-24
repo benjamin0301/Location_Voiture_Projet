@@ -13,14 +13,14 @@ public class ConteneurVoitures extends JPanel
 {
     public ClientModel clientModel;
 
-    public ConteneurVoitures(ClientModel client, int res) throws SQLException, ClassNotFoundException
+    public ConteneurVoitures(ClientModel client, int res , String dateDepart, String dateRetour) throws SQLException, ClassNotFoundException
     {
 
         VoitureController voitureController = new VoitureController();
         VoitureModel voitureModel = new VoitureModel();
 
         this.clientModel = client;
-        ListeVoitures listeVoitures = new ListeVoitures(clientModel);
+        ListeVoitures listeVoitures = new ListeVoitures(clientModel, dateDepart, dateRetour);
         ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
         listeVoituresPourAffichage = voitureController.recupListeVoitureNonLouee();
 
@@ -98,13 +98,13 @@ public class ConteneurVoitures extends JPanel
         add(espaceBlanc, gbc);
     }
 
-    public ConteneurVoitures(ClientModel client, int res, ArrayList<VoitureModel> newliste) throws SQLException, ClassNotFoundException
+    public ConteneurVoitures(ClientModel client, int res, ArrayList<VoitureModel> newliste, String dateDepart, String dateRetour) throws SQLException, ClassNotFoundException
     {
         VoitureController voitureController = new VoitureController();
         VoitureModel voitureModel = new VoitureModel();
 
         this.clientModel = client;
-        ListeVoitures listeVoitures = new ListeVoitures(clientModel);
+        ListeVoitures listeVoitures = new ListeVoitures(clientModel, dateDepart, dateRetour);
         ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
         System.out.println("je suis dans le prochain controller");
         listeVoituresPourAffichage = newliste;

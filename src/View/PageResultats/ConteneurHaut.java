@@ -17,7 +17,7 @@ public class ConteneurHaut extends JPanel
     private AccueilListener accueilListener;
     private ConnexionListener connexionListener;
     public ClientModel client;
-    public ConteneurHaut(int res, ClientModel clientModel)
+    public ConteneurHaut(int res, ClientModel clientModel, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour)
     {
         this.client = clientModel;
         setBackground(Color.decode("#FFFFFF"));
@@ -119,7 +119,7 @@ public class ConteneurHaut extends JPanel
             {
                 ConnexionVue connexion = null;
                 try {
-                    connexion = new ConnexionVue();
+                    connexion = new ConnexionVue(lieuDepart, dateDepart, lieuRetour, dateRetour);
                     connexion.setVisible(true);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);

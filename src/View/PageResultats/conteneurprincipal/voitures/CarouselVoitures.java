@@ -3,6 +3,9 @@ package View.PageResultats.conteneurprincipal.voitures;
 import Controler.ClientController;
 import Model.ClientModel;
 import Model.VoitureModel;
+import View.Vue;
+import View.popup.PopUpDef2;
+import View.popup.popUpDefault;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,12 +27,15 @@ public class CarouselVoitures extends JPanel {
 
     private int res;
     private ClientModel client;
+    private String dateDepart,dateRetour;
 
-    public CarouselVoitures(ClientModel clientModel,ArrayList<VoitureModel> newliste, int res) throws SQLException, ClassNotFoundException
+    public CarouselVoitures(ClientModel clientModel,ArrayList<VoitureModel> newliste, int res, String dateDepart, String dateRetour) throws SQLException, ClassNotFoundException
     {
         this.res = res;
         this.client = clientModel;
         this.listePersonnellealaClasse = newliste;
+        this.dateDepart = dateDepart;
+        this.dateRetour = dateRetour;
         elements = new ArrayList<>();
         setLayout(new BorderLayout());
 
@@ -62,6 +68,8 @@ public class CarouselVoitures extends JPanel {
 
     public CarouselVoitures(ArrayList<VoitureModel> newliste, int res) throws SQLException, ClassNotFoundException
     {
+        this.dateDepart = dateDepart;
+        this.dateRetour = dateRetour;
         this.res = res;
         this.listePersonnellealaClasse = newliste;
         elements = new ArrayList<>();
@@ -119,6 +127,9 @@ public class CarouselVoitures extends JPanel {
             {
                 public void actionPerformed(ActionEvent e)
                 {
+                    PopUpDef2 pop = new PopUpDef2("Type sélectionné : " + element);
+                    pop.setVisible(true);
+
                     JButton clickedButton = (JButton) e.getSource();
                     int index = carouselPanel.getComponentZOrder(clickedButton);
 
@@ -136,7 +147,7 @@ public class CarouselVoitures extends JPanel {
                                 VoitureModel voiture = new VoitureModel();
                                 listePersonnellealaClasse = voiture.recupListeVoitureFiltrage("type","=", "Mini", null,null,null,null,null,null,null, null,null,null,null,null);
                                 System.out.println("si ca rentre dans mini" + listePersonnellealaClasse.getFirst().getType());
-                                new ConteneurVoitures(client, res, listePersonnellealaClasse);
+                                new ConteneurVoitures(client, res, listePersonnellealaClasse, dateDepart, dateRetour);
                             }
                             catch (ClassNotFoundException | SQLException ex) { throw new RuntimeException(ex); }
                             break;

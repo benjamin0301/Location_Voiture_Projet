@@ -13,6 +13,7 @@ public class ListeVoitures extends JPanel
 {
     private ClientModel client;
     private EmployeModel employe;
+    private String dateDepart,dateRetour;
 
     public ListeVoitures() throws SQLException, ClassNotFoundException
     {
@@ -20,8 +21,10 @@ public class ListeVoitures extends JPanel
         this.client = null;
     }
 
-    public ListeVoitures(ClientModel clientModel) throws SQLException, ClassNotFoundException
+    public ListeVoitures(ClientModel clientModel, String dateDepart, String dateRetour) throws SQLException, ClassNotFoundException
     {
+        this.dateDepart = dateDepart;
+        this.dateRetour = dateRetour;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.client = clientModel;
     }
@@ -43,7 +46,7 @@ public class ListeVoitures extends JPanel
             add(miniEspaceBlanc);
             if (type == 1)
             {
-                PanelVoiture panelVoiture = new PanelVoiture(voiture, client, res);
+                PanelVoiture panelVoiture = new PanelVoiture(voiture, client, res, dateDepart, dateRetour);
                         add(panelVoiture);
             }
             else if (type == 2)

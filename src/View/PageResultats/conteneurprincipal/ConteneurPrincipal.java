@@ -37,7 +37,7 @@ public class ConteneurPrincipal extends JPanel
         ConteneurGauche conteneurGauche = new ConteneurGauche(lieuDepart, dateDepart, lieuRetour, dateRetour, res, client);
         conteneurGris.add(conteneurGauche, BorderLayout.WEST);
 
-        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(client,res);
+        ConteneurVoitures conteneurVoitures = new ConteneurVoitures(client,res, dateDepart, dateRetour);
         conteneurGris.add(conteneurVoitures, BorderLayout.CENTER);
 
         add(conteneurGris, BorderLayout.CENTER);

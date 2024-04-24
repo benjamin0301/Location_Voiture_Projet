@@ -14,10 +14,13 @@ import java.sql.SQLException;
 public class PanelVoiture extends JPanel
 {
     VoitureModel voiture_select;
-    public ClientModel client;
+    private ClientModel client;
+    private String dateDepart, dateRetour;
 
-    public PanelVoiture(VoitureModel voiture, ClientModel clientModel, int res) throws SQLException, ClassNotFoundException
+    public PanelVoiture(VoitureModel voiture, ClientModel clientModel, int res, String dateDepart, String dateRetour) throws SQLException, ClassNotFoundException
     {
+        this.dateDepart = dateDepart;
+        this.dateRetour = dateRetour;
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(2, 300));
         setBackground(Color.white);
@@ -218,7 +221,7 @@ public class PanelVoiture extends JPanel
         {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("test du client" + client);
-                if (client == null) {
+                if (res == 1) {
 
                     Window window = SwingUtilities.getWindowAncestor(selectionner);
 
@@ -230,7 +233,7 @@ public class PanelVoiture extends JPanel
 
                     ConnexionVue connexion = null;
                     try {
-                        connexion = new ConnexionVue();
+                        connexion = new ConnexionVue( "",  "dateDepart",  "lieuRetour",  "dateRetour");
                         connexion.setVisible(true);
                     } catch (SQLException | ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
@@ -242,7 +245,7 @@ public class PanelVoiture extends JPanel
                     }
                 } else {
                     try {
-                        FrameDetails frameDetails = new FrameDetails(voiture_select, res, client);
+                        FrameDetails frameDetails = new FrameDetails(voiture_select, res, client, dateDepart, dateRetour);
 
                         Window window = SwingUtilities.getWindowAncestor(selectionner);
 
