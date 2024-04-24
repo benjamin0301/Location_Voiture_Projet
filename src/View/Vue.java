@@ -28,8 +28,7 @@ public class Vue extends JFrame
         conteneurPrincipal = new ConteneurPrincipal(client);
         conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour, res); // Fournir les arguments ici
 
-        conteneurHaut = new ConteneurHaut(res, client, lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
-
+        conteneurHaut = new ConteneurHaut(res, client, lieuDepart, dateDepart, lieuRetour, dateRetour);
         Footer footer = new Footer();
 
         JPanel contenuPanel = new JPanel();

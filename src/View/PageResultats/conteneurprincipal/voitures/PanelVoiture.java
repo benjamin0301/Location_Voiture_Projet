@@ -27,8 +27,6 @@ public class PanelVoiture extends JPanel
 
     public void initialize(VoitureModel voiture, int res, int nbjour, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour)
     {
-
-
         voiture_select = voiture;
         GridBagConstraints gbc = new GridBagConstraints();
 

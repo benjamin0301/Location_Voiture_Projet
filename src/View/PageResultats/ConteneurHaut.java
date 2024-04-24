@@ -3,7 +3,6 @@ import Model.ClientModel;
 import View.*;
 import View.PageEspacePersonnel.FrameEspacePerso;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -117,11 +116,9 @@ public class ConteneurHaut extends JPanel
             {
                 ConnexionVue connexion = null;
                 try {
-                    connexion = new ConnexionVue( lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
+                    connexion = new ConnexionVue(lieuDepart, dateDepart, lieuRetour, dateRetour);
                     connexion.setVisible(true);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
                 Window window = SwingUtilities.getWindowAncestor(boutonConnexion);
@@ -147,23 +144,11 @@ public class ConteneurHaut extends JPanel
                             frame.dispose();
                         }
 
-                        // ouvrir la page de connexion
-                        //ConnexionVue connexion = null;
-                        try {
-                            Vue vue = new Vue(client);
-                            vue.initialize(lieuDepart, dateDepart,lieuRetour,dateRetour,1);
-                            vue.setVisible(true);
-                            //connexion = new ConnexionVue(lieuDepart, dateDepart, lieuRetour, dateRetour);
-                            //connexion.setVisible(true);
-                        } catch (SQLException ex) {
-                            throw new RuntimeException(ex);
-                        } catch (ClassNotFoundException ex) {
-                            throw new RuntimeException(ex);
-                        }
+                        Accueil accueil = new Accueil(1, null );
+                        accueil.setVisible(true);
                     }
                 }
             });
-
 
 
 

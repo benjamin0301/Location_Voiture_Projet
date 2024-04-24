@@ -101,7 +101,7 @@ public class ResumeTrajet extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 Accueil accueil = null;
-                accueil = new Accueil(res, client);
+                accueil = new Accueil(client);
                 accueil.setVisible(true);
 
                 Window window = SwingUtilities.getWindowAncestor(boutonModifier);

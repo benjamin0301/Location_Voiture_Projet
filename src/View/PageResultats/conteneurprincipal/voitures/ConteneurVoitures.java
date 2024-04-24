@@ -20,7 +20,7 @@ public class ConteneurVoitures extends JPanel
         VoitureModel voitureModel = new VoitureModel();
 
         this.clientModel = client;
-        ListeVoitures listeVoitures = new ListeVoitures(clientModel);
+        ListeVoitures listeVoitures = new ListeVoitures(clientModel, dateDepart, dateRetour);
         ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
         listeVoituresPourAffichage = voitureController.recupListeVoitureNonLouee();
 
@@ -104,7 +104,7 @@ public class ConteneurVoitures extends JPanel
         VoitureModel voitureModel = new VoitureModel();
 
         this.clientModel = client;
-        ListeVoitures listeVoitures = new ListeVoitures(clientModel);
+        ListeVoitures listeVoitures = new ListeVoitures(clientModel, dateDepart, dateRetour);
         ArrayList<VoitureModel> listeVoituresPourAffichage = new ArrayList<>();
         System.out.println("je suis dans le prochain controller");
         listeVoituresPourAffichage = newliste;

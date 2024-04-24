@@ -11,7 +11,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             try {
                 ClientModel client = new ClientModel();
-                Accueil accueil = new Accueil(1, client);
+                Accueil accueil = new Accueil(1, client );
                 accueil.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();

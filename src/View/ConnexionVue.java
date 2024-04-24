@@ -204,6 +204,4 @@ public class ConnexionVue extends JFrame {
         return userType;
     }
 
-
-
 }

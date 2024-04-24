@@ -21,11 +21,13 @@ public class PageConfirmation extends JPanel
 
     private ClientModel client;
     private VoitureModel voiture;
+    private FactureModel facture;
 
     public PageConfirmation(VoitureModel voitureModel, int res, ClientModel clientModel, FactureModel factureModel)
     {
         this.client = clientModel;
         this.voiture = voitureModel;
+        this.facture = factureModel;
         setLayout(new BorderLayout());
 
         ProgConfirmation progConfirmation = new ProgConfirmation();
@@ -228,7 +230,7 @@ public class PageConfirmation extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                File file = new File("Facture/facture" + factureModel.getId_facture() + ".pdf");
+                File file = new File("Factures/facture" + facture.getId_facture() + ".pdf");
                 if (file.exists()) {
                     if (Desktop.isDesktopSupported()) {
                         try {

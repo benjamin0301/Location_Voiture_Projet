@@ -137,7 +137,7 @@ public class FrameEspacePerso extends JFrame
                 {
                     //popUpDefault erreur2 = new popUpDefault(ConnexionVue.this, "Classe introuvable : " + ex.getMessage());
                     //erreur2.setVisible(true);
-                    }
+                }
             }
         });
 

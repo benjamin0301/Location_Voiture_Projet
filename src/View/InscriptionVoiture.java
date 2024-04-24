@@ -257,11 +257,11 @@ public class InscriptionVoiture extends JFrame {
                 InscriptionVoiture.this.setVisible(false);
 
                 // Create a new instance of the ConnexionVue window and make it visible
-               try {
+                try {
                     //A REFAIRE GROS
-                   VueEmploye vueEmploye = new VueEmploye(employe);
-                   vueEmploye.initialize( lieuDepart,  dateDepart,  lieuRetour,  dateRetour, res);
-                   vueEmploye.setVisible(true);
+                    VueEmploye vueEmploye = new VueEmploye(employe);
+                    vueEmploye.initialize( lieuDepart,  dateDepart,  lieuRetour,  dateRetour, res);
+                    vueEmploye.setVisible(true);
 
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(InscriptionVoiture.this), "Erreur de base de données : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
