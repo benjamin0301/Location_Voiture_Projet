@@ -44,8 +44,12 @@ public class popUpDefault extends JDialog {
         Timer timer = new Timer(1300, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Fermeture de la fenêtre
-                dispose();
+                Window[] windows = Window.getWindows();
+
+                // Parcourir le tableau et fermer chaque fenêtre
+                for (Window window : windows) {
+                    window.dispose();
+                }
             }
         });
 

@@ -123,10 +123,7 @@ public class ConteneurHaut extends JPanel
                 }
                 Window window = SwingUtilities.getWindowAncestor(boutonConnexion);
 
-                if (window instanceof JFrame) {
-                    JFrame frame = (JFrame) window;
-                    frame.dispose();
-                }
+
             }
         });
         }

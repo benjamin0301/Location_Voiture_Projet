@@ -115,7 +115,7 @@ public class ConnexionVue extends JFrame {
                     popUpDefault popUpDefault = new popUpDefault(ConnexionVue.this, "Connexion réussie !");
                     popUpDefault.setVisible(true);
 
-                    ConnexionVue.this.setVisible(false);
+                    //ConnexionVue.this.setVisible(false);
                     try {
 
 
@@ -143,7 +143,7 @@ public class ConnexionVue extends JFrame {
                     // ...
                     popUpDefault popUpEmp = new popUpDefault(ConnexionVue.this, "Connexion réussie !");
                     popUpEmp.setVisible(true);
-                    ConnexionVue.this.setVisible(false);
+                    //ConnexionVue.this.setVisible(false);
                     try {
 
 
