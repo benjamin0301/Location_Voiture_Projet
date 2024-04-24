@@ -2,16 +2,15 @@ package View.PageResultats.conteneurprincipal.voitures;
 
 import Model.EmployeModel;
 import Model.VoitureModel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import View.ConteneurEmploye;
-import View.VueEmploye;
 
-public class ModifierVoiture extends JFrame {
+
+public class ModifierVoiture extends JDialog {
 
     private VoitureModel voiture;
     private JTextField fieldIdPlaque;
@@ -41,260 +40,83 @@ public class ModifierVoiture extends JFrame {
 
     public void initialize() {
         setTitle("Modifier Voiture");
-        setSize(1200, 450);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setSize(1000, 800);
 
-        setLayout(new FlowLayout(FlowLayout.LEADING));
+        setLayout(new GridLayout(16, 2));
+        ConteneurEmploye conteneurEmploye = new ConteneurEmploye(employe);
+        add(conteneurEmploye, BorderLayout.NORTH);
 
-        GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.gridy = 0;
-        gbc.gridx = 0;
-        JPanel case1 = new JPanel();
-        JLabel id_plaque = new JLabel("ID Plaque : ");
-        id_plaque.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case1.add(id_plaque);
+        add(new JLabel("ID Plaque : "));
         fieldIdPlaque = new JTextField(voiture.getId_plaque());
-        fieldIdPlaque.setPreferredSize(new Dimension(200, 30));
-        case1.add(fieldIdPlaque);
-        add(case1, gbc);
+        add(fieldIdPlaque);
 
-        gbc.gridy = 0;
-        gbc.gridx = 1;
-        JPanel case2 = new JPanel();
-        JLabel modele = new JLabel("Nom modèle : ");
-        modele.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case2.add(modele);
+        add(new JLabel("Nom Modele : "));
         fieldNomModele = new JTextField(voiture.getnom_modele());
-        fieldNomModele.setPreferredSize(new Dimension(200, 30));
-        case2.add(fieldNomModele);
-        add(case2, gbc);
+        add(fieldNomModele);
 
-
-        // à partir de là, apporte les modifications demandées
-        // Continuation de la disposition des composants avec GridBagLayout
-
-        // Les éléments suivants seront placés dans la grille en utilisant GridBagLayout
-
-        gbc.gridy++; // Passage à la ligne suivante
-        gbc.gridx = 0; // Réinitialisation de la colonne à 0
-
-        JPanel case3 = new JPanel();
-        JLabel typeLabel = new JLabel("Type : ");
-        typeLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case3.add(typeLabel);
+        add(new JLabel("Type : "));
         fieldType = new JTextField(voiture.getType());
-        fieldType.setPreferredSize(new Dimension(200, 30));
-        case3.add(fieldType);
-        add(case3, gbc);
+        add(fieldType);
 
-        gbc.gridx = 1; // Passage à la colonne suivante
-
-        JPanel case4 = new JPanel();
-        JLabel couleurLabel = new JLabel("Couleur : ");
-        couleurLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case4.add(couleurLabel);
+        add(new JLabel("Couleur : "));
         fieldCouleur = new JTextField(voiture.getCouleur());
-        fieldCouleur.setPreferredSize(new Dimension(200, 30));
-        case4.add(fieldCouleur);
-        add(case4, gbc);
+        add(fieldCouleur);
 
-        // Répéter le même processus pour les autres champs...
-
-        // Suite de la disposition des composants avec GridBagLayout
-
-        gbc.gridy++; // Passage à la ligne suivante
-        gbc.gridx = 0; // Réinitialisation de la colonne à 0
-
-        JPanel case5 = new JPanel();
-        JLabel moteurLabel = new JLabel("Moteur : ");
-        moteurLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case5.add(moteurLabel);
+        add(new JLabel("Moteur : "));
         fieldMoteur = new JTextField(voiture.getMoteur());
-        fieldMoteur.setPreferredSize(new Dimension(200, 30));
-        case5.add(fieldMoteur);
-        add(case5, gbc);
+        add(fieldMoteur);
 
-        gbc.gridx = 1; // Passage à la colonne suivante
-
-        JPanel case6 = new JPanel();
-        JLabel nbPlaceLabel = new JLabel("Nb Place : ");
-        nbPlaceLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case6.add(nbPlaceLabel);
+        add(new JLabel("Nb Place : "));
         fieldNbPlace = new JTextField(String.valueOf(voiture.getNbPlace()));
-        fieldNbPlace.setPreferredSize(new Dimension(200, 30));
-        case6.add(fieldNbPlace);
-        add(case6, gbc);
+        add(fieldNbPlace);
 
-        // Répétez le même processus pour les autres champs...
-
-
-        // Suite de la disposition des composants avec GridBagLayout
-
-        gbc.gridy++; // Passage à la ligne suivante
-        gbc.gridx = 0; // Réinitialisation de la colonne à 0
-
-        JPanel case7 = new JPanel();
-        JLabel capaciteValiseLabel = new JLabel("Capacite Valise : ");
-        capaciteValiseLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case7.add(capaciteValiseLabel);
+        add(new JLabel("Capacite Valise : "));
         fieldCapaciteValise = new JTextField(String.valueOf(voiture.getCapaciteValise()));
-        fieldCapaciteValise.setPreferredSize(new Dimension(200, 30));
-        case7.add(fieldCapaciteValise);
-        add(case7, gbc);
+        add(fieldCapaciteValise);
 
-        gbc.gridx = 1; // Passage à la colonne suivante
-
-        JPanel case8 = new JPanel();
-        JLabel nbPorteLabel = new JLabel("Nb Porte : ");
-        nbPorteLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case8.add(nbPorteLabel);
+        add(new JLabel("Nb Porte : "));
         fieldNbPorte = new JTextField(String.valueOf(voiture.getNbPorte()));
-        fieldNbPorte.setPreferredSize(new Dimension(200, 30));
-        case8.add(fieldNbPorte);
-        add(case8, gbc);
+        add(fieldNbPorte);
 
-        // Répétez le même processus pour les autres champs...
-
-        // Suite de la disposition des composants avec GridBagLayout
-
-        gbc.gridy++; // Passage à la ligne suivante
-        gbc.gridx = 0; // Réinitialisation de la colonne à 0
-
-        JPanel case9 = new JPanel();
-        JLabel transmissionLabel = new JLabel("Transmission : ");
-        transmissionLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case9.add(transmissionLabel);
+        add(new JLabel("Transmission : "));
         fieldTransmission = new JTextField(voiture.getTransmission());
-        fieldTransmission.setPreferredSize(new Dimension(200, 30));
-        case9.add(fieldTransmission);
-        add(case9, gbc);
+        add(fieldTransmission);
 
-        gbc.gridx = 1; // Passage à la colonne suivante
-
-        JPanel case10 = new JPanel();
-        JLabel capaEssenceLabel = new JLabel("Capa Essence : ");
-        capaEssenceLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case10.add(capaEssenceLabel);
+        add(new JLabel("Capa Essence : "));
         fieldCapaEssence = new JTextField(String.valueOf(voiture.getCapaEssence()));
-        fieldCapaEssence.setPreferredSize(new Dimension(200, 30));
-        case10.add(fieldCapaEssence);
-        add(case10, gbc);
+        add(fieldCapaEssence);
 
-        // Répétez le même processus pour les autres champs...
-
-        // Suite de la disposition des composants avec GridBagLayout
-
-        gbc.gridy++; // Passage à la ligne suivante
-        gbc.gridx = 0; // Réinitialisation de la colonne à 0
-
-        JPanel case11 = new JPanel();
-        JLabel anneeLabel = new JLabel("Annee : ");
-        anneeLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case11.add(anneeLabel);
+        add(new JLabel("Annee : "));
         fieldAnnee = new JTextField(String.valueOf(voiture.getAnnee()));
-        fieldAnnee.setPreferredSize(new Dimension(200, 30));
-        case11.add(fieldAnnee);
-        add(case11, gbc);
+        add(fieldAnnee);
 
-        gbc.gridx = 1; // Passage à la colonne suivante
-
-        JPanel case12 = new JPanel();
-        JLabel kilometrageLabel = new JLabel("Kilometrage Actuel : ");
-        kilometrageLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case12.add(kilometrageLabel);
+        add(new JLabel("Kilometrage Actuel : "));
         fieldKilometrageActuel = new JTextField(String.valueOf(voiture.getkilometrage_actuel()));
-        fieldKilometrageActuel.setPreferredSize(new Dimension(200, 30));
-        case12.add(fieldKilometrageActuel);
-        add(case12, gbc);
+        add(fieldKilometrageActuel);
 
-        // Répétez le même processus pour les autres champs...
-
-        // Suite de la disposition des composants avec GridBagLayout
-
-        gbc.gridy++; // Passage à la ligne suivante
-        gbc.gridx = 0; // Réinitialisation de la colonne à 0
-
-        JPanel case13 = new JPanel();
-        JLabel prixLabel = new JLabel("Prix : ");
-        prixLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case13.add(prixLabel);
+        add(new JLabel("Prix : "));
         fieldPrix = new JTextField(String.valueOf(voiture.getPrix()));
-        fieldPrix.setPreferredSize(new Dimension(200, 30));
-        case13.add(fieldPrix);
-        add(case13, gbc);
+        add(fieldPrix);
 
-        gbc.gridx = 1; // Passage à la colonne suivante
-
-        JPanel case14 = new JPanel();
-        JLabel lieuLabel = new JLabel("Lieu Prise En Charge : ");
-        lieuLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case14.add(lieuLabel);
+        add(new JLabel("Lieu Prise En Charge : "));
         fieldLieuPriseEnCharge = new JTextField(voiture.getLieuPriseEnCharge());
-        fieldLieuPriseEnCharge.setPreferredSize(new Dimension(200, 30));
-        case14.add(fieldLieuPriseEnCharge);
-        add(case14, gbc);
+        add(fieldLieuPriseEnCharge);
 
-        // Répétez le même processus pour les autres champs...
-
-        // Suite de la disposition des composants avec GridBagLayout
-
-        gbc.gridy++; // Passage à la ligne suivante
-        gbc.gridx = 0; // Réinitialisation de la colonne à 0
-
-        JPanel case15 = new JPanel();
-        JLabel limiteKmLabel = new JLabel("Limite Km : ");
-        limiteKmLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case15.add(limiteKmLabel);
+        add(new JLabel("Limite Km : "));
         fieldLimiteKm = new JTextField(String.valueOf(voiture.getLimite_km()));
-        fieldLimiteKm.setPreferredSize(new Dimension(200, 30));
-        case15.add(fieldLimiteKm);
-        add(case15, gbc);
+        add(fieldLimiteKm);
 
-        gbc.gridx = 1; // Passage à la colonne suivante
-
-        JPanel case16 = new JPanel();
-        JLabel marqueLabel = new JLabel("Marque : ");
-        marqueLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case16.add(marqueLabel);
+        add(new JLabel("Marque : "));
         fieldMarque = new JTextField(voiture.getMarque());
-        fieldMarque.setPreferredSize(new Dimension(200, 30));
-        case16.add(fieldMarque);
-        add(case16, gbc);
+        add(fieldMarque);
 
-        // Répétez le même processus pour les autres champs...
-
-        // Suite de la disposition des composants avec GridBagLayout
-
-        gbc.gridy++; // Passage à la ligne suivante
-        gbc.gridx = 0; // Réinitialisation de la colonne à 0
-
-        JPanel case17 = new JPanel();
-        JLabel imageLabel = new JLabel("Image Voiture : ");
-        imageLabel.setFont(new Font("Georgia", Font.PLAIN, 15));
-        case17.add(imageLabel);
+        add(new JLabel("Image Voiture : "));
         fieldImageVoiture = new JTextField(voiture.getImage_voiture());
-        fieldImageVoiture.setPreferredSize(new Dimension(200, 30));
-        case17.add(fieldImageVoiture);
-        add(case17, gbc);
+        add(fieldImageVoiture);
 
-        gbc.gridy++;
-        JPanel espaceBlanc = new JPanel();
-        espaceBlanc.setPreferredSize(new Dimension(1000, 30));
-        add(espaceBlanc, gbc);
-
-
-        gbc.gridy++;
-        JPanel panelBouton = new JPanel();
-        panelBouton.setPreferredSize(new Dimension(1200, 100));
         JButton saveButton = new JButton("Enregistrer les modifications");
-        saveButton.setFont(new Font("Georgia", Font.BOLD, 20));
-        saveButton.setForeground(Color.white);
-        saveButton.setBackground(Color.decode("#7E3DFF"));
-        saveButton.setPreferredSize(new Dimension(400, 50));
-        panelBouton.add(saveButton);
-        add(panelBouton, gbc);
+        add(saveButton);
 
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -334,49 +156,9 @@ public class ModifierVoiture extends JFrame {
                     voiture.MajPartielBdd(voiture.getId_plaque(), "image_voiture", fieldImageVoiture.getText());
 
                     JOptionPane.showMessageDialog(null, "Les modifications ont été enregistrées avec succès !");
-                    String lieuDepart = ""; // Fournir la valeur appropriée
-                    String dateDepart = ""; // Fournir la valeur appropriée
-                    String lieuRetour = ""; // Fournir la valeur appropriée
-                    String dateRetour = ""; // Fournir la valeur appropriée
-
-                    VueEmploye vp = new VueEmploye(employe);
-
-
-                    vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
-                    dispose(); // fermer la fenêtre actuelle
+                    dispose();
                 } catch (SQLException | ClassNotFoundException ex) {
                     JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour de la voiture : " + ex.getMessage());
-                }
-            }
-
-        });
-        JButton boutonRetour = new JButton("Retour");
-        add(boutonRetour);
-        //conteneurEmploye.add(boutonRetour, BorderLayout.SOUTH);
-
-        boutonRetour.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String lieuDepart = ""; // Fournir la valeur appropriée
-                    String dateDepart = ""; // Fournir la valeur appropriée
-                    String lieuRetour = ""; // Fournir la valeur appropriée
-                    String dateRetour = ""; // Fournir la valeur appropriée
-
-                    VueEmploye vp = new VueEmploye(employe);
-
-
-                    vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
-                    dispose(); // fermer la fenêtre actuelle
-                } catch (SQLException ex)
-                {
-                    //popUpDefault erreur1emp = new popUpDefault(ConnexionVue.this, "Erreur de base de données : " + ex.getMessage());
-                    //erreur1emp.setVisible(true);
-                }
-                catch (ClassNotFoundException ex)
-                {
-                    //popUpDefault erreur2 = new popUpDefault(ConnexionVue.this, "Classe introuvable : " + ex.getMessage());
-                    //erreur2.setVisible(true);
                 }
             }
         });

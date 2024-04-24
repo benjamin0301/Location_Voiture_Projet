@@ -3,9 +3,6 @@ package View.PageResultats.conteneurprincipal.voitures;
 import Controler.ClientController;
 import Model.ClientModel;
 import Model.VoitureModel;
-import View.Vue;
-import View.popup.PopUpDef2;
-import View.popup.popUpDefault;
 
 import javax.swing.*;
 import java.awt.*;
@@ -122,10 +119,6 @@ public class CarouselVoitures extends JPanel {
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    PopUpDef2 pop = new PopUpDef2("Type sélectionné : " + element);
-                    pop.setVisible(true);
-
-
                     JButton clickedButton = (JButton) e.getSource();
                     int index = carouselPanel.getComponentZOrder(clickedButton);
 

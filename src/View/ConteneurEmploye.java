@@ -20,7 +20,7 @@ public class ConteneurEmploye extends JPanel
     private ConnexionListener connexionListener;
     private EmployeModel employe;
 
-    public ConteneurEmploye(EmployeModel employeModel, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res)
+    public ConteneurEmploye(EmployeModel employeModel)
     {
         this.employe = employeModel;
         setBackground(Color.decode("#FFFFFF"));
@@ -64,17 +64,11 @@ public class ConteneurEmploye extends JPanel
         boutonConnexion.setFont(new Font("Georgia", Font.BOLD, 18));
         boutonConnexion.setFocusPainted(false);
 
-        JButton boutonConnecte = new JButton("Connecté");
-        boutonConnecte.setBackground(Color.decode("#7E3DFF"));
-        boutonConnecte.setForeground(Color.white);
-        boutonConnecte.setFont(new Font("Georgia", Font.BOLD, 18));
-        boutonConnecte.setFocusPainted(false);
-
         barreNavigation.add(boutonAccueil);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0)));
         barreNavigation.add(boutonEspacePerso);
         barreNavigation.add(Box.createRigidArea(new Dimension(40, 0)));
-
+        barreNavigation.add(boutonConnexion);
 
         add(barreNavigation);
         add(Box.createVerticalGlue());
@@ -85,7 +79,7 @@ public class ConteneurEmploye extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 try {
-                    FrameEspacePerso frameEspacePerso = new FrameEspacePerso(res, employe);
+                    FrameEspacePerso frameEspacePerso = new FrameEspacePerso(1, employe);
                 } catch (SQLException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -102,7 +96,7 @@ public class ConteneurEmploye extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 try {
-                    InscriptionVoiture inscriptionVoiture = new InscriptionVoiture(employe,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour, res);
+                    InscriptionVoiture inscriptionVoiture = new InscriptionVoiture(employe);
                     inscriptionVoiture.setVisible(true);
 
                     Window window = SwingUtilities.getWindowAncestor(boutonAccueil);
@@ -120,58 +114,24 @@ public class ConteneurEmploye extends JPanel
 
 
 
-        if(res == 1){
-            barreNavigation.add(boutonConnexion);
-            boutonConnexion.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    ConnexionVue connexion = null;
-                    try {
-                        connexion = new ConnexionVue( lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
-                        connexion.setVisible(true);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (ClassNotFoundException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    Window window = SwingUtilities.getWindowAncestor(boutonConnexion);
-
-                    if (window instanceof JFrame) {
-                        JFrame frame = (JFrame) window;
-                        frame.dispose();
-                    }
+        boutonConnexion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                ConnexionVue connexion = null;
+                try {
+                    connexion = new ConnexionVue();
+                    connexion.setVisible(true);
+                } catch (SQLException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
                 }
-            });
-        }
-        else {
-            barreNavigation.add(boutonConnecte);
-            boutonConnecte.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vous déconnecter ?", "Déconnexion", JOptionPane.YES_NO_OPTION);
-                    if (result == JOptionPane.YES_OPTION) {
-                        // fermer la fenêtre actuelle
-                        Window window = SwingUtilities.getWindowAncestor(boutonConnecte);
-                        if (window instanceof JFrame) {
-                            JFrame frame = (JFrame) window;
-                            frame.dispose();
-                        }
+                Window window = SwingUtilities.getWindowAncestor(boutonConnexion);
 
-                        // ouvrir la page de connexion
-                        //ConnexionVue connexion = null;
-                        Accueil accueil = new Accueil(1,null);
-                        accueil.setVisible(true);
-                    }
+                if (window instanceof JFrame) {
+                    JFrame frame = (JFrame) window;
+                    frame.dispose();
                 }
-            });
-
-
-
-
-
-
-
-        }
+            }
+        });
     }
 }

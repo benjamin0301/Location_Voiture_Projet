@@ -1,8 +1,10 @@
 package View.PageResultats;
 import Model.ClientModel;
-import View.*;
+import View.Accueil;
+import View.AccueilListener;
+import View.ConnexionListener;
+import View.ConnexionVue;
 import View.PageEspacePersonnel.FrameEspacePerso;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +17,7 @@ public class ConteneurHaut extends JPanel
     private AccueilListener accueilListener;
     private ConnexionListener connexionListener;
     public ClientModel client;
-    public ConteneurHaut(int res, ClientModel clientModel, String lieuDepart, String dateDepart, String lieuRetour, String dateRetour)
+    public ConteneurHaut(int res, ClientModel clientModel)
     {
         this.client = clientModel;
         setBackground(Color.decode("#FFFFFF"));
@@ -117,7 +119,7 @@ public class ConteneurHaut extends JPanel
             {
                 ConnexionVue connexion = null;
                 try {
-                    connexion = new ConnexionVue( lieuDepart,  dateDepart,  lieuRetour,  dateRetour);
+                    connexion = new ConnexionVue();
                     connexion.setVisible(true);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
@@ -135,35 +137,6 @@ public class ConteneurHaut extends JPanel
         }
         else {
             barreNavigation.add(boutonConnecte);
-            boutonConnecte.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vous déconnecter ?", "Déconnexion", JOptionPane.YES_NO_OPTION);
-                    if (result == JOptionPane.YES_OPTION) {
-                        // fermer la fenêtre actuelle
-                        Window window = SwingUtilities.getWindowAncestor(boutonConnecte);
-                        if (window instanceof JFrame) {
-                            JFrame frame = (JFrame) window;
-                            frame.dispose();
-                        }
-
-                        // ouvrir la page de connexion
-                        //ConnexionVue connexion = null;
-                        try {
-                            Vue vue = new Vue(client);
-                            vue.initialize(lieuDepart, dateDepart,lieuRetour,dateRetour,1);
-                            vue.setVisible(true);
-                            //connexion = new ConnexionVue(lieuDepart, dateDepart, lieuRetour, dateRetour);
-                            //connexion.setVisible(true);
-                        } catch (SQLException ex) {
-                            throw new RuntimeException(ex);
-                        } catch (ClassNotFoundException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    }
-                }
-            });
-
 
 
 

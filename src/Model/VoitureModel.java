@@ -30,7 +30,7 @@ public class VoitureModel {
     private String marque;
     private String image_voiture;
 
-    public static String Phrase_de_reponse;
+    public String Phrase_de_reponse;
 
     public VoitureModel() throws SQLException, ClassNotFoundException {
     }
@@ -275,7 +275,7 @@ public class VoitureModel {
         }
     }
 
-    public static boolean supprimerVoiture(String id_plaque) throws SQLException, ClassNotFoundException {
+    public boolean supprimerVoiture(String id_plaque) throws SQLException, ClassNotFoundException {
         Connexion connexion = new Connexion("location_voiture", "root", "");
         try {
             // Désactiver le mode d'auto-commit

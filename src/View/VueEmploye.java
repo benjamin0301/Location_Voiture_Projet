@@ -23,7 +23,7 @@ public class VueEmploye extends JFrame
         this.employe = employeModel;
     }
 
-    public void initialize(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour, int res) throws SQLException, ClassNotFoundException
+    public void initialize(String lieuDepart, String dateDepart, String lieuRetour, String dateRetour) throws SQLException, ClassNotFoundException
     {
         setTitle("RentMyRide");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +33,7 @@ public class VueEmploye extends JFrame
         //conteneurPrincipal = new ConteneurPrincipal();
         //conteneurPrincipal.initConteneurPrincipal(lieuDepart, dateDepart, lieuRetour, dateRetour); // Fournir les arguments ici
         conteneurvoituresemployes = new ConteneurVoituresEmploye();
-        conteneurEmploye = new ConteneurEmploye(employe,  lieuDepart,  dateDepart,  lieuRetour,  dateRetour, res);
+        conteneurEmploye = new ConteneurEmploye(employe);
 
         Footer footer = new Footer();
 

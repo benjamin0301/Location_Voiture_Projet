@@ -3,7 +3,6 @@ package View.PageResultats.conteneurprincipal.voitures;
 import Model.EmployeModel;
 import Model.VoitureModel;
 import View.PageDetails.FrameDetails;
-import View.VueEmploye;
 
 import javax.swing.*;
 import java.awt.*;
@@ -191,52 +190,11 @@ public class PanelVoitureEmploye extends JPanel
         espaceVide2D.setPreferredSize(new Dimension(200, 10));
         panelD.add(espaceVide2D);
         JButton modifier = new JButton("Modifier");
-        modifier.setPreferredSize(new Dimension(192, 25));
+        modifier.setPreferredSize(new Dimension(192, 50));
         modifier.setBackground(Color.decode("#5E17EB"));
         modifier.setForeground(Color.white);
         modifier.setFont(new Font("Georgia", Font.BOLD, 21));
         panelD.add(modifier);
-
-
-
-
-        JButton supprimer = new JButton("Supprimer");
-        supprimer.setPreferredSize(new Dimension(192, 25));
-        supprimer.setBackground(Color.decode("#FF5757"));
-        supprimer.setForeground(Color.white);
-        supprimer.setFont(new Font("Georgia", Font.BOLD, 21));
-        panelD.add(supprimer);
-
-        supprimer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int result = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer cette voiture ?", "Confirmation de suppression", JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION) {
-                    try {
-                        VoitureModel.supprimerVoiture(voiture_select.getId_plaque());
-                        JOptionPane.showMessageDialog(null, "La voiture a été supprimée avec succès !");
-                        Window window = SwingUtilities.getWindowAncestor(supprimer);
-                        if (window instanceof JFrame) {
-                            JFrame frame = (JFrame) window;
-                            frame.dispose(); // Fermer la fenêtre actuelle
-                        }
-                        String lieuDepart = ""; // Fournir la valeur appropriée
-                        String dateDepart = ""; // Fournir la valeur appropriée
-                        String lieuRetour = ""; // Fournir la valeur appropriée
-                        String dateRetour = ""; // Fournir la valeur appropriée
-
-                        VueEmploye vp = new VueEmploye(employe);
-                        vp.initialize(lieuDepart, dateDepart, lieuRetour, dateRetour, 10);
-                        vp.setVisible(true);
-
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (ClassNotFoundException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-            }
-        });
-
 
 
         modifier.addActionListener(new ActionListener()
